@@ -1,3 +1,10 @@
+# run - Run local server with --nostatic
+run:
+	@echo "------------------------------------------"
+	@echo "***  run local server with --nostatic  ***"
+	@echo "=========================================="
+	@python3 manage.py runserver --nostatic --setting=sfchat.settings
+
 # help  - Display callable targets.
 help:
 	@egrep "^# [a-z,\",=,_ ]+ - " Makefile	
@@ -5,13 +12,6 @@ help:
 # bower - Install dependences components with bower
 bower:
 	cd ./bin/bower && bower install
-	
-# run - Run local server with --nostatic
-run:
-	@echo "-----------------------------------------------------------------------"
-	@echo "run local server with --nostatic"
-	@echo "======================================================================="
-	@python3 manage.py runserver --nostatic --setting=mysmile.settings.local
 
 # syncdb - Run syncdb command
 syncdb:
@@ -23,8 +23,6 @@ sqlall:
 
 test:
 	@python3 manage.py test apps.api.tests
-	@python3 manage.py test apps.pages.tests
-	@python3 manage.py test apps.settings.tests
 	@python3 manage.py test apps.sitemap.tests
 	
 

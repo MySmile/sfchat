@@ -27,30 +27,14 @@ if DEBUG:
 else:    
     from config.production import *
 
-
-# bower settings
-#~ BOWER_COMPONENTS_ROOT =  os.path.join(BASE_DIR, '/components/')
-
-#~ BOWER_PATH = '/usr/bin/bower'
-
-
-#~ STATICFILES_FINDERS = (
-    #~ 'django.contrib.staticfiles.finders.FileSystemFinder',
-    #~ 'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    #~ 'djangobower.finders.BowerFinder',
-#~ )
-
-#~ BOWER_INSTALLED_APPS = (
-    #~ 'components/jquery#2.1.1',
-#~ )
-
 # apps
 THIRD_PARTY_APPS = (
-    #~ 'djangobower',
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'apps.home',
+    'apps.flatpages',
     'apps.chats',
 )
 
@@ -111,3 +95,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')
+STATIC_ROOT = os.path.join(BASE_DIR, '')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'sfchat/static'),
+    os.path.join(BASE_DIR, 'sfchat/static/bower_components/jquery/dist'),
+)
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'sfchat/templates'),
+)
+
+#~ print('TEMPLATE_DIRS ------>>', TEMPLATE_DIRS)
