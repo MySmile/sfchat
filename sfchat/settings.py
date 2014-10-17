@@ -22,14 +22,41 @@ SECRET_KEY = '&ku!ebrl5h61ztet=c&ydh+sc9tkq=b70^xbx461)l1pp!lgt6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
+if DEBUG:
+    from config.local import *
+else:    
+    from config.production import *
 
-ALLOWED_HOSTS = []
+
+# bower settings
+#~ BOWER_COMPONENTS_ROOT =  os.path.join(BASE_DIR, '/components/')
+
+#~ BOWER_PATH = '/usr/bin/bower'
+
+
+#~ STATICFILES_FINDERS = (
+    #~ 'django.contrib.staticfiles.finders.FileSystemFinder',
+    #~ 'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    #~ 'djangobower.finders.BowerFinder',
+#~ )
+
+#~ BOWER_INSTALLED_APPS = (
+    #~ 'components/jquery#2.1.1',
+#~ )
+
+# apps
+THIRD_PARTY_APPS = (
+    #~ 'djangobower',
+)
+
+# Apps specific for this project go here.
+LOCAL_APPS = (
+    'apps.chats',
+)
 
 
 # Application definition
-
-INSTALLED_APPS = (
+DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -37,6 +64,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 )
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -58,8 +87,8 @@ WSGI_APPLICATION = 'sfchat.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': '',
+        'NAME': '',
     }
 }
 
@@ -81,3 +110,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
