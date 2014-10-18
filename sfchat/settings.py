@@ -65,17 +65,6 @@ ROOT_URLCONF = 'sfchat.urls'
 
 WSGI_APPLICATION = 'sfchat.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': '',
-        'NAME': '',
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
@@ -107,4 +96,12 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'sfchat/templates'),
 )
 
-#~ print('TEMPLATE_DIRS ------>>', TEMPLATE_DIRS)
+
+#mongoengine settings
+
+AUTHENTICATION_BACKENDS = (
+    'mongoengine.django.auth.MongoEngineBackend',
+)
+
+SESSION_ENGINE = 'mongoengine.django.sessions'
+SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'

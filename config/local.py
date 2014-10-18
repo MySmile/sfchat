@@ -8,8 +8,7 @@ SECRET_KEY = '&ku!ebrl5h61ztet=c&ydh+sc9tkq=b70^xbx461)l1pp!lgt6'
 
 DATABASES = {
     'default': {
-        'ENGINE': '',
-        'NAME': '',
+        'ENGINE': 'django.db.backends.dummy',
         #~ 'USER': '',
         #~ 'PASSWORD': '',
         #~ 'HOST': '', 
