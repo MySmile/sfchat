@@ -19,14 +19,21 @@ syncdb:
 
 # sqlall - Run sqlall command
 sqlall:	
-	@python3 manage.py sqlall $(app)
+	@python3 manage.py sqlall $(apps)
 
 test:
 	@python3 manage.py test apps.api.tests
 	@python3 manage.py test apps.sitemap.tests
+
+# m - Create locale
+m:
+	@django-admin makemessages -l ru -a
+
+# c - Compile locale 
+c:
+	@django-admin.py compilemessages	
+
 	
-
-
 # style - Check PEP8 and others
 PEP8IGNORE=E22,E23,E24,E302,E401
 style:

@@ -1,10 +1,14 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib.staticfiles.views import serve as serve_static
 from django.views.decorators.cache import never_cache
 
 urlpatterns = patterns('',
+    (r'^i18n/', include('django.conf.urls.i18n')),
+)
+
+urlpatterns += i18n_patterns('',
     # Examples:
     # url(r'^$', 'sfchat.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),

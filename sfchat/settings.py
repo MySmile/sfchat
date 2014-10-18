@@ -35,7 +35,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'apps.home',
     'apps.flatpages',
-    'apps.chats',
+    'apps.chat',
 )
 
 
@@ -53,6 +53,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware', 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -67,6 +68,10 @@ WSGI_APPLICATION = 'sfchat.wsgi.application'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
+LANGUAGES = (
+    ('en', 'English'),
+    #~ ('pl', 'Polska'),
+)
 
 LANGUAGE_CODE = 'en-us'
 
@@ -93,9 +98,12 @@ STATICFILES_DIRS = (
 )
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'sfchat/templates'),
+    os.path.join(BASE_DIR, 'sfchat/templates/'),
 )
 
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
 
 #mongoengine settings
 

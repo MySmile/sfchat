@@ -24,7 +24,7 @@ article { text-align: justify; letter-spacing: normal;}
 article h1 { margin: 0; padding: 0; }
 article p { line-height:150%; text-indent: 0.8125em; margin-top: 0.3125em; padding: 0 0.625em;}
 
-#or { letter-spacing: normal; }
+#or { letter-spacing: normal; margin: 5px 0;}
 #form-entry  { text-align:center; }
 
 #btn-create-chat {color:black; background-color:#D8EAC7; border:1px solid #5B8F45;}
