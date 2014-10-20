@@ -10,13 +10,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     {% block meta %}{% endblock %}
-    <link rel="stylesheet" href="{% static 'css/pure-min.css' %}">
-    <!--[if lte IE 8]>
-        <link rel="stylesheet" href="{% static 'css/grids-responsive-old-ie-min.css' %}">
-    <![endif]-->
-    <!--[if gt IE 8]><!-->
-        <link rel="stylesheet" href="{% static 'css/grids-responsive-min.css' %}">
-    <!--<![endif]-->
     
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <script type="text/javascript" src='{% static 'jquery.min.js' %}'></script>
@@ -33,24 +26,23 @@
 
 <div id="layout">
     <header>
-        <h1>{% blocktrans %} SFChat &mdash; Secure Free Chat. Welcome!{% endblocktrans %}</h1>
+        <a href="/"><div id="slogan"> <h1>{% blocktrans %} SFChat &mdash; Secure Free Chat{% endblocktrans %}</h1></div></a>
     </header>
-
-    {% block main %}
-    {% endblock %}
-
+    <main>
+        {% block main %}
+        {% endblock %}
+    </main>
     <footer>
-        <nav class="pure-menu pure-menu-open pure-menu-horizontal">
+        <nav>
             <ul>
-                <li><a href="/">{% trans "Home" %}</a></li>
                 <li><a href="/privacy">{% trans "Privacy" %}</a></li>
-                <li><a href="/license">{% trans "License" %}</a></li>
+                <li><a href="http://www.gnu.org/licenses/agpl-3.0.html" rel="license">GNU AGPLv3</a></li>
                 <li><a href="/sources">{% trans "Source" %}</a></li>
                 <li><a href="/faq">{% trans "FAQ" %}</a></li>
             </ul>
-        </nav>
-        <div id="contact" class="pure-u-1">{% blocktrans %}For questions please contact us {% endblocktrans %} mail[at]mail.com</div>
-        <div id="copyright" class="pure-u-1"><span>&copy; copyright SFChat 2014</span></div>
+        </nav><div class="clear"></div>
+        <div id="contact">{% blocktrans %}For questions please contact us {% endblocktrans %} mail[at]mail.com</div><div class="clear"></div>
+        <div id="copyright">&copy; copyright SFChat 2014</div>
     </footer> 
 </div>
 </body>

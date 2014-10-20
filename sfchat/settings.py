@@ -33,9 +33,9 @@ THIRD_PARTY_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
-    'apps.home',
+    'apps.api',
     'apps.flatpages',
-    'apps.chat',
+    'apps.home',
 )
 
 
