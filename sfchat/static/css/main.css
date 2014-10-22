@@ -3,13 +3,13 @@
 /* 16 * 0.0625 = 0.0625em */
 /* 998px / 16px = 62.375em */
 
-h1 { font-family: Arial, Helvetica, sans-serif; font-size: 1.4em;}
+h1 { font-family: Arial, Helvetica, sans-serif; font-size: 16px;}
 h1 a, header a { text-decoration: none; color: #555555; }
 h2 { margin:5px 0 0 0; font-size: 1em; text-align: left; color: #555555;}
 
 ol { padding-left: 25px; margin:0; }
 
-body { font-family: Georgia, "Times New Roman", serif; }
+body { font-family: Georgia, "Times New Roman", serif; font-size: 13px; }
 
 .clear { clear:both; }
 .hide { display: none; }
@@ -18,21 +18,20 @@ body { font-family: Georgia, "Times New Roman", serif; }
 
 header {}
 
-#slogan h1{ margin: 0 auto; padding: 5px; text-align:center; font-size:120%; } 
+#slogan h1{ margin: 0 auto; padding: 10px; text-align:center; font-size:120%; } 
 
-main { padding: 10px; border-top: 1px solid #999; border-bottom: 1px solid #999999; }
+main { padding: 15px 10px 40px 10px; border-top: 1px solid #999; border-bottom: 1px solid #999999; }
 
 #form-entry { margin: 0 auto; text-align:center; }
 
-.btn { border-radius: 5px;}
+.btn { border-radius: 5px; }
 
-#btn-create-chat { margin-top:10px; width:260px; height: 45px; color:black; background-color:#D8EAC7; border:1px solid #5B8F45; }
+#btn-create-chat { margin-top:10px; width:260px; height: 45px; font-weight: bolder; background-color:#D8EAC7; border:1px solid #5B8F45; font-size:16px; }
 
 #or { letter-spacing: normal; margin: 5px 0;}
 
-input { text-align:center; font-style: italic; }
-#code { width:160px; height: 40px; margin:0; padding:0; color:black;  border:1px solid #CC8934; }
-#btn-join-chat { width:100px; height: 45px; margin:0; padding:0; color:black; background-color:#FFE599; border:1px solid #CC8934; font-style:italic; text-align:center; }
+#code { width:160px; height: 40px; margin:0; padding:0; color:black;  border:1px solid #CC8934; text-align:center;  font-size: 12px; font-style: italic;  }
+#btn-join-chat { width:100px; height: 45px; margin:0; padding:0; font-weight: bolder;  background-color:#FFE599; border:1px solid #CC8934; text-align:center;  font-size:16px; }
 
 hr { margin: 25px 0 0 0; padding:0; display: block;
     border-style: inset;
@@ -48,13 +47,13 @@ hr { margin: 25px 0 0 0; padding:0; display: block;
     border-top: 10px solid #C8C2BC;
 }
 
-footer { font-size: 0.8125em; padding: 0.625em;}
+footer { margin-top:0; font-size: 11px; padding:2px 0.625em;}
 footer nav { height:auto; margin:0 auto; padding:0; vertical-align: middle; text-align: center; }
 footer nav ul { margin: 0 auto; padding: 0; list-style: none; }
 footer nav li { display:inline; padding-right: 0.3125em; }
 footer nav ul li a { font-size:90%; color: #999; text-decoration: underline; letter-spacing: normal; }
 footer nav ul li a:hover { text-decoration: none; }
 
-#contact { margin: 0 auto; padding-top:10px; font-size:90%; text-align: center; }
-#copyright { margin: 0 auto; padding-top:10px;  vertical-align: middle; text-align: center; }
+#contact { margin: 0 auto; padding-top:10px; font-size:11px; text-align: center; }
+#copyright { margin: 0 auto; padding-top:10px; font-size:11px; vertical-align: middle; text-align: center; }
 

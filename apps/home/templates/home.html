@@ -12,17 +12,17 @@
 {% block main %}
     <aside>
         <form id="form-entry">
-            <button id="btn-create-chat" class="btn" type="submit" >{% trans "Create chat" %}</button>
+            <button id="btn-create-chat" class="btn" type="submit" >{% trans "create new" %}</button>
             <div id='or'>{% trans "OR" %}</div>
             <div>
                 <input id="code" type="text" placeholder="Enter code here..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter code here...'" ><!--
-                --><button id="btn-join-chat" class="btn" type="submit">{% trans "Join" %}</button>
+                --><button id="btn-join-chat" class="btn" type="submit">{% trans "join" %}</button>
             </div>
         </form>
     </aside>
     <hr>
     <div id="arrow-down"></div>    
-    <article>{% blocktrans %}
+    <article id="intro">{% blocktrans %}
         <h2>Chat:</h2>
         <ol>
             <li>Click to "create chat"</li>
