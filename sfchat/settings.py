@@ -29,6 +29,7 @@ else:
 
 # apps
 THIRD_PARTY_APPS = (
+    'rest_framework',
 )
 
 # Apps specific for this project go here.
@@ -113,3 +114,12 @@ AUTHENTICATION_BACKENDS = (
 
 SESSION_ENGINE = 'mongoengine.django.sessions'
 SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
+
+#~ global settings for a REST framework API
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

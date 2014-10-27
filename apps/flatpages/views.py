@@ -5,8 +5,10 @@ from django.views.generic.base import TemplateView
 
 
 class SFChatFlatpagesView(TemplateView):
-    template_name = ''
     def get_context_data(self, **kwargs):
         context = super(SFChatFlatpagesView, self).get_context_data(**kwargs)
         return context
 
+    def dispatch(self, request, *args, **kwargs):
+        self.template_name = str.join('.',(self.kwargs['template_name'],'html'))
+        return super(SFChatFlatpagesView, self).dispatch(request, *args, **kwargs)

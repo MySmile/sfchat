@@ -15,8 +15,9 @@ urlpatterns += i18n_patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     
-    url('', include('apps.home.urls')),
+    url('', include('apps.api.urls')),
     url('', include('apps.flatpages.urls')),
+    url('', include('apps.home.urls')),
 
 )
 

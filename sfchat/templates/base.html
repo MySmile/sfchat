@@ -26,7 +26,7 @@
 
 <div id="layout">
     <header>
-        <a href="/"><div id="slogan"> <h1>{% blocktrans %} SFChat &mdash; Secure Free Chat{% endblocktrans %}</h1></div></a>
+        <a href="/">{% blocktrans %} SFChat &mdash; Secure Free Chat{% endblocktrans %}</a>
     </header>
     <main>
         {% block main %}
@@ -35,13 +35,15 @@
     <footer>
         <nav>
             <ul>
-                <li><a href="/privacy">{% trans "Privacy" %}</a></li>
-                <li><a href="http://www.gnu.org/licenses/agpl-3.0.html" rel="license">License</a></li>
-                <li><a href="/sources">{% trans "Source" %}</a></li>
-                <li><a href="/faq">{% trans "FAQ" %}</a></li>
+                <li><a href="/privacy.html">{% trans "Privacy" %}</a></li>
+                <li><a href="/license.html" rel="license">License</a></li>
+                <li><a href="https://github.com/MySmile/sfchat">{% trans "Source" %}</a></li>
+                <li><a href="/faq.html">{% trans "FAQ" %}</a></li>
             </ul>
-        </nav><div class="clear"></div>
-        <div id="contact">{% blocktrans %}For questions please contact us {% endblocktrans %} mail[at]mail.com</div><div class="clear"></div>
+        </nav>
+        <div id="contact">
+            {% blocktrans %}For questions please contact us {% endblocktrans %} mail[at]mail.com
+        </div>
         <div id="copyright">&copy; copyright SFChat 2014</div>
     </footer> 
 </div>
