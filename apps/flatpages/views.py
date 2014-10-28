@@ -10,5 +10,5 @@ class SFChatFlatpagesView(TemplateView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        self.template_name = str.join('.',(self.kwargs['template_name'],'html'))
+        self.template_name = self.kwargs['template_name']
         return super(SFChatFlatpagesView, self).dispatch(request, *args, **kwargs)
