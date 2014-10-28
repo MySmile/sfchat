@@ -1,7 +1,7 @@
 SFChat
 ======
 
-SFChat is acronym for Secure Free Chat under GNU license. 
+SFChat is acronym for Secure Free Chat under BSD license. 
 
 L10N
 ====
