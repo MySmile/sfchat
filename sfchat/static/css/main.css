@@ -1,7 +1,7 @@
 /* 16 * 0.0625 = 0.0625em */
 /* 998px / 16px = 62.375em */
 @charset "utf-8";
- 
+
 h1 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
@@ -29,9 +29,13 @@ body {
     font-size: 13px;
  }
  
-.clear {clear: both;}
- 
-.hide {display: none;}
+.clear {
+    clear: both;
+}
+
+.hide {
+    display: none;
+}
  
 #layout {
     border: 2px solid #999;
@@ -45,12 +49,12 @@ header {
     border-bottom: 1px solid #999999;
  }
  
-    header a {
-        color: black;
-        font-size: 20px;
-        line-height: 50px;
-        text-decoration: none;
-     }
+header a {
+    color: black;
+    font-size: 20px;
+    line-height: 50px;
+    text-decoration: none;
+ }
  
 /*body*/
 #slogan h1 {
@@ -60,7 +64,9 @@ header {
     font-size: 120%;
  }
  
-main {padding: 15px 10px 40px 10px;}
+main {
+    padding: 15px 10px 20px 10px;
+ }
  
 #form-entry {
     margin: 0 auto;
@@ -68,7 +74,9 @@ main {padding: 15px 10px 40px 10px;}
  }
  
 /*button*/
-.btn {border-radius: 5px;}
+.btn {
+    border-radius: 5px;
+ }
  
 #btn-create-chat {
     margin-top: 10px;
@@ -137,33 +145,35 @@ footer {
     border-top: 1px solid #999;
  }
  
-    footer nav {
-        height: auto;
-        margin: 0 auto;
-        padding: 0;
-        vertical-align: middle;
-        text-align: center;
-     }
+footer nav {
+    height: auto;
+    margin: 0 auto;
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+ }
  
-        footer nav ul {
-            margin: 0 auto;
-            padding: 0;
-            list-style: none;
-         }
+footer nav ul {
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+ }
  
-        footer nav li {
-            display: inline;
-            padding-right: 0.3125em;
-         }
+footer nav li {
+    display: inline;
+    padding-right: 0.3125em;
+ }
  
-        footer nav ul li a {
-            font-size: 90%;
-            color: black;
-            text-decoration: underline;
-            letter-spacing: normal;
-         }
+footer nav ul li a {
+    font-size: 90%;
+    color: black;
+    text-decoration: underline;
+    letter-spacing: normal;
+ }
  
-            footer nav ul li a:hover {text-decoration: none;}
+footer nav ul li a:hover {
+    text-decoration: none;
+}
  
 #contact {
     margin: 0 auto;
@@ -180,5 +190,3 @@ footer {
     color: #999;
  }
  
- 
-
