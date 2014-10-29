@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from apps.chat.views import SFChatChatView
+from apps.chat.views import CreateChatView, ChatView
 
 urlpatterns = patterns('',
     url(r'^creatchat$', CreateChatView.as_view()),

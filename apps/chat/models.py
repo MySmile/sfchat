@@ -21,7 +21,7 @@ class Chat(Document):
                                    ('closed','closed')), default='draft')
     user_tokens = ListField(Token)
 
-    users = ListField(EmbeddedDocumentField(Token))
+    #~ users = ListField(EmbeddedDocumentField(Token, Messages)
     
     #~ date_modified = DateTimeField(default=datetime.datetime.now)
 

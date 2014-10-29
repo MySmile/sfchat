@@ -15,7 +15,7 @@
             <button id="btn-create-chat" class="btn" type="submit" >{% trans "create new" %}</button>
             <div id='or'>{% trans "OR" %}</div>
             <div>
-                <input id="code" name="code" type="text" placeholder="Enter code here..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter code here...'" ><!--
+                {{ form }}<!--
                 --><button id="btn-join-chat" class="btn" type="submit">{% trans "join" %}</button>
             </div>
         </form>
@@ -41,5 +41,6 @@
         </ol>
     {% endblocktrans %}    
     </article>
+    
 {% endblock %}
 

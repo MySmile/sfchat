@@ -3,10 +3,11 @@ from django.template import RequestContext, loader, Template, TemplateDoesNotExi
 from django.views.generic.base import TemplateView
 #logger = logging.getLogger(__name__)  # Get an instance of a logger
 
+from apps.home.forms import CreateChatForm
 
-class SFChatHomeView(TemplateView):
-    template_name = ''
+class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
-        context = super(SFChatHomeView, self).get_context_data(**kwargs)
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context['form'] = CreateChatForm()
         return context
 

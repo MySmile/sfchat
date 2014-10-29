@@ -6,7 +6,9 @@ from django.views.generic.base import View
 class CreateChatView(View):
     
     def post(self, request):
-        return HttpResponse(self.greeting)
+        print('<----------------->')
+        
+        return HttpResponse('Hello, world!')
         
 
     #~ @method_decorator(login_required)
