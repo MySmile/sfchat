@@ -13,7 +13,7 @@ class CreateChatForm(forms.Form):
 
     def clean_code(self):
         new_code = self.cleaned_data['code']
-        match = re.search(r'^[a-z,0-9]', new_value)
+        match = re.search(r'^[a-z,0-9]', new_code)
         if match:
             raise forms.ValidationError('The code must be alphanumeric!')
         elif len(match) != 24:
