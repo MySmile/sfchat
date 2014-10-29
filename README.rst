@@ -1,13 +1,13 @@
+******
 SFChat
-======
+******
+
+Overview
+========
 
 SFChat is acronym for Secure Free Chat under BSD license. 
 
-L10N
-====
+Quick install guide
+===================
 
-  #. Add new language to LANGUAGES in *sfchat/settings.py*. For example, `('pl', 'Polska')`
-  #. Run command `$ django-admin makemessages -l pl -a` from project directory
-  #. Edit file *locale/pl/LC_MESSAGES/django.po* for translate 
-  #. Run command `$ django-admin.py compilemessages` to compile new translate file
-
+  #. Install dependences: ``$ sudo pip3 install -r config/requirements.pip``
