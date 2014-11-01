@@ -1,14 +1,12 @@
-from django.http import HttpResponseNotFound 
-from django.template import RequestContext, loader, Template, TemplateDoesNotExist
 from django.views.generic.base import TemplateView
 #logger = logging.getLogger(__name__)  # Get an instance of a logger
 
 
-class SFChatFlatpagesView(TemplateView):
+class FlatpagesView(TemplateView):
     def get_context_data(self, **kwargs):
-        context = super(SFChatFlatpagesView, self).get_context_data(**kwargs)
+        context = super(FlatpagesView, self).get_context_data(**kwargs)
         return context
 
     def dispatch(self, request, *args, **kwargs):
         self.template_name = self.kwargs['template_name']
-        return super(SFChatFlatpagesView, self).dispatch(request, *args, **kwargs)
+        return super(FlatpagesView, self).dispatch(request, *args, **kwargs)

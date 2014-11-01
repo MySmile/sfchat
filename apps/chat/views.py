@@ -1,19 +1,11 @@
-#~ from django.shortcuts import render
-from django.views.generic.base import View
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
 
-# Create your views here.
+from apps.home.forms import CreateChatForm, JoinChatForm
 
-class CreateChatView(View):
-    
-    def post(self, request):
-        print('<----------------->')
-        
-        return HttpResponse('Hello, world!')
-        
 
-    #~ @method_decorator(login_required)
-    #~ def dispatch(self, *args, **kwargs):
-        #~ return super(ProtectedView, self).dispatch(*args, **kwargs)        
+def create_chat(request):
+    pass
 
-class ChatView(View):
+def join_chat(request):
     pass

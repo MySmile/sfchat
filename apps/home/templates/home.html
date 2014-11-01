@@ -10,14 +10,17 @@
 {% endblock %}
 
 {% block main %}
-    <aside>
-        <form id="form-entry" action="/creatchat" method="post">{% csrf_token %}
-            <button id="btn-create-chat" class="btn" type="submit" >{% trans "create new" %}</button>
-            <div id='or'>{% trans "OR" %}</div>
-            <div>
-                {{ form }}<!--
-                --><button id="btn-join-chat" class="btn" type="submit">{% trans "join" %}</button>
-            </div>
+    <aside id="form-entry">
+        <form method="POST" action="/create_chat">{% csrf_token %}
+            {{ form_create_chat }}
+            <button id="btn-create-chat" class="btn" type="submit" >
+                {% trans "create new" %}
+            </button>
+        </form>
+        <div id='or'>{% trans "OR" %}</div>
+        <form method="POST">{% csrf_token %}
+            {{ form }}<!--
+            --><button id="btn-join-chat" class="btn" type="submit">{% trans "join" %}</button>
         </form>
     </aside>
     <hr>
@@ -41,6 +44,5 @@
         </ol>
     {% endblocktrans %}    
     </article>
-    
 {% endblock %}
 

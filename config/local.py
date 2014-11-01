@@ -24,4 +24,4 @@ ADMINS = (
 
 
 from mongoengine import connect
-connect('sfchat', host='localhost', port=27017, username='', password='')
+connect('sfchattest', host='localhost', port=27017, username='', password='')

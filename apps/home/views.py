@@ -1,13 +1,8 @@
-from django.http import HttpResponseNotFound 
-from django.template import RequestContext, loader, Template, TemplateDoesNotExist
-from django.views.generic.base import TemplateView
-#logger = logging.getLogger(__name__)  # Get an instance of a logger
+from django.views.generic.edit import FormView
 
-from apps.home.forms import CreateChatForm
+from apps.home.forms import JoinChatForm
 
-class HomeView(TemplateView):
-    def get_context_data(self, **kwargs):
-        context = super(HomeView, self).get_context_data(**kwargs)
-        context['form'] = CreateChatForm()
-        return context
-
+class HomeView(FormView):
+    template_name = 'home.html'
+    form_class = JoinChatForm
+    success_url = '/join_chat/'

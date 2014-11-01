@@ -4,26 +4,44 @@ from mongoengine import *
 import datetime
 
 
-class Token(Document):
-    token = StringField(max_length=24, required=True)
+class Messages(EmbeddedDocument):
+    token = StringField(max_length=24)
+    msg = StringField(max_length=144)
+    system = BooleanField(default=False)
 
-class Messages(Document):
-    token = Token()
-    msg = StringField(max_length=144, required=True)
+class Users(EmbeddedDocument):
+    token = StringField(max_length=24)
+    users = ListField(EmbeddedDocumentField(Messages))
 
-
-
-
-class Chat(Document):
-    status = StringField(max_length=8, required=True, \
+class Chats(Document):
+    status = StringField(max_length=8, \
                         choices = (('draft', 'draft'), \
                                    ('ready', 'ready'), \
                                    ('closed','closed')), default='draft')
-    user_tokens = ListField(Token)
+    user_tokens = ListField(StringField(max_length=24))
+    users = ListField(EmbeddedDocumentField(Users))
+    created = DateTimeField(default=datetime.datetime.now)
 
-    #~ users = ListField(EmbeddedDocumentField(Token, Messages)
-    
-    #~ date_modified = DateTimeField(default=datetime.datetime.now)
+
+	#~ users: [
+	    #~ {
+		  #~ token: ObjectId("507f191e810c19729de860eb"),
+		  #~ messages: [
+		      #~ {
+			  #~ token: ObjectId("507f191e810c19729de860ed"),
+			  #~ msg: "Hi, how are you?",
+			  #~ system: false
+		      #~ }
+		  #~ ]
+
+
+
+
+
+
+
+
+
 
 
 # Create your models here.
@@ -51,3 +69,25 @@ class Chat(Document):
 	#~ 
 	#~ created: ISODate("2012-04-03T02:05:06Z")
 #~ };
+
+
+
+#~ 
+#~ structure = {'title': unicode,
+                 #~ 'text': unicode,
+		 #~ 'metadata': {'tags':[unicode],
+                              #~ 'revisions':[int]},
+    #~ }
+    #~ required_fields = ['title']
+    #~ default_values = {'text': u""}
+    #~ 
+    #~ 
+    #~ 
+#~ class Metadata(EmbeddedDocument):
+    #~ tags = ListField(StringField())
+    #~ revisions = ListField(IntField())
+#~ 
+#~ class WikiPage(Document):
+    #~ title = StringField(required=True)
+    #~ text = StringField()
+    #~ metadata = EmbeddedDocumentField(Metadata)
