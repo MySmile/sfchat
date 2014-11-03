@@ -31,7 +31,7 @@ body {
  
 .clear {
     clear: both;
-}
+ }
 
 .hide {
     display: none;
@@ -65,8 +65,15 @@ header a {
  }
  
 main {
+/*
+    padding: 15px 10px 20px 10px;
+*/
+ }
+
+article {
     padding: 15px 10px 20px 10px;
  }
+
  
 #form-entry {
     margin: 0 auto;
@@ -76,13 +83,14 @@ main {
 /*button*/
 .btn {
     border-radius: 5px;
+    cursor:pointer;
  }
  
 #btn-create-chat {
     margin-top: 10px;
-    width: 260px;
+    width: 272px;
     height: 45px;
-    font-weight: bolder;
+    font-weight: bold;
     background-color: #D8EAC7;
     border: 1px solid #5B8F45;
     font-size: 16px;
@@ -102,27 +110,27 @@ main {
  }
  
 #id_code {
-    width: 160px;
+    width: 210px;
     height: 40px;
     margin: 0;
     padding: 0;
     color: black;
     border: 1px solid #CC8934;
     text-align: center;
-    font-size: 12px;
+    font-size: 10px;
     font-style: italic;
  }
- 
+
 #btn-join-chat {
-    width: 100px;
+    width: 60px;
     height: 45px;
     margin: 0;
     padding: 0;
-    font-weight: bolder;
+    font-weight: bold;
     background-color: #FFE599;
     border: 1px solid #CC8934;
     text-align: center;
-    font-size: 16px;
+    font-size:16px;
  }
  
 hr {
@@ -181,7 +189,7 @@ footer nav ul li a {
  
 footer nav ul li a:hover {
     text-decoration: none;
-}
+ }
  
 #contact {
     margin: 0 auto;
@@ -197,4 +205,24 @@ footer nav ul li a:hover {
     text-align: center;
     color: #999;
  }
- 
+
+
+/* Chat */
+
+#chat_header {
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #999;
+ } 
+
+#chat_header img {
+    margin:0;
+    padding:0;
+    float:right;
+ }
+
+aside #chat {
+    min-height: 325px;
+    padding: 15px 10px 20px 10px;
+ }

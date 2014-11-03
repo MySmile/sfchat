@@ -22,4 +22,3 @@ class JoinChatForm(forms.Form):
         elif len(new_code) != 24:
             raise forms.ValidationError('Code length does not equal 24!')
         return new_code  
-        

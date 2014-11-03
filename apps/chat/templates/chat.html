@@ -11,7 +11,12 @@
 
 {% block main %}
     <aside>
-        <h1>AAAA!!!!</h1>
+        <div id="chat_header">
+        <a href="/close"><img id="close" src="{% static 'images/close.png' %}" width="32" height="32" alt="close" /></a>
+        </div>
+        
+        <div id="chat">Chat body in this div</div>
+        <div>chat_token={{chat_token}}</div>
     </aside>
 {% endblock %}
 

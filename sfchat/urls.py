@@ -6,22 +6,16 @@ from django.views.decorators.cache import never_cache
 
 from sfchat.settings import LANGUAGES
 
+
+#~ urlpatterns = i18n_patterns('',
 urlpatterns = patterns('',
-    (r'^i18n/', include('django.conf.urls.i18n')),
-)
 
-urlpatterns += i18n_patterns('',
-    # Examples:
-    # url(r'^$', 'sfchat.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
-    url(r'^admin/', include(admin.site.urls)),
+    #~ url(r'^admin/', include(admin.site.urls)),
     
     url('', include('apps.api.urls')),
     url('', include('apps.chat.urls')),
     url('', include('apps.flatpages.urls')),
     url('', include('apps.home.urls')),
-
 )
 
 

@@ -1,11 +1,24 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from bson.objectid import ObjectId
 
-from apps.home.forms import CreateChatForm, JoinChatForm
+#~ from django.views.decorators.csrf import csrf_protect
+from django.shortcuts import render_to_response, get_object_or_404
+from django.template import RequestContext
+from django.http import HttpResponse, HttpResponseRedirect
+
+from apps.chat.models import Chats
 
 
-def create_chat(request):
-    pass
+def chat(request, chat_token):
+    try:
+        if not Chats.objects(id=ObjectId(chat_token)):
+            return HttpResponse('raise 401 error here')
+    except Exception:
+        pass
 
-def join_chat(request):
+    c = {'chat_token': chat_token}
+     #~ c['msg'] 
+    return render_to_response('chat.html', 
+                                c, context_instance=RequestContext(request))
+        
+def close(request):
     pass
