@@ -4,7 +4,8 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib.staticfiles.views import serve as serve_static
 from django.views.decorators.cache import never_cache
 
-from sfchat.settings import LANGUAGES
+from sfchat.settings.base import LANGUAGES
+from sfchat.settings.local import DEBUG#, MEDIA_ROOT
 
 
 #~ urlpatterns = i18n_patterns('',
@@ -19,7 +20,6 @@ urlpatterns = patterns('',
 )
 
 
-from sfchat.settings import DEBUG#, MEDIA_ROOT
 if DEBUG:
     urlpatterns += patterns('django.views.static',
         #~ (r'media/(?P<path>.*)', 'serve', {'document_root': MEDIA_ROOT}),

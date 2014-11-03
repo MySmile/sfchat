@@ -3,7 +3,7 @@ run:
 	@echo "------------------------------------------"
 	@echo "***  run local server with --nostatic  ***"
 	@echo "=========================================="
-	@python3 manage.py runserver --nostatic --setting=sfchat.settings
+	@python3 manage.py runserver --nostatic --setting=sfchat.settings.local
 
 # help  - Display callable targets.
 help:
