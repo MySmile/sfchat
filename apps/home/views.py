@@ -1,14 +1,18 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from django.http import HttpResponse, HttpResponsePermanentRedirect
+from django.http import HttpResponse, HttpResponsePermanentRedirect, HttpResponseNotFound
 from django.views.generic.edit import FormView
 from django.views.generic import View
+from django.template import RequestContext, loader, Template, TemplateDoesNotExist
 
 from bson.objectid import ObjectId
 from mongoengine import ValidationError
 
 from apps.chat.models import Messages, Users, Chats
 from apps.home.forms import CreateChatForm, JoinChatForm
+
+import logging
+logger = logging.getLogger('log2file')
 
 class HomeView(FormView):
     template_name = 'home.html'
@@ -23,7 +27,7 @@ class HomeView(FormView):
         try:
             chat = Chats.objects(id=ObjectId(chat_token))[0]            
             if ((not chat) or (len(chat.user_tokens) != 1)):
-                return HttpResponse('raise 401 error here')
+                return e500(self.request, template_name='500.html')
             else:
                 user_token = ObjectId()
                 msg = "Talker was successfully joined to chat" 
@@ -36,7 +40,8 @@ class HomeView(FormView):
                 try:
                     chat.save()
                 except ValidationError as err:
-                    print(err)    
+                    logger.error(err)
+                    return e500(self.request, template_name='500.html')
         except Exception:
             pass
             
@@ -59,4 +64,21 @@ class CreateView(View):
         
         return HttpResponsePermanentRedirect('/chat/'+str(chat_token))
 
+def e500(request, template_name='500.html'):
+    try:
+        template = loader.get_template(template_name)
+    except TemplateDoesNotExist:
+        template = Template(
+            '<h1>Not Found</h1>'
+            '<p>The requested URL {{ request_path }} was not found on this server.</p>')
+    return HttpResponseNotFound(template.render(RequestContext(request, {'request_path': request.path,})))
+
+def e404(request, template_name='404.html'):
+    try:
+        template = loader.get_template(template_name)
+    except TemplateDoesNotExist:
+        template = Template(
+            '<h1>Not Found</h1>'
+            '<p>The requested URL {{ request_path }} was not found on this server.</p>')
+    return HttpResponseNotFound(template.render(RequestContext(request, {'request_path': request.path,})))
 

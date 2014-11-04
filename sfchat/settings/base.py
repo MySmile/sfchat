@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import datetime
+
 BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)),'..')
 # Django Application definition
 DJANGO_APPS = (
@@ -80,8 +82,7 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),
 )
 
-#mongoengine settings
-
+# mongoengine settings
 AUTHENTICATION_BACKENDS = (
     'mongoengine.django.auth.MongoEngineBackend',
 )
@@ -96,4 +97,55 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
+}
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True, #the default configuration is completely overridden
+    'formatters': {
+         'verbose': {
+             'format': '%(levelname)s %(asctime)s %(module)s.%(filename)s, line: %(lineno)d  \n%(pathname)s\n  %(message)s\n',
+             'datefmt' : "%d/%b/%Y %H:%M:%S"
+         },
+         'simple': {
+             'format': '%(levelname)s %(message)s'
+         },
+     },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue'
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        },
+        
+    },
+    'handlers': {
+        'file': {
+               'level': 'ERROR',
+               'class': 'logging.FileHandler',
+               'formatter': 'verbose',
+               'filters': ['require_debug_true'],
+               'filename': os.path.join(BASE_DIR,  'log/ERRORS/'+datetime.datetime.now().strftime('%d-%m-%Y')+'_errors.log'),
+           },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'filters': ['require_debug_false']
+        }           
+    },
+    
+    'loggers': {
+        'log2file': {
+            'handlers': ['file'],
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    },
 }

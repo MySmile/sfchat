@@ -5,7 +5,7 @@ from django.contrib.staticfiles.views import serve as serve_static
 from django.views.decorators.cache import never_cache
 
 from sfchat.settings.base import LANGUAGES
-from sfchat.settings.local import DEBUG#, MEDIA_ROOT
+from sfchat.settings.local import DEBUG # fix me
 
 
 #~ urlpatterns = i18n_patterns('',
@@ -18,6 +18,9 @@ urlpatterns = patterns('',
     url('', include('apps.flatpages.urls')),
     url('', include('apps.home.urls')),
 )
+
+handler404 = 'apps.home.views.e404'
+handler500 = 'apps.home.views.e500'
 
 
 if DEBUG:
