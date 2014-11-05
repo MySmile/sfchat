@@ -45,7 +45,7 @@ class HomeView(FormView):
         except Exception:
             pass
             
-        self.success_url = '/chat/'+str(chat_token)
+        self.success_url = ''.join('/chat/', str(chat_token))
         #~ return super(HomeView, self).form_valid(form)
         return HttpResponsePermanentRedirect(self.get_success_url())
 
@@ -55,7 +55,7 @@ class CreateView(View):
     def post(self, request, *args, **kwargs):
         chat_token = ObjectId()
         user_token = ObjectId()
-        msg = "Welcome to SFChat! <br /> Please send code: " + str(chat_token) + " to Talker" 
+        msg = ' '.join("Welcome to SFChat! <br /> Please send code:", str(chat_token), "to Talker")
         
         messages = Messages(token=ObjectId(), msg=msg, system=True)
         user = Users(token=user_token, messages = [messages])
