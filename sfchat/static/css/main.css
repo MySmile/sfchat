@@ -93,7 +93,7 @@ article {
     font-weight: bold;
     background-color: #D8EAC7;
     border: 1px solid #5B8F45;
-    font-size: 16px;
+    font-size: 14px;
  }
  
 #or {
@@ -117,7 +117,7 @@ article {
     color: black;
     border: 1px solid #CC8934;
     text-align: center;
-    font-size: 10px;
+    font-size: 12px;
     font-style: italic;
  }
 
@@ -130,7 +130,7 @@ article {
     background-color: #FFE599;
     border: 1px solid #CC8934;
     text-align: center;
-    font-size:16px;
+    font-size:14px;
  }
  
 hr {
