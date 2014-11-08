@@ -39,7 +39,7 @@ body {
  
 #layout {
     border: 2px solid #999;
-    max-width: 22em;
+    max-width: 25em;
     margin: 5px auto;
  }
  
@@ -102,7 +102,7 @@ article {
  }
 
 .errorlist { 
-    font-size: 10px;
+    font-size: 12px;
     padding: 0;
     margin: 0 0 -1px 0;
     color: red;
@@ -156,7 +156,7 @@ hr {
 /*footer*/
 footer {
     margin-top: 0;
-    font-size: 11px;
+    font-size: 13px;
     padding: 2px 0.625em;
     border-top: 1px solid #999;
  }
@@ -194,13 +194,12 @@ footer nav ul li a:hover {
 #contact {
     margin: 0 auto;
     padding: 15px 0;
-    font-size: 11px;
     text-align: center;
  }
  
 #copyright {
     margin: 0 auto;
-    font-size: 11px;
+    font-size: 12px;
     vertical-align: middle;
     text-align: center;
     color: #999;

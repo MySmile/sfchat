@@ -12,6 +12,7 @@ class JoinChatForm(forms.Form):
     code.widget = forms.TextInput({ "placeholder": "Enter code here...",
                                     "onfocus": "this.placeholder = ''",
                                     "onblur": "this.placeholder = 'Enter code here...'",
+                                    "maxlength": 24,
                                 })
 
     def clean_code(self):
