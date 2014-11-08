@@ -14,6 +14,7 @@ from apps.home.forms import CreateChatForm, JoinChatForm
 import logging
 logger = logging.getLogger('log2file')
 
+
 class HomeView(FormView):
     template_name = 'home.html'
     form_class = JoinChatForm
@@ -23,46 +24,27 @@ class HomeView(FormView):
         # It should return an HttpResponse
         
         # Validation for join to chat
-        chat_token = self.request.POST.get('code')    
+        chat_token = self.request.POST.get('code')
         try:
-            chat = Chats.objects(id=ObjectId(chat_token))[0]            
-            if ((not chat) or (len(chat.user_tokens) != 1)):
+            if not Chats.join_to_chat(chat_token):
                 return e500(self.request, template_name='500.html')
-            else:
-                user_token = ObjectId()
-                msg = "Talker was successfully joined to chat" 
-
-                messages = Messages(token=ObjectId(), msg=msg, system=True)
-                user = Users(token=user_token, messages = [messages])
-                chat.user_tokens.append(user_token)
-                chat.users.append(user)
-                chat.status = 'ready'
-                try:
-                    chat.save()
-                except ValidationError as err:
-                    logger.error(err)
-                    return e500(self.request, template_name='500.html')
-        except Exception:
-            pass
+        except ValidationError as err:
+            logger.error(err)
+            return e500(self.request, template_name='500.html')
             
         self.success_url = '/chat/' + str(chat_token)
         #~ return super(HomeView, self).form_valid(form)
         return HttpResponsePermanentRedirect(self.get_success_url())
 
+
 class CreateView(View):
     #~ form_class = CreateChatForm
     
     def post(self, request, *args, **kwargs):
-        chat_token = ObjectId()
-        user_token = ObjectId()
-        msg = "Welcome to SFChat! <br /> Please send code: " + str(chat_token) + " to Talker"
+        chat_token = Chats.create_chat()
         
-        messages = Messages(token=ObjectId(), msg=msg, system=True)
-        user = Users(token=user_token, messages = [messages])
-        chat = Chats(id=chat_token, users=[user], user_tokens=[user_token])
-        chat.save()
-        
-        return HttpResponsePermanentRedirect('/chat/'+str(chat_token))
+        return HttpResponsePermanentRedirect('/chat/' + chat_token)
+
 
 def e500(request, template_name='500.html'):
     try:
@@ -72,6 +54,7 @@ def e500(request, template_name='500.html'):
             '<h1>Not Found</h1>'
             '<p>The requested URL {{ request_path }} was not found on this server.</p>')
     return HttpResponseNotFound(template.render(RequestContext(request, {'request_path': request.path,})))
+
 
 def e404(request, template_name='404.html'):
     try:
