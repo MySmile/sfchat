@@ -151,3 +151,5 @@ LOGGING = {
         },
     },
 }
+
+TEST_RUNNER = ".test.NoSQLTestRunner"

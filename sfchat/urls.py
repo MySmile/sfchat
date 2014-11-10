@@ -3,10 +3,7 @@ from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib.staticfiles.views import serve as serve_static
 from django.views.decorators.cache import never_cache
-
-from sfchat.settings.base import LANGUAGES
-from sfchat.settings.local import DEBUG # fix me
-
+from django.conf import settings
 
 #~ urlpatterns = i18n_patterns('',
 urlpatterns = patterns('',
@@ -23,8 +20,8 @@ handler404 = 'apps.home.views.e404'
 handler500 = 'apps.home.views.e500'
 
 
-if DEBUG:
+if settings.DEBUG:
     urlpatterns += patterns('django.views.static',
-        #~ (r'media/(?P<path>.*)', 'serve', {'document_root': MEDIA_ROOT}),
+        #~ (r'media/(?P<path>.*)', 'serve', {'document_root': settings.MEDIA_ROOT}),
         url(r'^static/(?P<path>.*)$', never_cache(serve_static)),
     )

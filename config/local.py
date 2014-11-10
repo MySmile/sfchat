@@ -5,7 +5,7 @@ from mongoengine import connect
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-connect('sfchattest', host='localhost', port=27017, username='', password='')
+connect('sfchat', host='localhost', port=27017, username='', password='')
 
 SECRET_KEY = '&ku!ebrl5h61ztet=c&ydh+sc9tkq=b70^xbx461)l1pp!lgt6'
 
