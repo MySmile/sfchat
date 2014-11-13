@@ -10,6 +10,7 @@ from .base import *
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'apps',
     'apps.api',
     'apps.chat',
     #~ 'apps.chat.apps.ChatConfig',

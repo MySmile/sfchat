@@ -37,8 +37,9 @@ class Chats(Document):
     
     @staticmethod
     def join_to_chat(chat_token):
-        chat = Chats.objects(id=ObjectId(chat_token))[0]
-        if ((not chat) or (len(chat.user_tokens) != 1)):
+        chat = Chats.objects(id=ObjectId(chat_token))
+
+        if ((not chat) or (len(chat[0].user_tokens) != 1)):
             return False
 
         user_token = ObjectId()
@@ -46,12 +47,12 @@ class Chats(Document):
 
         messages = Messages(token=ObjectId(), msg=msg, system=True)
         user = Users(token=user_token, messages=[messages])
-        chat.user_tokens.append(user_token)
-        chat.users.append(user)
-        chat.status = 'ready'
-        chat.save()
-        return True
 
+        chat[0].user_tokens.append(user_token)
+        chat[0].users.append(user)
+        chat[0].status = 'ready'
+        chat[0].save()
+        return True
 
     def clean(self):
         if len(self.user_tokens)>2:
