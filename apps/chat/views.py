@@ -9,16 +9,8 @@ from apps.chat.models import Chats
 
 
 def chat(request, chat_token):
-    try:
-        if not Chats.objects(id=ObjectId(chat_token)):
-            return HttpResponse('raise 401 error here')
-    except Exception:
-        pass
+    Chats.validate_chat_token(chat_token);
+    return render_to_response('chat.html', context_instance=RequestContext(request))
 
-    c = {'chat_token': chat_token}
-     #~ c['msg'] 
-    return render_to_response('chat.html', 
-                                c, context_instance=RequestContext(request))
-        
 def close(request):
     pass

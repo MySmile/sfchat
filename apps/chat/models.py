@@ -15,6 +15,10 @@ class Users(EmbeddedDocument):
 
 
 class Chats(Document):
+    STATUS_DRAFT = 'draft'
+    STATUS_READY = 'ready'
+    STATUS_CLOSED = 'closed'
+
     status = StringField(max_length=8, \
                         choices = (('draft', 'draft'), \
                                    ('ready', 'ready'), \
@@ -37,9 +41,14 @@ class Chats(Document):
     
     @staticmethod
     def join_to_chat(chat_token):
-        chat = Chats.objects(id=ObjectId(chat_token))
+        try:
+            chat = Chats.objects.get(id=ObjectId(chat_token))
+        except TypeError:
+            chat = False
+        except DoesNotExist:
+            chat = False
 
-        if ((not chat) or (len(chat[0].user_tokens) != 1)):
+        if ((not chat) or (len(chat.user_tokens) != 1)):
             return False
 
         user_token = ObjectId()
@@ -48,11 +57,36 @@ class Chats(Document):
         messages = Messages(token=ObjectId(), msg=msg, system=True)
         user = Users(token=user_token, messages=[messages])
 
-        chat[0].user_tokens.append(user_token)
-        chat[0].users.append(user)
-        chat[0].status = 'ready'
-        chat[0].save()
-        return True
+        chat.user_tokens.append(user_token)
+        chat.users.append(user)
+        chat.status = Chats.STATUS_READY
+        chat.save()
+        return str(user_token)
+
+    @staticmethod
+    def validate_chat_token(chat_token):
+        try:
+            chat = Chats.objects.only('id').get(id=ObjectId(chat_token))
+            result = True
+        except TypeError:
+            result = False
+        except DoesNotExist:
+            result = False
+
+        return result
+
+    @staticmethod
+    def get_chat(chat_token, user_token):
+        try:
+            result = Chats.objects.get(id=ObjectId(chat_token),
+                                       status__in=[Chats.STATUS_DRAFT, Chats.STATUS_READY],
+                                       user_tokens=ObjectId(user_token))
+        except TypeError:
+            result = False
+        except DoesNotExist:
+            result = False
+
+        return result
 
     def clean(self):
         if len(self.user_tokens)>2:

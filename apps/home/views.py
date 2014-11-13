@@ -11,6 +11,8 @@ from mongoengine import ValidationError
 from apps.chat.models import Messages, Users, Chats
 from apps.home.forms import CreateChatForm, JoinChatForm
 
+from apps.api.authentication import TokenAuthentication
+
 import logging
 logger = logging.getLogger('log2file')
 
@@ -26,15 +28,19 @@ class HomeView(FormView):
         # Validation for join to chat
         chat_token = self.request.POST.get('code')
         try:
-            if not Chats.join_to_chat(chat_token):
+            user_token = Chats.join_to_chat(chat_token)
+            if not user_token:
                 return e500(self.request, template_name='500.html')
         except ValidationError as err:
             logger.error(err)
             return e500(self.request, template_name='500.html')
-            
+
         self.success_url = '/chat/' + str(chat_token)
-        #~ return super(HomeView, self).form_valid(form)
-        return HttpResponsePermanentRedirect(self.get_success_url())
+
+        response = HttpResponsePermanentRedirect(self.success_url)
+        response[TokenAuthentication.USER_TOKEN_HEADER] = user_token
+
+        return response
 
 
 class CreateView(View):

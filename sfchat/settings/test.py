@@ -18,10 +18,10 @@ class NoSQLTestRunner(DiscoverRunner):
         print('Creating mongo test-database ' + self.mongodb_name)
         return super(NoSQLTestRunner, self).setup_databases(**kwargs)
 
-    def teardown_databases(self, old_config, **kwargs):
-        from mongoengine.connection import get_connection, disconnect
-        connection = get_connection()
-        connection.drop_database(self.mongodb_name)
-        print('Dropping mongo test-database: ' + self.mongodb_name)
-        disconnect()
-        super(NoSQLTestRunner, self).teardown_databases(old_config, **kwargs)
+    # def teardown_databases(self, old_config, **kwargs):
+    #     from mongoengine.connection import get_connection, disconnect
+    #     connection = get_connection()
+    #     connection.drop_database(self.mongodb_name)
+    #     print('Dropping mongo test-database: ' + self.mongodb_name)
+    #     disconnect()
+    #     super(NoSQLTestRunner, self).teardown_databases(old_config, **kwargs)
