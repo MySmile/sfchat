@@ -12,12 +12,12 @@ class ChatsTestCase(unittest.TestCase):
 
     def test_join_to_chat_success(self):
         # @TODO
-        print('AAA!!!')
+        print('000AAA!!!')
         pass
 
     def test_join_to_chat_failed(self):
         # @TODO
         # with self.assertRaises(SomeException) as cm:
         #    do_something()
-        print('BBB!!')
+        print('111BBB!!')
         pass

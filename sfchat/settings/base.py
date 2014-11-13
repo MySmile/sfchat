@@ -15,6 +15,7 @@ import os
 import datetime
 
 BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)),'..')
+
 # Django Application definition
 DJANGO_APPS = (
     'django.contrib.admin',
@@ -28,6 +29,7 @@ DJANGO_APPS = (
 # Third party apps
 THIRD_PARTY_APPS = (
     'rest_framework',
+    'rest_framework.authtoken',
 )
 
 
@@ -100,6 +102,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     )
 }
 
@@ -152,4 +155,17 @@ LOGGING = {
     },
 }
 
-TEST_RUNNER = ".test.NoSQLTestRunner"
+
+TEST_DISCOVER_TOP_LEVEL = BASE_DIR
+TEST_DISCOVER_ROOT = BASE_DIR
+#~ TEST_DISCOVER_PATTERN = "tests_*"
+TEST_RUNNER = "sfchat.settings.test.NoSQLTestRunner"
+# BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)),'..')
+
+# print('BASE_DIR = ', BASE_DIR)
+
+#~ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
+# TEST_DISCOVER_TOP_LEVEL = BASE_DIR
+# TEST_DISCOVER_ROOT = BASE_DIR
+#~ TEST_DISCOVER_PATTERN = 'test_*'

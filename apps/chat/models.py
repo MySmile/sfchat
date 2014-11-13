@@ -22,8 +22,9 @@ class Chats(Document):
     user_tokens = ListField(ObjectIdField())
     users = ListField(EmbeddedDocumentField(Users))
     created = DateTimeField(default=datetime.datetime.now)
-
-    def create_chat(self):
+    
+    @staticmethod
+    def create_chat():
         chat_token = ObjectId()
         user_token = ObjectId()
         msg = "Welcome to SFChat! <br /> Please send code: " + str(chat_token) + " to Talker"
@@ -33,9 +34,10 @@ class Chats(Document):
         chat = Chats(id=chat_token, users=[user], user_tokens=[user_token])
         chat.save()
         return str(chat_token)
-
-    def join_to_chat(self, chat_token):
-        chat = self.objects(id=ObjectId(chat_token))[0]
+    
+    @staticmethod
+    def join_to_chat(chat_token):
+        chat = Chats.objects(id=ObjectId(chat_token))[0]
         if ((not chat) or (len(chat.user_tokens) != 1)):
             return False
 

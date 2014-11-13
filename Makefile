@@ -22,7 +22,7 @@ sqlall:
 	@python3 manage.py sqlall $(apps)
 
 test:
-	@python3 manage.py test apps.chat.tests
+	@python3 manage.py test
 
 # m - Create locale
 m:

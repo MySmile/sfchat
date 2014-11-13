@@ -12,8 +12,10 @@ from .base import *
 LOCAL_APPS = (
     'apps.api',
     'apps.chat',
+    #~ 'apps.chat.apps.ChatConfig',
     'apps.flatpages',
     'apps.home',
+    # 'tests',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
