@@ -18,6 +18,7 @@ class Chats(Document):
     STATUS_DRAFT = 'draft'
     STATUS_READY = 'ready'
     STATUS_CLOSED = 'closed'
+    is_staff = True
 
     status = StringField(max_length=8, \
                         choices = (('draft', 'draft'), \
@@ -26,9 +27,13 @@ class Chats(Document):
     user_tokens = ListField(ObjectIdField())
     users = ListField(EmbeddedDocumentField(Users))
     created = DateTimeField(default=datetime.datetime.now)
-    
+
     @staticmethod
     def create_chat():
+        """
+        Create chat
+        :return: String chat_token
+        """
         chat_token = ObjectId()
         user_token = ObjectId()
         msg = "Welcome to SFChat! <br /> Please send code: " + str(chat_token) + " to Talker"
@@ -41,6 +46,11 @@ class Chats(Document):
     
     @staticmethod
     def join_to_chat(chat_token):
+        """
+        Join to chat
+        :param chat_token: String
+        :return: Mix false or user_token if ok
+        """
         try:
             chat = Chats.objects.get(id=ObjectId(chat_token))
         except TypeError:
@@ -65,6 +75,11 @@ class Chats(Document):
 
     @staticmethod
     def validate_chat_token(chat_token):
+        """
+        Validate chat token
+        :param chat_token: String
+        :return: Boolean
+        """
         try:
             chat = Chats.objects.only('id').get(id=ObjectId(chat_token))
             result = True
@@ -77,10 +92,17 @@ class Chats(Document):
 
     @staticmethod
     def get_chat(chat_token, user_token):
+        """
+        Gets data that's related to current user
+        :param chat_token: String
+        :param user_token: String
+        :return: Boolean
+        """
         try:
             result = Chats.objects.get(id=ObjectId(chat_token),
                                        status__in=[Chats.STATUS_DRAFT, Chats.STATUS_READY],
                                        user_tokens=ObjectId(user_token))
+            result.users = list(filter(lambda item: user_token == str(item.token), result.users))
         except TypeError:
             result = False
         except DoesNotExist:
@@ -89,6 +111,6 @@ class Chats(Document):
         return result
 
     def clean(self):
-        if len(self.user_tokens)>2:
+        if len(self.user_tokens) > 2:
             msg = 'Length user_tokens must be equal or less then 2.'
             raise ValidationError(msg)

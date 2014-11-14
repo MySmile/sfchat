@@ -5,7 +5,7 @@ from apps.chat.models import Chats
 
 
 class TokenAuthentication(authentication.BaseAuthentication):
-    USER_TOKEN_HEADER = 'X-SFC-userToken'
+    USER_TOKEN_HEADER = 'HTTP_X_SFC_USERTOKEN'
     CHAT_TOKEN_PARAMETER = 'chatToken'
 
     def authenticate(self, request):

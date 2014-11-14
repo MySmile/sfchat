@@ -1,10 +1,9 @@
-from django.conf.urls import patterns, url, include
-from django.views.decorators.csrf import csrf_exempt
+from django.conf.urls import patterns, url
+from rest_framework.urlpatterns import format_suffix_patterns
+from apps.api.views import *
 
-from apps.api.views import SFChatApiView
+urlpatterns = [
+    url(r'^api/messages$', Messages.as_view()),
+]
 
-
-urlpatterns = patterns('',
-    #~ url(r'^api-auth/$', include('rest_framework.urls', namespace='rest_framework')),
-    #~ url(r'^messages$', csrf_exempt(SFChatApiView.as_view())),
-)
+urlpatterns = format_suffix_patterns(urlpatterns)
