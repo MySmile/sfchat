@@ -1,5 +1,6 @@
 from bson.objectid import ObjectId
 from mongoengine import *
+from apps.chat.querysets import ChatsQuerySet
 import datetime
 
 
@@ -28,6 +29,8 @@ class Chats(Document):
     users = ListField(EmbeddedDocumentField(Users))
     created = DateTimeField(default=datetime.datetime.now)
 
+    meta = {'queryset_class': ChatsQuerySet}
+
     @staticmethod
     def create_chat():
         """
@@ -52,13 +55,13 @@ class Chats(Document):
         :return: Mix false or user_token if ok
         """
         try:
-            chat = Chats.objects.get(id=ObjectId(chat_token))
+            chat = Chats.objects.get_all_by_token(chat_token)
         except TypeError:
             chat = False
         except DoesNotExist:
             chat = False
 
-        if ((not chat) or (len(chat.user_tokens) != 1)):
+        if len(chat.user_tokens) != 1:
             return False
 
         user_token = ObjectId()
@@ -81,7 +84,7 @@ class Chats(Document):
         :return: Boolean
         """
         try:
-            chat = Chats.objects.only('id').get(id=ObjectId(chat_token))
+            chat = Chats.objects.get_id_by_token(chat_token)
             result = True
         except TypeError:
             result = False
@@ -99,9 +102,7 @@ class Chats(Document):
         :return: Boolean
         """
         try:
-            result = Chats.objects.get(id=ObjectId(chat_token),
-                                       status__in=[Chats.STATUS_DRAFT, Chats.STATUS_READY],
-                                       user_tokens=ObjectId(user_token))
+            result = Chats.objects.get_active(chat_token, user_token, [Chats.STATUS_DRAFT, Chats.STATUS_READY])
             result.users = list(filter(lambda item: user_token == str(item.token), result.users))
         except TypeError:
             result = False
