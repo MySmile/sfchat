@@ -23,6 +23,7 @@ sqlall:
 
 test:
 	@python3 manage.py test
+#	@python3 manage.py test apps.chat.tests.tests_models.ChatsTestCase.test_delete_message_success
 
 # m - Create locale
 m:

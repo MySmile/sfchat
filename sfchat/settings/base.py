@@ -159,15 +159,4 @@ LOGGING = {
     },
 }
 
-
-#TEST_DISCOVER_TOP_LEVEL = BASE_DIR
-#TEST_DISCOVER_ROOT = BASE_DIR
-# TEST_DISCOVER_PATTERN = "tests_*"
 TEST_RUNNER = "sfchat.settings.test.NoSQLTestRunner"
-# BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)),'..')
-
-# TEST_RUNNER = 'django.test.runner.DiscoverRunner'
-
-# TEST_DISCOVER_TOP_LEVEL = BASE_DIR
-# TEST_DISCOVER_ROOT = BASE_DIR
-#~ TEST_DISCOVER_PATTERN = 'test_*'

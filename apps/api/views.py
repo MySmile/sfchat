@@ -27,3 +27,15 @@ class Messages(APIView):
             raise ParseError()
 
         return Response(self.RESPONSE_SUCCESS)
+
+    def delete(self, request, format=None):
+        """
+        Delete message
+        """
+        data = self.request.DATA
+        user_token = request.META.get(TokenAuthentication.USER_TOKEN_HEADER)
+        if not 'data' in data or not 'messages' in data['data'] or \
+                not request.user.delete_message(messages=data['data']['messages']):
+            raise ParseError()
+
+        return Response(self.RESPONSE_SUCCESS)

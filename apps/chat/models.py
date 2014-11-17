@@ -1,4 +1,5 @@
 from bson.objectid import ObjectId
+from bson.errors import InvalidId
 from mongoengine import *
 from apps.chat.querysets import ChatsQuerySet
 import datetime
@@ -82,7 +83,7 @@ class Chats(Document):
         """
         try:
             chat = Chats.objects.get_all_by_token(chat_token)
-        except (TypeError, DoesNotExist) as ex:
+        except (TypeError, InvalidId, DoesNotExist) as ex:
             return False
 
         user_token = ObjectId()
@@ -105,7 +106,7 @@ class Chats(Document):
         try:
             chat = Chats.objects.get_id_by_token(chat_token)
             result = True
-        except (TypeError, DoesNotExist) as ex:
+        except (TypeError, InvalidId, DoesNotExist) as ex:
             result = False
 
         return result
@@ -121,7 +122,7 @@ class Chats(Document):
         try:
             result = Chats.objects.get_active(chat_token, user_token, [Chats.STATUS_DRAFT, Chats.STATUS_READY])
             result.messages = list(filter(lambda item: user_token == str(item.user_token), result.messages))
-        except (TypeError, DoesNotExist) as ex:
+        except (TypeError, InvalidId, DoesNotExist) as ex:
             result = False
 
         return result
@@ -142,7 +143,23 @@ class Chats(Document):
 
             self.update(push_all__messages=prepared_messages)
             result = True
-        except (TypeError, ValidationError) as ex:
+        except (TypeError, InvalidId, ValidationError) as ex:
+            result = False
+
+        return result
+
+    def delete_message(self, messages):
+        """
+         Delete messages
+         :param messages: Array
+         :return: Boolean
+        """
+        try:
+            for item in messages:
+                # pull_all supports only a single field depth
+                self.update(pull__messages___id=ObjectId(item['_id']))
+            result = True
+        except (TypeError, InvalidId, ValidationError) as ex:
             result = False
 
         return result

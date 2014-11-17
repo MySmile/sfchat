@@ -5,17 +5,18 @@ from mongoengine import *
 
 
 class ChatsTestCase(unittest.TestCase):
+    def setUp(self):
+        self.chat_token = Chats.create_chat()
+        self.user_token = Chats.join_to_chat(self.chat_token)
+
     def test_create_chat(self):
-        chat_token = Chats.create_chat()
-        chat = Chats.objects.get_all_by_token(chat_token)
+        chat = Chats.objects.get_all_by_token(self.chat_token)
         self.assertTrue(chat)
-        return chat_token
 
     def test_join_to_chat_success(self):
-        tokens = self.get_tokens();
-        chat = Chats.objects.get_all_by_token(tokens['chat_token'])
+        chat = Chats.objects.get_all_by_token(self.chat_token)
 
-        self.assertEquals(24, len(tokens['user_token']))
+        self.assertEquals(24, len(str(chat.user_tokens[1])))
         self.assertEquals(2, len(chat.user_tokens))
 
     def test_join_to_chat_failed(self):
@@ -32,46 +33,47 @@ class ChatsTestCase(unittest.TestCase):
         self.assertFalse(actual)
 
     def test_get_chat_success(self):
-        tokens = self.get_tokens()
-
-        chat = Chats.get_chat(tokens['chat_token'], tokens['user_token'])
-        self.assertEquals(tokens['chat_token'], str(chat.id))
+        chat = Chats.get_chat(self.chat_token, self.user_token)
+        self.assertEquals(self.chat_token, str(chat.id))
 
     def test_get_chat_failed(self):
         chat = Chats.get_chat('543e33a2e3ce324d374246fc', '543e33a2e3ce324d374246fc')
         self.assertFalse(chat)
 
     def test_add_message_success(self):
-        tokens = self.get_tokens()
-        chat = Chats.objects.get_all_by_token(tokens['chat_token'])
-
+        chat = Chats.objects.get_all_by_token(self.chat_token)
         messages = [{'msg': 'First message'}, {'msg': 'Second message'}]
-        result = chat.add_message(user_token=tokens['user_token'], messages=messages)
+        result = chat.add_message(user_token=self.user_token, messages=messages)
         self.assertTrue(result)
 
     def test_add_message_failed(self):
-        tokens = self.get_tokens()
-        chat = Chats.objects.get_all_by_token(tokens['chat_token'])
+        chat = Chats.objects.get_all_by_token(self.chat_token)
 
         messages = [{'msg': 'Lorem ipsum dolor sit amet, abhorreant appellantur ex vis. Ad eos dicam quaeque. \
                             Sed ferri tamquam te, scaevola ocurreret conclusionemque in pro. Lorem ipsum dolor \
                             sit amet, abhorreant appellantur ex vis. Ad eos dicam quaeque. Sed ferri tamquam te, \
                             scaevola ocurreret conclusionemque in pro.'}]
-        result = chat.add_message(user_token=tokens['user_token'], messages=messages)
+        result = chat.add_message(user_token=self.user_token, messages=messages)
         self.assertFalse(result)
 
-    # @TODO find out about dependencies and dataProviders
-    def get_tokens(self):
-        chat_token = Chats.create_chat()
-        user_token = Chats.join_to_chat(chat_token)
+    def test_delete_message_success(self):
+        chat = Chats.objects.get_all_by_token(self.chat_token)
+        messages = [{'_id': str(chat.messages[0]._id)}]
+        result = chat.delete_message(messages)
+        self.assertTrue(result)
 
-        return {'chat_token': chat_token, 'user_token': user_token}
+    def test_delete_message_failed(self):
+        chat = Chats.objects.get_all_by_token(self.chat_token)
+        messages = [{'_id': '000000'}]
+        result = chat.delete_message(messages)
+        self.assertFalse(result)
 
 
 class MessagesTestCase(unittest.TestCase):
     def test_prepare_message_success(self):
-        msg = {'msg': 'First message'}
-        actual = Messages.prepare_message(msg=msg, user_token=ObjectId())
+        # msg = {'msg': 'First message'}
+        msg = 'First message'
+        actual = Messages.prepare_message(user_token=ObjectId(), msg=msg)
         self.assertEquals(24, len(str(actual._id)))
         self.assertEquals(24, len(str(actual.user_token)))
         self.assertTrue(actual.system)
