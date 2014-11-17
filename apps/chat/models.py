@@ -7,7 +7,7 @@ import datetime
 class Messages(EmbeddedDocument):
     _id = ObjectIdField(required=True)
     user_token = ObjectIdField(required=True)
-    msg = StringField(max_length=144, required=True)
+    msg = StringField(min_length=1, max_length=144, required=True)
     system = BooleanField(default=False)
     created = DateTimeField(default=datetime.datetime.utcnow())
 
@@ -20,7 +20,9 @@ class Messages(EmbeddedDocument):
         :param user_token: ObjectId
         :return: Messages
         """
-        return Messages(_id=ObjectId(), user_token=user_token, msg=msg, system=system)
+        message = Messages(_id=ObjectId(), user_token=user_token, msg=msg, system=system)
+        message.validate()
+        return message
 
 
 class Chats(Document):
@@ -124,19 +126,23 @@ class Chats(Document):
 
         return result
 
-    # def add_message(self, user_token, messages=[]):
+    def add_message(self, user_token, messages=[]):
         """
         Add messages
         :param user_token: String
         :param messages: Array
         :return: Boolean
         """
-        # messages = Messages.add_token(messages)
-        # try:
-        #     test = 'push_all__users__0__messages'
-        #     self.update(test=messages)
-        #     result = True
-        # except (TypeError, ValidationError) as ex:
-        #     result = False
-        #
-        # return result
+        talker_token = list(filter(lambda item: user_token != str(item), self.user_tokens))
+
+        try:
+            prepared_messages = []
+            for item in messages:
+                prepared_messages.append(Messages.prepare_message(msg=item['msg'], user_token=talker_token[0]))
+
+            self.update(push_all__messages=prepared_messages)
+            result = True
+        except (TypeError, ValidationError) as ex:
+            result = False
+
+        return result

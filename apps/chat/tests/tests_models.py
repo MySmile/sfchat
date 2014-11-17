@@ -41,13 +41,24 @@ class ChatsTestCase(unittest.TestCase):
         chat = Chats.get_chat('543e33a2e3ce324d374246fc', '543e33a2e3ce324d374246fc')
         self.assertFalse(chat)
 
-    # def test_add_message_success(self):
-    #     tokens = self.get_tokens()
-    #     chat = Chats.objects.get_all_by_token(tokens['chat_token'])
-    #
-    #     messages = [{'msg': 'First message'}, {'msg': 'Second message'}]
-    #     result = chat.add_message(user_token=tokens['user_token'], messages=messages)
-    #     self.assertTrue(result)
+    def test_add_message_success(self):
+        tokens = self.get_tokens()
+        chat = Chats.objects.get_all_by_token(tokens['chat_token'])
+
+        messages = [{'msg': 'First message'}, {'msg': 'Second message'}]
+        result = chat.add_message(user_token=tokens['user_token'], messages=messages)
+        self.assertTrue(result)
+
+    def test_add_message_failed(self):
+        tokens = self.get_tokens()
+        chat = Chats.objects.get_all_by_token(tokens['chat_token'])
+
+        messages = [{'msg': 'Lorem ipsum dolor sit amet, abhorreant appellantur ex vis. Ad eos dicam quaeque. \
+                            Sed ferri tamquam te, scaevola ocurreret conclusionemque in pro. Lorem ipsum dolor \
+                            sit amet, abhorreant appellantur ex vis. Ad eos dicam quaeque. Sed ferri tamquam te, \
+                            scaevola ocurreret conclusionemque in pro.'}]
+        result = chat.add_message(user_token=tokens['user_token'], messages=messages)
+        self.assertFalse(result)
 
     # @TODO find out about dependencies and dataProviders
     def get_tokens(self):
@@ -58,9 +69,18 @@ class ChatsTestCase(unittest.TestCase):
 
 
 class MessagesTestCase(unittest.TestCase):
-    def test_prepare_message(self):
+    def test_prepare_message_success(self):
         msg = {'msg': 'First message'}
         actual = Messages.prepare_message(msg=msg, user_token=ObjectId())
         self.assertEquals(24, len(str(actual._id)))
         self.assertEquals(24, len(str(actual.user_token)))
         self.assertTrue(actual.system)
+
+    def test_prepare_message_failed(self):
+        msg = 'Lorem ipsum dolor sit amet, abhorreant appellantur ex vis. Ad eos dicam quaeque. \
+                    Sed ferri tamquam te, scaevola ocurreret conclusionemque in pro. Lorem ipsum dolor \
+                    sit amet, abhorreant appellantur ex vis. Ad eos dicam quaeque. Sed ferri tamquam te, \
+                    scaevola ocurreret conclusionemque in pro.'
+
+        lambda_validate = lambda msg: Messages.prepare_message(msg=msg, user_token=ObjectId())
+        self.assertRaises(ValidationError, lambda_validate, msg)
