@@ -1,6 +1,5 @@
 from apps.chat.models import Chats
 from apps.chat.models import Messages
-from apps.chat.models import Users
 from apps.api.serializers import ChatMessagesSerializer
 from django.http import Http404
 from rest_framework.views import APIView
@@ -15,4 +14,5 @@ class Messages(APIView):
         List all messages related to current user
         """
         serializer = ChatMessagesSerializer(request.user)
-        return Response(serializer.data)
+        response = {'result': serializer.data}
+        return Response(response)

@@ -5,31 +5,57 @@ import datetime
 
 
 class Messages(EmbeddedDocument):
-    token = ObjectIdField()
-    msg = StringField(max_length=144)
+    _id = ObjectIdField(required=True)
+    user_token = ObjectIdField(required=True)
+    msg = StringField(max_length=144, required=True)
     system = BooleanField(default=False)
+    created = DateTimeField(default=datetime.datetime.utcnow())
 
-
-class Users(EmbeddedDocument):
-    token = ObjectIdField()
-    messages = ListField(EmbeddedDocumentField(Messages))
+    @staticmethod
+    def prepare_message(msg, user_token, system=True):
+        """
+        Gets message
+        :param msg: String message text
+        :param system: Boolean true as default
+        :param user_token: ObjectId
+        :return: Messages
+        """
+        return Messages(_id=ObjectId(), user_token=user_token, msg=msg, system=system)
 
 
 class Chats(Document):
     STATUS_DRAFT = 'draft'
     STATUS_READY = 'ready'
     STATUS_CLOSED = 'closed'
+    HTTP_CODE = 200
+    HTTP_MSG = 'Ok'
+    # it's used for authentication
     is_staff = True
 
-    status = StringField(max_length=8, \
-                        choices = (('draft', 'draft'), \
-                                   ('ready', 'ready'), \
-                                   ('closed','closed')), default='draft')
+    status = StringField(max_length=8,
+                         choices=((STATUS_DRAFT, STATUS_DRAFT),
+                                  (STATUS_READY, STATUS_READY),
+                                  (STATUS_CLOSED, STATUS_CLOSED)), default=STATUS_DRAFT)
     user_tokens = ListField(ObjectIdField())
-    users = ListField(EmbeddedDocumentField(Users))
-    created = DateTimeField(default=datetime.datetime.now)
+    messages = ListField(EmbeddedDocumentField(Messages))
+    created = DateTimeField(default=datetime.datetime.utcnow())
 
     meta = {'queryset_class': ChatsQuerySet}
+
+    @property
+    def count(self):
+        return len(self.messages)
+
+    def code(self):
+        return self.HTTP_CODE
+
+    def msg(self):
+        return self.HTTP_MSG
+
+    def clean(self):
+        if len(self.user_tokens) > 2:
+            msg = 'Length user_tokens must be equal or less then 2.'
+            raise ValidationError(msg)
 
     @staticmethod
     def create_chat():
@@ -40,10 +66,8 @@ class Chats(Document):
         chat_token = ObjectId()
         user_token = ObjectId()
         msg = "Welcome to SFChat! <br /> Please send code: " + str(chat_token) + " to Talker"
-
-        messages = Messages(token=ObjectId(), msg=msg, system=True)
-        user = Users(token=user_token, messages=[messages])
-        chat = Chats(id=chat_token, users=[user], user_tokens=[user_token])
+        message = Messages.prepare_message(msg=msg, user_token=user_token)
+        chat = Chats(id=chat_token, messages=[message], user_tokens=[user_token])
         chat.save()
         return str(chat_token)
     
@@ -56,22 +80,15 @@ class Chats(Document):
         """
         try:
             chat = Chats.objects.get_all_by_token(chat_token)
-        except TypeError:
-            chat = False
-        except DoesNotExist:
-            chat = False
-
-        if len(chat.user_tokens) != 1:
+        except (TypeError, DoesNotExist) as ex:
             return False
 
         user_token = ObjectId()
         msg = "Talker was successfully joined to chat"
 
-        messages = Messages(token=ObjectId(), msg=msg, system=True)
-        user = Users(token=user_token, messages=[messages])
-
+        message = Messages.prepare_message(msg=msg, user_token=user_token)
         chat.user_tokens.append(user_token)
-        chat.users.append(user)
+        chat.messages.append(message)
         chat.status = Chats.STATUS_READY
         chat.save()
         return str(user_token)
@@ -86,9 +103,7 @@ class Chats(Document):
         try:
             chat = Chats.objects.get_id_by_token(chat_token)
             result = True
-        except TypeError:
-            result = False
-        except DoesNotExist:
+        except (TypeError, DoesNotExist) as ex:
             result = False
 
         return result
@@ -103,15 +118,25 @@ class Chats(Document):
         """
         try:
             result = Chats.objects.get_active(chat_token, user_token, [Chats.STATUS_DRAFT, Chats.STATUS_READY])
-            result.users = list(filter(lambda item: user_token == str(item.token), result.users))
-        except TypeError:
-            result = False
-        except DoesNotExist:
+            result.messages = list(filter(lambda item: user_token == str(item.user_token), result.messages))
+        except (TypeError, DoesNotExist) as ex:
             result = False
 
         return result
 
-    def clean(self):
-        if len(self.user_tokens) > 2:
-            msg = 'Length user_tokens must be equal or less then 2.'
-            raise ValidationError(msg)
+    # def add_message(self, user_token, messages=[]):
+        """
+        Add messages
+        :param user_token: String
+        :param messages: Array
+        :return: Boolean
+        """
+        # messages = Messages.add_token(messages)
+        # try:
+        #     test = 'push_all__users__0__messages'
+        #     self.update(test=messages)
+        #     result = True
+        # except (TypeError, ValidationError) as ex:
+        #     result = False
+        #
+        # return result

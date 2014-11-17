@@ -12,5 +12,5 @@ class ChatMessagesTestCase(unittest.TestCase):
         serializer = ChatMessagesSerializer(chat)
         messages = serializer.data
 
-        self.assertEquals(Chats.STATUS_DRAFT, messages['result']['status'])
-        self.assertEquals(1, messages['result']['count'])
+        self.assertEquals(Chats.STATUS_DRAFT, messages['status'])
+        self.assertEquals(1, messages['count'])

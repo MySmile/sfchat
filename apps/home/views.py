@@ -8,7 +8,7 @@ from django.template import RequestContext, loader, Template, TemplateDoesNotExi
 from bson.objectid import ObjectId
 from mongoengine import ValidationError
 
-from apps.chat.models import Messages, Users, Chats
+from apps.chat.models import Messages, Chats
 from apps.home.forms import CreateChatForm, JoinChatForm
 
 from apps.api.authentication import TokenAuthentication
