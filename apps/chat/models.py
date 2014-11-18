@@ -108,7 +108,6 @@ class Chats(Document):
             result = True
         except (TypeError, InvalidId, DoesNotExist) as ex:
             result = False
-
         return result
 
     @staticmethod
