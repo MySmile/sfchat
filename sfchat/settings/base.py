@@ -137,17 +137,21 @@ LOGGING = {
     'handlers': {
         'file_info': {
                'level': 'INFO',
-               'class': 'logging.FileHandler',
+               'class': 'logging.handlers.RotatingFileHandler',
                'formatter': 'verbose',
                'filters': ['require_debug_true'],
                'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'.log'),
+               'maxBytes': 1024*1024*5, # 5 MB
+               'backupCount': 5
            },
         'file_error': {
                'level': 'ERROR',
-               'class': 'logging.FileHandler',
+               'class': 'logging.handlers.RotatingFileHandler',
                'formatter': 'verbose',
                'filters': ['require_debug_true'],
                'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'.log'),
+               'maxBytes': 1024*1024*5, # 5 MB
+               'backupCount': 5
            },
         'mail_admins': {
             'level': 'ERROR',
