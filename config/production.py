@@ -27,4 +27,8 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 ADMINS = (
     ('admin', 'info@mysmile.com.ua'),
 )
+#
+# MANAGERS = (
+#     ('admin', 'info@mysmile.com.ua'),
+# )
 

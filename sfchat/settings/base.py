@@ -34,6 +34,7 @@ THIRD_PARTY_APPS = (
 
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware', 
     'django.middleware.common.CommonMiddleware',
@@ -42,7 +43,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+
     'apps.chat.middlewares.ExceptionLoggingMiddleware',
 )
 
@@ -114,10 +115,10 @@ REST_FRAMEWORK = {
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True, #the default configuration is completely overridden
+    'disable_existing_loggers': False, #the default configuration is completely overridden
     'formatters': {
          'verbose': {
-             'format': '%(levelname)s %(asctime)s %(module)s.%(filename)s, line: %(lineno)d  \n%(pathname)s\n  %(message)s\n',
+             'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
              'datefmt' : "%d/%b/%Y %H:%M:%S"
          },
          'simple': {
@@ -134,12 +135,19 @@ LOGGING = {
         
     },
     'handlers': {
-        'file': {
+        'file_info': {
+               'level': 'INFO',
+               'class': 'logging.FileHandler',
+               'formatter': 'verbose',
+               'filters': ['require_debug_true'],
+               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'.log'),
+           },
+        'file_error': {
                'level': 'ERROR',
                'class': 'logging.FileHandler',
                'formatter': 'verbose',
                'filters': ['require_debug_true'],
-               'filename': os.path.join(BASE_DIR,  'log/ERRORS/'+datetime.datetime.now().strftime('%d-%m-%Y')+'_errors.log'),
+               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'.log'),
            },
         'mail_admins': {
             'level': 'ERROR',
@@ -149,9 +157,10 @@ LOGGING = {
     },
     
     'loggers': {
-        'log2file': {
-            'handlers': ['file'],
-            'propagate': True,
+        '': {
+            'handlers': ['file_info', 'file_error'],
+            'level': 'DEBUG',
+            'propagate': False,
         },
         'django.request': {
             'handlers': ['mail_admins'],

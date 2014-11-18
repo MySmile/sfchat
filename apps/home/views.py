@@ -14,8 +14,7 @@ from apps.home.forms import CreateChatForm, JoinChatForm
 from apps.api.authentication import TokenAuthentication
 
 import logging
-logger = logging.getLogger('log2file')
-
+logger = logging.getLogger(__name__)
 
 class HomeView(FormView):
     template_name = 'home.html'
@@ -39,7 +38,7 @@ class HomeView(FormView):
 
         response = HttpResponsePermanentRedirect(self.success_url)
         response[TokenAuthentication.USER_TOKEN_HEADER] = user_token
-
+        logger.info('User join to chat with user_token = '+user_token)
         return response
 
 
@@ -48,7 +47,7 @@ class CreateView(View):
     
     def post(self, request, *args, **kwargs):
         chat_token = Chats.create_chat()
-        
+        logger.info('Chat created with chat_token = '+chat_token)
         return HttpResponsePermanentRedirect('/chat/' + chat_token)
 
 

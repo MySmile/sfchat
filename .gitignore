@@ -2,5 +2,5 @@
 *.pyc
 docs/build/**
 tmp/*
-log/ERRORS/*
+log/*
 /sfchat/static/bower_components/**
