@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import ParseError
-from apps.api.serializers import ChatMessagesSerializer
-from apps.api.authentication import TokenAuthentication
+from apps.api.v1.serializers import ChatMessagesSerializer
+from apps.api.v1.authentication import TokenAuthentication
 
 
 class Messages(APIView):

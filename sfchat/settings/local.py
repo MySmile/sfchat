@@ -11,7 +11,7 @@ from .base import *
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'apps',
-    'apps.api',
+    'apps.api.v1',
     'apps.chat',
     #~ 'apps.chat.apps.ChatConfig',
     'apps.flatpages',

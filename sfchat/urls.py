@@ -9,8 +9,8 @@ from django.conf import settings
 urlpatterns = patterns('',
 
     #~ url(r'^admin/', include(admin.site.urls)),
-    
-    url('', include('apps.api.urls')),
+    url(r'^api/', include('apps.api.urls', namespace='api')),    
+    #url('', include('apps.api.urls')),
     url('', include('apps.chat.urls')),
     url('', include('apps.flatpages.urls')),
     url('', include('apps.home.urls')),

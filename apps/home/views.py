@@ -11,7 +11,7 @@ from mongoengine import ValidationError
 from apps.chat.models import Messages, Chats
 from apps.home.forms import CreateChatForm, JoinChatForm
 
-from apps.api.authentication import TokenAuthentication
+from apps.api.v1.authentication import TokenAuthentication
 
 import logging
 logger = logging.getLogger(__name__)

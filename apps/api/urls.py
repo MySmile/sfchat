@@ -1,9 +1,8 @@
-from django.conf.urls import patterns, url
-from rest_framework.urlpatterns import format_suffix_patterns
-from apps.api.views import *
+from django.conf.urls import *
 
-urlpatterns = [
-    url(r'^api/messages$', Messages.as_view()),
-]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
+urlpatterns = patterns('',
+    #url(r'', include('apps.api.v2.urls', namespace='default')),
+    #url(r'^v1/', include('apps.api.v1.urls', namespace='v1')),
+    
+    url(r'', include('apps.api.v1.urls', namespace='default')),    
+)

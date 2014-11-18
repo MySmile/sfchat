@@ -44,6 +44,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
+    'apps.api.middlewares.VersionSwitchMiddleware',
     'apps.chat.middlewares.ExceptionLoggingMiddleware',
 )
 
@@ -107,10 +108,10 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
         # 'rest_framework.authentication.TokenAuthentication',
-        'apps.api.authentication.TokenAuthentication',
+        'apps.api.v1.authentication.TokenAuthentication',
     ),
 
-    'EXCEPTION_HANDLER': 'apps.api.utils.custom_exception_handler'
+    'EXCEPTION_HANDLER': 'apps.api.v1.utils.custom_exception_handler'
 }
 
 LOGGING = {
