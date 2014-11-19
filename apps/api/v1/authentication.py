@@ -1,12 +1,12 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from rest_framework import authentication
 from rest_framework import exceptions
 from apps.chat.models import Chats
 
 
 class TokenAuthentication(authentication.BaseAuthentication):
-    USER_TOKEN_HEADER = 'HTTP_X_SFC_USERTOKEN'
-    CHAT_TOKEN_PARAMETER = 'chatToken'
+    USER_TOKEN_HEADER = settings.SFCHAT_API['authentication']['user_token_header']
+    CHAT_TOKEN_PARAMETER = settings.SFCHAT_API['authentication']['chat_token_parameter']
 
     def authenticate(self, request):
         chat_token = request.GET.get(self.CHAT_TOKEN_PARAMETER)

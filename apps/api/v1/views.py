@@ -5,7 +5,7 @@ from apps.api.v1.serializers import ChatMessagesSerializer
 from apps.api.v1.authentication import TokenAuthentication
 
 
-class Messages(APIView):
+class MessagesView(APIView):
     RESPONSE_SUCCESS = {'results': {'code': 200, 'msg': 'Ok'}}
 
     def get(self, request, format=None):

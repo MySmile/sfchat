@@ -176,3 +176,10 @@ LOGGING = {
 }
 
 TEST_RUNNER = "sfchat.settings.test.NoSQLTestRunner"
+
+SFCHAT_API = {
+    'authentication': {
+        'user_token_header': 'HTTP_X_SFC_USERTOKEN',
+        'chat_token_parameter': 'chatToken'
+    }
+}

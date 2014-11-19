@@ -5,13 +5,12 @@ from django.views.generic.edit import FormView
 from django.views.generic import View
 from django.template import RequestContext, loader, Template, TemplateDoesNotExist
 
-from bson.objectid import ObjectId
 from mongoengine import ValidationError
 
-from apps.chat.models import Messages, Chats
-from apps.home.forms import CreateChatForm, JoinChatForm
+from apps.chat.models import Chats
+from apps.home.forms import JoinChatForm
 
-from apps.api.v1.authentication import TokenAuthentication
+from django.conf import settings
 
 import logging
 logger = logging.getLogger(__name__)
@@ -21,11 +20,16 @@ class HomeView(FormView):
     form_class = JoinChatForm
 
     def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse
-        
+        """
+        This method is called when valid form data has been POSTed.
+        :param form: Form
+        :return: HttpResponse
+        """
         # Validation for join to chat
-        chat_token = self.request.POST.get('code')
+        chat_token_parameter = settings.SFCHAT_API['authentication']['chat_token_parameter']
+        user_token_header = settings.SFCHAT_API['authentication']['user_token_header']
+
+        chat_token = self.request.POST.get(chat_token_parameter)
         try:
             user_token = Chats.join_to_chat(chat_token)
             if not user_token:
@@ -37,14 +41,12 @@ class HomeView(FormView):
         self.success_url = '/chat/' + str(chat_token)
 
         response = HttpResponsePermanentRedirect(self.success_url)
-        response[TokenAuthentication.USER_TOKEN_HEADER] = user_token
+        response[user_token_header] = user_token
         logger.info('User join to chat with user_token = '+user_token)
         return response
 
 
 class CreateView(View):
-    #~ form_class = CreateChatForm
-    
     def post(self, request, *args, **kwargs):
         chat_token = Chats.create_chat()
         logger.info('Chat created with chat_token = '+chat_token)

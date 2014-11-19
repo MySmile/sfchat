@@ -1,5 +1,5 @@
 import unittest
-from apps.api.serializers import ChatMessagesSerializer
+from apps.api.v1.serializers import ChatMessagesSerializer
 from apps.chat.models import Chats
 from bson.objectid import ObjectId
 
