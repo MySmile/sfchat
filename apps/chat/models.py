@@ -157,7 +157,31 @@ class Chats(Document):
             for item in messages:
                 # pull_all supports only a single field depth
                 self.update(pull__messages___id=ObjectId(item['_id']))
+                # self.update(pull__messages___id=ObjectId('0'*24))
             result = True
+        except (TypeError, InvalidId, ValidationError) as ex:
+            result = False
+
+        return result
+
+    def delete_chat(self, user_token):
+        """
+         User init delete chat
+         :param user_tocken: ObjectId
+         :return: Boolean
+        """
+        try:
+            if ObjectId(user_token) in self.user_tokens:
+                if self.user_tokens[0]==ObjectId(user_token):
+                    user_token_another = self.user_tokens[1]
+                else:
+                    user_token_another = self.user_tokens[0]
+                message_close = Messages.prepare_message(msg='Chat has closed!', user_token=user_token_another)
+                self.update(pull__user_tokens=ObjectId(user_token),
+                            set__status=self.STATUS_CLOSED, push__messages=message_close)
+                result = True
+            else:
+                result = False
         except (TypeError, InvalidId, ValidationError) as ex:
             result = False
 
