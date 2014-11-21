@@ -64,8 +64,18 @@ class ChatsTestCase(unittest.TestCase):
 
     def test_delete_message_failed(self):
         chat = Chats.objects.get_all_by_token(self.chat_token)
-        messages = [{'_id': '000000'}]
+        messages = [{'_id': '0'*24}]
         result = chat.delete_message(messages)
+        self.assertFalse(result)
+
+    def test_delete_chat_success(self):
+        chat = Chats.objects.get_all_by_token(self.chat_token)
+        result = chat.delete_chat(self.user_token)
+        self.assertTrue(result)
+
+    def test_delete_chat_failed(self):
+        chat = Chats.objects.get_all_by_token(self.chat_token)
+        result = chat.delete_chat(ObjectId('0'*24))
         self.assertFalse(result)
 
 
