@@ -64,7 +64,7 @@ class Chats(Document):
     def create_chat():
         """
         Create chat
-        :return: String chat_token
+        :return: Dictionary {'chat_token': '', 'user_token': ''}
         """
         chat_token = ObjectId()
         user_token = ObjectId()
@@ -72,7 +72,7 @@ class Chats(Document):
         message = Messages.prepare_message(msg=msg, user_token=user_token)
         chat = Chats(id=chat_token, messages=[message], user_tokens=[user_token])
         chat.save()
-        return str(chat_token)
+        return {'chat_token': str(chat_token), 'user_token': str(user_token)}
     
     @staticmethod
     def join_to_chat(chat_token):
@@ -134,6 +134,8 @@ class Chats(Document):
         :return: Boolean
         """
         talker_token = list(filter(lambda item: user_token != str(item), self.user_tokens))
+        if not talker_token:
+            return False
 
         try:
             prepared_messages = []

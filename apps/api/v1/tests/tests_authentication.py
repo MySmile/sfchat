@@ -10,7 +10,7 @@ from django.test.client import HttpRequest
 class AuthenticationTestCase(unittest.TestCase):
     # @TODO use Fixtures
     def setUp(self):
-        self.chat_token = Chats.create_chat()
+        self.chat_token = Chats.create_chat()['chat_token']
 
     def test_validate_chat_token_success(self):
         actual = TokenAuthentication.validate_chat_token(self.chat_token)

@@ -12,8 +12,8 @@ class JoinChatForm(forms.Form):
     chat_token.widget = forms.TextInput({ "placeholder": "Enter code here...",
                                     "onfocus": "this.placeholder = ''",
                                     "onblur": "this.placeholder = 'Enter code here...'",
-                                    "maxlength": 24,
-                                    "id": "chatToken",
+                                    "maxlength": 24,  
+                                    "class": "chat-token"
                                 })
 
     def clean_code(self):

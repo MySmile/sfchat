@@ -6,7 +6,7 @@ from mongoengine import *
 
 class ChatsTestCase(unittest.TestCase):
     def setUp(self):
-        self.chat_token = Chats.create_chat()
+        self.chat_token = Chats.create_chat()['chat_token']
         self.user_token = Chats.join_to_chat(self.chat_token)
 
     def test_create_chat(self):
@@ -24,8 +24,8 @@ class ChatsTestCase(unittest.TestCase):
         self.assertFalse(actual)
 
     def test_validate_chat_token_success(self):
-        chat_token = Chats.create_chat()
-        actual = Chats.validate_chat_token(chat_token)
+        tokens = Chats.create_chat()
+        actual = Chats.validate_chat_token(tokens['chat_token'])
         self.assertTrue(actual)
 
     def test_validate_chat_token_failed(self):

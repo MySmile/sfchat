@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% load staticfiles %}{% load i18n %}{% get_current_language as LANGUAGE_CODE %}
 
-{% block css %}{% endblock %}
+{% block css %}
+    <script type="text/javascript" src='{% static 'js/sfchat/sfchat.js' %}'></script>
+    <script type="text/javascript" src='{% static 'js/sfchat/api/v1/api.js' %}'></script>
+    <script type="text/javascript" src='{% static 'js/sfchat/api/v1/auth.js' %}'></script>
+    <script type="text/javascript" src='{% static 'js/sfchat/api/v1/client.js' %}'></script>
+    <script type="text/javascript" src='{% static 'js/sfchat/api/v1/resources/messages.js' %}'></script>
+    <script type="text/javascript" src='{% static 'js/sfchat/api/v1/resources/chat.js' %}'></script>
+{% endblock %}
 {% block js %}{% endblock %}
 
 {% block meta %}<meta name="description" content=""  />
@@ -19,3 +26,19 @@
     </aside>
 {% endblock %}
 
+{% block inline_js %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        // set User Token
+        SFChat.api.auth.setUserToken('{{ user_token }}');
+        
+        // init client
+        var client = new SFChat.api.client({
+            endPoint: '{{ request.get_host }}/api' 
+        });
+        
+        // init message
+        var messages = new SFChat.api.resources.messages(client);
+    });
+</script>    
+{% endblock %}

@@ -11,7 +11,7 @@
 
 {% block main %}
     <aside id="form-entry">
-        <form method="POST" action="/create_chat/">{% csrf_token %}
+        <form method="POST" action="/create-chat/">{% csrf_token %}
             {{ form_create_chat }}
             <button id="btn-create-chat" class="btn" type="submit" >
                 {% trans "create new" %}

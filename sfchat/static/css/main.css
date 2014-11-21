@@ -109,7 +109,7 @@ article {
     list-style: none;
  }
  
-#id_code {
+.chat-token {
     width: 210px;
     height: 40px;
     margin: 0;

@@ -1,19 +1,17 @@
-from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext
-from django.http import HttpResponse, HttpResponsePermanentRedirect, HttpResponseNotFound
+from mongoengine import ValidationError
+
+from django.http import HttpResponseNotFound
 from django.views.generic.edit import FormView
 from django.views.generic import View
 from django.template import RequestContext, loader, Template, TemplateDoesNotExist
 
-from mongoengine import ValidationError
-
 from apps.chat.models import Chats
+from apps.chat.utils import ChatPage
 from apps.home.forms import JoinChatForm
-
-from django.conf import settings
 
 import logging
 logger = logging.getLogger(__name__)
+
 
 class HomeView(FormView):
     template_name = 'home.html'
@@ -26,10 +24,7 @@ class HomeView(FormView):
         :return: HttpResponse
         """
         # Validation for join to chat
-        chat_token_parameter = settings.SFCHAT_API['authentication']['chat_token_parameter']
-        user_token_header = settings.SFCHAT_API['authentication']['user_token_header']
-
-        chat_token = self.request.POST.get(chat_token_parameter)
+        chat_token = self.request.POST.get('chat_token')
         try:
             user_token = Chats.join_to_chat(chat_token)
             if not user_token:
@@ -38,19 +33,21 @@ class HomeView(FormView):
             logger.error(err)
             return e500(self.request, template_name='500.html')
 
-        self.success_url = '/chat/' + str(chat_token)
+        #self.success_url = '/chat/' + str(chat_token)
 
-        response = HttpResponsePermanentRedirect(self.success_url)
-        response[user_token_header] = user_token
-        logger.info('User join to chat with user_token = '+user_token)
-        return response
+        logger.info('User joined to chat: '+chat_token)
+        tokens = {'chat_token': chat_token, 'user_token': user_token}
+        chat_page = ChatPage(self.request)
+
+        return chat_page.get_redirect_response(tokens)
 
 
 class CreateView(View):
     def post(self, request, *args, **kwargs):
-        chat_token = Chats.create_chat()
-        logger.info('Chat created with chat_token = '+chat_token)
-        return HttpResponsePermanentRedirect('/chat/' + chat_token)
+        tokens = Chats.create_chat()
+        logger.info('Chat created: '+tokens['chat_token'])
+        chat_page = ChatPage(request)
+        return chat_page.get_redirect_response(tokens)
 
 
 def e500(request, template_name='500.html'):
@@ -58,7 +55,7 @@ def e500(request, template_name='500.html'):
         template = loader.get_template(template_name)
     except TemplateDoesNotExist:
         template = Template(
-            '<h1>Not Found</h1>'
+            '<b>Not Found</b>'
             '<p>The requested URL {{ request_path }} was not found on this server.</p>')
     return HttpResponseNotFound(template.render(RequestContext(request, {'request_path': request.path,})))
 
@@ -68,7 +65,7 @@ def e404(request, template_name='404.html'):
         template = loader.get_template(template_name)
     except TemplateDoesNotExist:
         template = Template(
-            '<h1>Not Found</h1>'
+            '<b>Not Found</b>'
             '<p>The requested URL {{ request_path }} was not found on this server.</p>')
     return HttpResponseNotFound(template.render(RequestContext(request, {'request_path': request.path,})))
 
