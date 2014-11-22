@@ -13,6 +13,6 @@ if (SFChat) {
 /**
  * SFChat
  * 
- * @type Object
+ * @type {Object}
  */
 var SFChat = {};

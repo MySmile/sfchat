@@ -60,7 +60,9 @@ SFChat.api.client.prototype.setOptions = function(options) {
  * @param {String} type
  * @param {String} resource
  * @param {Object} data
- * @param {Function} callback
+ * @param {Object} callback
+ * @param {Function} callback.method
+ * @param {Object} callback.obj
  * @return {jqXHR}
  * @throws {TypeError}
  */
@@ -70,8 +72,10 @@ SFChat.api.client.prototype.sendRequest = function(type, resource, data, callbac
         jqxhr,
         url;          
         
-        if (typeof(callback) !== 'function') {
-            throw new TypeError('Callback is not a function.');
+        if (typeof(callback.method) !== 'function' 
+            || typeof(callback.obj) !== 'object'
+        ) {
+            throw new TypeError('Callback is not valid.');
         }
         
         url = _this._getUrl(resource, currentUser['chatToken']);
@@ -88,11 +92,11 @@ SFChat.api.client.prototype.sendRequest = function(type, resource, data, callbac
         }); 
         
         jqxhr.done(function(response, textStatus, jqXHR) {
-            callback(response);
+            callback.method.apply(callback.obj, [response]);
         });
         
         jqxhr.fail(function(jqXHR, textStatus, error) {
-            callback(jqXHR.responseJSON);
+            callback.method.apply(callback.obj, [jqXHR.responseJSON]);
         });
         
     return jqxhr; 

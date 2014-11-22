@@ -17,7 +17,7 @@ if (SFChat.api.resources.messages) {
 }
 
 /**
- * SFChat API Client
+ * SFChat Message Resource
  * 
  * @type {Function}
  * @param {SFChat.api.client} client
@@ -32,16 +32,20 @@ SFChat.api.resources.messages = function(client) {
  * Send message
  * 
  * @param {String} msg
+ * @param {Object} callback
+ * @param {Function} callback.method
+ * @param {Object} callback.obj
+ * @throws {Error}
  */
-SFChat.api.resources.messages.prototype.sendMessage = function(msg) {
+SFChat.api.resources.messages.prototype.sendMessage = function(msg, callback) {
     var _this = this,
         msgData;
   
     if (_this._validateMessage(msg) === true) {
         msgData = _this._prepareMessageForSend(msg);
-        this.client.sendRequest('POST', _this._name, msgData, _this._handleResponse);
+        this.client.sendRequest('POST', _this._name, msgData, callback);
     } else {
-        console.log('Message has invalid format.');
+        throw new Error('Message has invalid format.');
     }
 };
 
@@ -70,15 +74,6 @@ SFChat.api.resources.messages.prototype._validateMessage = function(msg) {
     var msg_length = msg.length;
     
     return msg_length !== 0 && msg_length <= 144;
-};
-
-/**
- * Handle response result
- * 
- * @param {Mix} data
- */
-SFChat.api.resources.messages.prototype._handleResponse = function(data) {
-    console.log(data);
 };
 
 /**

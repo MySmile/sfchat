@@ -8,37 +8,63 @@
     <script type="text/javascript" src='{% static 'js/sfchat/api/v1/client.js' %}'></script>
     <script type="text/javascript" src='{% static 'js/sfchat/api/v1/resources/messages.js' %}'></script>
     <script type="text/javascript" src='{% static 'js/sfchat/api/v1/resources/chat.js' %}'></script>
+    <script type="text/javascript" src='{% static 'js/sfchat/api/v1/renders/messages.js' %}'></script>
+    <script type="text/javascript" src='{% static 'js/sfchat/api/v1/renders/systemMessages.js' %}'></script>
+    <script type="text/javascript" src='{% static 'js/sfchat/api/v1/core.js' %}'></script>
 {% endblock %}
 {% block js %}{% endblock %}
 
-{% block meta %}<meta name="description" content=""  />
-<meta name="keywords" content="" />
-<title>{% trans "Welcome to chat!" %}</title>
+{% block meta %}
+    <meta name="description" content=""  />
+    <meta name="keywords" content="" />
+    <title>{% trans "Welcome to chat!" %}</title>
 {% endblock %}
 
 {% block main %}
-    <aside>
-        <div id="chat_header">
-        <a href="/close"><img id="close" src="{% static 'images/close.png' %}" width="32" height="32" alt="close" /></a>
+    <aside id="chat">
+        <div id="chat-header">
+            <a href="/close"><img id="close" src="{% static 'images/close.png' %}" width="32" height="32" alt="close" /></a>
         </div>
         
-        <div id="chat">Chat body in this div</div>
+        <div id="chat-body">
+            
+            <div class="message system">
+                <div class="msg-border"></div>
+                <div class="msg-text">Welcome to SFChat! <br /> Please send code: 54706246b82b9c13002ff875 to Talker</div>
+                <div class="msg-border"></div>
+            </div>
+            
+            <div class="message">
+                <div class="msg-date">[13:22:51]</div>
+                <div class="msg-name msg-you">You:</div>
+                <div class="msg-text">Hi, how are you doing today?</div>
+            </div> 
+            
+            <div class="message">
+                <div class="msg-date">[13:22:51]</div>
+                <div class="msg-name msg-talker">Talker:</div>
+                <div class="msg-text">Hi, Ok thank's for asking!</div>
+            </div>   
+            
+        </div>
+        
+        <div id="chat-type">
+            {{ form }}
+            <button class="btn btn-green">
+                {% trans "Ctrl+Enter" %}
+            </button>
+        </div>
+
     </aside>
 {% endblock %}
 
 {% block inline_js %}
 <script type="text/javascript">
     $(document).ready(function() {
-        // set User Token
-        SFChat.api.auth.setUserToken('{{ user_token }}');
-        
-        // init client
-        var client = new SFChat.api.client({
-            endPoint: '{{ request.get_host }}/api' 
+        var sfchatCore = new SFChat.api.core({
+           endPoint:  '{{ request.get_host }}/api',
+           userToken: '{{ user_token }}'
         });
-        
-        // init message
-        var messages = new SFChat.api.resources.messages(client);
     });
 </script>    
 {% endblock %}

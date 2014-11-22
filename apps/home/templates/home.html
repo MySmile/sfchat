@@ -10,17 +10,16 @@
 {% endblock %}
 
 {% block main %}
-    <aside id="form-entry">
+    <aside id="chat-entry">
         <form method="POST" action="/create-chat/">{% csrf_token %}
             {{ form_create_chat }}
-            <button id="btn-create-chat" class="btn" type="submit" >
+            <button class="btn btn-green" type="submit" >
                 {% trans "create new" %}
             </button>
         </form>
         <div id='or'>{% trans "OR" %}</div>
         <form method="POST">{% csrf_token %}
-            {{ form }}<!--
-            --><button id="btn-join-chat" class="btn" type="submit">{% trans "join" %}</button>
+            {{ form }}<button class="btn btn-orange" type="submit">{% trans "join" %}</button>
         </form>
     </aside>
     <hr>

@@ -1,5 +1,3 @@
-CACHE/**
-/nbproject/private/
 .idea
 *.pyc
 docs/build/**
