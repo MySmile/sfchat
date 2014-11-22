@@ -56,26 +56,16 @@ header a {
     text-decoration: none;
  }
  
-/*body*/
-#slogan h1 {
-    margin: 0 auto;
-    padding: 10px;
-    text-align: center;
-    font-size: 120%;
- }
- 
-main {
-/*
-    padding: 15px 10px 20px 10px;
-*/
- }
-
+/*body*/ 
 article {
     padding: 15px 10px 20px 10px;
  }
-
  
-#form-entry {
+aside {
+    padding: 15px 10px 20px 10px;
+}
+
+#chat-entry {
     margin: 0 auto;
     text-align: center;
  }
@@ -83,10 +73,11 @@ article {
 /*button*/
 .btn {
     border-radius: 5px;
-    cursor:pointer;
+    cursor: pointer;
+    color: #444;
  }
  
-#btn-create-chat {
+.btn.btn-green {
     margin-top: 10px;
     width: 272px;
     height: 45px;
@@ -96,11 +87,24 @@ article {
     font-size: 14px;
  }
  
+.btn.btn-orange {
+    width: 60px;
+    height: 45px;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    background-color: #FFE599;
+    border: 1px solid #CC8934;
+    text-align: center;
+    font-size:14px;
+ }
+ 
 #or {
     letter-spacing: normal;
     margin: 5px 0;
  }
 
+/*from*/ 
 .errorlist { 
     font-size: 12px;
     padding: 0;
@@ -119,18 +123,6 @@ article {
     text-align: center;
     font-size: 12px;
     font-style: italic;
- }
-
-#btn-join-chat {
-    width: 60px;
-    height: 45px;
-    margin: 0;
-    padding: 0;
-    font-weight: bold;
-    background-color: #FFE599;
-    border: 1px solid #CC8934;
-    text-align: center;
-    font-size:14px;
  }
  
 hr {
@@ -153,11 +145,83 @@ hr {
     border-top: 10px solid #C8C2BC;
  }
  
+ /*chat*/
+ #chat {
+     padding: 0;
+ } 
+ 
+#chat-header {
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #999;
+    background-color: #FCFCFC;
+ } 
+
+#chat-header img {
+    margin:0;
+    padding:0;
+    float:right;
+ }
+
+#chat-body {
+    height: 325px;
+    padding: 0px 10px 10px 10px;
+    word-wrap: break-word;
+    overflow-x: visible;
+    overflow-y: auto;
+ }
+  
+ /*message*/
+ .message {
+    margin-top: 15px;
+ }
+ 
+ .message .msg-border {
+    background: url("/static/images/asterix.png");
+    height: 9px;   
+ }
+ 
+ .message.system .msg-text {
+    padding: 5px;
+    text-align: center;
+    color: #333;
+ }
+ 
+ .message .msg-date {
+    float: left; 
+    color: #999;
+    padding-right: 3px;
+ }
+ 
+ .message .msg-name {
+    float: left; 
+    font-weight: bold;
+    padding-right: 3px;
+ }
+ 
+.message .msg-you {
+    color: #5B8F45;
+ }
+ 
+ .message .msg-talker {
+    color: #CC8934;
+ }
+ 
+ #chat-type textarea {
+    width: 320px;
+    border: 1px solid #5B8F45;
+ }
+ 
+#chat-type .btn.btn-green {
+    width: 100%;
+    margin: 0 0 20px 0;
+ }
+ 
 /*footer*/
 footer {
     margin-top: 0;
     font-size: 13px;
-    padding: 2px 0.625em;
     border-top: 1px solid #999;
  }
  
@@ -203,30 +267,4 @@ footer nav ul li a:hover {
     vertical-align: middle;
     text-align: center;
     color: #999;
- }
-
-
-/* Chat */
-
-#chat_header {
-    height: 32px;
-    margin: 0;
-    padding: 0;
-    border-bottom: 1px solid #999;
- } 
-
-#chat_header img {
-    margin:0;
-    padding:0;
-    float:right;
- }
-
-aside {
-    padding: 15px 10px 20px 10px;
- }
-
-aside #chat {
-    min-height: 325px;
-    padding: 15px 10px 20px 10px;
-    overflow: auto;
  }
