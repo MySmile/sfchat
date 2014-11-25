@@ -9,9 +9,8 @@ class TokenAuthentication(authentication.BaseAuthentication):
     CHAT_TOKEN_PARAMETER = settings.SFCHAT_API['authentication']['chat_token_parameter']
 
     def authenticate(self, request):
-        chat_token = request.GET.get(self.CHAT_TOKEN_PARAMETER)
-        user_token = request.META.get(self.USER_TOKEN_HEADER)
-
+        chat_token = self.get_chat_token(request)
+        user_token = self.get_user_token(request)
         if not user_token or not chat_token:
             return None
 
@@ -23,7 +22,20 @@ class TokenAuthentication(authentication.BaseAuthentication):
 
     @staticmethod
     def validate_chat_token(chat_token):
+        """
+        Validate chat token
+        :param chat_token: String
+        :return: True or throws exception
+        """
         if not Chats.validate_chat_token(chat_token):
             raise exceptions.AuthenticationFailed('Unauthorized')
 
         return True
+
+    @staticmethod
+    def get_chat_token(request):
+        return request.GET.get(TokenAuthentication.CHAT_TOKEN_PARAMETER)
+
+    @staticmethod
+    def get_user_token(request):
+        return request.META.get(TokenAuthentication.USER_TOKEN_HEADER)
