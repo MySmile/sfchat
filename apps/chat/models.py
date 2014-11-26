@@ -68,7 +68,7 @@ class Chats(Document):
         """
         chat_token = ObjectId()
         user_token = ObjectId()
-        msg = "Welcome to SFChat! <br /> Please send code: " + str(chat_token) + " to Talker"
+        msg = "Welcome to SFChat! <br /> Please send code: <mark>" + str(chat_token) + "</mark> to Talker"
         message = Messages.prepare_message(msg=msg, user_token=user_token)
         chat = Chats(id=chat_token, messages=[message], user_tokens=[user_token])
         chat.save()
@@ -126,11 +126,12 @@ class Chats(Document):
 
         return result
 
-    def add_message(self, user_token, messages=[]):
+    def add_message(self, user_token, messages=[], system=False):
         """
         Add messages
         :param user_token: String
         :param messages: Array
+        :param system: Boolean
         :return: Boolean
         """
         talker_token = list(filter(lambda item: user_token != str(item), self.user_tokens))
@@ -140,7 +141,7 @@ class Chats(Document):
         try:
             prepared_messages = []
             for item in messages:
-                prepared_messages.append(Messages.prepare_message(msg=item['msg'], user_token=talker_token[0]))
+                prepared_messages.append(Messages.prepare_message(msg=item['msg'], user_token=talker_token[0], system=system))
 
             self.update(push_all__messages=prepared_messages)
             result = True

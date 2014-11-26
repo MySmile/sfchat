@@ -90,6 +90,8 @@ SFChat.api.core = function (options) {
     this._init();
     // init message handler
     this._initMessageHandler(); 
+    // start long-polling
+    this.getMessage();
 };
 
 /**
@@ -125,48 +127,172 @@ SFChat.api.core.prototype._init = function() {
 };
 
 /**
- * Send Message
+ * Post Message
  * 
  * @TODO catch exeptions
  */
-SFChat.api.core.prototype.sendMessage = function() {
+SFChat.api.core.prototype.postMessage = function() {
     var _this = this; 
-    _this.messages.sendMessage(_this.chatTypeDom.val(), {
-        method: _this._sendMessageCallback,
+    
+    _this.messages.postMessage(_this.chatTypeDom.val(), {
+        method: _this._postMessageCallback,
         obj: _this
     });
 };
 
 /**
- * Send Message Callback
+ * Get Message, long-polling
+ * It runs long-polling
+ * 
+ * @TODO catch exeptions
+ */
+SFChat.api.core.prototype.getMessage = function() {
+    var _this = this; 
+    
+    _this.messages.getMessage({
+        method: _this._getMessageCallback,
+        obj: _this
+    });
+};
+
+/**
+ * Get Message Callback
+ * Handle long-polling response
  * 
  * @param {Object}  data
  * @param {Object}  data.results
  * @param {Integer} data.results.code
  * @param {String}  data.results.msg
+ * @param {Integer} data.results.count
+ * @param {String}  data.results.status
+ * @param {Array}   data.results.messages
+ * @param {Object}  data.results.messages[0]
+ * @param {String}  data.results.messages[0]._id
+ * @param {String}  data.results.messages[0].msg
+ * @param {String}  data.results.messages[0].created
+ * @param {Boolean} data.results.messages[0].system
  * @throws {TypeError}
  */
-SFChat.api.core.prototype._sendMessageCallback = function(data) {
+SFChat.api.core.prototype._getMessageCallback = function(data) {
+    var _this = this,
+        deleteMessages = [],
+        msgDom;
+    
+    // check response format
+    _this._checkResponseFormat(data);
+    if (data.results.code === 200) {
+        $.each(data.results.messages, function(key, item) {
+            msgDom = _this._renderMessage(item);
+            _this._displayMessage(msgDom);
+            
+            deleteMessages.push(item._id);       
+        });
+    }
+    
+    // run long polling
+    if (data.results.code !== 403) {
+        _this._deleteMessage(deleteMessages);
+    }
+};
+
+/**
+ * Delete message
+ * run long-polling
+ * 
+ * @param {Array} data
+ * @throws {Error}
+ * @TODO catch exceptions
+ */
+SFChat.api.core.prototype._deleteMessage = function(data) {
+    var _this       = this,
+        dataRequest = { data:{ messages:[] }};
+
+    $.each(data, function(key, item) {
+        dataRequest.data.messages.push({
+            _id: item
+        });
+    });    
+    
+    if (dataRequest.data.messages.length !== 0) {
+        // run delete
+        _this.messages.deleteMessage(dataRequest, {
+            method: _this._deleteMessageCallback,
+            obj: _this
+        });
+    } else {
+        // restart long-polling
+        _this.getMessage();
+    }
+};
+
+/**
+ * Delete Message Callback
+ * 
+ * @param {Object}  data
+ * @param {Object}  data.results
+ * @param {Integer} data.results.code
+ * @param {String}  data.results.msg
+ * @throws {Error}
+ */
+SFChat.api.core.prototype._deleteMessageCallback = function(data) {
+    var _this = this;
+    
+    // check response format
+    _this._checkResponseFormat(data);
+    if (data.results.code !== 200) {
+        throw new Error(data.results.msg);
+    }
+    
+    // restart long-polling
+    _this.getMessage();
+};
+
+/**
+ * Post Message Callback
+ * 
+ * @param {Object}  data
+ * @param {Object}  data.results
+ * @param {Integer} data.results.code
+ * @param {String}  data.results.msg
+ * @throws {Error}
+ * @TODO catch exceptions
+ */
+SFChat.api.core.prototype._postMessageCallback = function(data) {
     var _this = this,
         msgDom;
     
-    if (typeof(data['results']) !== 'object') {
-        throw new TypeError('Data has invalid format.');
+    // check response format
+    _this._checkResponseFormat(data);
+    if (data.results.code !== 200) {
+        throw new Error(data.results.msg);
     }
     
-    // get message
-    if (data.results.code === 200) {
-        // success
-        msgDom = _this.renderMessages.render(_this.chatTypeDom.val());        
-        // clear
-        _this.chatTypeDom.val('');
-    } else {
-        // error
-        msgDom = _this.renderSystemMessages.render(data.results.msg);
-    }
-    
+    // success
+    msgDom = _this.renderMessages.render(_this.chatTypeDom.val());        
+    // clear
+    _this.chatTypeDom.val('');  
     // display
     _this._displayMessage(msgDom);
+};
+
+
+/**
+ * Render response message
+ * 
+ * @param {Object}  data
+ * @param {String}  data._id
+ * @param {String}  data.msg
+ * @param {String}  data.created
+ * @param {Boolean} data.system
+ */
+SFChat.api.core.prototype._renderMessage = function(data) {
+    var _this = this,
+        result;
+    
+    result = (data.system) ? _this.renderSystemMessages.render(data.msg):
+        _this.renderMessages.render(data.msg, data.created, 'talker');
+      
+    return result;
 };
 
 /**
@@ -195,13 +321,25 @@ SFChat.api.core.prototype._initMessageHandler = function() {
     
     // click on send button
     $(_this.options.messages.targetSend).click(function(){
-        _this.sendMessage.apply(_this);
+        _this.postMessage.apply(_this);
     });
     
     // hotkey
     _this.chatTypeDom.keydown(function(e) {
         if (e.ctrlKey && (e.keyCode === 10 || e.keyCode === 13)) {
-            _this.sendMessage();
+            _this.postMessage();
         }
     });
+};
+
+/**
+ * Check response format
+ * 
+ * @param {Object} data
+ * @throws TypeError
+ */
+SFChat.api.core.prototype._checkResponseFormat = function(data) {
+    if (typeof(data['results']) !== 'object') {
+        throw new TypeError('Data has invalid format.');
+    }
 };

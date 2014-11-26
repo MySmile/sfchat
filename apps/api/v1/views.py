@@ -10,7 +10,7 @@ from apps.chat.models import Chats
 
 class MessagesView(APIView):
     RESPONSE_SUCCESS = {'results': {'code': 200, 'msg': 'Ok'}}
-    LONG_POLLING_SLEEP = 2
+    LONG_POLLING_SLEEP = 3
 
     def get(self, request, format=None):
         """

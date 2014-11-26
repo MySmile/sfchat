@@ -23,29 +23,10 @@
 {% block main %}
     <aside id="chat">
         <div id="chat-header">
-            <a href="/close"><img id="close" src="{% static 'images/close.png' %}" width="32" height="32" alt="close" /></a>
+            <img id="chat-close" src="{% static 'images/close.png' %}" width="32" height="32" alt="close" />
         </div>
         
-        <div id="chat-body">
-            
-            <div class="message system">
-                <div class="msg-border"></div>
-                <div class="msg-text">Welcome to SFChat! <br /> Please send code: 54706246b82b9c13002ff875 to Talker</div>
-                <div class="msg-border"></div>
-            </div>
-            
-            <div class="message">
-                <div class="msg-date">[13:22:51]</div>
-                <div class="msg-name msg-you">You:</div>
-                <div class="msg-text">Hi, how are you doing today?</div>
-            </div> 
-            
-            <div class="message">
-                <div class="msg-date">[13:22:51]</div>
-                <div class="msg-name msg-talker">Talker:</div>
-                <div class="msg-text">Hi, Ok thank's for asking!</div>
-            </div>   
-            
+        <div id="chat-body">            
         </div>
         
         <div id="chat-type">
@@ -61,7 +42,7 @@
 {% block inline_js %}
 <script type="text/javascript">
     $(document).ready(function() {
-        var sfchatCore = new SFChat.api.core({
+        new SFChat.api.core({
            endPoint:  '{{ request.get_host }}/api',
            userToken: '{{ user_token }}'
         });

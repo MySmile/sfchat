@@ -29,7 +29,7 @@ SFChat.api.resources.messages = function(client) {
 };
 
 /**
- * Send message
+ * Post message
  * 
  * @param {String} msg
  * @param {Object} callback
@@ -37,16 +37,45 @@ SFChat.api.resources.messages = function(client) {
  * @param {Object} callback.obj
  * @throws {Error}
  */
-SFChat.api.resources.messages.prototype.sendMessage = function(msg, callback) {
+SFChat.api.resources.messages.prototype.postMessage = function(msg, callback) {
     var _this = this,
-        msgData;
+        data;
   
     if (_this._validateMessage(msg) === true) {
-        msgData = _this._prepareMessageForSend(msg);
-        this.client.sendRequest('POST', _this._name, msgData, callback);
+        data = _this._prepareMessageForSend(msg);
+        this.client.sendRequest('POST', _this._name, data, callback);
     } else {
         throw new Error('Message has invalid format.');
     }
+};
+
+/**
+ * Gets message
+ * 
+ * @param {Function} callback.method
+ * @param {Object} callback.obj
+ */
+SFChat.api.resources.messages.prototype.getMessage = function(callback) {
+    var _this = this;
+    
+    this.client.sendRequest('GET', _this._name, undefined, callback);
+};
+
+/**
+ * Delete message
+ * 
+ * @param {Object} data
+ * @param {Object} data.messages
+ * @param {Array} data.messages
+ * @param {Object} data.messages[0]
+ * @param {String} data.messages[0]._id
+ * @param {Function} callback.method
+ * @param {Object} callback.obj
+ */
+SFChat.api.resources.messages.prototype.deleteMessage = function(data, callback) {
+    var _this = this;
+    
+    this.client.sendRequest('DELETE', _this._name, data, callback);
 };
 
 /**
