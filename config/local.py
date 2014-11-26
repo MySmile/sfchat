@@ -27,3 +27,25 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 ADMINS = (
     ('admin', 'info@mysmile.com.ua'),
 )
+
+
+# """Celery settings
+# """
+#
+# ## Broker settings.
+# BROKER_URL = 'mongodb://localhost:27017/chat_clear'
+#
+# # List of modules to import when celery starts.
+# CELERY_IMPORTS = (
+#     'apps.chat.tasks',
+# )
+#
+# ## Using the database to store task state and results.
+# CELERY_RESULT_BACKEND = 'mongodb://localhost:27017/chat_clear'
+#
+# CELERY_MONGODB_BACKEND_SETTINGS = {
+#     'database': 'chat_clear',
+#     'taskmeta_collection': 'cclogg',
+# }
+# CELERY_ANNOTATIONS = {'tasks.add': {'rate_limit': '10/s'}}
+
