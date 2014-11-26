@@ -29,6 +29,11 @@ body {
     font-size: 13px;
  }
  
+mark {
+    background: #FCFCFC;
+    padding: 0 2px;
+} 
+ 
 .clear {
     clear: both;
  }
@@ -172,6 +177,10 @@ hr {
     overflow-y: auto;
  }
   
+#chat-close {
+     cursor: pointer;
+} 
+ 
  /*message*/
  .message {
     margin-top: 15px;
