@@ -6,7 +6,7 @@
 
 // check namespace
 var SFChat;
-if (!SFChat.api || !SFChat.api.auth  
+if (!SFChat.api || !SFChat.api.auth  || !SFChat.api.storage 
     || !SFChat.api.resources || !SFChat.api.renders
 ) {
     throw new Error('One of required modules was not loaded.');
@@ -42,6 +42,13 @@ SFChat.api.core = function (options) {
     };
     
     /**
+     * Key for Chat History in the storage
+     * 
+     * @property {String}
+     */
+    this.chatHistoryKey = 'chatHistory';
+    
+    /**
      * Api Client
      * 
      * @property {SFChat.api.client}
@@ -69,6 +76,13 @@ SFChat.api.core = function (options) {
      */
     this.renderSystemMessages = SFChat.api.renders.systemMessages;
 
+    /**
+     * Storage
+     * 
+     * @property {SFChat.api.storage}
+     */ 
+    this.storage = SFChat.api.storage;
+
     // set options
     this.setOptions(options);
     
@@ -89,7 +103,9 @@ SFChat.api.core = function (options) {
     // init
     this._init();
     // init message handler
-    this._initMessageHandler(); 
+    this._initMessageHandler();
+    // init chat history
+    this._initChatHistory();
     // start long-polling
     this.getMessage();
 };
@@ -176,13 +192,14 @@ SFChat.api.core.prototype.getMessage = function() {
 SFChat.api.core.prototype._getMessageCallback = function(data) {
     var _this = this,
         deleteMessages = [],
+        msgSource      = 'talker',
         msgDom;
     
     // check response format
     _this._checkResponseFormat(data);
     if (data.results.code === 200) {
         $.each(data.results.messages, function(key, item) {
-            msgDom = _this._renderMessage(item);
+            msgDom = _this._renderMessage(item, msgSource);
             _this._displayMessage(msgDom);
             
             deleteMessages.push(item._id);       
@@ -258,7 +275,10 @@ SFChat.api.core.prototype._deleteMessageCallback = function(data) {
  * @TODO catch exceptions
  */
 SFChat.api.core.prototype._postMessageCallback = function(data) {
-    var _this = this,
+    var _this       = this,
+        msgSource   = 'you',
+        msg         = {},
+        date        = new Date(),
         msgDom;
     
     // check response format
@@ -268,30 +288,41 @@ SFChat.api.core.prototype._postMessageCallback = function(data) {
     }
     
     // success
-    msgDom = _this.renderMessages.render(_this.chatTypeDom.val());        
+    msg = {
+       _id:     undefined,
+       msg:     _this.chatTypeDom.val(),
+       created: date.toGMTString(),
+       system:  false
+    };
+    msgDom = _this._renderMessage(msg, msgSource);        
     // clear
     _this.chatTypeDom.val('');  
     // display
     _this._displayMessage(msgDom);
 };
 
-
 /**
  * Render response message
+ * Save data to history
  * 
  * @param {Object}  data
  * @param {String}  data._id
  * @param {String}  data.msg
  * @param {String}  data.created
  * @param {Boolean} data.system
+ * @param {String}  msgSource
+ * @return {jQuery}
  */
-SFChat.api.core.prototype._renderMessage = function(data) {
+SFChat.api.core.prototype._renderMessage = function(data, msgSource) {
     var _this = this,
         result;
     
     result = (data.system) ? _this.renderSystemMessages.render(data.msg):
-        _this.renderMessages.render(data.msg, data.created, 'talker');
-      
+        _this.renderMessages.render(data.msg, data.created, msgSource);
+    
+    // save to history
+    _this.storage.addData(_this.chatHistoryKey, result.get(0).outerHTML);
+    
     return result;
 };
 
@@ -330,6 +361,18 @@ SFChat.api.core.prototype._initMessageHandler = function() {
             _this.postMessage();
         }
     });
+};
+
+/**
+ * Gets data from chat history and display them
+ */
+SFChat.api.core.prototype._initChatHistory = function() {
+    var _this   = this,
+        data    = _this.storage.getData(this.chatHistoryKey);
+    
+    if (typeof(data) !== 'undefined') {
+        _this._displayMessage(data);
+    }
 };
 
 /**
