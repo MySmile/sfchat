@@ -13,3 +13,6 @@ class ChatsQuerySet(QuerySet):
         return self.get(id=ObjectId(chat_token),
                         status__in=status,
                         user_tokens=ObjectId(user_token))
+
+    def get_chat(self, chat_token, user_token):
+        return self.get(id=ObjectId(chat_token), user_tokens=ObjectId(user_token))

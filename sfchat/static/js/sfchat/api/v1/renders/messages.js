@@ -107,7 +107,7 @@ SFChat.api.renders.messages = (function() {
         
         $('.' + msgDateClass, messageTmp).html(dateRendered);
     };
-    
+        
     /**
      * Render Message
      * 
@@ -118,8 +118,8 @@ SFChat.api.renders.messages = (function() {
      */
     var renderMessage = function(msg, date, msgSource) {
         var messageTmp = getMessageTmp();
-        
-        $( '.' + msgTextClass, messageTmp).html(msg);
+              
+        $('.' + msgTextClass, messageTmp).text(msg);
         renderMessageName(messageTmp, msgSource);
         renderMessageDate(messageTmp, date);
         

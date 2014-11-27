@@ -92,10 +92,12 @@ SFChat.api.client.prototype.sendRequest = function(type, resource, data, callbac
         }); 
         
         jqxhr.done(function(response, textStatus, jqXHR) {
+            _this._checkResponse(response);
             callback.method.apply(callback.obj, [response]);
         });
         
         jqxhr.fail(function(jqXHR, textStatus, error) {
+            _this._checkResponse(jqXHR.responseJSON);
             callback.method.apply(callback.obj, [jqXHR.responseJSON]);
         });
         
@@ -141,4 +143,16 @@ SFChat.api.client.prototype._getUrl = function(resource, chatToken) {
     url += '?' + $.param(params);
     
     return url;
+};
+
+/**
+ * Check response format
+ * 
+ * @param {Object} data
+ * @throws TypeError
+ */
+SFChat.api.client.prototype._checkResponse = function(data) {
+    if (typeof(data['results']) !== 'object') {
+        throw new TypeError('Data has invalid format.');
+    }
 };

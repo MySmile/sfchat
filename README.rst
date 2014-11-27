@@ -1,13 +1,12 @@
 ******
 SFChat
 ******
+SFChat is a Secure Free Chat.
 
-Overview
-========
+Installation
+============
+  #. Please run commands to install dependences: ``$ sudo pip3 install -r config/requirements.pip``
 
-SFChat is acronym for Secure Free Chat under BSD license. 
-
-Quick install guide
-===================
-
-  #. Install dependences: ``$ sudo pip3 install -r config/requirements.pip``
+License
+=======
+BSD-3-Clause

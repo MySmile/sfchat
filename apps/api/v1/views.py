@@ -21,7 +21,8 @@ class MessagesView(APIView):
         user_token = TokenAuthentication.get_user_token(request)
 
         serializer = ChatMessagesSerializer(request.user)
-        while long_polling == 'True' and serializer.data['count'] == 0:
+        while long_polling == 'True' and serializer.data['count'] == 0 \
+                and serializer.data['status'] != Chats.STATUS_CLOSED:
             time.sleep(self.LONG_POLLING_SLEEP)
             chat = Chats.get_chat(chat_token, user_token)
             serializer = ChatMessagesSerializer(chat)
@@ -49,5 +50,18 @@ class MessagesView(APIView):
         if not 'data' in data or not 'messages' in data['data'] or \
                 not request.user.delete_message(messages=data['data']['messages']):
             raise ParseError()
+
+        return Response(self.RESPONSE_SUCCESS)
+
+
+class ChatView(APIView):
+    RESPONSE_SUCCESS = {'results': {'code': 200, 'msg': 'Ok'}}
+
+    def delete(self, request, format=None):
+        """
+        Delete chat
+        """
+        user_token = request.META.get(TokenAuthentication.USER_TOKEN_HEADER)
+        request.user.delete_chat(user_token)
 
         return Response(self.RESPONSE_SUCCESS)

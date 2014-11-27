@@ -23,18 +23,17 @@ if (SFChat.api.resources.messages) {
  * @param {SFChat.api.client} client
  */
 SFChat.api.resources.messages = function(client) {
-    this.client = {};
+    this.client = client;
     this._name  = 'messages';
-    this._setClient(client);
 };
 
 /**
  * Post message
  * 
- * @param {String} msg
- * @param {Object} callback
- * @param {Function} callback.method
- * @param {Object} callback.obj
+ * @param {String}      msg
+ * @param {Object}      callback
+ * @param {Function}    callback.method
+ * @param {Object}      callback.obj
  * @throws {Error}
  */
 SFChat.api.resources.messages.prototype.postMessage = function(msg, callback) {
@@ -52,8 +51,8 @@ SFChat.api.resources.messages.prototype.postMessage = function(msg, callback) {
 /**
  * Gets message
  * 
- * @param {Function} callback.method
- * @param {Object} callback.obj
+ * @param {Function}    callback.method
+ * @param {Object}      callback.obj
  */
 SFChat.api.resources.messages.prototype.getMessage = function(callback) {
     var _this = this;
@@ -64,33 +63,18 @@ SFChat.api.resources.messages.prototype.getMessage = function(callback) {
 /**
  * Delete message
  * 
- * @param {Object} data
- * @param {Object} data.messages
- * @param {Array} data.messages
- * @param {Object} data.messages[0]
- * @param {String} data.messages[0]._id
- * @param {Function} callback.method
- * @param {Object} callback.obj
+ * @param {Object}      data
+ * @param {Object}      data.messages
+ * @param {Array}       data.messages
+ * @param {Object}      data.messages[0]
+ * @param {String}      data.messages[0]._id
+ * @param {Function}    callback.method
+ * @param {Object}      callback.obj
  */
 SFChat.api.resources.messages.prototype.deleteMessage = function(data, callback) {
     var _this = this;
     
     this.client.sendRequest('DELETE', _this._name, data, callback);
-};
-
-/**
- * Sets Api Client
- * 
- * @param {SFChat.api.client} client
- */
-SFChat.api.resources.messages.prototype._setClient = function(client) {
-    if (typeof(client) !== 'object' 
-        || typeof(client.sendRequest) !== 'function'
-    ) {
-        throw new TypeError('Client is not valid API Client.');
-    }
-    
-    this.client = client;
 };
 
 /**
