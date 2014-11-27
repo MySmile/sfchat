@@ -1,8 +1,9 @@
+import datetime
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
 from mongoengine import *
+from django.utils.translation import ugettext as _
 from apps.chat.querysets import ChatsQuerySet
-import datetime
 
 
 class Messages(EmbeddedDocument):
@@ -32,6 +33,13 @@ class Chats(Document):
     STATUS_CLOSED = 'closed'
     HTTP_CODE = 200
     HTTP_MSG = 'Ok'
+
+    MSG_CREATE_CHAT = 'Welcome to SFChat! <br /> Please send code: <mark> %(chat_token)s </mark> to Talker'
+    MSG_JOIN_CHAT = 'Talker was successfully joined to chat'
+    MSG_CHAT_CLOSE_TALKER = 'Thank you for using SFChat.<br /> Chat was successfully closed by Talker.'
+    MSG_CHAT_CLOSE_YOU = 'Thank you for using SFChat<br />Current chat was successfully closed.'
+
+
     # it's used for authentication
     is_staff = True
 
@@ -68,7 +76,7 @@ class Chats(Document):
         """
         chat_token = ObjectId()
         user_token = ObjectId()
-        msg = "Welcome to SFChat! <br /> Please send code: <mark>" + str(chat_token) + "</mark> to Talker"
+        msg = _(Chats.MSG_CREATE_CHAT) % {'chat_token': str(chat_token)}
         message = Messages.prepare_message(msg=msg, user_token=user_token)
         chat = Chats(id=chat_token, messages=[message], user_tokens=[user_token])
         chat.save()
@@ -87,9 +95,7 @@ class Chats(Document):
             return False
 
         user_token = ObjectId()
-        msg = "Talker was successfully joined to chat"
-
-        message = Messages.prepare_message(msg=msg, user_token=user_token)
+        message = Messages.prepare_message(msg=_(Chats.MSG_JOIN_CHAT), user_token=user_token)
         chat.user_tokens.append(user_token)
         chat.messages.append(message)
         chat.status = Chats.STATUS_READY
@@ -119,7 +125,7 @@ class Chats(Document):
         :return: Boolean
         """
         try:
-            result = Chats.objects.get_active(chat_token, user_token, [Chats.STATUS_DRAFT, Chats.STATUS_READY])
+            result = Chats.objects.get_chat(chat_token, user_token)
             result.messages = list(filter(lambda item: user_token == str(item.user_token), result.messages))
         except (TypeError, InvalidId, DoesNotExist) as ex:
             result = False
@@ -174,17 +180,14 @@ class Chats(Document):
          :return: Boolean
         """
         try:
-            if ObjectId(user_token) in self.user_tokens:
-                if self.user_tokens[0]==ObjectId(user_token):
-                    user_token_another = self.user_tokens[1]
-                else:
-                    user_token_another = self.user_tokens[0]
-                message_close = Messages.prepare_message(msg='Chat has closed!', user_token=user_token_another)
-                self.update(pull__user_tokens=ObjectId(user_token),
-                            set__status=self.STATUS_CLOSED, push__messages=message_close)
-                result = True
-            else:
-                result = False
+            talker_token = list(filter(lambda item: user_token != str(item), self.user_tokens))
+            prepared_messages = [
+                Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_TALKER), user_token=talker_token[0]),
+                Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_YOU), user_token=ObjectId(user_token))
+            ]
+
+            self.update(set__status=self.STATUS_CLOSED, push_all__messages=prepared_messages)
+            result = True
         except (TypeError, InvalidId, ValidationError) as ex:
             result = False
 

@@ -103,6 +103,11 @@ aside {
     text-align: center;
     font-size:14px;
  }
+
+ .btn.btn-grey {
+    background-color: #DEDEDE;
+    border: 1px solid #999;
+}
  
 #or {
     letter-spacing: normal;
@@ -184,6 +189,7 @@ hr {
  /*message*/
  .message {
     margin-top: 15px;
+    clear: both;
  }
  
  .message .msg-border {

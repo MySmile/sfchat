@@ -91,6 +91,17 @@ SFChat.api.storage = new function () {
     };
     
     /**
+     * Remove all data related to chat
+     */
+    this.removeAllData = function() {
+        $.each(sessionStorage, function(key, item) {
+           if (key.indexOf(chatToken) >= 0) {
+               sessionStorage.removeItem(key);
+           }
+       });
+    };
+    
+    /**
      * Add item to Storage
      * 
      * @param {String} key

@@ -1,5 +1,6 @@
 /**
  * sfchat/api/v1/core.js: SFChat Api Core
+ * @TODO split to smaller files
  */
 
 "use strict";
@@ -26,19 +27,23 @@ SFChat.api.core = function (options) {
      * @property {Object} options
      * @property {String} options.endPoint
      * @property {String} options.userToken
-     * @property {Object} options.messages
-     * @property {String} options.messages.targetChat
-     * @property {String} options.messages.targetType
-     * @property {String} options.messages.targetSend
+     * @property {Object} options.chat
+     * @property {String} options.chat.targetBody
+     * @property {String} options.chat.targetType
+     * @property {String} options.chat.targetSend
+     * @property {String} options.chat.targetClose
+     * @property {String} options.btnDesibleClass
      */
     this.options = {
         endPoint:   undefined,
         userToken:  undefined,
-        messages: {
-            targetChat:     '#chat-body',
+        chat: {
+            targetBody:     '#chat-body',
             targetType:     '#chat-type textarea',
-            targetSend:     '#chat-type .btn'
-        }        
+            targetSend:     '#chat-type .btn',
+            targetClose:    '#chat-close'
+        },
+        btnDesibleClass: 'btn-grey'
     };
     
     /**
@@ -47,20 +52,20 @@ SFChat.api.core = function (options) {
      * @property {String}
      */
     this.chatHistoryKey = 'chatHistory';
-    
+     
     /**
-     * Api Client
-     * 
-     * @property {SFChat.api.client}
-     */
-    this.client = undefined;
-    
-    /**
-     * Messages Resources
+     * Messages Resource
      * 
      * @property {SFChat.api.resources.messages}
      */
     this.messages = undefined;
+    
+    /**
+     * Chat Resource
+     * 
+     * @property {SFChat.api.resources.chat}
+     */
+    this.chat = undefined;
     
     /**
      * Render Messages
@@ -84,62 +89,32 @@ SFChat.api.core = function (options) {
     this.storage = SFChat.api.storage;
 
     // set options
-    this.setOptions(options);
+    this._setOptions(options);
     
     /**
      * Chat DOM
      * 
      * @property {jQuery}
      */
-    this.chatDom = $(this.options.messages.targetChat);
+    this.chatDom = $(this.options.chat.targetBody);
     
     /**
      * Type DOM
      * 
      * @property {jQuery}
      */
-    this.chatTypeDom = $(this.options.messages.targetType);
+    this.chatTypeDom = $(this.options.chat.targetType);
     
-    // init
-    this._init();
+    // init resources
+    this._initResources();
     // init message handler
     this._initMessageHandler();
     // init chat history
     this._initChatHistory();
+    // init chat close
+    this._initChatHandler();
     // start long-polling
     this.getMessage();
-};
-
-/**
- * Sets options
- * 
- * @param {Object} options
- * @throws {TypeError}
- */
-SFChat.api.core.prototype.setOptions = function(options) {
-    if (!options && typeof(options) !== 'object') {
-        throw new TypeError('Invalid Options type. Object is expected.');
-    } 
-
-    this.options = $.extend(this.options, options);
-};
-
-/**
- * Initiate properties
- */
-SFChat.api.core.prototype._init = function() {
-    var _this = this;
-    
-    // set userToken
-    SFChat.api.auth.setUserToken(_this.options.userToken);
-    
-    // init client
-    _this.client = new SFChat.api.client({
-        endPoint: _this.options.endPoint
-    });
-        
-    // init messages
-    _this.messages = new SFChat.api.resources.messages(_this.client);
 };
 
 /**
@@ -171,6 +146,99 @@ SFChat.api.core.prototype.getMessage = function() {
     });
 };
 
+
+/**
+ * Delete Chat
+ * 
+ * @TODO catch exeptions
+ */
+SFChat.api.core.prototype.deleteChat = function() {
+    var _this = this; 
+    
+    _this.chat.deleteChat({
+        method: _this._deleteChatCallback,
+        obj: _this
+    });
+};
+
+/**
+ * Sets options
+ * 
+ * @param {Object} options
+ * @throws {TypeError}
+ */
+SFChat.api.core.prototype._setOptions = function(options) {
+    if (!options && typeof(options) !== 'object') {
+        throw new TypeError('Invalid Options type. Object is expected.');
+    } 
+
+    this.options = $.extend(this.options, options);
+};
+
+/**
+ * Initiate resources
+ */
+SFChat.api.core.prototype._initResources = function() {
+    var _this = this,
+        client;
+    
+    // init client
+    SFChat.api.auth.setUserToken(_this.options.userToken);
+    client = new SFChat.api.client({
+        endPoint: _this.options.endPoint
+    });
+        
+    // set resources
+    _this.messages  = new SFChat.api.resources.messages(client);
+    _this.chat      = new SFChat.api.resources.chat(client);
+};
+
+/**
+ * Initiate handler send message
+ * Message can be send by button or ctrl + enter hot key
+ * 
+ * @TODO button should be desibled until chat will be ready
+ */
+SFChat.api.core.prototype._initMessageHandler = function() {
+    var _this = this;
+    
+    // click on send button
+    $(_this.options.chat.targetSend).click(function(){
+        _this.postMessage.apply(_this);
+    });
+    
+    // hotkey
+    _this.chatTypeDom.keydown(function(e) {
+        if (e.ctrlKey && (e.keyCode === 10 || e.keyCode === 13)) {
+            _this.postMessage();
+        }
+    });
+};
+
+/**
+ * Initiate handler for chat close
+ */
+SFChat.api.core.prototype._initChatHandler = function() {
+    var _this = this;
+    
+    // click on close
+    $(_this.options.chat.targetClose).click(function(){
+        _this.deleteChat.apply(_this);
+    });
+};
+
+/**
+ * Gets data from chat history and display them
+ */
+SFChat.api.core.prototype._initChatHistory = function() {
+    var _this   = this,
+        data    = _this.storage.getData(this.chatHistoryKey);
+    
+    if (typeof(data) !== 'undefined') {
+        _this._displayMessage(data);
+    }
+};
+
 /**
  * Get Message Callback
  * Handle long-polling response
@@ -187,28 +255,31 @@ SFChat.api.core.prototype.getMessage = function() {
  * @param {String}  data.results.messages[0].msg
  * @param {String}  data.results.messages[0].created
  * @param {Boolean} data.results.messages[0].system
- * @throws {TypeError}
+ * @throws {Error}
  */
 SFChat.api.core.prototype._getMessageCallback = function(data) {
     var _this = this,
-        deleteMessages = [],
-        msgSource      = 'talker',
         msgDom;
     
-    // check response format
-    _this._checkResponseFormat(data);
     if (data.results.code === 200) {
+        // display messages
         $.each(data.results.messages, function(key, item) {
-            msgDom = _this._renderMessage(item, msgSource);
-            _this._displayMessage(msgDom);
-            
-            deleteMessages.push(item._id);       
+            msgDom = _this._renderMessage(item, 'talker');
+            _this._displayMessage(msgDom);   
         });
+        
+        // delete messages and run long-polling
+        if(data.results.count !== 0) {
+            _this._deleteMessage(data.results.messages);
+        }
+    } else {
+        // run long-polling
+        _this.getMessage();
     }
     
-    // run long polling
-    if (data.results.code !== 403) {
-        _this._deleteMessage(deleteMessages);
+    // close chat
+    if(data.results.status === 'closed') {
+        _this._renderCloseChat();
     }
 };
 
@@ -216,30 +287,30 @@ SFChat.api.core.prototype._getMessageCallback = function(data) {
  * Delete message
  * run long-polling
  * 
- * @param {Array} data
+ * @param {Array}  data
+ * @param {String}  data[0]._id
+ * @param {String}  data[0].msg
+ * @param {String}  data[0].created
+ * @param {Boolean} data[0].system
  * @throws {Error}
  * @TODO catch exceptions
  */
 SFChat.api.core.prototype._deleteMessage = function(data) {
     var _this       = this,
         dataRequest = { data:{ messages:[] }};
-
+    
+    // prepare data
     $.each(data, function(key, item) {
         dataRequest.data.messages.push({
-            _id: item
+            _id: item._id
         });
     });    
     
-    if (dataRequest.data.messages.length !== 0) {
-        // run delete
-        _this.messages.deleteMessage(dataRequest, {
-            method: _this._deleteMessageCallback,
-            obj: _this
-        });
-    } else {
-        // restart long-polling
-        _this.getMessage();
-    }
+    // run delete
+    _this.messages.deleteMessage(dataRequest, {
+        method: _this._deleteMessageCallback,
+        obj: _this
+    });
 };
 
 /**
@@ -253,9 +324,7 @@ SFChat.api.core.prototype._deleteMessage = function(data) {
  */
 SFChat.api.core.prototype._deleteMessageCallback = function(data) {
     var _this = this;
-    
-    // check response format
-    _this._checkResponseFormat(data);
+
     if (data.results.code !== 200) {
         throw new Error(data.results.msg);
     }
@@ -276,30 +345,58 @@ SFChat.api.core.prototype._deleteMessageCallback = function(data) {
  */
 SFChat.api.core.prototype._postMessageCallback = function(data) {
     var _this       = this,
-        msgSource   = 'you',
         msg         = {},
         date        = new Date(),
         msgDom;
     
-    // check response format
-    _this._checkResponseFormat(data);
     if (data.results.code !== 200) {
         throw new Error(data.results.msg);
     }
     
-    // success
+    // display
     msg = {
-       _id:     undefined,
        msg:     _this.chatTypeDom.val(),
        created: date.toGMTString(),
        system:  false
     };
-    msgDom = _this._renderMessage(msg, msgSource);        
+    msgDom = _this._renderMessage(msg, 'you');        
+    _this._displayMessage(msgDom);
+    
     // clear
     _this.chatTypeDom.val('');  
-    // display
-    _this._displayMessage(msgDom);
 };
+
+/**
+ * Delete Chat Callback
+ * 
+ * @param {Object}  data
+ * @param {Object}  data.results
+ * @param {Integer} data.results.code
+ * @param {String}  data.results.msg
+ * @throws {Error}
+ * @TODO catch exceptions
+ */
+SFChat.api.core.prototype._deleteChatCallback = function(data) {    
+    if (data.results.code !== 200) {
+        throw new Error(data.results.msg);
+    }
+};
+
+/**
+ * Render delete chat
+ */
+SFChat.api.core.prototype._renderCloseChat = function() {
+    var _this = this;
+    
+    // unbind events
+    $(_this.options.chat.targetSend).addClass(_this.options.btnDesibleClass).unbind();
+    _this.chatTypeDom.prop('disabled', true ).unbind();
+    $(_this.options.chat.targetClose).unbind();
+    
+    // clear message storage
+    _this.storage.removeAllData();
+};
+
 
 /**
  * Render response message
@@ -339,50 +436,4 @@ SFChat.api.core.prototype._displayMessage = function(msgDom) {
     // autoscroll
     scrollHeight = _this.chatDom[0].scrollHeight;
     _this.chatDom.scrollTop(scrollHeight);
-};
-
-/**
- * Initiate handler send message
- * Message can be send by button or ctrl + enter hot key
- * 
- * @TODO button should be desibled untill chat will be ready
- */
-SFChat.api.core.prototype._initMessageHandler = function() {
-    var _this = this;
-    
-    // click on send button
-    $(_this.options.messages.targetSend).click(function(){
-        _this.postMessage.apply(_this);
-    });
-    
-    // hotkey
-    _this.chatTypeDom.keydown(function(e) {
-        if (e.ctrlKey && (e.keyCode === 10 || e.keyCode === 13)) {
-            _this.postMessage();
-        }
-    });
-};
-
-/**
- * Gets data from chat history and display them
- */
-SFChat.api.core.prototype._initChatHistory = function() {
-    var _this   = this,
-        data    = _this.storage.getData(this.chatHistoryKey);
-    
-    if (typeof(data) !== 'undefined') {
-        _this._displayMessage(data);
-    }
-};
-
-/**
- * Check response format
- * 
- * @param {Object} data
- * @throws TypeError
- */
-SFChat.api.core.prototype._checkResponseFormat = function(data) {
-    if (typeof(data['results']) !== 'object') {
-        throw new TypeError('Data has invalid format.');
-    }
 };
