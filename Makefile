@@ -5,13 +5,21 @@ run:
 	@echo "=========================================="
 	@python3 manage.py runserver --nostatic --setting=sfchat.settings.local
 
-# help  - Display callable targets.
+# celery - run celery task for chat clean 
+celery:
+	celery  worker --beat  -A apps.chat.tasks
+
+# help - Display callable targets.
 help:
-	@egrep "^# [a-z,\",=,_ ]+ - " Makefile	
+	@egrep "^# [a-z,\",=,_,-]+ - " Makefile	
 
 # bower - Install dependences components with bower
 bower:
-	cd ./bin/bower && bower install
+	@cd ./bin/bower && sudo bower install
+
+# install-local - install locally dependenses
+install-local:
+	@cd ./config/requirements && sudo pip3 install -r local.pip
 
 # syncdb - Run syncdb command
 syncdb:
