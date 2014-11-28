@@ -12,6 +12,6 @@ class ChatTypeForm(forms.Form):
                                         "cols": 0,
                                         "rows": 4,
                                         "maxlength": 144,
-                                        "autofocus": "True"
+                                        "disabled": "True",
                                         })
 

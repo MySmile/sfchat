@@ -35,7 +35,8 @@ class Chats(Document):
     HTTP_MSG = 'Ok'
 
     MSG_CREATE_CHAT = 'Welcome to SFChat! <br /> Please send code: <mark> %(chat_token)s </mark> to Talker'
-    MSG_JOIN_CHAT = 'Talker was successfully joined to chat'
+    MSG_JOIN_CHAT_YOU = 'Talker was successfully joined to chat'
+    MSG_JOIN_CHAT_TALKER = 'Chat is ready to use'
     MSG_CHAT_CLOSE_TALKER = 'Thank you for using SFChat.<br /> Chat was successfully closed by Talker.'
     MSG_CHAT_CLOSE_YOU = 'Thank you for using SFChat<br />Current chat was successfully closed.'
 
@@ -81,8 +82,7 @@ class Chats(Document):
         chat = Chats(id=chat_token, messages=[message], user_tokens=[user_token])
         chat.save()
         return {'chat_token': str(chat_token), 'user_token': str(user_token)}
-    
-    @staticmethod
+
     def join_to_chat(chat_token):
         """
         Join to chat
@@ -95,11 +95,12 @@ class Chats(Document):
             return False
 
         user_token = ObjectId()
-        message = Messages.prepare_message(msg=_(Chats.MSG_JOIN_CHAT), user_token=user_token)
-        chat.user_tokens.append(user_token)
-        chat.messages.append(message)
-        chat.status = Chats.STATUS_READY
-        chat.save()
+        prepared_messages = [
+            Messages.prepare_message(msg=_(Chats.MSG_JOIN_CHAT_TALKER), user_token=user_token),
+            Messages.prepare_message(msg=_(Chats.MSG_JOIN_CHAT_YOU), user_token=chat.user_tokens[0])
+        ]
+        chat.update(set__status=Chats.STATUS_READY, push__user_tokens=user_token, push_all__messages=prepared_messages)
+
         return str(user_token)
 
     @staticmethod
@@ -180,11 +181,15 @@ class Chats(Document):
          :return: Boolean
         """
         try:
-            talker_token = list(filter(lambda item: user_token != str(item), self.user_tokens))
             prepared_messages = [
-                Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_TALKER), user_token=talker_token[0]),
                 Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_YOU), user_token=ObjectId(user_token))
             ]
+            # it's possible to close "draft" chat
+            talker_token = list(filter(lambda item: user_token != str(item), self.user_tokens))
+            if talker_token:
+                prepared_messages.append(
+                    Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_TALKER), user_token=talker_token[0])
+                )
 
             self.update(set__status=self.STATUS_CLOSED, push_all__messages=prepared_messages)
             result = True
