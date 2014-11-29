@@ -34,7 +34,7 @@ class Chats(Document):
     HTTP_CODE = 200
     HTTP_MSG = 'Ok'
 
-    MSG_CREATE_CHAT = 'Welcome to SFChat! <br /> Please send code: <mark> %(chat_token)s </mark> to Talker'
+    MSG_CREATE_CHAT = 'Welcome to SFChat! <br /> Please send code: <mark>%(chat_token)s</mark> to Talker'
     MSG_JOIN_CHAT_YOU = 'Talker was successfully joined to chat'
     MSG_JOIN_CHAT_TALKER = 'Chat is ready to use'
     MSG_CHAT_CLOSE_TALKER = 'Thank you for using SFChat.<br /> Chat was successfully closed by Talker.'
