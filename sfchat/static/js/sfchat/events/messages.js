@@ -30,13 +30,11 @@ SFChat.events.messages =  {
      * @property {jQuery}   options.chatBodyDom
      * @property {jQuery}   options.chatTypeDom
      * @property {SFChat.api.client}    options.client
-     * @property {String}               targetMessage
      */
     options: {
         chatBodyDom:    undefined,
         chatTypeDom:    undefined,
-        client:         undefined,
-        targetMessage: '.message'
+        client:         undefined
     },
 
     /**
@@ -66,7 +64,7 @@ SFChat.events.messages =  {
      * @property {String}
      */
     _chatHistoryKey: 'chatHistory',
-    
+        
     /**
      * Messages resource
      * 
@@ -273,10 +271,7 @@ SFChat.events.messages =  {
             return;
         }
         
-       _this._appendMessage(msgHistory);
-       if($(_this.options.targetMessage, _this.options.chatBodyDom).length > 1) {
-           _this.options.chatBodyDom.trigger('setChatReady');
-       }
+        _this._appendMessage(msgHistory);
     },
     
     /**

@@ -33,6 +33,7 @@ SFChat.bootstrap = function (options) {
      * @property {String} options.chat.targetSend
      * @property {String} options.chat.targetClose
      * @property {String} options.draftClass
+     * @property {String} options.chatStatus
      */
     this.options = {
         endPoint:   undefined,
@@ -43,7 +44,8 @@ SFChat.bootstrap = function (options) {
             targetSend:     '#chat-type .btn',
             targetClose:    '#chat-close'
         },
-        draftClass: 'btn-grey'
+        draftClass: 'btn-grey',
+        chatStatus: undefined
     };
     
     /**
@@ -104,6 +106,8 @@ SFChat.bootstrap = function (options) {
     
     // show history messages
     this.chatBodyDom.trigger('showHistoryMessage');
+    // set chat status
+    this.chatBodyDom.trigger('setChatStatus', [this.options.chatStatus]);
     // get messages, long-polling
     this.chatBodyDom.trigger('getMessage');
 };
@@ -161,7 +165,7 @@ SFChat.bootstrap.prototype._initEvents = function() {
         _this.chatBodyDom.on(key, item);
     });
       
-    // inti chat close
+    // init chat close
     _this._initChatClose();
 };
 

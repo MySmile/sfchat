@@ -94,6 +94,9 @@ class Chats(Document):
         except (TypeError, InvalidId, DoesNotExist) as ex:
             return False
 
+        if len(chat.user_tokens) > 1:
+            return False
+
         user_token = ObjectId()
         prepared_messages = [
             Messages.prepare_message(msg=_(Chats.MSG_JOIN_CHAT_TALKER), user_token=user_token),
@@ -167,7 +170,6 @@ class Chats(Document):
             for item in messages:
                 # pull_all supports only a single field depth
                 self.update(pull__messages___id=ObjectId(item['_id']))
-                # self.update(pull__messages___id=ObjectId('0'*24))
             result = True
         except (TypeError, InvalidId, ValidationError) as ex:
             result = False

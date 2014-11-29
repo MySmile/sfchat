@@ -103,6 +103,8 @@ SFChat.events.chat =  {
         // unbind events
         _this.options.chatSendDom.addClass(_this.options.draftClass).off();
         _this.options.chatTypeDom.prop('disabled', true ).off();
+        _this.options.chatBodyDom.off('deleteChat');
+        _this.options.chatBodyDom.off('deleteMessage');
         
         // remove history
         _this._storage.removeAllData();
@@ -148,7 +150,7 @@ SFChat.events.chat =  {
      */
     setChatStatus: function(e, status) {
         var _this  = SFChat.events.chat;
-        
+                
         switch (status) {
             case 'ready':
                 _this.options.chatBodyDom.trigger('setChatReady');
@@ -158,5 +160,5 @@ SFChat.events.chat =  {
                 _this.options.chatBodyDom.trigger('setChatClosed');
                 break;
         }
-    }  
+    }
 };

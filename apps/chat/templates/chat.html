@@ -44,10 +44,13 @@
 
 {% block inline_js %}
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function() {        
+        window.onerror = SFChat.errorHandler;
+        
         new SFChat.bootstrap({
            endPoint:  '{{ request.get_host }}/api',
-           userToken: '{{ user_token }}'
+           userToken: '{{ user_token }}',
+           chatStatus: '{{ chat_status }}'
         });
     });
 </script>    
