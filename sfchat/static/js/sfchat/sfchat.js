@@ -15,45 +15,7 @@ if (SFChat) {
  * 
  * @type {Object}
  */
-var SFChat = {
-    /**
-     * Debug mode
-     * 
-     * @property {Boolean}
-     */
-    debugmode: false,
-    
-    /**
-     * Previous error
-     * 
-     * @type {String}
-     */
-    _prevError: undefined,
-    
-    /**
-     * Error hadler
-     * 
-     * @param {String}  msg
-     * @param {String}  url
-     * @param {Integer} line
-     * @TODO sent to GA if debugmode === false
-     */
-    errorHandler: function(msg, url, line) {
-        var _this = SFChat,
-            error = JSON.stringify({
-                msg: msg,
-                url: url,
-                line: line
-            });
-        
-        if(_this.debugmode === false && _this._prevError !== error) {
-            _this._prevError = error;
-            // @TODO add sending log here
-            
-            return true;
-        }
-    },
-    
+var SFChat = {    
     /**
      * Extends objects
      * 

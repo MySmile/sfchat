@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load staticfiles %}{% load i18n %}{% get_current_language as LANGUAGE_CODE %}
 
-{% block css %}
-    <script type="text/javascript" src='{% static 'js/sfchat/sfchat.js' %}'></script>
+{% block css %}{% endblock %}
+{% block js %}
     <script type="text/javascript" src='{% static 'js/sfchat/api/v1/api.js' %}'></script>
     <script type="text/javascript" src='{% static 'js/sfchat/api/v1/storage.js' %}'></script>
     <script type="text/javascript" src='{% static 'js/sfchat/api/v1/auth.js' %}'></script>
@@ -15,7 +15,6 @@
     <script type="text/javascript" src='{% static 'js/sfchat/events/chat.js' %}'></script>
     <script type="text/javascript" src='{% static 'js/sfchat/bootstrap.js' %}'></script>
 {% endblock %}
-{% block js %}{% endblock %}
 
 {% block meta %}
     <meta name="description" content=""  />
@@ -45,8 +44,6 @@
 {% block inline_js %}
 <script type="text/javascript">
     $(document).ready(function() {        
-        window.onerror = SFChat.errorHandler;
-        
         new SFChat.bootstrap({
            endPoint:  '{{ request.get_host }}/api',
            userToken: '{{ user_token }}',

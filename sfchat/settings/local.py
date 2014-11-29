@@ -35,6 +35,9 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-COMPRESS_ENABLED = True
+COMPRESS_ENABLED = False
 
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
+
+# Google Analytics
+GOOGLE_ANALYTICS_TRACKING_ID = 'UA-57194449-2'

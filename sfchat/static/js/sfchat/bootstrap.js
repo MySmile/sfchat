@@ -1,5 +1,5 @@
 /**
- * sfchat/bootstrap.js: SFChat Messages Events
+ * sfchat/bootstrap.js: SFChat Bootstrap
  */
 
 "use strict";
