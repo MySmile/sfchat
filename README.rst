@@ -18,7 +18,7 @@ Installation
 
 Screenshots
 ===========
-![Main and chat pages](https://github.com/MySmile/sfchat/blob/dev/docs/screenshots/main_and_chat_pages.png "Main and chat pages")
+![Main and chat pages](https://raw.github.com/MySmile/sfchat/dev/docs/screenshots/main_and_chat_pages.png "Main and chat pages")
 
 License
 =======
