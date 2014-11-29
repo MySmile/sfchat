@@ -30,19 +30,19 @@ SFChat.api.resources.messages = function(client) {
 /**
  * Post message
  * 
- * @param {String}      msg
- * @param {Object}      callback
- * @param {Function}    callback.method
- * @param {Object}      callback.obj
+ * @param {String}  msg
+ * @param {Object}  eventOptions
+ * @param {jQuery}  eventOptions.manager
+ * @param {String}  eventOptions.event
  * @throws {Error}
  */
-SFChat.api.resources.messages.prototype.postMessage = function(msg, callback) {
+SFChat.api.resources.messages.prototype.postMessage = function(msg, eventOptions) {
     var _this = this,
         data;
   
     if (_this._validateMessage(msg) === true) {
         data = _this._prepareMessageForSend(msg);
-        this.client.sendRequest('POST', _this._name, data, callback);
+        this.client.sendRequest('POST', _this._name, data, eventOptions);
     } else {
         throw new Error('Message has invalid format.');
     }
@@ -51,13 +51,14 @@ SFChat.api.resources.messages.prototype.postMessage = function(msg, callback) {
 /**
  * Gets message
  * 
- * @param {Function}    callback.method
- * @param {Object}      callback.obj
+ * @param {Object}  eventOptions
+ * @param {jQuery}  eventOptions.manager
+ * @param {String}  eventOptions.event
  */
-SFChat.api.resources.messages.prototype.getMessage = function(callback) {
+SFChat.api.resources.messages.prototype.getMessage = function(eventOptions) {
     var _this = this;
     
-    this.client.sendRequest('GET', _this._name, undefined, callback);
+    this.client.sendRequest('GET', _this._name, undefined, eventOptions);
 };
 
 /**
@@ -68,13 +69,14 @@ SFChat.api.resources.messages.prototype.getMessage = function(callback) {
  * @param {Array}       data.messages
  * @param {Object}      data.messages[0]
  * @param {String}      data.messages[0]._id
- * @param {Function}    callback.method
- * @param {Object}      callback.obj
+ * @param {Object}      eventOptions
+ * @param {jQuery}      eventOptions.manager
+ * @param {String}      eventOptions.event
  */
-SFChat.api.resources.messages.prototype.deleteMessage = function(data, callback) {
+SFChat.api.resources.messages.prototype.deleteMessage = function(data, eventOptions) {
     var _this = this;
     
-    this.client.sendRequest('DELETE', _this._name, data, callback);
+    this.client.sendRequest('DELETE', _this._name, data, eventOptions);
 };
 
 /**

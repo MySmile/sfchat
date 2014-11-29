@@ -11,7 +11,9 @@
     <script type="text/javascript" src='{% static 'js/sfchat/api/v1/resources/chat.js' %}'></script>
     <script type="text/javascript" src='{% static 'js/sfchat/api/v1/renders/messages.js' %}'></script>
     <script type="text/javascript" src='{% static 'js/sfchat/api/v1/renders/systemMessages.js' %}'></script>
-    <script type="text/javascript" src='{% static 'js/sfchat/api/v1/core.js' %}'></script>
+    <script type="text/javascript" src='{% static 'js/sfchat/events/messages.js' %}'></script>
+    <script type="text/javascript" src='{% static 'js/sfchat/events/chat.js' %}'></script>
+    <script type="text/javascript" src='{% static 'js/sfchat/bootstrap.js' %}'></script>
 {% endblock %}
 {% block js %}{% endblock %}
 
@@ -32,7 +34,7 @@
         
         <div id="chat-type">
             {{ form }}
-            <button class="btn btn-green">
+            <button class="btn btn-green btn-grey">
                 {% trans "Ctrl+Enter" %}
             </button>
         </div>
@@ -42,10 +44,13 @@
 
 {% block inline_js %}
 <script type="text/javascript">
-    $(document).ready(function() {
-        new SFChat.api.core({
+    $(document).ready(function() {        
+        window.onerror = SFChat.errorHandler;
+        
+        new SFChat.bootstrap({
            endPoint:  '{{ request.get_host }}/api',
-           userToken: '{{ user_token }}'
+           userToken: '{{ user_token }}',
+           chatStatus: '{{ chat_status }}'
         });
     });
 </script>    

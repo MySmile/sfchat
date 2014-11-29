@@ -57,25 +57,25 @@ SFChat.api.client.prototype.setOptions = function(options) {
 /**
  * Send Request
  * 
- * @param {String} type
- * @param {String} resource
- * @param {Object} data
- * @param {Object} callback
- * @param {Function} callback.method
- * @param {Object} callback.obj
+ * @param {String}  type
+ * @param {String}  resource
+ * @param {Object}  data
+ * @param {Object}  eventOptions
+ * @param {jQuery}  eventOptions.manager
+ * @param {String}  eventOptions.event
  * @return {jqXHR}
  * @throws {TypeError}
  */
-SFChat.api.client.prototype.sendRequest = function(type, resource, data, callback) {
+SFChat.api.client.prototype.sendRequest = function(type, resource, data, eventOptions) {
     var _this       = this,
         currentUser = _this._getAuth().authenticate(),
         jqxhr,
         url;          
         
-        if (typeof(callback.method) !== 'function' 
-            || typeof(callback.obj) !== 'object'
+        if (typeof(eventOptions.manager) !== 'object' 
+            || typeof(eventOptions.event) !== 'string'
         ) {
-            throw new TypeError('Callback is not valid.');
+            throw new TypeError('EventOptions is not valid.');
         }
         
         url = _this._getUrl(resource, currentUser['chatToken']);
@@ -93,12 +93,12 @@ SFChat.api.client.prototype.sendRequest = function(type, resource, data, callbac
         
         jqxhr.done(function(response, textStatus, jqXHR) {
             _this._checkResponse(response);
-            callback.method.apply(callback.obj, [response]);
+            eventOptions.manager.trigger(eventOptions.event, [data, response]);
         });
         
         jqxhr.fail(function(jqXHR, textStatus, error) {
             _this._checkResponse(jqXHR.responseJSON);
-            callback.method.apply(callback.obj, [jqXHR.responseJSON]);
+            eventOptions.manager.trigger(eventOptions.event, [data, jqXHR.responseJSON]);
         });
         
     return jqxhr; 
@@ -152,7 +152,7 @@ SFChat.api.client.prototype._getUrl = function(resource, chatToken) {
  * @throws TypeError
  */
 SFChat.api.client.prototype._checkResponse = function(data) {
-    if (typeof(data['results']) !== 'object') {
+    if (typeof(data) === 'undefined' || typeof(data['results']) !== 'object') {
         throw new TypeError('Data has invalid format.');
     }
 };

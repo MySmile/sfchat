@@ -34,7 +34,7 @@ SFChat.api.storage = new function () {
      * 
      * @type {Integer}
      */
-    var storageNumberLimit = 20;
+    var storageNumberLimit = 40;
     
     /**
      * Chat Token

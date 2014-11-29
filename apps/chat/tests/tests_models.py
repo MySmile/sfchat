@@ -23,6 +23,10 @@ class ChatsTestCase(unittest.TestCase):
         actual = Chats.join_to_chat('543e33a2e3ce324d374246fc')
         self.assertFalse(actual)
 
+    def test_join_to_chat_twice_failed(self):
+        actual = Chats.join_to_chat(str(self.chat_token))
+        self.assertFalse(actual)
+
     def test_validate_chat_token_success(self):
         tokens = Chats.create_chat()
         actual = Chats.validate_chat_token(tokens['chat_token'])
@@ -72,11 +76,6 @@ class ChatsTestCase(unittest.TestCase):
         chat = Chats.objects.get_all_by_token(self.chat_token)
         result = chat.delete_chat(self.user_token)
         self.assertTrue(result)
-
-    def test_delete_chat_failed(self):
-        chat = Chats.objects.get_all_by_token(self.chat_token)
-        result = chat.delete_chat(ObjectId('0'*24))
-        self.assertFalse(result)
 
 
 class MessagesTestCase(unittest.TestCase):

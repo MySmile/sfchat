@@ -30,11 +30,12 @@ SFChat.api.resources.chat = function(client) {
 /**
  * Delete chat
  * 
- * @param {Function}    callback.method
- * @param {Object}      callback.obj
+ * @param {Object}  eventOptions
+ * @param {jQuery}  eventOptions.manager
+ * @param {String}  eventOptions.event
  */
-SFChat.api.resources.chat.prototype.deleteChat = function(callback) {
+SFChat.api.resources.chat.prototype.deleteChat = function(eventOptions) {
     var _this = this;
     
-    this.client.sendRequest('DELETE', _this._name, undefined, callback);
+    this.client.sendRequest('DELETE', _this._name, undefined, eventOptions);
 };
