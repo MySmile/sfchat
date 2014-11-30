@@ -19,7 +19,7 @@ bower:
 
 # install-local - install locally dependenses
 install-local:
-	@cd ./config/requirements && sudo pip3 install -r local.pip
+	@cd ./config/requirements && sudo pip3 install -r local.txt
 
 # syncdb - Run syncdb command
 syncdb:
