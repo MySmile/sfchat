@@ -9,7 +9,9 @@ var SFChat;
 if (!SFChat || !SFChat.api || !SFChat.api.renders 
     || !SFChat.api.storage || !SFChat.api.resources) {
     throw new Error('One of required modules was not loaded.');
-} else if (!SFChat.events) {
+} 
+
+if (!SFChat.events) {
     SFChat.events = {};
 }
     
@@ -75,7 +77,7 @@ SFChat.events.messages =  {
     /**
      * Init
      * 
-     * @param {Object}
+     * @param {Object} options
      */
     init: function(options) {
         var _this = SFChat.events.messages;
@@ -103,7 +105,7 @@ SFChat.events.messages =  {
      * Get Message, long-polling
      * It runs long-polling
      * 
-     * @paran {Event} e
+     * @param {Event} e
      * @TODO catch exeptions
      */
     getMessage: function(e) {

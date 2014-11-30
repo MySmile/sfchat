@@ -48,16 +48,8 @@
 {% block inline_js %}
 <script type="text/javascript">
     $(document).ready(function() {
-        var createChat  = document.getElementById('create_chat'),
-            joinChat    = document.getElementById('join_chat');
-
-        SFChat.ga.addListener(createChat, 'click', function() {
-            ga('send', 'event', 'button', 'click', 'create new chat');
-        });
-
-        SFChat.ga.addListener(joinChat, 'click', function() {
-            ga('send', 'event', 'button', 'click', 'join to chat');
-        });
+        SFChat.events.gatracking.btnClickHandler('#create_chat', 'create new chat');
+        SFChat.events.gatracking.btnClickHandler('#join_chat', 'join to chat');
     });
 </script>
 {% endblock %}

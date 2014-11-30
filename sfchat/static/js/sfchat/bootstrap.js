@@ -19,6 +19,7 @@ if (SFChat.bootstrap) {
  * SFChat bootstrap
  * 
  * @type {Function}
+ * @param {Object} options
  */
 SFChat.bootstrap = function (options) {
     /**

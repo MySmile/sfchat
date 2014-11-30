@@ -9,7 +9,9 @@ var SFChat;
 if (!SFChat || !SFChat.api || !SFChat.api.renders 
     || !SFChat.api.storage || !SFChat.api.resources) {
     throw new Error('One of required modules was not loaded.');
-} else if (!SFChat.events) {
+}
+
+if (!SFChat.events) {
     SFChat.events = {};
 }
     
@@ -58,7 +60,7 @@ SFChat.events.chat =  {
     /**
      * Init
      * 
-     * @param {Object}
+     * @param {Object} options
      */
     init: function(options) {
         var _this = SFChat.events.chat;

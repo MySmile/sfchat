@@ -1,6 +1,6 @@
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
-{% load staticfiles %}{% load compress %}
+{% load staticfiles %}{% load compress %} {% load settings_value %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
@@ -16,7 +16,7 @@
         <script type="text/javascript" src='{% static 'jquery.min.js' %}'></script>
         <script type="text/javascript" src='{% static 'js/ga.js' %}'></script>
         <script type="text/javascript" src='{% static 'js/sfchat/sfchat.js' %}'></script>
-        <script type="text/javascript" src='{% static 'js/sfchat/ga.js' %}'></script>
+        <script type="text/javascript" src='{% static 'js/sfchat/events/gatracking.js' %}'></script>
         {% block js %}{% endblock %}
     {% endcompress %}
 </head>
@@ -45,11 +45,17 @@
         <div id="copyright">&copy; copyright SFChat 2014</div>
     </footer> 
 </div>
-{% block inline_js %}{% endblock %}
 <script type="text/javascript">
-    $(document).ready(function() {        
-        window.onerror = SFChat.ga.errorHandler;
+    $(document).ready(function() { 
+        SFChat.events.gatracking.debugmode = '{% settings_value "GOOGLE_ANALYTICS_DEBUG_MODE" %}'
+        window.onerror = SFChat.events.gatracking;
+        
+        ga('create', '{% settings_value "GOOGLE_ANALYTICS_TRACKING_ID" %}', 'auto');
+        ga('send', 'pageview', {
+          'anonymizeIp': true
+        });
     });
-</script> 
+</script>
+{% block inline_js %}{% endblock %}
 </body>
 </html>

@@ -41,3 +41,4 @@ COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'co
 
 # Google Analytics
 GOOGLE_ANALYTICS_TRACKING_ID = 'UA-57194449-2'
+GOOGLE_ANALYTICS_DEBUG_MODE = True
