@@ -3,13 +3,14 @@ python:
   - "3.4"
   # does not have headers provided, please ask https://launchpad.net/~pypy/+archive/ppa
   # maintainers to fix their pypy-dev package.
-  - "pypy"
+  #- "pypy"
 # command to install dependencies
 install:
-  - pip3 install -r config/requirements/local.txt
+  - pip install -r config/requirements/local.txt
 services:
   - mongodb
 before_script:
-  - mongo sfchat  
+  - sleep 15
+  - mongo sfchat --eval 'db.addUser("", "");'
 # command to run tests
 script: make test
