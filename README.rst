@@ -16,6 +16,17 @@ Installation
   #. Dependences: ``$ sudo pip3 install -r config/requirements.pip``
   #. FrontEnd components: ``sudo bower install``
 
+Requirements
+============
+  - Python 3.4
+  - Django 1.7
+  - Django Rest Api Framework
+  - Celery
+  - Mongodb
+  - JQuery
+
+For more information please look into ``/config/requirements/production.txt`` and ``/bin/bower/bower.json``.
+
 Screenshots
 ===========
 .. figure:: https://raw.github.com/MySmile/sfchat/dev/docs/screenshots/main_and_chat_pages.png
