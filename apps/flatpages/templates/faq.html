@@ -1,23 +1,14 @@
 {% extends "base.html" %}
-{% load staticfiles %}{% load i18n %}{% load cache %}
 
-{% block css %}{% endblock %}
-{% block js %}{% endblock %}
-
-{% block meta %}<meta name="description" content=""  />
-<meta name="keywords" content="" />
-<title></title>
+{% block meta %}
+    <meta name="description" content="Frequently asked questions about Security Free Chat"  />
+    <meta name="keywords" content="SFChat, questions, FAQ" />
 {% endblock %}
+{% block title %}: FAQ{% endblock %}
 
 {% block main %}
-    <main>
-        <article>
-            {% blocktrans %}This is FAQ page!{% endblocktrans %}
-        </article>
-        
-        <article>
-        </article>
-    </main>
-
+    <article>
+        <h1>Frequently asked questions</h1>
+    </article>
 {% endblock %}
 

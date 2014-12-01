@@ -1,32 +1,19 @@
 /* 16 * 0.0625 = 0.0625em */
 /* 998px / 16px = 62.375em */
 @charset "utf-8";
-
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 13px;
+ }
+ 
 h1 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
  }
- 
-h1 a {
-    text-decoration: none;
-    color: #555555;
- }
- 
-h2 {
-    margin: 5px 0 0 0;
-    font-size: 1em;
-    text-align: left;
-    color: #555555;
- }
- 
+   
 ol {
     padding-left: 25px;
     margin: 0;
- }
- 
-body {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 13px;
  }
  
 mark {
@@ -63,16 +50,18 @@ header a {
  
 /*body*/ 
 article {
-    padding: 15px 10px 20px 10px;
+    padding: 5px 10px 25px 10px;
  }
  
-aside {
-    padding: 15px 10px 20px 10px;
-}
-
 #chat-entry {
     margin: 0 auto;
     text-align: center;
+ }
+ 
+ .sub-title {
+    margin: 5px 0 0 0; 
+    text-align: left;
+    color: #555555;
  }
  
 /*button*/
@@ -156,8 +145,8 @@ hr {
  }
  
  /*chat*/
- #chat {
-     padding: 0;
+#chat {
+    padding: 0;
  } 
  
 #chat-header {

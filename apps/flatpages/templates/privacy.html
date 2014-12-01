@@ -1,23 +1,14 @@
 {% extends "base.html" %}
-{% load staticfiles %}{% load i18n %}{% load cache %}
 
-{% block css %}{% endblock %}
-{% block js %}{% endblock %}
-
-{% block meta %}<meta name="description" content=""  />
-<meta name="keywords" content="" />
-<title></title>
+{% block meta %}
+    <meta name="description" content="License for Security Free Chat"  />
+    <meta name="keywords" content="SFChat, license, copyright" />
 {% endblock %}
+{% block title %}: Privacy{% endblock %}
 
 {% block main %}
-    <main>
-        <article>
-            {% blocktrans %}This is privacy page!{% endblocktrans %}
-        </article>
-        
-        <article>
-        </article>
-    </main>
-
+    <article>
+        <h1>Privacy</h1>
+    </article>
 {% endblock %}
 

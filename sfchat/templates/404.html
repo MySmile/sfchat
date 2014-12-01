@@ -1,19 +1,12 @@
 {% extends "base.html" %}
-{% load staticfiles %}{% load i18n %}{% get_current_language as LANGUAGE_CODE %}
 
-{% block css %}{% endblock %}
-{% block js %}{% endblock %}
-
-{% block meta %}<meta name="description" content=""  />
-<meta name="keywords" content="" />
-<title>{% trans "Error 404" %}</title>
-{% endblock %}
-
+{% block title %}: Error 404{% endblock %}
 {% block main %}
-    <aside>
+    <article>
+        <h1>Error 404</h1>
         <p>Problem: It is impossible handle your request.</p>
         <p>Reason: Error 404. Page was not found.</p>
         <p>Solution: Please try again or follow link to <a href="/">main page</a>.</p>
-    </aside>
+    </article>
 {% endblock %}
 
