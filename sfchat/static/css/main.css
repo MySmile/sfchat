@@ -193,7 +193,7 @@ hr {
  }
  
  .message .msg-border {
-    background: url("/static/images/asterix.png");
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAQAAABKmM6bAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfeCxYLGQKfGcl4AAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAHBJREFUCNd1zbENgzAUANH7xlvAEjgNYhk63DABAzABQlCyDKRIZGagAQmxQcRPlY686rqD/wb9lYVhvEJoobRpZVJfGNBJ6kcAt0h9zSAAXRI9iXX7ZNUKBnofvfUEDvvqPRiQnGZ3sDttJL893vgCXDchVEMXD9EAAAAASUVORK5CYII=);
     height: 9px;   
  }
  
