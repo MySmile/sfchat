@@ -72,7 +72,6 @@ article {
     font-size: 1em;
  }
   
- 
 /*button*/
 .btn {
     border-radius: 5px;
@@ -263,6 +262,10 @@ footer nav ul li a {
     text-decoration: underline;
     letter-spacing: normal;
  }
+ 
+ footer nav ul li.active a {
+    text-decoration: none;
+ } 
  
 footer nav ul li a:hover {
     text-decoration: none;

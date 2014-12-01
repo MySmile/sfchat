@@ -34,8 +34,6 @@ class HomeView(FormView):
             logger.error(err)
             return e500(self.request, template_name='500.html')
 
-        #self.success_url = '/chat/' + str(chat_token)
-
         logger.info('User joined to chat: '+chat_token)
         tokens = {'chat_token': chat_token, 'user_token': user_token}
         chat_page = ChatPage(self.request)

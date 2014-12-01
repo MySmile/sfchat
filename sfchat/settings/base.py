@@ -85,6 +85,10 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'sfchat/templates/'),
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+  'django.core.context_processors.request',
+)
+
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),
 )

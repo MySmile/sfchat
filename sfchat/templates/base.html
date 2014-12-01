@@ -1,6 +1,6 @@
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
-{% load staticfiles %}{% load compress %}{% load settings_value %}{% load email_protection %}
+{% load staticfiles %}{% load compress %}{% load settings_value %}{% load email_protection %}{% load nav_active %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
@@ -37,15 +37,15 @@
     <footer>
         <nav>
             <ul>
-                <li><a href="/privacy.html">{% trans "Privacy" %}</a></li>
-                <li><a href="/license.html" rel="license">License</a></li>
+                <li class="{% nav_active request "/privacy.html$" %}"><a href="/privacy.html">{% trans "Privacy" %}</a></li>
+                <li class="{% nav_active request "/license.html$" %}"><a href="/license.html" rel="license">License</a></li>
                 <li><a href="https://github.com/MySmile/sfchat">{% trans "Source" %}</a></li>
-                <li><a href="/faq.html">{% trans "FAQ" %}</a></li>
+                <li class="{% nav_active request "/faq.html$" %}"><a href="/faq.html" rel="help">{% trans "FAQ" %}</a></li>
             </ul>
         </nav>
         <div id="contact">
             {% blocktrans %}For questions please contact us {% endblocktrans %} <br />
-            {% email_protection email='securefreechat@gmail.com' hide_class='hide' %}
+            <mark>{% email_protection email='securefreechat@gmail.com' hide_class='hide' %}</mark>
         </div>
         <div id="copyright">&copy; copyright SFChat 2014</div>
     </footer> 
