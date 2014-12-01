@@ -1,6 +1,6 @@
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
-{% load staticfiles %}{% load compress %} {% load settings_value %}
+{% load staticfiles %}{% load compress %}{% load settings_value %}{% load email_protection %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
@@ -44,7 +44,8 @@
             </ul>
         </nav>
         <div id="contact">
-            {% blocktrans %}For questions please contact us {% endblocktrans %} mail[at]mail.com
+            {% blocktrans %}For questions please contact us {% endblocktrans %} <br />
+            {% email_protection email='securefreechat@gmail.com' hide_class='hide' %}
         </div>
         <div id="copyright">&copy; copyright SFChat 2014</div>
     </footer> 

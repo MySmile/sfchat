@@ -6,11 +6,18 @@ body {
     font-size: 13px;
  }
  
-h1 {
+ h1, h2 {
     font-family: Arial, Helvetica, sans-serif;
+ }
+ 
+h1 {
     font-size: 16px;
  }
-   
+ 
+ h2 {
+    font-size: 14px; 
+ }
+ 
 ol {
     padding-left: 25px;
     margin: 0;
@@ -58,11 +65,13 @@ article {
     text-align: center;
  }
  
- .sub-title {
+#intro h2{
     margin: 5px 0 0 0; 
     text-align: left;
     color: #555555;
+    font-size: 1em;
  }
+  
  
 /*button*/
 .btn {
@@ -245,7 +254,7 @@ footer nav ul {
  
 footer nav li {
     display: inline;
-    padding-right: 0.3125em;
+    padding-right: 10px;
  }
  
 footer nav ul li a {
