@@ -1,5 +1,5 @@
 celery*
-CACHE/**
+/sfchat/static/CACHE/**
 .idea
 *.pyc
 docs/build/**
