@@ -14,6 +14,8 @@
     <script type="text/javascript" src='{% static 'js/sfchat/events/messages.js' %}'></script>
     <script type="text/javascript" src='{% static 'js/sfchat/events/chat.js' %}'></script>
     <script type="text/javascript" src='{% static 'js/sfchat/bootstrap.js' %}'></script>
+    
+    <script type="text/javascript" src='{% static 'js/onload/chat/chat.js' %}'></script>
 {% endblock %}
 
 {% block title %}: Chatting{% endblock %}
@@ -35,14 +37,10 @@
     </section>
 {% endblock %}
 
-{% block inline_js %}
-<script type="text/javascript">
-    $(document).ready(function() {        
-        new SFChat.bootstrap({
-           endPoint:  '{{ request.get_host }}/api',
-           userToken: '{{ user_token }}',
-           chatStatus: '{{ chat_status }}'
-        });
-    });
-</script>    
+{% block onload_js_options %}
+    <select id="chatBootstrap">
+        <option value="endPoint">//{{ request.get_host }}/api</option>
+        <option value="userToken">{{ user_token }}</option>
+        <option value="chatStatus">{{ chat_status }}</option>
+    </select>
 {% endblock %}

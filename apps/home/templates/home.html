@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% load staticfiles %}{% load i18n %}{% get_current_language as LANGUAGE_CODE %}
 
+{% block js %}
+    <script type="text/javascript" src='{% static 'js/onload/home/home.js' %}'></script>
+{% endblock %}
 
 {% block meta %}
     <meta name="description" content="Secure Free Chat - SFChat"  />
@@ -45,11 +48,9 @@
     </article>
 {% endblock %}
 
-{% block inline_js %}
-<script type="text/javascript">
-    $(document).ready(function() {
-        SFChat.events.gatracking.btnClickHandler('#create_chat', 'create new chat');
-        SFChat.events.gatracking.btnClickHandler('#join_chat', 'join to chat');
-    });
-</script>
+{% block onload_js_options %}
+    <select id="buttonTarget">
+        <option value="createChat">#create_chat</option>
+        <option value="joinChat">#join_chat</option>
+    </select>
 {% endblock %}

@@ -18,9 +18,11 @@
     
     {% compress js %}
         <script type="text/javascript" src='{% static 'jquery.min.js' %}'></script>
-        <script type="text/javascript" src='{% static 'js/ga.js' %}'></script>
         <script type="text/javascript" src='{% static 'js/sfchat/sfchat.js' %}'></script>
         <script type="text/javascript" src='{% static 'js/sfchat/events/gatracking.js' %}'></script>
+        
+        <script type="text/javascript" src='{% static 'js/onload/ga.js' %}'></script>
+        <script type="text/javascript" src='{% static 'js/onload/templates/base.js' %}'></script>
         {% block js %}{% endblock %}
     {% endcompress %}
 </head>
@@ -50,17 +52,12 @@
         <div id="copyright">&copy; copyright SFChat 2014</div>
     </footer> 
 </div>
-<script type="text/javascript">
-    $(document).ready(function() { 
-        SFChat.events.gatracking.debugmode = '{% settings_value "GOOGLE_ANALYTICS_DEBUG_MODE" %}';
-        window.onerror = SFChat.events.gatracking;
-        
-        ga('create', '{% settings_value "GOOGLE_ANALYTICS_TRACKING_ID" %}', 'auto');
-        ga('send', 'pageview', {
-          'anonymizeIp': true
-        });
-    });
-</script>
-{% block inline_js %}{% endblock %}
+<div class="hide onload-js-options">
+    <select id="googleAnalytics">
+        <option value="debugMode">{% settings_value "GOOGLE_ANALYTICS_DEBUG_MODE" %}</option>
+        <option value="trackingId">{% settings_value "GOOGLE_ANALYTICS_TRACKING_ID" %}</option>
+    </select>
+    {% block onload_js_options %}{% endblock %}
+</div>
 </body>
 </html>
