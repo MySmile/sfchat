@@ -17,12 +17,12 @@
     {% endcompress %}     
     
     {% compress js %}
-        <script type="text/javascript" src='{% static 'jquery.min.js' %}'></script>
-        <script type="text/javascript" src='{% static 'js/sfchat/sfchat.js' %}'></script>
-        <script type="text/javascript" src='{% static 'js/sfchat/events/gatracking.js' %}'></script>
+        <script src='{% static 'jquery.min.js' %}'></script>
+        <script src='{% static 'js/sfchat/sfchat.js' %}'></script>
+        <script src='{% static 'js/sfchat/events/gatracking.js' %}'></script>
         
-        <script type="text/javascript" src='{% static 'js/onload/ga.js' %}'></script>
-        <script type="text/javascript" src='{% static 'js/onload/templates/base.js' %}'></script>
+        <script src='{% static 'js/onload/ga.js' %}'></script>
+        <script src='{% static 'js/onload/templates/base.js' %}'></script>
         {% block js %}{% endblock %}
     {% endcompress %}
 </head>
@@ -46,7 +46,7 @@
             </ul>
         </nav>
         <div id="contact">
-            {% blocktrans %}For questions please contact us {% endblocktrans %} <br />
+            {% blocktrans %}For questions please contact us {% endblocktrans %} <br>
             <mark>{% email_protection email='securefreechat@gmail.com' hide_class='hide' %}</mark>
         </div>
         <div id="copyright">&copy; copyright SFChat 2014</div>

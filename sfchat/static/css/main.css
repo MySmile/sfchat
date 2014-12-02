@@ -6,7 +6,8 @@ body {
     font-size: 13px;
  }
  
- h1, h2 {
+ h1, 
+ h2 {
     font-family: Arial, Helvetica, sans-serif;
  }
  
@@ -24,7 +25,7 @@ ol {
  }
  
 mark {
-    background: #FCFCFC;
+    background: #fcfcfc;
     padding: 0 2px;
 } 
  
@@ -40,7 +41,7 @@ mark {
     font-family: monospace;
     text-align: center;
     font-size: 10px;
-    background: #FCFCFC;
+    background: #fcfcfc;
     margin: 10px 0;
     padding: 0 2px;
 }
@@ -51,10 +52,10 @@ mark {
     margin: 5px auto;
  }
  
-/*header*/
+/* Header */
 header {
     text-align: center;
-    border-bottom: 1px solid #999999;
+    border-bottom: 1px solid #999;
  }
  
 header a {
@@ -64,7 +65,7 @@ header a {
     text-decoration: none;
  }
  
-/*body*/ 
+/* Body */ 
 article {
     padding: 5px 10px 25px 10px;
  }
@@ -86,11 +87,11 @@ article {
 #intro h2{
     margin: 5px 0 0 0; 
     text-align: left;
-    color: #555555;
+    color: #555;
     font-size: 1em;
  }
   
-/*button*/
+/* Buttons */
 .btn {
     border-radius: 5px;
     cursor: pointer;
@@ -102,8 +103,8 @@ article {
     width: 272px;
     height: 45px;
     font-weight: bold;
-    background-color: #D8EAC7;
-    border: 1px solid #5B8F45;
+    background-color: #d8eac7;
+    border: 1px solid #5b8f45;
     font-size: 14px;
  }
  
@@ -113,14 +114,14 @@ article {
     margin: 0;
     padding: 0;
     font-weight: bold;
-    background-color: #FFE599;
-    border: 1px solid #CC8934;
+    background-color: #ffe599;
+    border: 1px solid #cc8934;
     text-align: center;
     font-size:14px;
  }
 
  .btn.btn-grey {
-    background-color: #DEDEDE;
+    background-color: #dedede;
     border: 1px solid #999;
 }
  
@@ -129,7 +130,7 @@ article {
     margin: 5px 0;
  }
 
-/*from*/ 
+/* From */ 
 .errorlist { 
     font-size: 12px;
     padding: 0;
@@ -144,7 +145,7 @@ article {
     margin: 0;
     padding: 0;
     color: black;
-    border: 1px solid #CC8934;
+    border: 1px solid #cc8934;
     text-align: center;
     font-size: 12px;
     font-style: italic;
@@ -156,7 +157,7 @@ hr {
     display: block;
     border-style: inset;
     border-width: 1px;
-    color: #C8C2BC;
+    color: #c8c2bc;
     border-bottom: 0;
  }
  
@@ -167,10 +168,10 @@ hr {
     border-bottom: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-top: 10px solid #C8C2BC;
+    border-top: 10px solid #c8c2bc;
  }
  
- /*chat*/
+ /* Chat */
 #chat {
     padding: 0;
  } 
@@ -180,18 +181,18 @@ hr {
     margin: 0;
     padding: 0;
     border-bottom: 1px solid #999;
-    background-color: #FCFCFC;
+    background-color: #fcfcfc;
  } 
 
 #chat-header img {
-    margin:0;
-    padding:0;
-    float:right;
+    margin: 0;
+    padding: 0;
+    float: right;
  }
 
 #chat-body {
     height: 325px;
-    padding: 0px 10px 10px 10px;
+    padding: 0 10px 10px 10px;
     word-wrap: break-word;
     overflow-x: visible;
     overflow-y: auto;
@@ -201,13 +202,13 @@ hr {
      cursor: pointer;
 } 
  
- /*message*/
+ /* Message */
  .message {
     margin-top: 15px;
     clear: both;
  }
  
- .message .msg-border {
+.msg-border {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAQAAABKmM6bAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfeCxYLGQKfGcl4AAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAHBJREFUCNd1zbENgzAUANH7xlvAEjgNYhk63DABAzABQlCyDKRIZGagAQmxQcRPlY686rqD/wb9lYVhvEJoobRpZVJfGNBJ6kcAt0h9zSAAXRI9iXX7ZNUKBnofvfUEDvvqPRiQnGZ3sDttJL893vgCXDchVEMXD9EAAAAASUVORK5CYII=);
     height: 9px;   
  }
@@ -218,29 +219,29 @@ hr {
     color: #333;
  }
  
- .message .msg-date {
+.msg-date {
     float: left; 
     color: #999;
     padding-right: 3px;
  }
  
- .message .msg-name {
+.msg-name {
     float: left; 
     font-weight: bold;
     padding-right: 3px;
  }
  
-.message .msg-you {
-    color: #5B8F45;
+.msg-you {
+    color: #5b8f45;
  }
  
- .message .msg-talker {
-    color: #CC8934;
+.msg-talker {
+    color: #cc8934;
  }
  
  #chat-type textarea {
     width: 320px;
-    border: 1px solid #5B8F45;
+    border: 1px solid #5b8f45;
  }
  
 #chat-type .btn.btn-green {
@@ -248,7 +249,7 @@ hr {
     margin: 0 0 20px 0;
  }
  
-/*footer*/
+/* Footer */
 footer {
     margin-top: 0;
     font-size: 13px;
