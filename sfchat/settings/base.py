@@ -186,5 +186,9 @@ SFCHAT_API = {
     'authentication': {
         'user_token_header': 'HTTP_X_SFC_USERTOKEN',
         'chat_token_parameter': 'chatToken'
-    }
+    },
+    'long_polling': {
+        'sleep': 3,
+        'iteration': 20
+    },
 }

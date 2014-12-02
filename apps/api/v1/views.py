@@ -1,5 +1,6 @@
 import time
 
+from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import ParseError
@@ -10,7 +11,8 @@ from apps.chat.models import Chats
 
 class MessagesView(APIView):
     RESPONSE_SUCCESS = {'results': {'code': 200, 'msg': 'Ok'}}
-    LONG_POLLING_SLEEP = 3
+    LONG_POLLING_SLEEP = settings.SFCHAT_API['long_polling']['sleep']
+    LONG_POLLING_ITERATION = settings.SFCHAT_API['long_polling']['iteration']
 
     def get(self, request, format=None):
         """
@@ -21,11 +23,15 @@ class MessagesView(APIView):
         user_token = TokenAuthentication.get_user_token(request)
 
         serializer = ChatMessagesSerializer(request.user)
-        while long_polling == 'True' and serializer.data['count'] == 0 \
+        i = 1
+        while long_polling == 'True' and i < self.LONG_POLLING_ITERATION \
+                and serializer.data['count'] == 0 \
                 and serializer.data['status'] != Chats.STATUS_CLOSED:
             time.sleep(self.LONG_POLLING_SLEEP)
             chat = Chats.get_chat(chat_token, user_token)
             serializer = ChatMessagesSerializer(chat)
+            i += 1
+            print('End long polling ' + str(i))
 
         response = {'results': serializer.data}
         return Response(response)

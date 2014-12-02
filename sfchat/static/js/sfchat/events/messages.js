@@ -133,10 +133,6 @@ SFChat.events.messages =  {
         var _this = SFChat.events.messages,
             dataRequest;
         
-        if (data.length === 0) {
-            return;
-        }
-        
         // prepare data
         dataRequest = { data:{ messages:[] }};
         $.each(data, function(key, item) {
@@ -216,7 +212,8 @@ SFChat.events.messages =  {
             throw new Error(response.results.msg);
         }    
 
-        if (response.results.code === 200) {
+        if (response.results.code === 200 
+            && response.results.messages.length !== 0) {
             // display messages
             $.each(response.results.messages, function(key, item) {
                 msgDom = _this._renderMessage(item, 'talker');
