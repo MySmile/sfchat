@@ -36,6 +36,15 @@ mark {
     display: none;
 }
  
+.example {
+    font-family: monospace;
+    text-align: center;
+    font-size: 10px;
+    background: #FCFCFC;
+    margin: 10px 0;
+    padding: 0 2px;
+}
+
 #layout {
     border: 2px solid #999;
     max-width: 25em;
@@ -58,6 +67,15 @@ header a {
 /*body*/ 
 article {
     padding: 5px 10px 25px 10px;
+ }
+ 
+ article ul {
+    margin: 0;
+    padding-left: 25px;
+ }
+ 
+ article li {
+     margin-top: 10px;
  }
  
 #chat-entry {
