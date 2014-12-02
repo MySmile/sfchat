@@ -105,12 +105,11 @@ SFChat.bootstrap = function (options) {
     // init event
     this._initEvents();
     
-    // show history messages
-    this.chatBodyDom.trigger('showHistoryMessage');
-    // set chat status
-    this.chatBodyDom.trigger('setChatStatus', [this.options.chatStatus]);
-    // get messages, long-polling
-    this.chatBodyDom.trigger('getMessage');
+    // show history messages, set chat status, get messages, long-polling
+    this.chatBodyDom
+        .trigger('showHistoryMessage')
+        .trigger('setChatStatus', [this.options.chatStatus])
+        .trigger('getMessage');
 };
 
 /**

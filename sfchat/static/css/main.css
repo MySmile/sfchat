@@ -75,8 +75,12 @@ article {
     padding-left: 25px;
  }
  
- article li {
+ article ul li {
      margin-top: 10px;
+ }
+ 
+  article ol li {
+     margin-top: 5px;
  }
  
 #chat-entry {
