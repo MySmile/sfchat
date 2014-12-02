@@ -114,7 +114,7 @@ SFChat.events.chat =  {
     
    /**
     * Initiate type message
-    * Message can be send by button or ctrl + enter hot key
+    * Message can be send by button or enter
     * 
     * @param {Event} e
     */
@@ -131,9 +131,13 @@ SFChat.events.chat =  {
             _this.options.chatBodyDom.trigger('postMessage');
         });
 
-        // hotkey
+        // hotkey block
         _this.options.chatTypeDom.keydown(function(e) {
-            if (e.ctrlKey && (e.keyCode === 10 || e.keyCode === 13)) {
+            if ((e.ctrlKey || e.shiftKey) && e.keyCode === 13) {
+                return true;
+            }
+            
+            if (e.keyCode === 13) {
                 _this.options.chatBodyDom.trigger('postMessage');
             }
         });

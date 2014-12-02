@@ -39,7 +39,8 @@ SFChat.api.resources.messages = function(client) {
 SFChat.api.resources.messages.prototype.postMessage = function(msg, eventOptions) {
     var _this = this,
         data;
-  
+    
+    msg = _this._sanitizeMessage(msg);
     if (_this._validateMessage(msg) === true) {
         data = _this._prepareMessageForSend(msg);
         this.client.sendRequest('POST', _this._name, data, eventOptions);
@@ -77,6 +78,27 @@ SFChat.api.resources.messages.prototype.deleteMessage = function(data, eventOpti
     var _this = this;
     
     this.client.sendRequest('DELETE', _this._name, data, eventOptions);
+};
+
+/**
+ * Sanitize message
+ * 
+ * @param {String} msg
+ * @return {String}
+ */
+SFChat.api.resources.messages.prototype._sanitizeMessage= function(msg) {
+    var sanitize = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;'
+    };
+    
+    msg = msg.trim();
+    msg = msg.replace(/[&<>]/g, function(item) {
+        return sanitize[item] || item;
+    });
+    
+    return msg;
 };
 
 /**

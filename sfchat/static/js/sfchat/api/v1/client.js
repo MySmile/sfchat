@@ -32,7 +32,7 @@ SFChat.api.client = function (options) {
         endPoint:   undefined,
         format:     'json',
         auth: {
-            userHeader: 'X_SFC_USERTOKEN',
+            userHeader: 'X-SFC-USERTOKEN',
             chatParam:  'chatToken'
         }
     };

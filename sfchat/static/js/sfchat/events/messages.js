@@ -205,30 +205,29 @@ SFChat.events.messages =  {
      * @TODO catch exceptions
      */
     showReceivedMessage: function(e, request, response) {
-        var _this = SFChat.events.messages,
+        var _this   = SFChat.events.messages,
+            results = response.results,    
             msgDom;
 
-        if (response.results.code === 403) {
-            throw new Error(response.results.msg);
-        }    
-
-        if (response.results.code === 200 
-            && response.results.messages.length !== 0) {
-            // display messages
-            $.each(response.results.messages, function(key, item) {
-                msgDom = _this._renderMessage(item, 'talker');
-                _this._appendMessage(msgDom);   
-            });
-                
-            // delete messages and run long-polling
-            _this.options.chatBodyDom.trigger('deleteMessage', [response.results.messages]);
-            
-            // chat status
-            _this.options.chatBodyDom.trigger('setChatStatus', [response.results.status]);   
-        } else {
+        if (results.code !== 200 || results.messages.length === 0) {
             // run long-polling
             _this.options.chatBodyDom.trigger('getMessage');
+            return;
         }
+        
+        // display messages
+        $.each(results.messages, function(key, item) {
+            msgDom = _this._renderMessage(item, 'talker');
+            _this._appendMessage(msgDom);   
+        });
+
+        // delete messages and run long-polling
+        if (results.status !== 'closed') {
+            _this.options.chatBodyDom.trigger('deleteMessage', [results.messages]);
+        }
+
+        // chat status
+        _this.options.chatBodyDom.trigger('setChatStatus', [results.status]);   
     },
     
    /**
@@ -272,7 +271,7 @@ SFChat.events.messages =  {
         
         _this._appendMessage(msgHistory);
     },
-    
+        
     /**
      * Render response message
      * Save data to history
@@ -290,9 +289,8 @@ SFChat.events.messages =  {
             renderMsg,    
             result;
 
-        renderMsg   = (data.system) ? _this._renderSystemMessages: 
-            _this._renderMessages;       
-        result      = renderMsg.render(data.msg, data.created, msgSource);
+        renderMsg = (data.system)? _this._renderSystemMessages: _this._renderMessages;       
+        result    = renderMsg.render(data.msg, data.created, msgSource);
         
         // save to history
         _this._storage.addData(_this._chatHistoryKey, result.get(0).outerHTML);

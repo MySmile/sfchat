@@ -87,7 +87,7 @@ SFChat.api.renders.messages = (function() {
      * @return {String}
      */
     var padZero = function(data) {
-        return data > 10 ? data : "0" + data;
+        return data > 10 ? data : '0' + data;
     };
     
     /**
@@ -119,7 +119,8 @@ SFChat.api.renders.messages = (function() {
     var renderMessage = function(msg, date, msgSource) {
         var messageTmp = getMessageTmp();
               
-        $('.' + msgTextClass, messageTmp).text(msg);
+        msg = msg.replace(/\n/gi, "<br>");     
+        $('.' + msgTextClass, messageTmp).html(msg);
         renderMessageName(messageTmp, msgSource);
         renderMessageDate(messageTmp, date);
         

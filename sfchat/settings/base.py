@@ -189,6 +189,6 @@ SFCHAT_API = {
     },
     'long_polling': {
         'sleep': 3,
-        'iteration': 20
+        'iteration': 120
     },
 }

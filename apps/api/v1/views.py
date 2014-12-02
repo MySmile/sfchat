@@ -31,7 +31,6 @@ class MessagesView(APIView):
             chat = Chats.get_chat(chat_token, user_token)
             serializer = ChatMessagesSerializer(chat)
             i += 1
-            print('End long polling ' + str(i))
 
         response = {'results': serializer.data}
         return Response(response)
