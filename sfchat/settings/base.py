@@ -14,7 +14,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 import datetime
 
-BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)),'..')
+
+BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '..')
 
 # Django Application definition
 DJANGO_APPS = (
@@ -77,7 +78,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'sfchat/static'),
     os.path.join(BASE_DIR, 'sfchat/static/bower_components/jquery/dist'),
 )
 

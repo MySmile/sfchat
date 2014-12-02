@@ -25,7 +25,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')
-STATIC_ROOT = os.path.join(BASE_DIR, '')
+STATIC_ROOT = os.path.join(BASE_DIR, 'sfchat/static/')
 
 # compressor settings
 STATICFILES_FINDERS = (
