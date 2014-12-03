@@ -87,6 +87,7 @@ TEMPLATE_DIRS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = (
   'django.core.context_processors.request',
+  'django.core.context_processors.csrf',
 )
 
 LOCALE_PATHS = (
@@ -189,7 +190,7 @@ SFCHAT_API = {
     },
     'long_polling': {
         'sleep': 3,
-        'iteration': 120
+        'iteration': 60
     },
 }
 

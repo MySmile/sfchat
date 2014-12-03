@@ -27,6 +27,11 @@ class Messages(EmbeddedDocument):
         return message
 
 
+class LongPolling(EmbeddedDocument):
+    _id = ObjectIdField(required=True)
+    user_token = ObjectIdField(required=True)
+
+
 class Chats(Document):
     STATUS_DRAFT = 'draft'
     STATUS_READY = 'ready'
@@ -50,6 +55,7 @@ class Chats(Document):
                                   (STATUS_CLOSED, STATUS_CLOSED)), default=STATUS_DRAFT)
     user_tokens = ListField(ObjectIdField())
     messages = ListField(EmbeddedDocumentField(Messages))
+    long_polling = ListField(EmbeddedDocumentField(LongPolling))
     created = DateTimeField(default=datetime.datetime.utcnow())
 
     meta = {'queryset_class': ChatsQuerySet}
@@ -83,6 +89,7 @@ class Chats(Document):
         chat.save()
         return {'chat_token': str(chat_token), 'user_token': str(user_token)}
 
+    @staticmethod
     def join_to_chat(chat_token):
         """
         Join to chat
@@ -199,3 +206,39 @@ class Chats(Document):
             result = False
 
         return result
+
+    def create_long_polling(self, user_token):
+        """
+        Create new long polling process and terminate all older one
+        :param user_token: String
+        :return: String|False process identifier, false if failed
+        """
+        try:
+            # delete all processes
+            self.delete_long_polling(user_token)
+
+            process = {'_id': ObjectId(), 'user_token': ObjectId(user_token)}
+            self.update(push__long_polling=process)
+        except (TypeError, InvalidId, DoesNotExist) as ex:
+            return False
+
+        return str(process['_id'])
+
+    def delete_long_polling(self, user_token):
+        """
+        Delete all processes linked to user_token
+        :param user_token:
+        """
+        self.update(pull__long_polling__user_token=ObjectId(user_token))
+
+    def get_long_polling(self, user_token):
+        """
+        Gets actual process
+        :param user_token: String
+        :return: LongPolling|False
+        """
+        long_polling = list(filter(lambda item: user_token == str(item.user_token), self.long_polling))
+        if not long_polling:
+            return False
+
+        return long_polling[0]
