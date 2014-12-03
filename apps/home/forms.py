@@ -1,26 +1,36 @@
 # -*- coding: utf-8 -*-
 import re
-
 from django import forms
+from apps.chat.models import Chats
+from django.utils.translation import ugettext as _
 
 
 class CreateChatForm(forms.Form):
     pass
 
+
 class JoinChatForm(forms.Form):
     chat_token = forms.CharField(required=True, max_length=24, label='')
-    chat_token.widget = forms.TextInput({ "placeholder": "Enter code here...",
-                                    "onfocus": "this.placeholder = ''",
-                                    "onblur": "this.placeholder = 'Enter code here...'",
-                                    "maxlength": 24,  
-                                    "class": "chat-token"
-                                })
+    chat_token.widget = forms.TextInput({"placeholder": "Enter code here...",
+                                         "onfocus": "this.placeholder = ''",
+                                         "onblur": "this.placeholder = 'Enter code here...'",
+                                         "maxlength": 24,
+                                         "minlength": 24,
+                                         "pattern": "[a-z0-9]{24}",
+                                         "class": "chat-token"
+    })
 
-    def clean_code(self):
+    user_token = False
+
+    def clean_chat_token(self):
+        """
+        Validate chat token
+        """
         new_chat_token = self.cleaned_data['chat_token']
-        match = re.search(r'[^a-z0-9]', new_chat_token)
-        if match:
-            raise forms.ValidationError('The code must be alphanumeric!')
-        elif len(new_chat_token) != 24:
-            raise forms.ValidationError('Code length does not equal 24!')
-        return new_chat_token
+        match = re.search(r'[a-z0-9]{24}', new_chat_token)
+        if not match:
+            raise forms.ValidationError(_('Invalid code.'))
+
+        self.user_token = Chats.join_to_chat(new_chat_token)
+        if not self.user_token:
+            raise forms.ValidationError(_('Invalid code.'))

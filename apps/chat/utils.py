@@ -1,4 +1,3 @@
-from django.http import HttpResponsePermanentRedirect
 from django.contrib import messages
 
 
@@ -9,16 +8,6 @@ class ChatPage:
         :return:
         """
         self.request = request
-
-    def get_redirect_response(self, tokens):
-        """
-        Gets chat redirect response
-        :param tokens: Dictionary {'chat_token': '', 'user_token': ''}
-        :return: HttpResponsePermanentRedirect
-        """
-        self.set_user_token(tokens['user_token'])
-        success_url = '/chat/' + tokens['chat_token']
-        return HttpResponsePermanentRedirect(success_url)
 
     def set_user_token(self, user_token):
         """

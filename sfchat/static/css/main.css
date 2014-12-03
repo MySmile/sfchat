@@ -244,7 +244,10 @@ hr {
  }
  
  #chat-type textarea {
-    width: 99%;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     border: 1px solid #5b8f45;
  }
  
