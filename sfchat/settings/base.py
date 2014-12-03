@@ -193,3 +193,12 @@ SFCHAT_API = {
         'iteration': 60
     },
 }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'sfchat/static/CACHE/flatpages/'),
+        'TIMEOUT': None,
+    }
+}
+
