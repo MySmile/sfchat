@@ -10,7 +10,8 @@ urlpatterns = patterns('',
                        url('', include('apps.chat.urls')),
                        url('', include('apps.flatpages.urls')),
                        url('', include('apps.home.urls')),
-)
+                       url('', include('apps.sitemap.urls')),
+                       )
 
 handler404 = 'apps.home.views.e404'
 handler500 = 'apps.home.views.e500'
