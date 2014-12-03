@@ -13,9 +13,9 @@ LOCAL_APPS = (
     'apps',
     'apps.api.v1',
     'apps.chat',
-    #~ 'apps.chat.apps.ChatConfig',
     'apps.flatpages',
     'apps.home',
+    'apps.sitemap',
     # 'tests',
 )
 
