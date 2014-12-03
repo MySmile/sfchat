@@ -120,7 +120,7 @@ SFChat.events.messages =  {
     /**
      * Delete message
      * 
-     * @paran {Event}   e
+     * @param {Event}   e
      * @param {Array}   data
      * @param {String}  data[0]._id
      * @param {String}  data[0].msg
@@ -238,12 +238,12 @@ SFChat.events.messages =  {
    /**
     * Show deleted messages
     * 
-    * @paran {Event}   e
-    * @paran {Object}  request
-    * @paran {Object}  request.data
-    * @paran {Array}   request.data.messages
-    * @paran {Object}  request.data.messages[0]
-    * @paran {String}  request.data.messages[0]._id
+    * @param {Event}   e
+    * @param {Object}  request
+    * @param {Object}  request.data
+    * @param {Array}   request.data.messages
+    * @param {Object}  request.data.messages[0]
+    * @param {String}  request.data.messages[0]._id
     * @param {Object}  response
     * @param {Object}  response.results
     * @param {Integer} response.results.code

@@ -88,7 +88,7 @@ SFChat.events.chat =  {
      * Sets chat closed
      * 
      * @param {Event}            e
-     * @paran {Undefined}        request
+     * @param {Undefined}        request
      * @param {Object|Undefined} response
      * @param {Object}   response.results
      * @param {Integer}  response.results.code
