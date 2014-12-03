@@ -8,16 +8,14 @@ class ChatsTestCase(unittest.TestCase):
     def setUp(self):
         self.chat_token = Chats.create_chat()['chat_token']
         self.user_token = Chats.join_to_chat(self.chat_token)
+        self.chat = Chats.objects.get_all_by_token(self.chat_token)
 
     def test_create_chat(self):
-        chat = Chats.objects.get_all_by_token(self.chat_token)
-        self.assertTrue(chat)
+        self.assertTrue(self.chat)
 
     def test_join_to_chat_success(self):
-        chat = Chats.objects.get_all_by_token(self.chat_token)
-
-        self.assertEquals(24, len(str(chat.user_tokens[1])))
-        self.assertEquals(2, len(chat.user_tokens))
+        self.assertEquals(24, len(str(self.chat.user_tokens[1])))
+        self.assertEquals(2, len(self.chat.user_tokens))
 
     def test_join_to_chat_failed(self):
         actual = Chats.join_to_chat('543e33a2e3ce324d374246fc')
@@ -45,38 +43,49 @@ class ChatsTestCase(unittest.TestCase):
         self.assertFalse(chat)
 
     def test_add_message_success(self):
-        chat = Chats.objects.get_all_by_token(self.chat_token)
         messages = [{'msg': 'First message'}, {'msg': 'Second message'}]
-        result = chat.add_message(user_token=self.user_token, messages=messages)
+        result = self.chat.add_message(user_token=self.user_token, messages=messages)
         self.assertTrue(result)
 
     def test_add_message_failed(self):
-        chat = Chats.objects.get_all_by_token(self.chat_token)
-
         messages = [{'msg': 'Lorem ipsum dolor sit amet, abhorreant appellantur ex vis. Ad eos dicam quaeque. \
                             Sed ferri tamquam te, scaevola ocurreret conclusionemque in pro. Lorem ipsum dolor \
                             sit amet, abhorreant appellantur ex vis. Ad eos dicam quaeque. Sed ferri tamquam te, \
                             scaevola ocurreret conclusionemque in pro.'}]
-        result = chat.add_message(user_token=self.user_token, messages=messages)
+        result = self.chat.add_message(user_token=self.user_token, messages=messages)
         self.assertFalse(result)
 
     def test_delete_message_success(self):
-        chat = Chats.objects.get_all_by_token(self.chat_token)
-        messages = [{'_id': str(chat.messages[0]._id)}]
-        result = chat.delete_message(messages)
+        messages = [{'_id': str(self.chat.messages[0]._id)}]
+        result = self.chat.delete_message(messages)
         self.assertTrue(result)
 
     def test_delete_message_failed(self):
-        chat = Chats.objects.get_all_by_token(self.chat_token)
         messages = [{'_id': '0'*10}]
-        result = chat.delete_message(messages)
+        result = self.chat.delete_message(messages)
         self.assertFalse(result)
 
     def test_delete_chat_success(self):
-        chat = Chats.objects.get_all_by_token(self.chat_token)
-        result = chat.delete_chat(self.user_token)
+        result = self.chat.delete_chat(self.user_token)
         self.assertTrue(result)
 
+    def test_create_long_polling(self):
+        expected = self.chat.create_long_polling(self.user_token)
+        self.chat.reload()
+        actual = self.chat.long_polling[0]._id
+        self.assertEquals(expected, str(actual))
+
+    def test_get_long_polling_success(self):
+        self.chat.create_long_polling(self.user_token)
+        self.chat.reload()
+        long_polling = self.chat.get_long_polling(self.user_token)
+        self.assertEquals(24, len(str(long_polling._id)))
+
+    def test_get_long_polling_failed(self):
+        self.chat.create_long_polling(self.user_token)
+        self.chat.reload()
+        long_polling = self.chat.get_long_polling(self.chat_token)
+        self.assertFalse(long_polling)
 
 class MessagesTestCase(unittest.TestCase):
     def test_prepare_message_success(self):

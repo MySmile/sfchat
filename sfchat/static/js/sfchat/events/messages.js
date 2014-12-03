@@ -208,9 +208,14 @@ SFChat.events.messages =  {
         var _this   = SFChat.events.messages,
             results = response.results,    
             msgDom;
+        
+        // autherization error
+        if (results.code === 403) {
+            throw new Error(results.msg);
+        }   
 
+        // run long-polling
         if (results.code !== 200 || results.messages.length === 0) {
-            // run long-polling
             _this.options.chatBodyDom.trigger('getMessage');
             return;
         }
