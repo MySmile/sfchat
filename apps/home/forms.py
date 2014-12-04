@@ -11,14 +11,9 @@ class CreateChatForm(forms.Form):
 
 class JoinChatForm(forms.Form):
     chat_token = forms.CharField(required=True, max_length=24, label='')
-    chat_token.widget = forms.TextInput({"placeholder": "Enter code here...",
-                                         "onfocus": "this.placeholder = ''",
-                                         "onblur": "this.placeholder = 'Enter code here...'",
-                                         "maxlength": 24,
-                                         "minlength": 24,
+    chat_token.widget = forms.TextInput({"maxlength": 24,
                                          "pattern": "[a-z0-9]{24}",
-                                         "class": "chat-token"
-    })
+                                         "class": "chat-token"})
 
     user_token = False
 

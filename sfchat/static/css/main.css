@@ -154,7 +154,11 @@ article {
     font-size: 12px;
     font-style: italic;
  }
- 
+
+#chat-entry form p {
+    display: inline;
+  }
+
 hr {
     margin: 25px 0 0 0;
     padding: 0;
@@ -242,8 +246,14 @@ hr {
 .msg-talker {
     color: #cc8934;
  }
- 
- #chat-type textarea {
+
+
+
+#chat-type p{
+  margin:0;
+  }
+a
+ #chat-type p textarea {
     width: 100%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
