@@ -21,16 +21,18 @@ SFChat.api.client = function (options) {
     /**
      * Default options
      * 
-     * @property {Object} options
-     * @property {String} options.endPoint
-     * @property {String} options.format
-     * @property {Object} options.auth
-     * @property {String} options.auth.userHeader
-     * @property {String} options.auth.chatParam
+     * @property {Object}   options
+     * @property {String}   options.endPoint
+     * @property {String}   options.format
+     * @property {Boolean}  options.cache
+     * @property {Object}   options.auth
+     * @property {String}   options.auth.userHeader
+     * @property {String}   options.auth.chatParam
      */
     this.options = {
         endPoint:   undefined,
         format:     'json',
+        cache:   false,    
         auth: {
             userHeader: 'X-SFC-USERTOKEN',
             chatParam:  'chatToken'
@@ -83,6 +85,7 @@ SFChat.api.client.prototype.sendRequest = function(type, resource, data, eventOp
             type:           type,
             url:            url,
             processData:    false,
+            cache:          _this.options.cache,
             contentType:    'application/json',
             data:           JSON.stringify(data),
             
