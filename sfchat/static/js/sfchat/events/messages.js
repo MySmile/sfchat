@@ -66,7 +66,14 @@ SFChat.events.messages =  {
      * @property {String}
      */
     _chatHistoryKey: 'chatHistory',
-        
+     
+    /**
+     * Deleted messages id's
+     * 
+     * @property {Array}
+     */
+    _deletedMessages: [],
+    
     /**
      * Messages resource
      * 
@@ -210,12 +217,12 @@ SFChat.events.messages =  {
             msgDom;
         
         // autherization error
-        if (results.code === 403) {
+        if (results.code !== 200) {
             throw new Error(results.msg);
         }   
 
         // run long-polling
-        if (results.code !== 200 || results.messages.length === 0) {
+        if (results.messages.length === 0) {
             _this.options.chatBodyDom.trigger('getMessage');
             return;
         }
@@ -256,7 +263,9 @@ SFChat.events.messages =  {
         if (response.results.code !== 200) {
             throw new Error(response.results.msg);
         }
-
+        
+        // save message id to prevent displaying duplication
+        _this._saveDeleteMessage(request);   
         // restart long-polling
         _this.options.chatBodyDom.trigger('getMessage');
     },
@@ -316,5 +325,26 @@ SFChat.events.messages =  {
         // autoscroll
         scrollHeight = _this.options.chatBodyDom[0].scrollHeight;
         _this.options.chatBodyDom.scrollTop(scrollHeight);
+    },
+    
+   /**
+    * Save deleted messages id to prevent duplication messages on a chat
+    * 
+    * @param {Object}  request
+    * @param {Object}  request.data
+    * @param {Array}   request.data.messages
+    * @param {Object}  request.data.messages[0]
+    * @param {String}  request.data.messages[0]._id
+    * @throws {Error}
+    */
+    _saveDeleteMessage: function(request) {
+        var _this = this;
+        
+        $.each(request.data.messages, function(key, item){
+            if ($.inArray(item._id, _this._deletedMessages) !== -1) {
+                throw new Error('Duplication message was returned from server.');
+            }
+            _this._deletedMessages.push(item._id);
+        });
     }
 };
