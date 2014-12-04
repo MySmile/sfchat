@@ -8,6 +8,7 @@ from django.conf import settings
 urlpatterns = patterns('',
                        url(r'^api/', include('apps.api.urls', namespace='api')),
                        url('', include('apps.chat.urls')),
+                       url('', include('apps.csp.urls')),
                        url('', include('apps.flatpages.urls')),
                        url('', include('apps.home.urls')),
                        url('', include('apps.sitemap.urls')),

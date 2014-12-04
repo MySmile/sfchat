@@ -14,7 +14,7 @@ def email_protection(email, hide_class):
     :return: Mix
     """
     dot = '&#46;'
-    pattern = '<span class="' + hide_class + '">&nbsp</span>'
+    pattern = '<span class="' + hide_class + '">&nbsp;</span>'
     at = '[at]'
 
     email = email.replace('@', at)
