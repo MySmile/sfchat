@@ -100,9 +100,15 @@ SFChat.events.messages =  {
      * @TODO catch exeptions
      */
     postMessage: function(e) {
-        var _this = SFChat.events.messages;
+        var _this   = SFChat.events.messages,
+            msg     = _this.options.chatTypeDom.val();
+        
+        // skip empty message
+        if(msg.trim().length === 0) {
+            return;
+        }    
 
-        _this._messages.postMessage(_this.options.chatTypeDom.val(), {
+        _this._messages.postMessage(msg, {
             manager: _this.options.chatBodyDom,
             event:  'showPostedMessage'
         });

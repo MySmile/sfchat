@@ -13,10 +13,10 @@ $(document).ready(function() {
     var homeOptions = SFChat.getOnloadOptions('.onload-js-options', 
         ['buttonTarget.createChat', 'buttonTarget.joinChat']);
     
-    SFChat.events.gatracking.btnClickHandler(
+    SFChat.events.gatracking.eventBtnClick(
         homeOptions['buttonTarget']['createChat'], 'create new chat'
     );
-    SFChat.events.gatracking.btnClickHandler(
+    SFChat.events.gatracking.eventBtnClick(
         homeOptions['buttonTarget']['joinChat'], 'join to chat'
     );
 });

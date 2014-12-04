@@ -52,6 +52,13 @@ mark {
     margin: 5px auto;
  }
  
+ .error {
+     padding: 5px;
+     text-align: center;
+     color: #cc8934;
+     font-weight: bold;
+ }
+ 
 /* Header */
 header {
     text-align: center;

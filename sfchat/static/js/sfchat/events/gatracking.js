@@ -23,14 +23,7 @@ if (SFChat.events.gatracking) {
  * 
  * @type {Object}
  */
-SFChat.events.gatracking = {
-    /**
-     * Debug mode
-     * 
-     * @property {String} False or True
-     */
-    debugmode: 'False',
-    
+SFChat.events.gatracking = {        
     /**
      * Previous error
      * 
@@ -39,41 +32,35 @@ SFChat.events.gatracking = {
     _prevError: undefined,
     
     /**
-     * Error hadler
+     * Event error
      * 
-     * @param {String}  msg
-     * @param {String}  url
-     * @param {Integer} line
+     * @param {String}  error
      */
-    errorHandler: function(msg, url, line) {
-        var _this = SFChat.events.gatracking,
-            error;
+    eventError: function(error) {
+        var _this = SFChat.events.gatracking;
         
-        if (_this.debugmode === 'True') {
-            // run default handler
-            return false;
+        if(SFChat.debugmode === 'True' || _this._prevError === error) {
+            return;
         }
         
-        error = JSON.stringify({msg: msg, url: url, line: line});
-        if(_this.debugmode === false && typeof(ga) !== 'undefined'
-            && _this._prevError !== error
-        ) {
-            _this._prevError = error;
-            ga('send', 'event', 'error', error);         
-        }
-        
-        return true;
+        _this._prevError = error;
+        ga('send', 'event', 'error', error); 
     },
     
     /**
-     * Handle button click event
+     * Event button click
      * 
      * @param {type} target
      * @param {type} label
      * @returns {undefined}
      */
-    btnClickHandler: function(target, label) {
+    eventBtnClick: function(target, label) {
         var _this = SFChat.events.gatracking;
+        
+        // skip for debug mode
+        if (SFChat.debugmode === 'True') {
+            return;
+        }
         
         _this.addListener($(target).get(0), 'click', function() {
             ga('send', 'event', 'button', 'click', label);
@@ -89,14 +76,7 @@ SFChat.events.gatracking = {
      *     (e.g. load, click, etc.).
      * @param {function()} callback The function that receives the notification.
      */
-    addListener: function(element, type, callback) {
-        var _this = SFChat.events.gatracking;
-        
-        // skip for debug mode
-        if (_this.debugmode === 'True') {
-            return;
-        }
-        
+    addListener: function(element, type, callback) {                
         if (element.addEventListener) { 
             element.addEventListener(type, callback);
         } else if (element.attachEvent) { 

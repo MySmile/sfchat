@@ -20,6 +20,7 @@
         <script src='{% static 'jquery.min.js' %}'></script>
         <script src='{% static 'js/sfchat/sfchat.js' %}'></script>
         <script src='{% static 'js/sfchat/events/gatracking.js' %}'></script>
+        <script src='{% static 'js/sfchat/errorHandler.js' %}'></script>
         
         <script src='{% static 'js/onload/ga.js' %}'></script>
         <script src='{% static 'js/onload/templates/base.js' %}'></script>
@@ -33,6 +34,7 @@
         <a href="/">{% blocktrans %} SFChat &mdash; Secure Free Chat{% endblocktrans %}</a>
     </header>
     <main>
+        <div class="error hide" id="error-general"></div>
         {% block main %}
         {% endblock %}
     </main>
@@ -56,6 +58,10 @@
     <select id="googleAnalytics">
         <option value="debugMode">{% settings_value "GOOGLE_ANALYTICS_DEBUG_MODE" %}</option>
         <option value="trackingId">{% settings_value "GOOGLE_ANALYTICS_TRACKING_ID" %}</option>
+    </select>
+    <select id="errorHandler">
+        <option value="targetError">#error-general</option>
+        <option value="hideClass">hide</option>
     </select>
     {% block onload_js_options %}{% endblock %}
 </div>

@@ -17,6 +17,13 @@ if (SFChat) {
  */
 var SFChat = {
     /**
+     * Debug mode
+     * 
+     * @property {String} False or True
+     */
+    debugmode: 'False',
+    
+    /**
      * Gets onload options
      * 
      * @param {String}  target
