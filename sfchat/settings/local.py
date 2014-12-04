@@ -13,6 +13,7 @@ LOCAL_APPS = (
     'apps',
     'apps.api.v1',
     'apps.chat',
+    'apps.csp', # content security policy
     'apps.flatpages',
     'apps.home',
     'apps.sitemap',
