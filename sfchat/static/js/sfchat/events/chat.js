@@ -99,7 +99,7 @@ SFChat.events.chat =  {
         var _this = SFChat.events.chat;
         
         if (typeof(response) !== 'undefined' && response.results.code !== 200) {
-            throw new Error(response.results.msg);
+            throw new Error(JSON.stringify(response.results));
         }
         
         // unbind events

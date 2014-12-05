@@ -38,7 +38,18 @@ SFChat.api.auth = new function () {
      * @type {SFChat.api.storage}
      */ 
     var storage = SFChat.api.storage;
-     
+    
+    /**
+     * Error messages
+     * 
+     * @type {Object} msgError
+     * @type {Number} msgError[].code HTTPCode/10
+     * @type {String} msgError[].msg
+     */
+    var msgError = {
+        authFailed: JSON.stringify({code: 40.3, msg: 'Authentication failed.'})
+    };
+    
     /**
      * Gets Chat Token
      * 
@@ -86,7 +97,7 @@ SFChat.api.auth = new function () {
             userToken   = getUserToken();
         
         if (chatToken === false || userToken === false) {
-            throw new Error('Authentication failed.');
+            throw new Error(msgError.authFailed);
         }
         
         return {'chatToken': chatToken, 'userToken': userToken};

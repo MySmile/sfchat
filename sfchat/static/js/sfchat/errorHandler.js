@@ -28,15 +28,24 @@ SFChat.errorHandler = {
      * @property {String} options.targetHeader
      * @property {String} options.hideClass
      * @property {String} options.errorHeaderClass
-     * @property {String} options.generalMsg
      * @TODO add localization
      */
     options: {
         targetError:        '',
         targetHeader:       '', 
         hideClass:          '',
-        errorHeaderClass:   '',
-        generalMsg:         'Unexpected error was detected. Please refresh page or start new chat.'
+        errorHeaderClass:   ''
+    },
+    
+    /**
+     * Error messages
+     * 
+     * @property {Object} msgError
+     * @property {Number} msgError[].code HTTPCode/10
+     * @property {String} msgError[].msg
+     */
+    msgError: {
+        general: JSON.stringify({code: 50, msg: 'Unexpected error was detected. {0} Please refresh page and try again.'})
     },
     
     /**
@@ -61,7 +70,7 @@ SFChat.errorHandler = {
         var _this = SFChat.errorHandler,
             error;
         
-        _this.showError();
+        _this.showError(msg);
         // skip if debug turned on
         if (SFChat.debugmode === 'True') {
             // run default handler
@@ -77,17 +86,23 @@ SFChat.errorHandler = {
     /**
      * Show error
      * 
-     * @param {Strimg} msg
+     * @param {Strimg} error
      */
-    showError: function(msg) {
+    showError: function(error) {
         var _this       = SFChat.errorHandler,
             errorDom    = $(_this.options.targetError),
-            headerDom   = $(_this.options.targetHeader);
+            headerDom   = $(_this.options.targetHeader),
+            msgSource   = jQuery.parseJSON(error.replace('Uncaught Error: ', '')),
+            msgBody,
+            msg;
     
-        msg = msg || _this.options.generalMsg;
-        if (!errorDom || typeof(msg) === 'undefined') {
+        if (!errorDom) {
             return;
         }
+        
+        // filter messages
+        msgBody = (msgSource.code === 403 || msgSource.code < 100)? msgSource.msg: '';
+        msg     = jQuery.parseJSON(_this.msgError.general).msg.replace('{0}', msgBody);
         
         errorDom.text(msg).removeClass(_this.options.hideClass);
         if(headerDom) {

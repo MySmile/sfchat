@@ -24,6 +24,9 @@ if (SFChat.api.resources.messages) {
  */
 SFChat.api.resources.messages = function(client) {
     this.client = client;
+    this.msgError = {
+        wrongFormat: JSON.stringify({code: 50, msg: 'Message has invalid format.'})
+    };
     this._name  = 'messages';
 };
 
@@ -41,12 +44,12 @@ SFChat.api.resources.messages.prototype.postMessage = function(msg, eventOptions
         data;
     
     msg = _this._sanitizeMessage(msg);
-    if (_this._validateMessage(msg) === true) {
-        data = _this._prepareMessageForSend(msg);
-        this.client.sendRequest('POST', _this._name, data, eventOptions);
-    } else {
-        throw new Error('Message has invalid format.');
+    if (_this._validateMessage(msg) === false) {
+        throw new Error(_this.msgError.wrongFormat);
     }
+    
+    data = _this._prepareMessageForSend(msg);
+    _this.client.sendRequest('POST', _this._name, data, eventOptions);
 };
 
 /**

@@ -38,7 +38,18 @@ SFChat.events.messages =  {
         chatTypeDom:    undefined,
         client:         undefined
     },
-
+    
+    /**
+     * Error messages
+     * 
+     * @property {Object} msgError
+     * @property {Number} msgError[].code HTTPCode/10
+     * @property {String} msgError[].msg
+     */
+    msgError: {
+        wrongUnique: JSON.stringify({code: 50, msg: 'Duplication message was returned from server.'})
+    },
+    
     /**
      * Render Messages
      * 
@@ -175,16 +186,13 @@ SFChat.events.messages =  {
      * @param {Integer} response.results.code
      * @param {String}  response.results.msg
      * @throws {Error}
-     * @TODO catch exceptions
      */
     showPostedMessage: function(e, request, response) {
         var _this   = SFChat.events.messages,
             created = new Date(),
             msgDom;
                 
-        if (response.results.code !== 200) {
-            throw new Error(response.results.msg);
-        }
+        _this._reponseErrorDetected(response);
         
         created = created.toGMTString();
         $.each(request.data.messages, function(key, item){
@@ -223,9 +231,7 @@ SFChat.events.messages =  {
             msgDom;
         
         // autherization error
-        if (results.code !== 200) {
-            throw new Error(results.msg);
-        }   
+        _this._reponseErrorDetected(response);  
 
         // run long-polling
         if (results.messages.length === 0) {
@@ -265,11 +271,8 @@ SFChat.events.messages =  {
     */
     showDeletedMessage: function(e, request, response) {
         var _this = SFChat.events.messages;
-
-        if (response.results.code !== 200) {
-            throw new Error(response.results.msg);
-        }
         
+        _this._reponseErrorDetected(response);        
         // save message id to prevent displaying duplication
         _this._saveDeleteMessage(request);   
         // restart long-polling
@@ -291,7 +294,19 @@ SFChat.events.messages =  {
         
         _this._appendMessage(msgHistory);
     },
-        
+    
+    /**
+     * Detect response error
+     * 
+     * @param {Object} reponse
+     * @throws {Error}
+     */
+    _reponseErrorDetected: function(response) {
+        if (response.results.code !== 200) {
+            throw new Error(JSON.stringify(response.results));
+        }
+    },
+    
     /**
      * Render response message
      * Save data to history
@@ -348,7 +363,7 @@ SFChat.events.messages =  {
         
         $.each(request.data.messages, function(key, item){
             if ($.inArray(item._id, _this._deletedMessages) !== -1) {
-                throw new Error('Duplication message was returned from server.');
+                throw new Error(_this.msgError);
             }
             _this._deletedMessages.push(item._id);
         });

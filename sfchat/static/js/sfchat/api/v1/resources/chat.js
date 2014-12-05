@@ -23,8 +23,9 @@ if (SFChat.api.resources.chat) {
  * @param {SFChat.api.client} client
  */
 SFChat.api.resources.chat = function(client) {
-    this.client = client;
-    this._name  = 'chat';
+    this.client     = client;
+    this.msgError   = {};
+    this._name      = 'chat';
 };
 
 /**
