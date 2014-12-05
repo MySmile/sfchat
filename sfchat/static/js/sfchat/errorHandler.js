@@ -24,15 +24,19 @@ SFChat.errorHandler = {
      * Options
      * 
      * @property {Object} options
-     * @property {String} options.hideClass
      * @property {String} options.targetError
+     * @property {String} options.targetHeader
+     * @property {String} options.hideClass
+     * @property {String} options.errorHeaderClass
      * @property {String} options.generalMsg
      * @TODO add localization
      */
     options: {
-        targetError:    '',
-        hideClass:      '',
-        generalMsg:     'Unexpected error was detected. Please refresh page or start new chat.'
+        targetError:        '',
+        targetHeader:       '', 
+        hideClass:          '',
+        errorHeaderClass:   '',
+        generalMsg:         'Unexpected error was detected. Please refresh page or start new chat.'
     },
     
     /**
@@ -77,7 +81,8 @@ SFChat.errorHandler = {
      */
     showError: function(msg) {
         var _this       = SFChat.errorHandler,
-            errorDom    = $(_this.options.targetError);
+            errorDom    = $(_this.options.targetError),
+            headerDom   = $(_this.options.targetHeader);
     
         msg = msg || _this.options.generalMsg;
         if (!errorDom || typeof(msg) === 'undefined') {
@@ -85,5 +90,8 @@ SFChat.errorHandler = {
         }
         
         errorDom.text(msg).removeClass(_this.options.hideClass);
+        if(headerDom) {
+            headerDom.addClass(_this.options.errorHeaderClass);
+        }
     }
 };

@@ -52,11 +52,16 @@ mark {
     margin: 5px auto;
  }
  
+ /* Error */
  .error {
      padding: 5px;
      text-align: center;
      color: #cc8934;
      font-weight: bold;
+ }
+ 
+ .error-header {
+     background-color: #ffe599 !important;
  }
  
 /* Header */
@@ -254,12 +259,10 @@ hr {
     color: #cc8934;
  }
 
+#chat-type p {
+    margin: 0;
+ }
 
-
-#chat-type p{
-  margin:0;
-  }
-a
  #chat-type p textarea {
     width: 100%;
     -webkit-box-sizing: border-box;

@@ -86,19 +86,8 @@ SFChat.api.resources.messages.prototype.deleteMessage = function(data, eventOpti
  * @param {String} msg
  * @return {String}
  */
-SFChat.api.resources.messages.prototype._sanitizeMessage= function(msg) {
-    var sanitize = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;'
-    };
-    
-    msg = msg.trim();
-    msg = msg.replace(/[&<>]/g, function(item) {
-        return sanitize[item] || item;
-    });
-    
-    return msg;
+SFChat.api.resources.messages.prototype._sanitizeMessage= function(msg) {   
+    return msg.trim();
 };
 
 /**

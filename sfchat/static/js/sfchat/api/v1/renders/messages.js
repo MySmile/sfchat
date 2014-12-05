@@ -118,13 +118,34 @@ SFChat.api.renders.messages = (function() {
      */
     var renderMessage = function(msg, date, msgSource) {
         var messageTmp = getMessageTmp();
-              
-        msg = msg.replace(/\n/gi, "<br>");     
+        
+        msg = sanitizeMessage(msg);    
         $('.' + msgTextClass, messageTmp).html(msg);
         renderMessageName(messageTmp, msgSource);
         renderMessageDate(messageTmp, date);
         
         return messageTmp;
+    };
+    
+    /**
+     * Sanitize Message
+     * 
+     * @param {String} msg
+     * @return {String}
+     */
+    var sanitizeMessage = function(msg) {
+        var sanitize = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;'
+        };
+        
+        msg = msg.replace(/[&<>]/g, function(item) {
+            return sanitize[item] || item;
+        });
+        msg = msg.replace(/\n/gi, "<br>");
+        
+        return msg;
     };
  
     return {

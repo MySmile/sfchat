@@ -103,7 +103,7 @@ SFChat.events.messages =  {
         var _this   = SFChat.events.messages,
             msg     = _this.options.chatTypeDom.val();
         
-        // skip empty message
+        // skip sending empty message
         if(msg.trim().length === 0) {
             return;
         }    

@@ -14,7 +14,9 @@ $(document).ready(function() {
         'googleAnalytics.debugMode', 
         'googleAnalytics.trackingId',
         'errorHandler.targetError',
-        'errorHandler.hideClass'
+        'errorHandler.hideClass',
+        'errorHandler.targetHeader',
+        'errorHandler.errorHeaderClass'
     ]);
     
     // debug mode
