@@ -1,5 +1,7 @@
 import json
 
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from django.http import HttpResponse
 
@@ -48,3 +50,7 @@ class CSPReport(View):
         response = HttpResponse()
         response.status_code = 204
         return response
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super(CSPReport, self).dispatch(*args, **kwargs)
