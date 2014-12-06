@@ -1,4 +1,5 @@
 import datetime
+import time
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
 from mongoengine import *
@@ -30,6 +31,7 @@ class Messages(EmbeddedDocument):
 class LongPolling(EmbeddedDocument):
     _id = ObjectIdField(required=True)
     user_token = ObjectIdField(required=True)
+    created = DateTimeField(default=datetime.datetime.utcnow())
 
 
 class Chats(Document):
@@ -151,14 +153,14 @@ class Chats(Document):
         :param system: Boolean
         :return: Boolean
         """
-        talker_token = list(filter(lambda item: user_token != str(item), self.user_tokens))
+        talker_token = self.get_talker_token(user_token)
         if not talker_token:
             return False
 
         try:
             prepared_messages = []
             for item in messages:
-                prepared_messages.append(Messages.prepare_message(msg=item['msg'], user_token=talker_token[0], system=system))
+                prepared_messages.append(Messages.prepare_message(msg=item['msg'], user_token=talker_token, system=system))
 
             self.update(push_all__messages=prepared_messages)
             result = True
@@ -194,10 +196,10 @@ class Chats(Document):
                 Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_YOU), user_token=ObjectId(user_token))
             ]
             # it's possible to close "draft" chat
-            talker_token = list(filter(lambda item: user_token != str(item), self.user_tokens))
+            talker_token = self.get_talker_token(user_token)
             if talker_token:
                 prepared_messages.append(
-                    Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_TALKER), user_token=talker_token[0])
+                    Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_TALKER), user_token=talker_token)
                 )
 
             self.update(set__status=self.STATUS_CLOSED, push_all__messages=prepared_messages)
@@ -217,12 +219,13 @@ class Chats(Document):
             # delete all processes
             self.delete_long_polling(user_token)
 
-            process = {'_id': ObjectId(), 'user_token': ObjectId(user_token)}
-            self.update(push__long_polling=process)
+            long_polling = LongPolling(_id=ObjectId(), user_token=ObjectId(user_token),
+                                       created=datetime.datetime.utcnow())
+            self.update(push__long_polling=long_polling)
         except (TypeError, InvalidId, DoesNotExist) as ex:
             return False
 
-        return str(process['_id'])
+        return str(long_polling._id)
 
     def delete_long_polling(self, user_token):
         """
@@ -242,3 +245,27 @@ class Chats(Document):
             return False
 
         return long_polling[0]
+
+    def auto_close_long_polling(self, user_token, auto_close):
+        """
+        close automatically chat if talker close browser or tab
+        :param user_token: String
+        :param auto_close: String
+        """
+        talker_token = str(self.get_talker_token(user_token))
+        long_polling = self.get_long_polling(talker_token)
+        if long_polling and self.status == self.STATUS_READY \
+                and datetime.datetime.now().timestamp() - long_polling.created.timestamp() > auto_close:
+            self.delete_chat(talker_token)
+
+    def get_talker_token(self, user_token):
+        """
+        Gets talker token
+        :param user_token: String
+        :return: ObjectId|False talker token or false if failed or such token does nit exist
+        """
+        talker_token = list(filter(lambda item: user_token != str(item), self.user_tokens))
+        if not talker_token:
+            return False
+
+        return talker_token[0]

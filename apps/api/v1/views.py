@@ -17,15 +17,11 @@ class MessagesView(APIView):
         List all messages related to current user
         """
         long_polling = request.GET.get('longPolling', 'True')
-        chat_token = TokenAuthentication.get_chat_token(request)
         user_token = TokenAuthentication.get_user_token(request)
+        if long_polling == 'True':
+            LongPolling.run(request.user, user_token)
 
         serializer = ChatMessagesSerializer(request.user)
-        if long_polling == 'True' \
-                and serializer.data['count'] == 0 \
-                and serializer.data['status'] != Chats.STATUS_CLOSED:
-            serializer = LongPolling.run(serializer, chat_token, user_token)
-
         response = {'results': serializer.data}
         return Response(response)
 

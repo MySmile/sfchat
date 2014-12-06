@@ -156,6 +156,6 @@ SFChat.api.client.prototype._getUrl = function(resource, chatToken) {
  */
 SFChat.api.client.prototype._checkResponse = function(data) {
     if (typeof(data) === 'undefined' || typeof(data['results']) !== 'object') {
-        throw new TypeError('Data has invalid format.');
+        throw new TypeError('Response has invalid format.');
     }
 };

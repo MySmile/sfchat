@@ -192,7 +192,7 @@ SFChat.events.messages =  {
             created = new Date(),
             msgDom;
                 
-        _this._reponseErrorDetected(response);
+        _this._responseErrorDetected(response);
         
         created = created.toGMTString();
         $.each(request.data.messages, function(key, item){
@@ -231,10 +231,10 @@ SFChat.events.messages =  {
             msgDom;
         
         // autherization error
-        _this._reponseErrorDetected(response);  
+        _this._responseErrorDetected(response);
 
         // run long-polling
-        if (results.messages.length === 0) {
+        if (results.status !== 'closed' && results.messages.length === 0) {
             _this.options.chatBodyDom.trigger('getMessage');
             return;
         }
@@ -272,7 +272,7 @@ SFChat.events.messages =  {
     showDeletedMessage: function(e, request, response) {
         var _this = SFChat.events.messages;
         
-        _this._reponseErrorDetected(response);        
+        _this._responseErrorDetected(response);
         // save message id to prevent displaying duplication
         _this._saveDeleteMessage(request);   
         // restart long-polling
@@ -298,10 +298,10 @@ SFChat.events.messages =  {
     /**
      * Detect response error
      * 
-     * @param {Object} reponse
+     * @param {Object} response
      * @throws {Error}
      */
-    _reponseErrorDetected: function(response) {
+    _responseErrorDetected: function(response) {
         if (response.results.code !== 200) {
             throw new Error(JSON.stringify(response.results));
         }

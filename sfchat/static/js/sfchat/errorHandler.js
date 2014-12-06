@@ -92,7 +92,7 @@ SFChat.errorHandler = {
         var _this       = SFChat.errorHandler,
             errorDom    = $(_this.options.targetError),
             headerDom   = $(_this.options.targetHeader),
-            msgSource   = jQuery.parseJSON(error.replace('Uncaught Error: ', '')),
+            msgSource   = _this._parseJSON(error.replace('Uncaught Error: ', '')),
             msgBody,
             msg;
     
@@ -101,12 +101,31 @@ SFChat.errorHandler = {
         }
         
         // filter messages
-        msgBody = (msgSource.code === 403 || msgSource.code < 100)? msgSource.msg: '';
+        msgBody = ( msgSource !== false || msgSource.code === 403 
+            || msgSource.code < 100)? msgSource.msg: '';
         msg     = jQuery.parseJSON(_this.msgError.general).msg.replace('{0}', msgBody);
         
         errorDom.text(msg).removeClass(_this.options.hideClass);
         if(headerDom) {
             headerDom.addClass(_this.options.errorHeaderClass);
         }
+    },
+    
+    /**
+     * Parse JSON
+     * 
+     * @param {String} msg
+     * @returns {result|Array|Object|Boolean}
+     */
+    _parseJSON: function(msg) {
+        var result;
+        
+        try {
+            result = jQuery.parseJSON(msg);
+        } catch (e) {
+            result = false;
+        }
+        
+        return result;
     }
 };

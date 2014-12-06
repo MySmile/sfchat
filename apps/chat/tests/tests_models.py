@@ -1,3 +1,4 @@
+import time
 import unittest
 from bson.objectid import ObjectId
 from apps.chat.models import *
@@ -86,6 +87,18 @@ class ChatsTestCase(unittest.TestCase):
         self.chat.reload()
         long_polling = self.chat.get_long_polling(self.chat_token)
         self.assertFalse(long_polling)
+
+    def test_auto_close_long_polling(self):
+        talker_token = self.chat.get_talker_token(self.user_token)
+        self.chat.create_long_polling(self.user_token)
+        self.chat.create_long_polling(talker_token)
+        self.chat.reload()
+
+        time.sleep(2)
+        self.chat.auto_close_long_polling(self.user_token, 1)
+        self.chat.reload()
+        self.assertEquals(Chats.STATUS_CLOSED, self.chat.status)
+
 
 class MessagesTestCase(unittest.TestCase):
     def test_prepare_message_success(self):

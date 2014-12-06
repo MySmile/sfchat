@@ -13,6 +13,7 @@ class JoinChatForm(forms.Form):
     chat_token = forms.CharField(required=True, max_length=24, label='')
     chat_token.widget = forms.TextInput({"maxlength": 24,
                                          "pattern": "[a-z0-9]{24}",
+                                         "placeholder": _("Please enter your code here..."),
                                          "class": "chat-token"})
 
     user_token = False
