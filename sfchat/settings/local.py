@@ -28,6 +28,10 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')
 STATIC_ROOT = os.path.join(BASE_DIR, 'sfchat/static/')
 
+STATICFILES_DIRS = (
+    os.path.join(STATIC_ROOT, 'bower_components/jquery/dist/'),
+)
+print('STATICFILES_DIRS --- ', STATICFILES_DIRS)
 # compressor settings
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
