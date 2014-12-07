@@ -96,12 +96,12 @@ SFChat.errorHandler = {
             msgBody,
             msg;
     
-        if (!errorDom || msgSource === false) {
+        if (!errorDom) {
             return;
         }
         
         // filter messages
-        msgBody = (msgSource.code === 403 
+        msgBody = (msgSource !== false || msgSource.code === 403 
             || msgSource.code < 100)? msgSource.msg: '';
         msg     = jQuery.parseJSON(_this.msgError.general).msg.replace('{0}', msgBody);
         
