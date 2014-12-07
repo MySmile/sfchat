@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block meta %}
+    <meta name="description" content="License for Security Free Chat"  />
+    <meta name="keywords" content="SFChat, license, copyright" />
+{% endblock %}
+{% block title %}: Privacy{% endblock %}
+
+{% block main %}
+    <article>
+        <h1>Privacy policy</h1>
+        <p>
+            Our privacy policy explains:
+            <ul>
+                <li><a href="#How-SFChat-saves-chat-messages">How SFChat saves chat messages</a>,</li>
+                <li><a href="#What-information-is-collected">What information is collected</a>,</li>
+                <li><a href="#How-collected-information-is-used">How collected information is used</a>,</li>
+                <li><a href="#How-cookies-is-used">How cookies is used</a>.</li>
+            </ul>
+        </p>
+        
+        <h2><a id="How-SFChat-saves-chat-messages">How SFChat saves chat messages</a></h2>
+        <p>
+            SFChat does NOT save chat history on a server. SFChat removes messages as soon as they successfully delivered to addresser.
+            In the case when messages were not obtained then SFChat automatically removes all chat information 
+            that linked to chats older then 24 hours.
+        </p>
+            
+        <h2><a id="What-information-is-collected">What information is collected</a></h2>
+        <p>
+            SFChat does NOT collect any information that can identify person directly or indirectly.
+            SFChat collects:
+            <ul>
+                <li>Page view statistics,</li>
+                <li>Action click on "create chat" and "join chat" buttons,</li>
+                <li>JavaScript's errors</li>
+            </ul>
+            All that information is obtained by <a href='//www.google.com/analytics/' target="_blank">Google Analytics</a>.
+            Parameter anonymizeIp in Google Analytics sets in True. It means that Google removes the last octet of the IP address.
+        </p>
+            
+        <h2><a id="How-collected-information-is-used">How collected information is used</a></h2>
+        <p>
+            Collected information is used for:
+            <ul>
+                <li>Maintain accessibility: detect errors, server connection down etc.,</li>
+                <li>Analyze on what languages SFChat should be translated first,</li>
+                <li>Choose direction for growth.</li>
+            </ul>
+        </p>
+        
+        <h2><a id="How-cookies-is-used">How cookies is used</a></h2>
+        <p>Cookie is used for Google Analytics purpose and for protection of Cross-site request forgery attack.</p> 
+    </article>
+{% endblock %}

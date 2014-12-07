@@ -1,0 +1,9 @@
+celery*
+/sfchat/static/CACHE/**
+.idea
+*.pyc
+docs/build/**
+tmp/*
+log/*
+/sfchat/static/bower_components/**
+nbproject/

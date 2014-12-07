@@ -1,0 +1,72 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% load staticfiles %}{% load compress %}{% load settings_value %}{% load email_protection %}{% load nav_active %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    {% block meta %}{% endblock %}
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
+    <link rel="apple-touch-icon" href="{% static 'images/touch-icon-iphone.png' %}">
+    <title>SFChat{% block title %}{% endblock %}</title>
+    
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        {% block css %}{% endblock %}
+    {% endcompress %}     
+    
+    {% compress js %}
+        <script src='{% static 'jquery.min.js' %}'></script>
+        <script src='{% static 'js/sfchat/sfchat.js' %}'></script>
+        <script src='{% static 'js/sfchat/events/gatracking.js' %}'></script>
+        <script src='{% static 'js/sfchat/errorHandler.js' %}'></script>
+        
+        <script src='{% static 'js/onload/ga.js' %}'></script>
+        <script src='{% static 'js/onload/templates/base.js' %}'></script>
+        {% block js %}{% endblock %}
+    {% endcompress %}
+</head>
+<body>
+
+<div id="layout">
+    <header>
+        <a href="/">{% blocktrans %} SFChat &mdash; Secure Free Chat{% endblocktrans %}</a>
+    </header>
+    <main>
+        <noscript><div class="error">{% trans "Your browser does not support JavaScript. It is essential to have support JavaScript for such resource." %}</div></noscript>
+        <div class="error hide" id="error-general"></div>
+        {% block main %}
+        {% endblock %}
+    </main>
+    <footer>
+        <nav>
+            <ul>
+                <li class="{% nav_active request "/privacy.html$" %}"><a href="/privacy.html">{% trans "Privacy" %}</a></li>
+                <li class="{% nav_active request "/license.html$" %}"><a href="/license.html" rel="license">License</a></li>
+                <li><a href="//github.com/MySmile/sfchat">{% trans "Source" %}</a></li>
+                <li class="{% nav_active request "/faq.html$" %}"><a href="/faq.html" rel="help">{% trans "FAQ" %}</a></li>
+            </ul>
+        </nav>
+        <div id="contact">
+            {% blocktrans %}For questions please contact us {% endblocktrans %} <br>
+            <mark>{% email_protection email='securefreechat@gmail.com' hide_class='hide' %}</mark>
+        </div>
+        <div id="copyright">&copy; copyright SFChat 2014</div>
+    </footer> 
+</div>
+<div class="hide onload-js-options">
+    <select id="googleAnalytics">
+        <option value="debugMode">{% settings_value "GOOGLE_ANALYTICS_DEBUG_MODE" %}</option>
+        <option value="trackingId">{% settings_value "GOOGLE_ANALYTICS_TRACKING_ID" %}</option>
+    </select>
+    <select id="errorHandler">
+        <option value="targetError">#error-general</option>
+        <option value="hideClass">hide</option>
+        <option value="targetHeader">#chat-header</option>
+        <option value="errorHeaderClass">error-header</option>
+    </select>
+    {% block onload_js_options %}{% endblock %}
+</div>
+</body>
+</html>

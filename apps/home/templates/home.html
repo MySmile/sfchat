@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load staticfiles %}{% load i18n %}{% get_current_language as LANGUAGE_CODE %}
+
+{% block js %}
+    <script src='{% static 'js/onload/home/home.js' %}'></script>
+{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="Secure Free Chat - SFChat"  />
+    <meta name="keywords" content="chat, security, free, SFChat" />
+{% endblock %}
+{% block title %} - Secure Free Chat{% endblock %}
+
+{% block main %}
+    <div id="chat-entry">
+        <form method="POST" action="/create-chat/">{% csrf_token %}
+            {{ form_create_chat }}
+            <button id="create_chat" class="btn btn-green" type="submit" >
+                {% trans "create new" %}
+            </button>
+        </form>
+        <div id='or'>{% trans "OR" %}</div>
+        <form method="POST">{% csrf_token %}
+            {{ form.as_p }}<button id="join_chat" class="btn btn-orange" type="submit">{% trans "join" %}</button>
+        </form>
+    </div>
+    <hr>
+    <div id="arrow-down"></div>    
+    <article id="intro">
+        {% blocktrans %}
+            <h2>Chat:</h2>
+            <ol>
+                <li>Click to "create chat"</li>
+                <li>Send code with link to friend</li>
+                <li>Enjoy free secure chatting!</li>
+            </ol>
+            <h2>Secure because:</h2>
+            <ol>
+                <li>Use SSL</li>
+                <li>Chat history is not saved on server</li>
+            </ol>
+            <h2>Free considering:</h2>
+            <ol>
+                <li>Open source</li>
+                <li>BSD-3-Clause license</li>
+            </ol>
+        {% endblocktrans %}    
+    </article>
+{% endblock %}
+
+{% block onload_js_options %}
+    <select id="buttonTarget">
+        <option value="createChat">#create_chat</option>
+        <option value="joinChat">#join_chat</option>
+    </select>
+{% endblock %}

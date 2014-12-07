@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block meta %}
+    <meta name="description" content="Frequently asked questions about Security Free Chat"  />
+    <meta name="keywords" content="SFChat, questions, FAQ" />
+{% endblock %}
+{% block title %}: FAQ{% endblock %}
+
+{% block main %}
+    <article>
+        <h1>Frequently asked questions</h1>
+        <ul>
+            <li><a href="#Does-SFChat-saves-chat-history-on-the-server">Does SFChat saves chat history on the server?</a></li>
+            <li><a href="#How-long-current-chat-is-kept-active">How long current chat is kept active?</a></li>
+            <li><a href="#How-is-SFChat-work">How is SFChat work?</a></li>
+            <li><a href="#What-is-code">What is "code"?</a></li>
+            <li><a href="#What-would-be-happen-when-code-has-been-stolen">What would be happen when "code" has been stolen?</a></li>
+            <li><a href="#Does-close-browser-or-tab-mean-that-chat-is-closed">Does close browser or tab mean that chat is closed?</a></li>
+            <li><a href="#How-can-I-help-the-project">How can I help the project?</a></li>
+        </ul>    
+        
+        <h2><a id="Does-SFChat-saves-chat-history-on-the-server">Does SFChat saves chat history on the server?</a></h2>
+        <p>
+            SFChat does NOT save chat history on a server. SFChat removes message from server after delivery them to addresser.
+            Moreover after 24 hours chat automatically remove all data. So undelivered messages is saved only 24 hours.
+        </p>
+        
+        <h2><a id="How-long-current-chat-is-kept-active">How long current chat is kept active?</a></h2>
+        <p>
+            Each chat is active 24 hours. Such limitation increases security. 
+            For instance if SFChat was not closed.
+        </p>
+        
+        <h2><a id="How-is-SFChat-work">How is SFChat work?</a></h2>
+        <p>
+            After push "create chat" button new chat is created with unique "code".
+            Such "code" is using to join one and only one participant to chat. 
+            So after "code" is used then chat is ready to communicate. 
+            Each new message were deleted from SFChat server after it was delivered to addresser. 
+            After finish conversation it is strongly recommended to close chat using "close icon" on the right top corner of chat page. 
+        </p>
+        
+        <h2><a id="What-is-code">What is "code"?</a></h2>
+        <p>
+            Code is a unique chat identifier. Such code can not be used along to get access to chat.
+            It is like email address or car number.
+        </p>
+        
+        <h2><a id="What-would-be-happen-when-code-has-been-stolen">What would be happen when "code" has been stolen?</a></h2>
+        <p>
+            Lest's consider two situation. The first when "code" is used by malicious user before "code" was applied to join chat.
+            The second when "code" is used for connection to chat after they was used by right person. 
+        </p>
+        <p>    
+            For the first situation chat was connected to wrong person. 
+            Therefore correct user will be refused to use "code" because it has been already applied.
+            So to prevent share information with wrong person it is better to start talk with several questions to be sure that you are speaking
+            with the known person.    
+        </p>  
+        <p>
+            In the second case malicious user can not to join to chat because of limitation of two person in one chat.
+        </p>
+              
+        <h2><a id="Does-close-browser-or-tab-mean-that-chat-is-closed">Does close browser or tab mean that chat is closed?</a></h2>
+        <p>
+            Yes, but not at once. It takes time to detect that browser or tab was closed approximately 6 minutes (such time is related to SFChat server configuration).
+            Moreover closing all SFChat tabs or browser removes chat history also 'code' can not be used to join to such chat again.
+            Finally it is strongly recommended use "close icon" to exit chat.
+        </p>
+        
+        <h2><a id="How-can-I-help-the-project">How can I help the project?</a></h2>
+        <ul>
+            <li>Become SFChat developer. Please visit <a href="//github.com/MySmile/sfchat">SFChat GitHub page</a>,</li>
+            <li>
+                Submit improvement proposal or bug request. 
+                Please use "New issue" button on <a href="//github.com/MySmile/sfchat/issues">SFChat GitHub issue page</a>,
+            </li>
+            <li>Send email to SFChat developers with questions please use contact email in the button of a page,</li>
+            <li>
+                Become a sponsor to help cover hosting, SSL certificate, 3-d part consulting costs.
+                Sponsor's logo will be shown on a bottom of the main page. 
+                Moreover sponsors name will be randomly chosen from whole pull of sponsors to show in "welcome" message of chat. 
+                For instance: <br>
+                <div class="example">
+                                    Welcome to SFChat!<br>
+                    Please send code: 547dcc15b82b9c1ae810ad07 to Talker <br>
+                    Thank you "Sponsor company name" for support SFChat
+                </div> 
+                Please contact us by email in the bottom of the page to became a SFChat Sponsor.
+            </li>
+        </ul>    
+    </article>
+{% endblock %}
