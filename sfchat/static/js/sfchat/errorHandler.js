@@ -92,7 +92,7 @@ SFChat.errorHandler = {
         var _this       = SFChat.errorHandler,
             errorDom    = $(_this.options.targetError),
             headerDom   = $(_this.options.targetHeader),
-            msgSource   = _this._parseJSON(error.replace('Uncaught Error: ', '')),
+            msgSource   = _this._parseJSON(error.replace('Uncaught Error: ', '').replace('Error: ', '')),
             msgBody,
             msg;
     
