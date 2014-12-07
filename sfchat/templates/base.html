@@ -34,6 +34,7 @@
         <a href="/">{% blocktrans %} SFChat &mdash; Secure Free Chat{% endblocktrans %}</a>
     </header>
     <main>
+        <noscript><div class="error">{% trans "Your browser does not support JavaScript. It is essential to have support JavaScript for such resource." %}</div></noscript>
         <div class="error hide" id="error-general"></div>
         {% block main %}
         {% endblock %}
