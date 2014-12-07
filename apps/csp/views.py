@@ -13,6 +13,7 @@ class CSPReport(View):
     REPORT_KEYS = (
         'blocked-uri',
         'document-uri',
+        'line-number',
         'original-policy',
         'referrer',
         'script-sample',
@@ -21,29 +22,27 @@ class CSPReport(View):
 
     REPORT_MAX_ITEM_LENGTH = 1024
 
-    def post(self):
+    def post(self, request, *args, **kwargs):
         """
         Content Security Policy Report
         http://www.w3.org/TR/CSP/#report-uri
         :param request:
         :return: HttpResponse
         """
-        if self.request.META.get('Content-Type') != 'application/json':
+        if request.META.get('CONTENT_TYPE') != 'application/json':
             raise AttributeError('Wrong CSP report header format.')
 
-        report_json = json.loads(self.request.body)
-        if not report_json.has_key('csp-report'):
+        logger.error(request.body.decode('utf-8'))
+        report_json = json.loads(request.body.decode('utf-8'))
+        if 'csp-report' not in report_json.keys():
             raise AttributeError('CSP report does not have root attribute.')
 
-        report = 'CSP REPORT \n' + self.request.META.get('REMOTE_ADDR') \
-                 + '\n' + self.request.META.get('HTTP_USER_AGENT')
-        for item in self.REPORT_KEYS:
-            if not report_json['csp-report'].has_key(item)\
-                    or type(report_json['csp-report'][item]) is not str\
-                    or len(report_json['csp-report'][item]) > self.REPORT_MAX_ITEM_LENGTH:
-                raise AttributeError('CSP report has invalid attribute {0}.'.format(item))
+        report = '===CSP REPORT=== \nremote-addr: ' + request.META.get('REMOTE_ADDR') \
+                 + '\nuser-agent: ' + request.META.get('HTTP_USER_AGENT')
 
-            report += '\n' + item + ': ' + report_json['csp-report'][item]
+        for item in self.REPORT_KEYS:
+            report_item = str(report_json['csp-report'][item])[0:self.REPORT_MAX_ITEM_LENGTH]
+            report += '\n' + str(item) + ': ' + report_item
 
         logger.error(report)
 
