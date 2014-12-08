@@ -27,12 +27,12 @@ class HomeView(FormView):
         """
         # join to chat run during validation process
         chat_token = self.request.POST.get('chat_token')
-        self.success_url = '/chat/' + chat_token
+        self.success_url = '/chat/' + str(chat_token)
 
         chat_page = ChatPage(self.request)
         chat_page.set_user_token(form.user_token)
 
-        logger.info('User joined to chat: '+chat_token)
+        logger.info('User joined to chat: '+str(chat_token))
         return super(HomeView, self).form_valid(form)
 
 
