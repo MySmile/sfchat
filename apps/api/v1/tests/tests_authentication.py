@@ -21,7 +21,7 @@ class AuthenticationTestCase(unittest.TestCase):
         self.assertRaises(exceptions.AuthenticationFailed, lambda_validate, '543e33a2e3ce324d374246fc')
 
     def test_authenticate_success(self):
-        user_token = Chats.join_to_chat(self.chat_token);
+        user_token = Chats.join_to_chat(self.chat_token)
         request = self.get_http_request(self.chat_token, user_token)
 
         authentication = TokenAuthentication()

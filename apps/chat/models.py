@@ -41,6 +41,7 @@ class LongPolling(EmbeddedDocument):
 
 
 class Chats(Document):
+    MAX_USER_TOKENS = 2
     STATUS_DRAFT = 'draft'
     STATUS_READY = 'ready'
     STATUS_CLOSED = 'closed'
@@ -70,13 +71,19 @@ class Chats(Document):
 
 
     def clean(self):
-        if len(self.user_tokens) > 2:
-            msg = 'Length user_tokens must be equal or less then 2.'
+        if self.count > self.MAX_USER_TOKENS:
+            msg = 'Length user_tokens must be equal or less then ' + str(MAX_USER_TOKENS)
             raise ValidationError(msg)
 
     @property
     def count(self):
-        return len(self.messages)
+        """ Count user_tokens which is ListField
+        # FIXME: use len(user_tokens) as native in future mongoengine versions?
+        """
+        i = 0
+        for item in self.user_tokens:
+            i+=1
+        return i
 
     def code(self):
         return self.HTTP_CODE
@@ -110,8 +117,8 @@ class Chats(Document):
             chat = Chats.objects.get_all_by_token(chat_token)
         except (TypeError, InvalidId, DoesNotExist) as ex:
             return False
-
-        if len(chat.user_tokens) != 1:
+        #
+        if chat.count != 1:
             return False
 
         user_token = ObjectId()
@@ -120,7 +127,6 @@ class Chats(Document):
             Messages.prepare_message(msg=_(Chats.MSG_JOIN_CHAT_YOU), user_token=chat.user_tokens[0])
         ]
         chat.update(set__status=Chats.STATUS_READY, push__user_tokens=user_token, push_all__messages=prepared_messages)
-
         return str(user_token)
 
     @staticmethod
@@ -153,7 +159,7 @@ class Chats(Document):
 
         return result
 
-    def add_message(self, user_token, messages=[], system=False):
+    def add_message(self, user_token, messages=None, system=False):
         """
         Add messages
         :param user_token: String
@@ -161,6 +167,7 @@ class Chats(Document):
         :param system: Boolean
         :return: Boolean
         """
+        messages = messages or []
         talker_token = self.get_talker_token(user_token)
         if not talker_token:
             return False

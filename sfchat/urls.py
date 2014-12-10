@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, include, url
-from django.contrib import admin
 from django.contrib.staticfiles.views import serve as serve_static
 from django.views.decorators.cache import never_cache
 from django.conf import settings
