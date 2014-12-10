@@ -11,3 +11,5 @@ services:
   - mongodb
 # command to run tests
 script: make test
+after_success:
+  coveralls
