@@ -11,6 +11,8 @@ install:
 services:
   - mongodb
 # command to run tests
-script: make test
+script:
+  - make test
+  - coverage run --source=apps.* manage.py test
 after_success:
   coveralls
