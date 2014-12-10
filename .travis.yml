@@ -13,6 +13,6 @@ services:
 # command to run tests
 script:
   - make test
-  - coverage run --source=apps.* manage.py test
+  - coverage run --source=sfchat manage.py test
 after_success:
   coveralls
