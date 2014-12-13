@@ -20,3 +20,10 @@ if settings.DEBUG:
     urlpatterns += patterns('django.views.static',
                             url(r'^static/(?P<path>.*)$', never_cache(serve_static)),
     )
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += patterns('',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )

@@ -20,6 +20,17 @@ LOCAL_APPS = (
     # 'tests',
 )
 
+
+# Third party apps
+THIRD_PARTY_APPS = (
+    'rest_framework',
+    'rest_framework.authtoken',
+    'compressor',
+
+    'debug_toolbar',
+)
+
+
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')
@@ -44,3 +55,6 @@ COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'co
 # Google Analytics
 GOOGLE_ANALYTICS_TRACKING_ID = 'UA-57194449-2'
 GOOGLE_ANALYTICS_DEBUG_MODE = True
+
+DEBUG_TOOLBAR_PATCH_SETTINGS = True
+INTERNAL_IPS = '127.0.0.1'

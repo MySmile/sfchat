@@ -27,14 +27,6 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
 )
 
-# Third party apps
-THIRD_PARTY_APPS = (
-    'rest_framework',
-    'rest_framework.authtoken',
-    'compressor',
-)
-
-
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -48,6 +40,8 @@ MIDDLEWARE_CLASSES = (
 
     'apps.api.middlewares.VersionSwitchMiddleware',
     'apps.chat.middlewares.ExceptionLoggingMiddleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'sfchat.urls'

@@ -1,6 +1,7 @@
 celery*
 /sfchat/static/CACHE/**
 .idea
+.coverage
 *.pyc
 docs/build/**
 tmp/*
