@@ -3,8 +3,9 @@ SFChat
 ******
 .. image:: https://travis-ci.org/MySmile/sfchat.svg?branch=dev
     :target: https://travis-ci.org/MySmile/sfchat
-.. image:: https://coveralls.io/repos/MySmile/sfchat/badge.png
-    :target: https://coveralls.io/r/MySmile/sfchat
+.. image:: https://coveralls.io/repos/MySmile/sfchat/badge.png?branch=dev
+  :target: https://coveralls.io/r/MySmile/sfchat?branch=dev
+
 
 
 Secure Free Chat (SFChat) - is Django and Mongodb based RESTfull chat.
