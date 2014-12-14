@@ -66,14 +66,13 @@ SFChat.events.chat =  {
         var _this = SFChat.events.chat;
         
         _this.options   = $.extend(_this.options, options);
-        _this._chat     =  new SFChat.api.resources.chat(_this.options.client);
+        _this._chat     = new SFChat.api.resources.chat(_this.options.client);
     },
     
     /**
      * Delete Chat
      * 
      * @param {Event} e
-     * @TODO catch exeptions
      */
     deleteChat: function(e) {
         var _this = SFChat.events.chat;
@@ -86,6 +85,7 @@ SFChat.events.chat =  {
     
     /**
      * Sets chat closed
+     * It does not remove data from chat history
      * 
      * @param {Event}            e
      * @param {Undefined}        request
@@ -107,9 +107,6 @@ SFChat.events.chat =  {
         _this.options.chatTypeDom.prop('disabled', true ).off();
         _this.options.chatBodyDom.off('deleteChat');
         _this.options.chatBodyDom.off('deleteMessage');
-        
-        // remove history
-        _this._storage.removeAllData();
     },
     
    /**
@@ -131,7 +128,7 @@ SFChat.events.chat =  {
             _this.options.chatBodyDom.trigger('postMessage');
         });
 
-        // hotkey block
+        // hotkeys
         _this.options.chatTypeDom.keydown(function(e) {
             if ((e.ctrlKey || e.shiftKey) && e.keyCode === 13) {
                 return true;
@@ -149,7 +146,9 @@ SFChat.events.chat =  {
     },
     
     /**
-     * Handle chat status
+     * Handle chat status:
+     * - ready: bind events
+     * - closed: unbind events and remove chat history data
      * 
      * @param {Event}   e
      * @param {String}  status
@@ -164,6 +163,7 @@ SFChat.events.chat =  {
                 
             case 'closed':
                 _this.options.chatBodyDom.trigger('setChatClosed');
+                _this._storage.removeAllData();
                 break;
         }
     }

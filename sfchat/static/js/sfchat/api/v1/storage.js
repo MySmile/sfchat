@@ -22,7 +22,7 @@ if (!SFChat.api) {
  */
 SFChat.api.storage = new function () {
     /**
-     * Max lenth of data in the Storage
+     * Max length of data in the Storage
      * 144*20 - 20 messages with length 144
      * 
      * @type {Integer}
@@ -44,7 +44,7 @@ SFChat.api.storage = new function () {
     var chatToken;
     
     /**
-     * Clear Storage exept userToken
+     * Clear Storage except userToken
      * 
      * @throws {Error}
      */
@@ -61,7 +61,7 @@ SFChat.api.storage = new function () {
     };
     
     /**
-     * Prepear Storage key
+     * Prepare Storage key
      * 
      * @param {String} key
      * @return {String}
@@ -109,9 +109,9 @@ SFChat.api.storage = new function () {
      */
     this.addData = function(key, data)
     {        
-        var prepearedKey = prepareKey(key);    
+        var preparedKey = prepareKey(key);
         
-        data = (sessionStorage[prepearedKey] || '') + data;
+        data = (sessionStorage[preparedKey] || '') + data;
         this.setData(key, data);
     };
     
