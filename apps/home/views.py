@@ -67,7 +67,8 @@ def e404(request, template_name='404.html'):
     return HttpResponseNotFound(template.render(RequestContext(request, {'request_path': request.path,})))
 
 
-def e403(request, template_name='403.html'):
+def csrf_failure(request, reason=""):
+    template_name='403.html'
     try:
         template = loader.get_template(template_name)
     except TemplateDoesNotExist:

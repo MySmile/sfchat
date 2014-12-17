@@ -48,6 +48,8 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
+CSRF_FAILURE_VIEW = 'apps.home.views.csrf_failure'
+
 COMPRESS_ENABLED = False
 
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
