@@ -3,7 +3,6 @@ from mongoengine import ValidationError
 from django.http import HttpResponseNotFound
 from django.views.generic.edit import FormView
 from django.views.generic import View
-
 from django.template import RequestContext, loader, Template, TemplateDoesNotExist
 
 from apps.chat.models import Chats
@@ -42,7 +41,6 @@ class CreateView(View):
         chat_page = ChatPage(self.request)
         chat_page.set_user_token(tokens['user_token'])
         success_url = '/chat/' + tokens['chat_token']
-
         logger.info('Chat created: '+tokens['chat_token'])
         return HttpResponsePermanentRedirect(success_url)
 
