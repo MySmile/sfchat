@@ -13,6 +13,7 @@ urlpatterns = patterns('',
                        url('', include('apps.sitemap.urls')),
                        )
 
+handler403 = 'apps.home.views.e403'
 handler404 = 'apps.home.views.e404'
 handler500 = 'apps.home.views.e500'
 

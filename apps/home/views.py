@@ -66,3 +66,14 @@ def e404(request, template_name='404.html'):
             '<p>The requested URL {{ request_path }} was not found on this server.</p>')
     return HttpResponseNotFound(template.render(RequestContext(request, {'request_path': request.path,})))
 
+
+def e403(request, template_name='403.html'):
+    try:
+        template = loader.get_template(template_name)
+    except TemplateDoesNotExist:
+        template = Template(
+            '<b>HTTP Forbidden</b>'
+            '<p>The requested URL {{ request_path }} forbidden.</p>')
+    logger.error(request)
+    return HttpResponseNotFound(template.render(RequestContext(request, {'request_path': request.path,})))
+
