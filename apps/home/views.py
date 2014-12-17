@@ -74,6 +74,6 @@ def e403(request, template_name='403.html'):
         template = Template(
             '<b>HTTP Forbidden</b>'
             '<p>The requested URL {{ request_path }} forbidden.</p>')
-    logger.error(request)
+    logger.error('error 403: ' + str(request))
     return HttpResponseNotFound(template.render(RequestContext(request, {'request_path': request.path,})))
 

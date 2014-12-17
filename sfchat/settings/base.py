@@ -138,7 +138,7 @@ LOGGING = {
                'class': 'logging.handlers.RotatingFileHandler',
                'formatter': 'verbose',
                'filters': ['require_debug_true'],
-               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'.log'),
+               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'_INFO.log'),
                'maxBytes': 1024*1024*5, # 5 MB
                'backupCount': 5
            },
@@ -147,7 +147,7 @@ LOGGING = {
                'class': 'logging.handlers.RotatingFileHandler',
                'formatter': 'verbose',
                'filters': ['require_debug_true'],
-               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'.log'),
+               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'_ERROR.log'),
                'maxBytes': 1024*1024*5, # 5 MB
                'backupCount': 5
            },
