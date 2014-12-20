@@ -177,7 +177,7 @@ TEST_RUNNER = "sfchat.settings.test.NoSQLTestRunner"
 SFCHAT_API = {
     'authentication': {
         'user_token_header': 'HTTP_X_SFC_USERTOKEN',
-        'chat_token_parameter': 'chatToken'
+        'chat_token_header': 'HTTP_X_SFC_CHATTOKEN'
     },
     'long_polling': {
         'sleep': 3,

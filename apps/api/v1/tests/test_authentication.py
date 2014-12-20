@@ -22,7 +22,7 @@ class AuthenticationTestCase(unittest.TestCase):
 
     def test_authenticate_success(self):
         user_token = Chats.join_to_chat(self.chat_token)
-        request = self.get_http_request(self.chat_token, user_token)
+        request = self.set_http_request(self.chat_token, user_token)
 
         authentication = TokenAuthentication()
         actual = authentication.authenticate(request)
@@ -30,14 +30,14 @@ class AuthenticationTestCase(unittest.TestCase):
 
     def test_authenticate_failed(self):
         user_token = '546511c6b82b9c589334cece'
-        request = self.get_http_request(self.chat_token, user_token)
+        request = self.set_http_request(self.chat_token, user_token)
 
         authentication = TokenAuthentication()
         lambda_authenticate = lambda request: authentication.authenticate(request)
         self.assertRaises(exceptions.AuthenticationFailed, lambda_authenticate, request)
 
-    def get_http_request(self, chat_token, user_token):
+    def set_http_request(self, chat_token, user_token):
         request = HttpRequest()
-        request.GET[TokenAuthentication.CHAT_TOKEN_PARAMETER] = chat_token
+        request.META[TokenAuthentication.CHAT_TOKEN_HEADER] = chat_token
         request.META[TokenAuthentication.USER_TOKEN_HEADER] = user_token
         return request
