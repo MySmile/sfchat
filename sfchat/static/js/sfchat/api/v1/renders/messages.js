@@ -80,10 +80,11 @@ SFChat.api.renders.messages = (function() {
         prevMsgSource = msgSource;
     };
     
+    //noinspection JSValidateJSDoc
     /**
      * Pad zero to the date string like "01"
      * 
-     * @param {Integer} data
+     * @param {Number} data
      * @return {String}
      */
     var padZero = function(data) {

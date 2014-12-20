@@ -14,6 +14,7 @@ if (SFChat.errorHandler) {
     throw new Error('Module with name SFChat.errorHandler has already exist.');
 }
 
+//noinspection JSValidateJSDoc
 /**
  * SFChat Erro Handler
  * 
@@ -64,7 +65,7 @@ SFChat.errorHandler = {
      * 
      * @param {String}  msg
      * @param {String}  url
-     * @param {Integer} line
+     * @param {Number} line
      */
     onError: function(msg, url, line) {
         var _this = SFChat.errorHandler,
@@ -86,7 +87,7 @@ SFChat.errorHandler = {
     /**
      * Show error
      * 
-     * @param {Strimg} error
+     * @param {String} error
      */
     showError: function(error) {
         var _this       = SFChat.errorHandler,

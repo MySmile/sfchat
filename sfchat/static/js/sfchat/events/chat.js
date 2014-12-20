@@ -91,7 +91,7 @@ SFChat.events.chat =  {
      * @param {Undefined}        request
      * @param {Object|Undefined} response
      * @param {Object}   response.results
-     * @param {Integer}  response.results.code
+     * @param {Number}  response.results.code
      * @param {String}   response.results.msg
      * @throws {Error}
      */

@@ -21,7 +21,7 @@ SFChat.api.auth = new function () {
     /**
      * Token pattern
      * 
-     * @type {Regex}
+     * @type {RegExp}
      */
     var tokenPattern = /^[a-z0-9]{24}$/;
     
