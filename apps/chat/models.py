@@ -71,19 +71,17 @@ class Chats(Document):
 
 
     def clean(self):
-        if self.count > self.MAX_USER_TOKENS:
-            msg = 'Length user_tokens must be equal or less then ' + str(MAX_USER_TOKENS)
+        if len(self.user_tokens) > self.MAX_USER_TOKENS:
+            msg = 'Length user_tokens must be equal or less then ' + str(self.MAX_USER_TOKENS)
             raise ValidationError(msg)
 
     @property
     def count(self):
-        """ Count user_tokens which is ListField
-        # FIXME: use len(user_tokens) as native in future mongoengine versions?
         """
-        i = 0
-        for item in self.user_tokens:
-            i+=1
-        return i
+        Number of messages
+        :return: String
+        """
+        return len(self.messages)
 
     def code(self):
         return self.HTTP_CODE
@@ -117,8 +115,8 @@ class Chats(Document):
             chat = Chats.objects.get_all_by_token(chat_token)
         except (TypeError, InvalidId, DoesNotExist) as ex:
             return False
-        #
-        if chat.count != 1:
+
+        if len(chat.user_tokens) != 1:
             return False
 
         user_token = ObjectId()

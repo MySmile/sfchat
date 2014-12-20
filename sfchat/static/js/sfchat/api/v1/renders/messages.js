@@ -91,14 +91,14 @@ SFChat.api.renders.messages = (function() {
     };
     
     /**
-     * Render Messsage Date
+     * Render Message Date
      * 
      * @param {jQuery} messageTmp
-     * @param {String} date "2014-12-07T11:08:28.659"
+     * @param {String} date "2014-12-20 16:22:54.128000+00:00"
      */
     var renderMessageDate = function(messageTmp, date) {
-        var date = (typeof(date) === 'undefined')? new Date(): getDate(date),
-            dateComponents = [date.getHours(), date.getMinutes(), date.getSeconds()],
+        var date            =  new Date(),
+            dateComponents  = [date.getHours(), date.getMinutes(), date.getSeconds()],
             dateRendered;
             
         // add zeros
@@ -112,21 +112,12 @@ SFChat.api.renders.messages = (function() {
      * Gets Date
      * Make cross browser data converter
      * 
-     * @param {String} date "2014-12-07T11:08:28.659"
+     * @param {String} date "2014-12-20 16:22:54.128000+00:00"
      * @return {Date}
+     * @deprecated it's not necessary to relay on a message date
      */
     var getDate = function(date) {
-        var pattern = /([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\.([0-9]{3})/,
-            match = date.match(pattern);
-    
-        if (match === null) {
-            return new Date(date);
-        }
-        
-        match    = match.map(function(x) { return x * 1; });
-        match[2] =  match[2] - 1; 
-
-        return new Date(match[1], match[2], match[3], match[4], match[5], match[6], match[7]); 
+        return new Date(date.toLocaleString());
     };
         
     /**
