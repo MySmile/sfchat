@@ -99,6 +99,11 @@ class ChatsTestCase(unittest.TestCase):
         self.chat.reload()
         self.assertEquals(Chats.STATUS_CLOSED, self.chat.status)
 
+    def test_count_is_int(self):
+        count = self.chat.count
+        self.assertTrue(isinstance(count, int))
+        self.assertEquals(count, 3)
+
 
 class MessagesTestCase(unittest.TestCase):
     def test_prepare_message_success(self):
