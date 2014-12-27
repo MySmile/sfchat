@@ -25,6 +25,7 @@ class LongPolling:
         Run long polling
         :param chat: Chats
         :param user_token: String
+        :return Chats
         """
         sleep = settings.SFCHAT_API['long_polling']['sleep']
         iteration = settings.SFCHAT_API['long_polling']['iteration']
@@ -49,3 +50,5 @@ class LongPolling:
 
         # close automatically chat if talker close browser or tab
         chat.auto_close_long_polling(user_token, auto_close)
+
+        return Chats.get_chat(chat_token, user_token)

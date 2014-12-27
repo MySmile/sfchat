@@ -18,10 +18,9 @@ class MessagesView(APIView):
         """
         long_polling = request.GET.get('longPolling', 'True')
         user_token = TokenAuthentication.get_user_token(request)
-        if long_polling == 'True':
-            LongPolling.run(request.user, user_token)
+        chat = LongPolling.run(request.user, user_token) if long_polling == 'True' else request.user
 
-        serializer = ChatMessagesSerializer(request.user)
+        serializer = ChatMessagesSerializer(chat)
         response = {'results': serializer.data}
         headers = {'Pragma': 'no-cache', 'Cache-Control': 'no-cache', 'Expires': 0}
         return Response(response, headers=headers)
