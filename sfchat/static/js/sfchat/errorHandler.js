@@ -46,7 +46,7 @@ SFChat.errorHandler = {
      * @property {String} msgError[].msg
      */
     msgError: {
-        general: JSON.stringify({code: 50, msg: 'Unexpected error was detected. {0} Please refresh page and try again.'})
+        general: JSON.stringify({code: 50, msg: 'Unexpected error was detected. {0} Please refresh page and try again late.'})
     },
     
     /**

@@ -24,7 +24,6 @@ SFChat.api.client = function (options) {
      * @property {Object}   options
      * @property {String}   options.endPoint
      * @property {String}   options.format
-     * @property {Boolean}  options.cache
      * @property {Object}   options.auth
      * @property {String}   options.auth.userHeader
      * @property {String}   options.auth.chatHeader
@@ -32,7 +31,6 @@ SFChat.api.client = function (options) {
     this.options = {
         endPoint:   undefined,
         format:     'json',
-        cache:   false,    
         auth: {
             userHeader: 'X-SFC-USERTOKEN',
             chatHeader: 'X-SFC-CHATTOKEN'
@@ -74,18 +72,15 @@ SFChat.api.client.prototype.sendRequest = function(type, resource, data, eventOp
         jqxhr,
         url;          
         
-        if (typeof(eventOptions.manager) !== 'object' 
-            || typeof(eventOptions.event) !== 'string'
-        ) {
+        if (typeof(eventOptions.manager) !== 'object' || typeof(eventOptions.event) !== 'string') {
             throw new TypeError('EventOptions is not valid.');
         }
-        
         url     = _this._getUrl(resource);
         jqxhr   = $.ajax({
             type:           type,
             url:            url,
             processData:    false,
-            cache:          _this.options.cache,
+            cache:          false,
             contentType:    'application/json',
             data:           JSON.stringify(data),
             
@@ -133,7 +128,7 @@ SFChat.api.client.prototype._getAuth = function() {
  * @throws {TypeError}
  */
 SFChat.api.client.prototype._getUrl = function(resource) {
-    var _this   = this,
+    var _this = this,
         url;
     
     if (typeof(resource) !== 'string' || resource.length <= 2) {

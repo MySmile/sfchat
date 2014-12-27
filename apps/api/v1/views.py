@@ -23,7 +23,8 @@ class MessagesView(APIView):
 
         serializer = ChatMessagesSerializer(request.user)
         response = {'results': serializer.data}
-        return Response(response)
+        headers = {'Pragma': 'no-cache', 'Cache-Control': 'no-cache', 'Expires': 0}
+        return Response(response, headers=headers)
 
     def post(self, request, format=None):
         """
