@@ -37,6 +37,10 @@ style:
 	-pep8 --ignore=$(PEP8IGNORE) .
 
 
+# pylint - Run pylint with pylint-django
+# pylint:
+# 	pylint *.py --load-plugins pylint_django --py3k
+
 # clean - Clean all temporary files
 clean:
 	find . -name "*.pyc" -print0 | xargs -0 rm -rf

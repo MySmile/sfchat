@@ -14,6 +14,12 @@ class Messages(EmbeddedDocument):
     system = BooleanField(default=False)
     created = DateTimeField(default=datetime.datetime.utcnow())
 
+    def clean(self):
+        if isinstance(self.user_token, str):
+            self.user_token = ObjectId(self.user_token)
+
+
+
     @staticmethod
     def prepare_message(msg, user_token, system=True):
         """
@@ -35,6 +41,7 @@ class LongPolling(EmbeddedDocument):
 
 
 class Chats(Document):
+    MAX_USER_TOKENS = 2
     STATUS_DRAFT = 'draft'
     STATUS_READY = 'ready'
     STATUS_CLOSED = 'closed'
@@ -62,8 +69,18 @@ class Chats(Document):
 
     meta = {'queryset_class': ChatsQuerySet}
 
+
+    def clean(self):
+        if len(self.user_tokens) > self.MAX_USER_TOKENS:
+            msg = 'Length user_tokens must be equal or less then ' + str(self.MAX_USER_TOKENS)
+            raise ValidationError(msg)
+
     @property
     def count(self):
+        """
+        Number of messages
+        :return: String
+        """
         return len(self.messages)
 
     def code(self):
@@ -72,10 +89,6 @@ class Chats(Document):
     def msg(self):
         return self.HTTP_MSG
 
-    def clean(self):
-        if len(self.user_tokens) > 2:
-            msg = 'Length user_tokens must be equal or less then 2.'
-            raise ValidationError(msg)
 
     @staticmethod
     def create_chat():
@@ -103,7 +116,7 @@ class Chats(Document):
         except (TypeError, InvalidId, DoesNotExist) as ex:
             return False
 
-        if len(chat.user_tokens) > 1:
+        if len(chat.user_tokens) != 1:
             return False
 
         user_token = ObjectId()
@@ -112,7 +125,6 @@ class Chats(Document):
             Messages.prepare_message(msg=_(Chats.MSG_JOIN_CHAT_YOU), user_token=chat.user_tokens[0])
         ]
         chat.update(set__status=Chats.STATUS_READY, push__user_tokens=user_token, push_all__messages=prepared_messages)
-
         return str(user_token)
 
     @staticmethod
@@ -145,7 +157,7 @@ class Chats(Document):
 
         return result
 
-    def add_message(self, user_token, messages=[], system=False):
+    def add_message(self, user_token, messages=None, system=False):
         """
         Add messages
         :param user_token: String
@@ -153,6 +165,7 @@ class Chats(Document):
         :param system: Boolean
         :return: Boolean
         """
+        messages = messages or []
         talker_token = self.get_talker_token(user_token)
         if not talker_token:
             return False
@@ -178,7 +191,7 @@ class Chats(Document):
         try:
             for item in messages:
                 # pull_all supports only a single field depth
-                self.update(pull__messages___id=ObjectId(item['_id']))
+                self.update(pull__messages___id=item['_id'])
             result = True
         except (TypeError, InvalidId, ValidationError) as ex:
             result = False
@@ -193,7 +206,7 @@ class Chats(Document):
         """
         try:
             prepared_messages = [
-                Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_YOU), user_token=ObjectId(user_token))
+                Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_YOU), user_token=user_token)
             ]
             # it's possible to close "draft" chat
             talker_token = self.get_talker_token(user_token)
@@ -219,7 +232,7 @@ class Chats(Document):
             # delete all processes
             self.delete_long_polling(user_token)
 
-            long_polling = LongPolling(_id=ObjectId(), user_token=ObjectId(user_token),
+            long_polling = LongPolling(_id=ObjectId(), user_token=user_token,
                                        created=datetime.datetime.utcnow())
             self.update(push__long_polling=long_polling)
         except (TypeError, InvalidId, DoesNotExist) as ex:
@@ -232,7 +245,7 @@ class Chats(Document):
         Delete all processes linked to user_token
         :param user_token:
         """
-        self.update(pull__long_polling__user_token=ObjectId(user_token))
+        self.update(pull__long_polling__user_token=user_token)
 
     def get_long_polling(self, user_token):
         """

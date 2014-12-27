@@ -7,7 +7,12 @@ python:
 # command to install dependencies
 install:
   - pip install -r config/requirements/local.txt
+  - pip install coveralls
 services:
   - mongodb
 # command to run tests
-script: make test
+script:
+  - make test
+  - coverage run --source=sfchat manage.py test
+after_success:
+  coveralls

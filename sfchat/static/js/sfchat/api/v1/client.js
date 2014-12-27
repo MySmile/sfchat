@@ -24,18 +24,16 @@ SFChat.api.client = function (options) {
      * @property {Object}   options
      * @property {String}   options.endPoint
      * @property {String}   options.format
-     * @property {Boolean}  options.cache
      * @property {Object}   options.auth
      * @property {String}   options.auth.userHeader
-     * @property {String}   options.auth.chatParam
+     * @property {String}   options.auth.chatHeader
      */
     this.options = {
         endPoint:   undefined,
         format:     'json',
-        cache:   false,    
         auth: {
             userHeader: 'X-SFC-USERTOKEN',
-            chatParam:  'chatToken'
+            chatHeader: 'X-SFC-CHATTOKEN'
         }
     };
        
@@ -74,22 +72,20 @@ SFChat.api.client.prototype.sendRequest = function(type, resource, data, eventOp
         jqxhr,
         url;          
         
-        if (typeof(eventOptions.manager) !== 'object' 
-            || typeof(eventOptions.event) !== 'string'
-        ) {
+        if (typeof(eventOptions.manager) !== 'object' || typeof(eventOptions.event) !== 'string') {
             throw new TypeError('EventOptions is not valid.');
         }
-        
-        url = _this._getUrl(resource, currentUser['chatToken']);
-        jqxhr = $.ajax({
+        url     = _this._getUrl(resource);
+        jqxhr   = $.ajax({
             type:           type,
             url:            url,
             processData:    false,
-            cache:          _this.options.cache,
+            cache:          false,
             contentType:    'application/json',
             data:           JSON.stringify(data),
             
             beforeSend: function(xhr) {
+                xhr.setRequestHeader(_this.options.auth.chatHeader, currentUser.chatToken);
                 xhr.setRequestHeader(_this.options.auth.userHeader, currentUser.userToken);
             }
         }); 
@@ -118,7 +114,7 @@ SFChat.api.client.prototype._getAuth = function() {
     if (typeof(SFChat.api.auth) !== 'object' 
         || typeof(SFChat.api.auth.authenticate) !== 'function'
     ) {
-        throw new ReferenceError('Auth object is not avalable.');
+        throw new ReferenceError('Auth object is not available.');
     }
     
     return SFChat.api.auth;
@@ -128,22 +124,17 @@ SFChat.api.client.prototype._getAuth = function() {
  * Get url
  * 
  * @param {String} resource
- * @param {String} chatToken
  * @returns {String}
  * @throws {TypeError}
  */
-SFChat.api.client.prototype._getUrl = function(resource, chatToken) {
-    var _this   = this,
-        params  = {},
+SFChat.api.client.prototype._getUrl = function(resource) {
+    var _this = this,
         url;
     
     if (typeof(resource) !== 'string' || resource.length <= 2) {
         throw new TypeError('Resource is not valid.');
     }
-    
-    url = _this.options.endPoint + '/v1/' + resource + '.' + _this.options.format; 
-    params[_this.options.auth.chatParam] = chatToken;
-    url += '?' + $.param(params);
+    url = _this.options.endPoint + '/v1/' + resource + '.' + _this.options.format;
     
     return url;
 };

@@ -1,6 +1,5 @@
-/* 16 * 0.0625 = 0.0625em */
-/* 998px / 16px = 62.375em */
 @charset "utf-8";
+
 body {
     font-family: Georgia, "Times New Roman", serif;
     font-size: 13px;
@@ -172,13 +171,12 @@ article {
   }
 
 hr {
+    display: block;
     margin: 25px 0 0 0;
     padding: 0;
-    display: block;
-    border-style: inset;
-    border-width: 1px;
-    color: #c8c2bc;
+    border: 1px inset;
     border-bottom: 0;
+    color: #c8c2bc;
  }
  
 #arrow-down {

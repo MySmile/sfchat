@@ -183,7 +183,7 @@ SFChat.events.messages =  {
      * @param {String}  request.data.messages[0].msg
      * @param {Object}  response
      * @param {Object}  response.results
-     * @param {Integer} response.results.code
+     * @param {Number} response.results.code
      * @param {String}  response.results.msg
      * @throws {Error}
      */
@@ -212,9 +212,9 @@ SFChat.events.messages =  {
      * @param {Undefined}   request
      * @param {Object}      response
      * @param {Object}      response.results
-     * @param {Integer}     response.results.code
+     * @param {Number}     response.results.code
      * @param {String}      response.results.msg
-     * @param {Integer}     response.results.count
+     * @param {Number}     response.results.count
      * @param {String}      response.results.status
      * @param {Array}       response.results.messages
      * @param {Object}      response.results.messages[0]
@@ -265,7 +265,7 @@ SFChat.events.messages =  {
     * @param {String}  request.data.messages[0]._id
     * @param {Object}  response
     * @param {Object}  response.results
-    * @param {Integer} response.results.code
+    * @param {Number} response.results.code
     * @param {String}  response.results.msg
     * @throws {Error}
     */

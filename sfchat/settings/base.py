@@ -27,14 +27,6 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
 )
 
-# Third party apps
-THIRD_PARTY_APPS = (
-    'rest_framework',
-    'rest_framework.authtoken',
-    'compressor',
-)
-
-
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -48,6 +40,8 @@ MIDDLEWARE_CLASSES = (
 
     'apps.api.middlewares.VersionSwitchMiddleware',
     'apps.chat.middlewares.ExceptionLoggingMiddleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'sfchat.urls'
@@ -63,7 +57,7 @@ LANGUAGES = (
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/London'
 
 USE_I18N = True
 
@@ -144,7 +138,7 @@ LOGGING = {
                'class': 'logging.handlers.RotatingFileHandler',
                'formatter': 'verbose',
                'filters': ['require_debug_true'],
-               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'.log'),
+               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'_INFO.log'),
                'maxBytes': 1024*1024*5, # 5 MB
                'backupCount': 5
            },
@@ -153,7 +147,7 @@ LOGGING = {
                'class': 'logging.handlers.RotatingFileHandler',
                'formatter': 'verbose',
                'filters': ['require_debug_true'],
-               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'.log'),
+               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'_ERROR.log'),
                'maxBytes': 1024*1024*5, # 5 MB
                'backupCount': 5
            },
@@ -183,7 +177,7 @@ TEST_RUNNER = "sfchat.settings.test.NoSQLTestRunner"
 SFCHAT_API = {
     'authentication': {
         'user_token_header': 'HTTP_X_SFC_USERTOKEN',
-        'chat_token_parameter': 'chatToken'
+        'chat_token_header': 'HTTP_X_SFC_CHATTOKEN'
     },
     'long_polling': {
         'sleep': 3,

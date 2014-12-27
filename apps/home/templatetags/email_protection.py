@@ -1,5 +1,4 @@
 from django import template
-from django.conf import settings
 
 register = template.Library()
 
@@ -10,7 +9,7 @@ def email_protection(email, hide_class):
     Tag to protect email by adding span tag after each character, 
     replace dot with html code, replace @ to [at], 
     :param email: String
-    :param hise_class: String
+    :param hide_class: String
     :return: Mix
     """
     dot = '&#46;'

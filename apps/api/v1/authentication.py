@@ -6,7 +6,7 @@ from apps.chat.models import Chats
 
 class TokenAuthentication(authentication.BaseAuthentication):
     USER_TOKEN_HEADER = settings.SFCHAT_API['authentication']['user_token_header']
-    CHAT_TOKEN_PARAMETER = settings.SFCHAT_API['authentication']['chat_token_parameter']
+    CHAT_TOKEN_HEADER = settings.SFCHAT_API['authentication']['chat_token_header']
 
     def authenticate(self, request):
         chat_token = self.get_chat_token(request)
@@ -34,7 +34,7 @@ class TokenAuthentication(authentication.BaseAuthentication):
 
     @staticmethod
     def get_chat_token(request):
-        return request.GET.get(TokenAuthentication.CHAT_TOKEN_PARAMETER)
+        return request.META.get(TokenAuthentication.CHAT_TOKEN_HEADER)
 
     @staticmethod
     def get_user_token(request):

@@ -22,17 +22,17 @@ if (!SFChat.api) {
  */
 SFChat.api.storage = new function () {
     /**
-     * Max lenth of data in the Storage
+     * Max length of data in the Storage
      * 144*20 - 20 messages with length 144
      * 
-     * @type {Integer}
+     * @type {Number}
      */
     var storageItemLimit = 2880;
     
     /**
      * Max limit of items in the Storage
      * 
-     * @type {Integer}
+     * @type {Number}
      */
     var storageNumberLimit = 40;
     
@@ -44,7 +44,7 @@ SFChat.api.storage = new function () {
     var chatToken;
     
     /**
-     * Clear Storage exept userToken
+     * Clear Storage except userToken
      * 
      * @throws {Error}
      */
@@ -61,7 +61,7 @@ SFChat.api.storage = new function () {
     };
     
     /**
-     * Prepear Storage key
+     * Prepare Storage key
      * 
      * @param {String} key
      * @return {String}
@@ -109,17 +109,18 @@ SFChat.api.storage = new function () {
      */
     this.addData = function(key, data)
     {        
-        var prepearedKey = prepareKey(key);    
+        var preparedKey = prepareKey(key);
         
-        data = (sessionStorage[prepearedKey] || '') + data;
+        data = (sessionStorage[preparedKey] || '') + data;
         this.setData(key, data);
     };
     
+    //noinspection JSValidateJSDoc
     /**
      * Sets data to Storage
      * 
      * @param {String} key
-     * @param {Mix} data
+     * @param {String} data
      */
     this.setData = function(key, data) {
         try {
@@ -135,7 +136,7 @@ SFChat.api.storage = new function () {
      * Gets data from Storage
      * 
      * @param {String} key
-     * @return {Mix|Null} Null if no data were stored in key
+     * @return {String|Null} Null if no data were stored in key
      */
     this.getData = function(key) {
         key = prepareKey(key);
