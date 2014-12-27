@@ -22,7 +22,10 @@ class MessagesView(APIView):
 
         serializer = ChatMessagesSerializer(chat)
         response = {'results': serializer.data}
-        headers = {'Pragma': 'no-cache', 'Cache-Control': 'no-cache', 'Expires': 0}
+        headers = {'Pragma': 'no-cache',
+                   'Cache-Control': 'no-cache, private, must-revalidate, max-stale=0, post-check=0, pre-check=0, no-store',
+                   'Expires': 'Sat, 27 2014 21:41:18 GMT'
+        }
         return Response(response, headers=headers)
 
     def post(self, request, format=None):
