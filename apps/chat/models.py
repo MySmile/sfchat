@@ -282,3 +282,21 @@ class Chats(Document):
             return False
 
         return talker_token[0]
+
+    def __setattr__(self, name, value):
+        if name in ('MAX_USER_TOKENS',
+                    'STATUS_DRAFT',
+                    'STATUS_READY',
+                    'STATUS_CLOSED',
+                    'HTTP_CODE',
+                    'HTTP_MSG',
+                    'MSG_CREATE_CHAT',
+                    'MSG_JOIN_CHAT_YOU',
+                    'MSG_JOIN_CHAT_TALKER',
+                    'MSG_CHAT_CLOSE_TALKER',
+                    'MSG_CHAT_CLOSE_YOU'):
+            raise AttributeError("Can't modify data!")
+        else:
+            super(Chats, self).__setattr__(name, value)
+
+

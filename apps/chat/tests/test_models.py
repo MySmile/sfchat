@@ -105,6 +105,15 @@ class ChatsTestCase(unittest.TestCase):
         self.assertEquals(count, 3)
 
 
+    def test_consts(self):
+        max_user_tokens = self.chat.MAX_USER_TOKENS
+        self.assertEquals(max_user_tokens, 2)
+        try:
+            self.chat.MAX_USER_TOKENS = 100
+        except AttributeError as err:
+            self.assertEquals(err.__str__(), "Can't modify data!")
+
+
 class MessagesTestCase(unittest.TestCase):
     def test_prepare_message_success(self):
         # msg = {'msg': 'First message'}
@@ -122,3 +131,4 @@ class MessagesTestCase(unittest.TestCase):
 
         lambda_validate = lambda msg: Messages.prepare_message(msg=msg, user_token=ObjectId())
         self.assertRaises(ValidationError, lambda_validate, msg)
+
