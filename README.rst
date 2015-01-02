@@ -20,6 +20,7 @@ Free:
 
 Installation
 ============
+  #. MongoDb 2.6.6 from http://www.mongodb.org/downloads
   #. Dependences: ``$ sudo pip3 install -r config/requirements.pip``
   #. FrontEnd components: ``sudo bower install``
 
