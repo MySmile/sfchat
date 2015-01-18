@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.chat.models import Chats
-from apps.home.views import e404
+from apps.home.utils import e404
 from apps.chat.utils import ChatPage
 from apps.chat.forms import ChatTypeForm
 
