@@ -13,7 +13,6 @@ class MessagesSerializer(serializers.Serializer):
     _id = serializers.CharField(max_length=24)
     msg = serializers.CharField(max_length=144)
     system = serializers.BooleanField()
-    created = DateTimeTzSerializer()
 
 
 class ChatMessagesSerializer(serializers.Serializer):
