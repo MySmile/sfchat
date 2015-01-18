@@ -1,4 +1,5 @@
 import unittest
+import json
 from django.http import HttpRequest
 from apps.home.utils import json_html_response
 from django.template import RequestContext, loader, Template
@@ -19,8 +20,9 @@ class JsonHtmlResponseTestCase(unittest.TestCase):
         self.assertEqual(self.code, response.status_code)
         self.assertEqual(request.META.get('CONTENT_TYPE'), response['Content-Type'])
 
-        content = b'{"results": {"code": 404, "msg": "Not Found"}}'
-        self.assertEqual(content, response.content)
+        actual = json.loads('{"results": {"code": 404, "msg": "Not Found"}}')
+        expected = json.loads(response.content.decode('ascii'))
+        self.assertEqual(actual, expected)
 
     def test_html(self):
         request = HttpRequest()
