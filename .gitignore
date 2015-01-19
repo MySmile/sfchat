@@ -7,4 +7,4 @@ docs/build/**
 tmp/*
 log/*
 /sfchat/static/bower_components/**
-nbproject/
+nbproject/*

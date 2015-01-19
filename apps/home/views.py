@@ -1,9 +1,5 @@
-from mongoengine import ValidationError
-
-from django.http import HttpResponseNotFound
 from django.views.generic.edit import FormView
 from django.views.generic import View
-from django.template import RequestContext, loader, Template, TemplateDoesNotExist
 
 from apps.chat.models import Chats
 from apps.chat.utils import ChatPage
@@ -43,36 +39,3 @@ class CreateView(View):
         success_url = '/chat/' + tokens['chat_token']
         logger.info('Chat created: '+tokens['chat_token'])
         return HttpResponsePermanentRedirect(success_url)
-
-
-def e500(request, template_name='500.html'):
-    try:
-        template = loader.get_template(template_name)
-    except TemplateDoesNotExist:
-        template = Template(
-            '<b>Not Found</b>'
-            '<p>The requested URL {{ request_path }} was not found on this server.</p>')
-    return HttpResponseNotFound(template.render(RequestContext(request, {'request_path': request.path,})))
-
-
-def e404(request, template_name='404.html'):
-    try:
-        template = loader.get_template(template_name)
-    except TemplateDoesNotExist:
-        template = Template(
-            '<b>Not Found</b>'
-            '<p>The requested URL {{ request_path }} was not found on this server.</p>')
-    return HttpResponseNotFound(template.render(RequestContext(request, {'request_path': request.path,})))
-
-
-def csrf_failure(request, reason=""):
-    template_name='403.html'
-    try:
-        template = loader.get_template(template_name)
-    except TemplateDoesNotExist:
-        template = Template(
-            '<b>HTTP Forbidden</b>'
-            '<p>The requested URL {{ request_path }} forbidden.</p>')
-    logger.error('error 403: ' + str(request))
-    return HttpResponseNotFound(template.render(RequestContext(request, {'request_path': request.path,})))
-

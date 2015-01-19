@@ -49,7 +49,7 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-CSRF_FAILURE_VIEW = 'apps.home.views.csrf_failure'
+CSRF_FAILURE_VIEW = 'apps.home.utils.csrf_failure'
 
 COMPRESS_ENABLED = False
 

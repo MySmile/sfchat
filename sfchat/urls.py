@@ -13,8 +13,8 @@ urlpatterns = patterns('',
                        url('', include('apps.sitemap.urls')),
                        )
 
-handler404 = 'apps.home.views.e404'
-handler500 = 'apps.home.views.e500'
+handler404 = 'apps.home.utils.e404'
+handler500 = 'apps.home.utils.e500'
 
 if settings.DEBUG:
     urlpatterns += patterns('django.views.static',
