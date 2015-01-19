@@ -122,6 +122,10 @@ LOGGING = {
          'simple': {
              'format': '%(levelname)s %(message)s'
          },
+         'rq_console': {
+            "format": "%(asctime)s %(message)s",
+            "datefmt": "%H:%M:%S",
+        },
      },
     'filters': {
         'require_debug_true': {
@@ -130,7 +134,7 @@ LOGGING = {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
         },
-        
+
     },
     'handlers': {
         'file_info': {
@@ -155,7 +159,13 @@ LOGGING = {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
             'filters': ['require_debug_false']
-        }           
+        },
+        "rq_console": {
+            "level": "DEBUG",
+            "class": "rq.utils.ColorizingStreamHandler",
+            "formatter": "rq_console",
+            "exclude": ["%(asctime)s"],
+        },
     },
     
     'loggers': {
@@ -168,6 +178,10 @@ LOGGING = {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': False,
+        },
+        "rq.worker": {
+            "handlers": ["rq_console"],
+            "level": "DEBUG"
         },
     },
 }

@@ -22,8 +22,13 @@ if settings.DEBUG:
     )
 
 
-if settings.DEBUG:
+if settings.DEBUG_TOOLBAR_PATCH_SETTINGS:
     import debug_toolbar
     urlpatterns += patterns('',
         url(r'^__debug__/', include(debug_toolbar.urls)),
     )
+
+# urlpatterns += patterns('',
+#     (r'^django-rq/', include('django_rq.urls')),
+# )
+

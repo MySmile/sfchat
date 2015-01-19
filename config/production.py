@@ -4,6 +4,7 @@ from mongoengine import connect
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 connect('sfchat', host='localhost', port=27017, username='', password='')
 

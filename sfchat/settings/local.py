@@ -10,7 +10,7 @@ from .base import *
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
-    'apps',
+    #'apps',
     'apps.api.v1',
     'apps.chat',
     'apps.csp', # content security policy
@@ -26,6 +26,7 @@ THIRD_PARTY_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'compressor',
+    'django_rq',
 
     'debug_toolbar',
 )

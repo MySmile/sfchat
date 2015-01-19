@@ -1,9 +1,9 @@
 # run - Run local server with --nostatic
 run:
-	@echo "------------------------------------------"
-	@echo "***  run local server with --nostatic  ***"
-	@echo "=========================================="
-	@python3 manage.py runserver --nostatic --setting=sfchat.settings.local
+	@echo "--------------------------------------------------------"
+	@echo "***  run local server with --nostatic                ***"
+	@echo "========================================================"
+	@python3 manage.py runserver --nostatic --setting=sfchat.settings.local  
 
 # celery - run celery task for chat clean 
 celery:

@@ -1,11 +1,23 @@
 # -*- coding: utf-8 -*-
 # secret settings
+import os
 from mongoengine import connect
+
+MONGODB_DATABASE_NAME = 'sfchat'
+MONGODB_HOST = 'localhost'
+MONGODB_PORT = 27017
+MONGODB_USERNAME = ''
+MONGODB_PASSWORD = ''
+
+connect(MONGODB_DATABASE_NAME,
+        host=MONGODB_HOST,
+        port=MONGODB_PORT,
+        username=MONGODB_USERNAME,
+        password=MONGODB_PASSWORD)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-
-connect('sfchat', host='localhost', port=27017, username='', password='')
+DEBUG_TOOLBAR_PATCH_SETTINGS = True
 
 SECRET_KEY = '&ku!ebrl5h61ztet=c&ydh+sc9tkq=b70^xbx461)l1pp!lgt6'
 
@@ -27,3 +39,24 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 ADMINS = (
     ('admin', 'info@mysmile.com.ua'),
 )
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        'PASSWORD': '',
+        'DEFAULT_TIMEOUT': 360,
+    },
+    # 'high': {
+    #     'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379'), # If you're on Heroku
+    #     'DB': 0,
+    #     'DEFAULT_TIMEOUT': 500,
+    # },
+    # 'low': {
+    #     'HOST': 'localhost',
+    #     'PORT': 6379,
+    #     'DB': 0,
+    # }
+}
+
