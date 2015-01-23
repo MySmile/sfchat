@@ -59,5 +59,10 @@ COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'co
 GOOGLE_ANALYTICS_TRACKING_ID = 'UA-57194449-2'
 GOOGLE_ANALYTICS_DEBUG_MODE = True
 
-DEBUG_TOOLBAR_PATCH_SETTINGS = True
-INTERNAL_IPS = '127.0.0.1'
+
+# RQ
+from apps.chat.tasks import clear_chats
+import django_rq
+
+queue = django_rq.get_queue('default')
+queue.enqueue(clear_chats)

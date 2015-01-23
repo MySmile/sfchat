@@ -155,16 +155,24 @@ LOGGING = {
                'maxBytes': 1024*1024*5, # 5 MB
                'backupCount': 5
            },
+        'rq_file': {
+               'level': 'DEBUG',
+               'class': 'logging.handlers.RotatingFileHandler',
+               'formatter': 'rq_console',
+               'filters': ['require_debug_true'],
+               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'_PythonRQ.log'),
+               'maxBytes': 1024*1024*5, # 5 MB
+               'backupCount': 5
+           },
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
             'filters': ['require_debug_false']
         },
-        "rq_console": {
-            "level": "DEBUG",
-            "class": "rq.utils.ColorizingStreamHandler",
-            "formatter": "rq_console",
-            "exclude": ["%(asctime)s"],
+        'rq_console': {
+            'level': 'DEBUG',
+            'class': 'rq.utils.ColorizingStreamHandler',
+            'exclude': ["%(asctime)s"],
         },
     },
     
@@ -180,7 +188,7 @@ LOGGING = {
             'propagate': False,
         },
         "rq.worker": {
-            "handlers": ["rq_console"],
+            "handlers": ["rq_console", 'rq_file'],
             "level": "DEBUG"
         },
     },

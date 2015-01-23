@@ -8,3 +8,4 @@ tmp/*
 log/*
 /sfchat/static/bower_components/**
 nbproject/*
+dump.rdb

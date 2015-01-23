@@ -17,6 +17,8 @@ connect(MONGODB_DATABASE_NAME,
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+INTERNAL_IPS = '127.0.0.1'
 DEBUG_TOOLBAR_PATCH_SETTINGS = True
 
 SECRET_KEY = '&ku!ebrl5h61ztet=c&ydh+sc9tkq=b70^xbx461)l1pp!lgt6'
@@ -59,4 +61,3 @@ RQ_QUEUES = {
     #     'DB': 0,
     # }
 }
-
