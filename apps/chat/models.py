@@ -268,7 +268,7 @@ class Chats(Document):
         talker_token = str(self.get_talker_token(user_token))
         long_polling = self.get_long_polling(talker_token)
         if long_polling and self.status == self.STATUS_READY \
-                and datetime.datetime.now().timestamp() - long_polling.created.timestamp() > auto_close:
+                and (datetime.datetime.now() - long_polling.created).seconds > auto_close:
             self.delete_chat(talker_token)
 
     def get_talker_token(self, user_token):
