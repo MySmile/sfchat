@@ -1,7 +1,6 @@
 import unittest
 
 from django.test.client import Client
-from django.http import HttpResponsePermanentRedirect
 
 from apps.chat.models import Chats
 

@@ -30,6 +30,6 @@ class HomePageTest(unittest.TestCase):
         self.assertEqual(form.is_valid(), True)
 
     def test_form_JoinChat_failed(self):
-        form_data = {'chat_token': '0'*24}
+        form_data = {'chat_token': '0' * 24}
         form = JoinChatForm(data=form_data)
         self.assertEqual(form.is_valid(), False)

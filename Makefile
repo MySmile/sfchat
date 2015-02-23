@@ -1,8 +1,8 @@
 # run - Run local server with --nostatic
 run:
-	@echo "--------------------------------------------------------"
-	@echo "***  run local server with --nostatic                ***"
-	@echo "========================================================"
+	@echo "------------------------------------------"
+	@echo "***  run local server with --nostatic  ***"
+	@echo "=========================================="
 	@python3 manage.py runserver --nostatic --setting=sfchat.settings.local  
 
 
@@ -19,7 +19,7 @@ test:
 
 	
 # style - Check PEP8 and others
-PEP8IGNORE=E22,E23,E24,E302,E401
+PEP8IGNORE=E22,E23,E24,E302,E401,E501
 style:
 	@echo "PyFlakes check:"
 	@echo

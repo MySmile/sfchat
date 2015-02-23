@@ -7,6 +7,7 @@ from apps.chat.models import Chats
 import logging
 logger = logging.getLogger(__name__)
 
+
 def clear_chats():
     try:
         yesterday = date.today() - timedelta(1)
@@ -17,5 +18,3 @@ def clear_chats():
         return msg
     except Exception as err:
         logger.error(err)
-
-

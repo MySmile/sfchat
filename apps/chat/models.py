@@ -1,5 +1,4 @@
 import datetime
-import time
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
 from mongoengine import *
@@ -17,8 +16,6 @@ class Messages(EmbeddedDocument):
     def clean(self):
         if isinstance(self.user_token, str):
             self.user_token = ObjectId(self.user_token)
-
-
 
     @staticmethod
     def prepare_message(msg, user_token, system=True):
@@ -54,7 +51,6 @@ class Chats(Document):
     MSG_CHAT_CLOSE_TALKER = 'Thank you for using SFChat.<br> Chat was successfully closed by Talker.'
     MSG_CHAT_CLOSE_YOU = 'Thank you for using SFChat<br>Current chat was successfully closed.'
 
-
     # it's used for authentication
     is_staff = True
 
@@ -68,7 +64,6 @@ class Chats(Document):
     created = DateTimeField(default=datetime.datetime.utcnow())
 
     meta = {'queryset_class': ChatsQuerySet}
-
 
     def clean(self):
         if len(self.user_tokens) > self.MAX_USER_TOKENS:
@@ -88,7 +83,6 @@ class Chats(Document):
 
     def msg(self):
         return self.HTTP_MSG
-
 
     @staticmethod
     def create_chat():
@@ -114,6 +108,7 @@ class Chats(Document):
         try:
             chat = Chats.objects.get_all_by_token(chat_token)
         except (TypeError, InvalidId, DoesNotExist) as ex:
+            # @TODO logging this error
             return False
 
         if len(chat.user_tokens) != 1:
@@ -138,6 +133,7 @@ class Chats(Document):
             chat = Chats.objects.get_id_by_token(chat_token)
             result = True
         except (TypeError, InvalidId, DoesNotExist) as ex:
+            # @TODO logging this error
             result = False
         return result
 
@@ -153,6 +149,7 @@ class Chats(Document):
             result = Chats.objects.get_chat(chat_token, user_token)
             result.messages = list(filter(lambda item: user_token == str(item.user_token), result.messages))
         except (TypeError, InvalidId, DoesNotExist) as ex:
+            # @TODO logging this error
             result = False
 
         return result
@@ -178,6 +175,7 @@ class Chats(Document):
             self.update(push_all__messages=prepared_messages)
             result = True
         except (TypeError, InvalidId, ValidationError) as ex:
+            # @TODO logging this error
             result = False
 
         return result
@@ -194,6 +192,7 @@ class Chats(Document):
                 self.update(pull__messages___id=item['_id'])
             result = True
         except (TypeError, InvalidId, ValidationError) as ex:
+            # @TODO logging this error
             result = False
 
         return result
@@ -218,6 +217,7 @@ class Chats(Document):
             self.update(set__status=self.STATUS_CLOSED, push_all__messages=prepared_messages)
             result = True
         except (TypeError, InvalidId, ValidationError) as ex:
+            # @TODO logging this error
             result = False
 
         return result
@@ -236,6 +236,7 @@ class Chats(Document):
                                        created=datetime.datetime.utcnow())
             self.update(push__long_polling=long_polling)
         except (TypeError, InvalidId, DoesNotExist) as ex:
+            # @TODO logging this error
             return False
 
         return str(long_polling._id)
@@ -298,5 +299,3 @@ class Chats(Document):
             raise AttributeError("Can't modify data!")
         else:
             super(Chats, self).__setattr__(name, value)
-
-

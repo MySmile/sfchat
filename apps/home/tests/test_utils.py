@@ -2,7 +2,7 @@ import unittest
 import json
 from django.http import HttpRequest
 from apps.home.utils import json_html_response
-from django.template import RequestContext, loader, Template
+from django.template import RequestContext, loader
 
 
 class JsonHtmlResponseTestCase(unittest.TestCase):

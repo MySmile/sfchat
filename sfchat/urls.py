@@ -31,4 +31,3 @@ if settings.DEBUG_TOOLBAR_PATCH_SETTINGS:
 # urlpatterns += patterns('',
 #     (r'^django-rq/', include('django_rq.urls')),
 # )
-
