@@ -16,7 +16,7 @@ if (SFChat.errorHandler) {
 
 //noinspection JSValidateJSDoc
 /**
- * SFChat Erro Handler
+ * SFChat Error Handler
  * 
  * @type {Object}
  */
@@ -46,7 +46,7 @@ SFChat.errorHandler = {
      * @property {String} msgError[].msg
      */
     msgError: {
-        general: JSON.stringify({code: 50, msg: 'Unexpected error was detected. {0} Please refresh page and try again late.'})
+        general: JSON.stringify({code: 50, msg: 'Unexpected error was detected. {0} Please refresh page and try again later.'})
     },
     
     /**
@@ -70,7 +70,7 @@ SFChat.errorHandler = {
     onError: function(msg, url, line) {
         var _this = SFChat.errorHandler,
             error;
-        
+
         _this.showError(msg);
         // skip if debug turned on
         if (SFChat.debugmode === 'True') {
@@ -96,14 +96,13 @@ SFChat.errorHandler = {
             msgSource   = _this._parseJSON(error.replace('Uncaught Error: ', '').replace('Error: ', '')),
             msgBody,
             msg;
-    
-        if (!errorDom) {
+
+        if (!errorDom || msgSource === false) {
             return;
         }
         
         // filter messages
-        msgBody = (msgSource !== false || msgSource.code === 403 
-            || msgSource.code < 100)? msgSource.msg: '';
+        msgBody = (msgSource !== false || msgSource.code === 403 || msgSource.code < 100)? msgSource.msg: '';
         msg     = jQuery.parseJSON(_this.msgError.general).msg.replace('{0}', msgBody);
         
         errorDom.text(msg).removeClass(_this.options.hideClass);
