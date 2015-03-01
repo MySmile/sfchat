@@ -38,6 +38,10 @@ Screenshots
 .. figure:: https://raw.github.com/MySmile/sfchat/dev/docs/screenshots/main_and_chat_pages.png
    :alt: Main and chat pages
 
+Documentation
+=============
+Technical documentation can be found in ``/docs`` folder.
+
 License
 =======
 BSD-3-Clause
