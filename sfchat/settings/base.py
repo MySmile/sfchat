@@ -27,7 +27,7 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
 )
 
-MIDDLEWARE_CLASSES = (
+DJANGO_MIDDLEWARE_CLASSES = (
     'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware', 
@@ -37,11 +37,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'apps.api.middlewares.VersionSwitchMiddleware',
-    'apps.chat.middlewares.ExceptionLoggingMiddleware',
-
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'sfchat.urls'
@@ -122,6 +117,10 @@ LOGGING = {
          'simple': {
              'format': '%(levelname)s %(message)s'
          },
+         'rq_console': {
+            "format": "%(asctime)s %(message)s",
+            "datefmt": "%H:%M:%S",
+        },
      },
     'filters': {
         'require_debug_true': {
@@ -130,7 +129,7 @@ LOGGING = {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
         },
-        
+
     },
     'handlers': {
         'file_info': {
@@ -151,11 +150,25 @@ LOGGING = {
                'maxBytes': 1024*1024*5, # 5 MB
                'backupCount': 5
            },
+        'rq_file': {
+               'level': 'DEBUG',
+               'class': 'logging.handlers.RotatingFileHandler',
+               'formatter': 'rq_console',
+               'filters': ['require_debug_true'],
+               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'_PythonRQ.log'),
+               'maxBytes': 1024*1024*5, # 5 MB
+               'backupCount': 5
+           },
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
             'filters': ['require_debug_false']
-        }           
+        },
+        'rq_console': {
+            'level': 'DEBUG',
+            'class': 'rq.utils.ColorizingStreamHandler',
+            'exclude': ["%(asctime)s"],
+        },
     },
     
     'loggers': {
@@ -168,6 +181,10 @@ LOGGING = {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': False,
+        },
+        "rq.worker": {
+            "handlers": ["rq_console", 'rq_file'],
+            "level": "DEBUG"
         },
     },
 }

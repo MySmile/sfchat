@@ -6,4 +6,4 @@ class ChatTypeForm(forms.Form):
     chat_type.widget = forms.Textarea({"class": "chat-type",
                                        "rows": 4,
                                        "maxlength": 144,
-                                       "disabled": "",})
+                                       "disabled": "", })

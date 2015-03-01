@@ -3,21 +3,14 @@ run:
 	@echo "------------------------------------------"
 	@echo "***  run local server with --nostatic  ***"
 	@echo "=========================================="
-	@python3 manage.py runserver --nostatic --setting=sfchat.settings.local
+	@python3 manage.py runserver --nostatic --setting=sfchat.settings.local  
 
-# celery - run celery task for chat clean 
-celery:
-	celery  worker --beat  -A apps.chat.tasks
 
 # help - Display callable targets.
 help:
 	@egrep "^# [a-z,\",=,_,-]+ - " Makefile	
 
-# bower - Install dependences components with bower
-bower:
-	@cd ./bin/bower && sudo bower install
-
-# install-local - install locally dependenses
+# install-local - install locally dependenses --- move this into "one-install-script"
 install-local:
 	@cd ./config/requirements && sudo pip3 install -r local.txt
 
@@ -26,7 +19,7 @@ test:
 
 	
 # style - Check PEP8 and others
-PEP8IGNORE=E22,E23,E24,E302,E401
+PEP8IGNORE=E22,E23,E24,E302,E401,E501
 style:
 	@echo "PyFlakes check:"
 	@echo

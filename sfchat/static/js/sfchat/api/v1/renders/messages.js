@@ -108,19 +108,7 @@ SFChat.api.renders.messages = (function() {
         
         $('.' + msgDateClass, messageTmp).html(dateRendered);
     };
-    
-    /**
-     * Gets Date
-     * Make cross browser data converter
-     * 
-     * @param {String} date "2014-12-20 16:22:54.128000+00:00"
-     * @return {Date}
-     * @deprecated it's not necessary to relay on a message date
-     */
-    var getDate = function(date) {
-        return new Date(date.toLocaleString());
-    };
-        
+
     /**
      * Render Message
      * 

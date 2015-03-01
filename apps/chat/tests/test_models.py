@@ -62,7 +62,7 @@ class ChatsTestCase(unittest.TestCase):
         self.assertTrue(result)
 
     def test_delete_message_failed(self):
-        messages = [{'_id': '0'*10}]
+        messages = [{'_id': '0' * 10}]
         result = self.chat.delete_message(messages)
         self.assertFalse(result)
 
@@ -103,6 +103,14 @@ class ChatsTestCase(unittest.TestCase):
         count = self.chat.count
         self.assertTrue(isinstance(count, int))
         self.assertEquals(count, 3)
+
+    def test_consts(self):
+        max_user_tokens = self.chat.MAX_USER_TOKENS
+        self.assertEquals(max_user_tokens, 2)
+        try:
+            self.chat.MAX_USER_TOKENS = 100
+        except AttributeError as err:
+            self.assertEquals(err.__str__(), "Can't modify data!")
 
 
 class MessagesTestCase(unittest.TestCase):

@@ -1,11 +1,9 @@
-from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import ParseError
 
 from apps.api.v1.serializers import ChatMessagesSerializer
 from apps.api.v1.authentication import TokenAuthentication
-from apps.chat.models import Chats
 from apps.api.v1.utils import LongPolling
 
 

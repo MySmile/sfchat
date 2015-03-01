@@ -1,11 +1,11 @@
 import unittest
-from bson.objectid import ObjectId
 from apps.chat.models import *
 from mongoengine import *
 from apps.api.v1.authentication import TokenAuthentication
 from rest_framework import exceptions
 from apps.chat.models import Chats
 from django.test.client import HttpRequest
+
 
 class AuthenticationTestCase(unittest.TestCase):
     # @TODO use Fixtures

@@ -24,8 +24,8 @@ ol {
  }
  
 mark {
-    background: #fcfcfc;
-    padding: 0 2px;
+    background: #fafafa;
+    padding: 0 3px;
 } 
  
 .clear {
@@ -46,7 +46,10 @@ mark {
 }
 
 #layout {
-    border: 2px solid #999;
+    border-top: 1px solid #999;
+    border-right: 2px solid #999;
+    border-bottom: 1px solid #999;
+    border-left: 2px solid #999;
     max-width: 25em;
     margin: 5px auto;
  }
@@ -224,6 +227,7 @@ hr {
  .message {
     margin-top: 15px;
     clear: both;
+    line-height: 16px;
  }
  
 .msg-border {
@@ -267,6 +271,7 @@ hr {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     border: 1px solid #5b8f45;
+    resize: none
  }
  
 #chat-type .btn.btn-green {
@@ -277,6 +282,7 @@ hr {
 /* Footer */
 footer {
     margin-top: 0;
+    padding: 5px 0 5px 0;
     font-size: 13px;
     border-top: 1px solid #999;
  }
