@@ -1,13 +1,14 @@
 from datetime import date, timedelta
 
 from mongoengine.queryset import Q
+# from django_rq import job
 
 from apps.chat.models import Chats
 
 import logging
 logger = logging.getLogger(__name__)
 
-
+# @job('default')
 def clear_chats():
     try:
         yesterday = date.today() - timedelta(1)

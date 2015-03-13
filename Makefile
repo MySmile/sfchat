@@ -14,10 +14,11 @@ help:
 install-local:
 	@cd ./config/requirements && sudo pip3 install -r local.txt
 
+# test - test project
 test:
-	@python3 manage.py test
+	@python3 manage.py test --pattern="test_*.py" --settings=sfchat.settings.test
 
-	
+
 # style - Check PEP8 and others
 PEP8IGNORE=E22,E23,E24,E302,E401,E501
 style:
@@ -41,4 +42,11 @@ clean:
 	find . -name "__pycache__" -print0 | xargs -0 rm -rf
 	@echo "Clean was successfully done!"
 
+# syncdb - Run syncdb command
+admin:
+	python3 manage.py migrate --database='default'
+	python3 manage.py createsuperuser  --database='default'
+
+syncdb:
+	python3 manage.py syncdb
 

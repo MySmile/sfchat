@@ -60,14 +60,3 @@ CSRF_FAILURE_VIEW = 'apps.home.utils.csrf_failure'
 
 
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
-
-
-# RQ
-try:
-    from apps.chat.tasks import clear_chats
-    import django_rq
-
-    queue = django_rq.get_queue('default')
-    queue.enqueue(clear_chats)
-except Exception as err:
-    pass

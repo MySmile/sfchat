@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib.staticfiles.views import serve as serve_static
 from django.views.decorators.cache import never_cache
 from django.conf import settings
+from django.contrib import admin
 
 
 urlpatterns = patterns('',
@@ -11,6 +12,8 @@ urlpatterns = patterns('',
                        url('', include('apps.flatpages.urls')),
                        url('', include('apps.home.urls')),
                        url('', include('apps.sitemap.urls')),
+
+                       url(r'^admin/', include(admin.site.urls)),
                        )
 
 handler404 = 'apps.home.utils.e404'
@@ -28,6 +31,6 @@ if settings.DEBUG_TOOLBAR_PATCH_SETTINGS:
         url(r'^__debug__/', include(debug_toolbar.urls)),
     )
 
-# urlpatterns += patterns('',
-#     (r'^django-rq/', include('django_rq.urls')),
-# )
+urlpatterns += patterns('',
+    (r'^django-rq/', include('django_rq.urls')),
+)

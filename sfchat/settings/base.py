@@ -72,21 +72,36 @@ TEMPLATE_DIRS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-  'django.core.context_processors.request',
-  'django.core.context_processors.csrf',
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+
+    'django.core.context_processors.request',
+    'django.core.context_processors.csrf',
 )
+
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),
 )
 
-# mongoengine settings
-AUTHENTICATION_BACKENDS = (
-    'mongoengine.django.auth.MongoEngineBackend',
-)
 
-SESSION_ENGINE = 'mongoengine.django.sessions'
-SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
+
+
+# mongoengine settings
+# AUTHENTICATION_BACKENDS = (
+#     'mongoengine.django.auth.MongoEngineBackend',
+# )
+#
+# AUTH_USER_MODEL = 'mongo_auth.MongoUser'
+# MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
+#
+# SESSION_ENGINE = 'mongoengine.django.sessions'
+# SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
 
 #~ global settings for a REST framework API
 REST_FRAMEWORK = {
@@ -150,24 +165,25 @@ LOGGING = {
                'maxBytes': 1024*1024*5, # 5 MB
                'backupCount': 5
            },
-        'rq_file': {
-               'level': 'DEBUG',
-               'class': 'logging.handlers.RotatingFileHandler',
-               'formatter': 'rq_console',
-               'filters': ['require_debug_true'],
-               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'_PythonRQ.log'),
-               'maxBytes': 1024*1024*5, # 5 MB
-               'backupCount': 5
-           },
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
             'filters': ['require_debug_false']
         },
+        'rq_file': {
+               'level': 'DEBUG',
+               'class': 'logging.handlers.RotatingFileHandler',
+               'formatter': 'rq_console',
+               'filters': ['require_debug_true', 'require_debug_false'],
+               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'_PythonRQ.log'),
+               'maxBytes': 1024*1024*5, # 5 MB
+               'backupCount': 5
+           },
         'rq_console': {
             'level': 'DEBUG',
             'class': 'rq.utils.ColorizingStreamHandler',
             'exclude': ["%(asctime)s"],
+            'filters': ['require_debug_true'],
         },
     },
     

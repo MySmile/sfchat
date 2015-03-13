@@ -22,6 +22,7 @@ MIDDLEWARE_CLASSES = DJANGO_MIDDLEWARE_CLASSES + APP_MIDDLEWARE_CLASSES + THIRD_
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'apps.adminpanel',
     'apps.api.v1',
     'apps.chat',
     'apps.csp', # content security policy
@@ -30,11 +31,11 @@ LOCAL_APPS = (
     'apps.sitemap',
 )
 
-
 # Third party apps
 THIRD_PARTY_APPS = (
+#    'mongoengine.django.mongo_auth',
     'rest_framework',
-    'rest_framework.authtoken',
+#    'rest_framework.authtoken',
     'compressor',
     'django_rq',
 
@@ -63,11 +64,12 @@ COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'co
 
 
 # RQ
-try:
-    from apps.chat.tasks import clear_chats
-    import django_rq
-
-    queue = django_rq.get_queue('default')
-    queue.enqueue(clear_chats)
-except Exception as err:
-    pass
+# try:
+#     from apps.chat.tasks import clear_chats
+#     import django_rq
+#
+#     queue = django_rq.get_queue('default')
+#     queue.enqueue(clear_chats)
+#     print('start WORKER!')
+# except Exception as err:
+#     pass
