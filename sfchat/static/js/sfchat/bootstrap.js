@@ -55,6 +55,7 @@ SFChat.bootstrap = function (options) {
      * @property {Object}
      */
     this.events = {
+        // message's events
         postMessage:            SFChat.events.messages.postMessage,
         showPostedMessage:      SFChat.events.messages.showPostedMessage,
         showHistoryMessage:     SFChat.events.messages.showHistoryMessage,
@@ -63,11 +64,17 @@ SFChat.bootstrap = function (options) {
         showReceivedMessage:    SFChat.events.messages.showReceivedMessage,
         deleteMessage:          SFChat.events.messages.deleteMessage,
         showDeletedMessage:     SFChat.events.messages.showDeletedMessage,
-        
+
+        // chat's events
         deleteChat:             SFChat.events.chat.deleteChat,
         setChatReady:           SFChat.events.chat.setChatReady,
         setChatClosed:          SFChat.events.chat.setChatClosed,
-        setChatStatus:          SFChat.events.chat.setChatStatus
+        setChatStatus:          SFChat.events.chat.setChatStatus,
+
+        // title's events
+        showTitle:              SFChat.events.title.showTitle,
+        clearTitle:             SFChat.events.title.clearTitle,
+        click:                  SFChat.events.title.clearTitle
     };
     
     this._setOptions(options);

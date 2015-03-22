@@ -107,6 +107,9 @@ SFChat.events.chat =  {
         _this.options.chatTypeDom.prop('disabled', true ).off();
         _this.options.chatBodyDom.off('deleteChat');
         _this.options.chatBodyDom.off('deleteMessage');
+
+        // clear
+        _this.options.chatBodyDom.trigger('clearTitle');
     },
     
    /**
