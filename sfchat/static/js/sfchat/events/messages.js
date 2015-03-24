@@ -108,7 +108,7 @@ SFChat.events.messages =  {
      * Post Message
      * 
      * @param {Event} e
-     * @TODO catch exeptions
+     * @TODO catch exceptions
      */
     postMessage: function(e) {
         var _this   = SFChat.events.messages,
@@ -130,7 +130,7 @@ SFChat.events.messages =  {
      * It runs long-polling
      * 
      * @param {Event} e
-     * @TODO catch exeptions
+     * @TODO catch exceptions
      */
     getMessage: function(e) {
         var _this = SFChat.events.messages;
@@ -202,7 +202,9 @@ SFChat.events.messages =  {
         });
         
         // clear
-        _this.options.chatTypeDom.val('');  
+        _this.options.chatTypeDom.val('');
+        _this.options.chatBodyDom.trigger('clearTitle');
+
     },
     
     /**
@@ -212,9 +214,9 @@ SFChat.events.messages =  {
      * @param {Undefined}   request
      * @param {Object}      response
      * @param {Object}      response.results
-     * @param {Number}     response.results.code
+     * @param {Number}      response.results.code
      * @param {String}      response.results.msg
-     * @param {Number}     response.results.count
+     * @param {Number}      response.results.count
      * @param {String}      response.results.status
      * @param {Array}       response.results.messages
      * @param {Object}      response.results.messages[0]
@@ -228,13 +230,15 @@ SFChat.events.messages =  {
     showReceivedMessage: function(e, request, response) {
         var _this   = SFChat.events.messages,
             results = response.results,    
-            msgDom;
+            msgDom,
+            msgCount;
         
-        // autherization error
+        // authorization error
         _this._responseErrorDetected(response);
 
         // run long-polling
-        if (results.status !== 'closed' && results.messages.length === 0) {
+        msgCount = results.messages.length;
+        if (results.status !== 'closed' && msgCount === 0) {
             _this.options.chatBodyDom.trigger('getMessage');
             return;
         }
@@ -245,8 +249,9 @@ SFChat.events.messages =  {
             _this._appendMessage(msgDom);   
         });
 
-        // delete messages and run long-polling
+        // delete messages, run long-polling and show notifier on the document title
         if (results.status !== 'closed') {
+            _this.options.chatBodyDom.trigger('showTitle', [msgCount]);
             _this.options.chatBodyDom.trigger('deleteMessage', [results.messages]);
         }
 
