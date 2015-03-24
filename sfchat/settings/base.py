@@ -69,6 +69,7 @@ STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'sfchat/templates/'),
+    # os.path.join(BASE_DIR, 'apps/adminpanel/templates/'),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -84,6 +85,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.csrf',
 )
 
+# TEMPLATE_LOADERS = (
+#     'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.filesystem.Loader',
+# )
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),

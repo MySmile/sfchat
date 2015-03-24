@@ -1,0 +1,72 @@
+{% extends "base.html" %} {% load staticfiles %} {% load mask %}
+
+{% block meta %}
+    <meta name="description" content=""  />
+    <meta name="keywords" content="" />
+{% endblock %}
+{% block title %}: Admin | Manager chats{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/adminpanel.css' %}">
+{% endblock %}
+
+
+{% block main %}
+<script>
+    $(function() {
+        $('#filter1').change(function() {
+            $("#table td.col1:contains('" + $(this).val() + "')").parent().show();
+            $("#table td.col1:not(:contains('" + $(this).val() + "'))").parent().hide();
+        });
+    });
+</script>
+<div id="managechats">
+    <table id="table">
+        <caption>Chats in database</caption>
+        <thead>
+            <tr>
+                <th>Chat token</th>
+                <th>Created</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <th><input type="text" size="5" id="filter1" /></th>
+                <th><input type="text" size="5" id="filter2" /></th>
+                <th><input type="text" size="5" id="filter3" /></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for chat in chats %}
+            <tr>
+                <td> {{ chat.0|mask }} </td>
+                <td> {{ chat.1|date:"d-M-Y, G:i:s" }} </td>
+                <td class="{{ chat.2 }}"> {{ chat.2 }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+        <tfoot>
+        <tr>
+            <td colspan="3">
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if chats.has_previous %}
+                            <a href="?page={{ chats.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ chats.number }} of {{ chats.paginator.num_pages }}.
+                        </span>
+
+                        {% if chats.has_next %}
+                            <a href="?page={{ chats.next_page_number }}">next</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+</div>
+{% endblock %}

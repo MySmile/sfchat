@@ -12,6 +12,7 @@ urlpatterns = patterns('',
                        url('', include('apps.flatpages.urls')),
                        url('', include('apps.home.urls')),
                        url('', include('apps.sitemap.urls')),
+                       url('', include('apps.adminpanel.urls')),
 
                        url(r'^admin/', include(admin.site.urls)),
                        )
