@@ -1,7 +1,7 @@
 /**
  * onload/home/home.js: Onload event runs in home.home.html template
  */
-require(['jquery', 'sfchat/sfchat', 'events/gatracking', 'onload/ga'], function($, sfchat, eventGaTracking) {
+require(['jquery', 'sfchat/sfchat', 'events/gatracking', 'ga'], function($, sfchat, eventGaTracking) {
 
     "use strict";
 

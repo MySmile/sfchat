@@ -1,7 +1,7 @@
 /**
  * onload/templates/base.js: Onload event runs in base template
  */
-require(['jquery', 'sfchat/errorHandler', 'sfchat/sfchat', 'onload/ga'], function($, errorHandler, sfchat) {
+require(['jquery', 'sfchat/errorHandler', 'sfchat/sfchat', 'ga'], function($, errorHandler, sfchat) {
 
     "use strict";
 

@@ -19,10 +19,9 @@
     {% compress js %}
         <script src='{% static 'bower_components/requirejs/require.js' %}'></script>
         <script src='{% static 'js/requirejs-config.js' %}'></script>
+        <script src='{% static 'js/onload/templates/base.js' %}'></script>
 
-        {% block js %}
-            <script src='{% static 'js/onload/templates/base.js' %}'></script>
-        {% endblock %}
+        {% block js %}{% endblock %}
     {% endcompress %}
 </head>
 <body>
