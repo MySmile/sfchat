@@ -141,6 +141,7 @@ article {
  .btn.btn-grey {
     background-color: #dedede;
     border: 1px solid #999;
+    cursor: auto;
 }
  
 #or {

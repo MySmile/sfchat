@@ -4,74 +4,61 @@
  * Save history on Session Machine
  * When capacity of storage reached to limit then chat history data will be cleared automaticly
  */
+define(['jquery'], function($) {
 
-"use strict";
+    "use strict";
 
-// check namespace
-var SFChat;
-if (!SFChat.api) {
-    throw new Error('One of required modules was not loaded.');
-} else if (SFChat.api.storage) {
-    throw new Error('Module with name SFChat.api.storage has already exist.');
-}
-
-/**
- * SFChat API Storage
- * 
- * @type {Function}
- */
-SFChat.api.storage = new function () {
     /**
      * Max length of data in the Storage
      * 144*20 - 20 messages with length 144
-     * 
+     *
      * @type {Number}
      */
     var storageItemLimit = 2880;
-    
+
     /**
      * Max limit of items in the Storage
-     * 
+     *
      * @type {Number}
      */
     var storageNumberLimit = 40;
-    
+
     /**
      * Chat Token
-     * 
+     *
      * @type {String}
      */
     var chatToken;
-    
+
     /**
      * Clear Storage except userToken
-     * 
+     *
      * @throws {Error}
      */
-    var clearStorage = function() {        
+    var clearStorage = function() {
         $.each(sessionStorage, function(key, item) {
             if (item.length > storageItemLimit) {
                 sessionStorage.removeItem(key);
             }
         });
-        
+
         if (sessionStorage.length > storageNumberLimit) {
             throw new Error('Limit of number data in SessionStrorage reach to Limit. Please close all chat tabs and start new one again.');
         }
     };
-    
+
     /**
      * Prepare Storage key
-     * 
+     *
      * @param {String} key
      * @return {String}
      */
     var prepareKey = function(key) {
         return key + chatToken;
     };
-    
+
     /** Check does browser support localStorage
-     * 
+     *
      * @throws {Error}
      */
     var checkSupportStorage = function() {
@@ -79,50 +66,49 @@ SFChat.api.storage = new function () {
             throw new Error('Browser does not support sessionStorage.');
         }
     };
-    
+
     /**
      * Remove Storage
-     * 
+     *
      * @param {String} key
      */
-    this.removeData = function(key) {
+    var removeData = function(key) {
         key = prepareKey(key);
         sessionStorage.removeItem(key);
     };
-    
+
     /**
      * Remove all data related to chat
      */
-    this.removeAllData = function() {
+    var removeAllData = function() {
         $.each(sessionStorage, function(key, item) {
            if (key.indexOf(chatToken) >= 0) {
                sessionStorage.removeItem(key);
            }
        });
     };
-    
+
     /**
      * Add item to Storage
-     * 
+     *
      * @param {String} key
      * @param {String} data
      */
-    this.addData = function(key, data)
-    {        
+    var addData = function(key, data) {
         var preparedKey = prepareKey(key);
-        
+
         data = (sessionStorage[preparedKey] || '') + data;
         this.setData(key, data);
     };
-    
+
     //noinspection JSValidateJSDoc
     /**
      * Sets data to Storage
-     * 
+     *
      * @param {String} key
      * @param {String} data
      */
-    this.setData = function(key, data) {
+    var setData = function(key, data) {
         try {
             key = prepareKey(key);
             sessionStorage.setItem(key, data);
@@ -131,32 +117,48 @@ SFChat.api.storage = new function () {
             sessionStorage.setItem(key, data);
         }
     };
-    
+
     /**
      * Gets data from Storage
-     * 
+     *
      * @param {String} key
      * @return {String|Null} Null if no data were stored in key
      */
-    this.getData = function(key) {
+    var getData = function(key) {
         key = prepareKey(key);
         return sessionStorage.getItem(key);
     };
-    
+
     /**
      * Gets Chat Token
-     * 
+     *
      * @return {String|False} chat token if ok or false otherwise
      */
-     this.getChatToken = function() {
-        var urlPath = window.location.pathname;
-    
-        return urlPath.substr(urlPath.lastIndexOf('/') + 1);
+    var getChatToken = function() {
+        var urlPath = '';
+
+        if(!chatToken) {
+            urlPath     = window.location.pathname;
+            chatToken   = urlPath.substr(urlPath.lastIndexOf('/') + 1);
+        }
+
+        return chatToken;
     };
-    
-    // check weather browser support LocalStorage or not 
+
+    // @TODO refactor inline function run
+    // validate storage support
     checkSupportStorage();
-    
+
     // set chat token
-    chatToken = this.getChatToken();
-};
+    getChatToken();
+
+    // api
+    return {
+        removeData:             removeData,
+        removeAllData:          removeAllData,
+        addData:                addData,
+        setData:                setData,
+        getData:                getData,
+        getChatToken:           getChatToken
+    };
+});

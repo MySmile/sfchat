@@ -1,22 +1,19 @@
 /**
  * onload/home/home.js: Onload event runs in home.home.html template
  */
+require(['jquery', 'sfchat/sfchat', 'events/gatracking', 'onload/ga'], function($, sfchat, eventGaTracking) {
 
-"use strict";
+    "use strict";
 
-$(document).ready(function() {    
-    // check namespace
-    if (!SFChat || !SFChat.events) {
-        throw new Error('One of required modules was not loaded.');
-    }
-    
-    var homeOptions = SFChat.getOnloadOptions('.onload-js-options', 
-        ['buttonTarget.createChat', 'buttonTarget.joinChat']);
-    
-    SFChat.events.gatracking.eventBtnClick(
-        homeOptions['buttonTarget']['createChat'], 'create new chat'
-    );
-    SFChat.events.gatracking.eventBtnClick(
-        homeOptions['buttonTarget']['joinChat'], 'join to chat'
-    );
+    $(document).ready(function() {
+        var homeOptions = sfchat.getOnloadOptions('.onload-js-options',
+            ['buttonTarget.createChat', 'buttonTarget.joinChat']);
+
+        eventGaTracking.eventBtnClick(
+            homeOptions['buttonTarget']['createChat'], 'create new chat'
+        );
+        eventGaTracking.eventBtnClick(
+            homeOptions['buttonTarget']['joinChat'], 'join to chat'
+        );
+    });
 });

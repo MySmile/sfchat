@@ -1,189 +1,196 @@
 /**
  * sfchat/bootstrap.js: SFChat Bootstrap
  */
+define(['jquery',
+    'api/client',
+    'api/auth',
+    'events/messages',
+    'events/chat',
+    'events/title'
 
-"use strict";
+], function($,
+            client,
+            auth,
+            eventMessage,
+            eventChat,
+            eventTitle
+) {
 
-// check namespace
-var SFChat;
-if (!SFChat || !SFChat.events || !SFChat.api 
-    || !SFChat.api.auth || !SFChat.api.resources) {
-    throw new Error('One of required modules was not loaded.');
-}
-    
-if (SFChat.bootstrap) {
-    throw new Error('Module with name SFChat.bootstrap has already exist.');
-}
+    "use strict";
 
-/**
- * SFChat bootstrap
- * 
- * @type {Function}
- * @param {Object} options
- */
-SFChat.bootstrap = function (options) {
     /**
-     * Default options
-     * 
-     * @property {Object} options
-     * @property {String} options.endPoint
-     * @property {String} options.userToken
-     * @property {Object} options.chat
-     * @property {String} options.chat.targetBody
-     * @property {String} options.chat.targetType
-     * @property {String} options.chat.targetSend
-     * @property {String} options.chat.targetClose
-     * @property {String} options.draftClass
-     * @property {String} options.chatStatus
+     * SFChat bootstrap
+     *
+     * @type {Function}
+     * @param {Object} options
      */
-    this.options = {
-        endPoint:   undefined,
-        userToken:  undefined,
-        chat: {
-            targetBody:     '#chat-body',
-            targetType:     '#chat-type textarea',
-            targetSend:     '#chat-type .btn',
-            targetClose:    '#chat-close'
-        },
-        draftClass: 'btn-grey',
-        chatStatus: undefined
+    var bootstrap = function (options) {
+        /**
+         * Default options
+         *
+         * @property {Object} options
+         * @property {String} options.endPoint
+         * @property {String} options.userToken
+         * @property {Object} options.chat
+         * @property {String} options.chat.targetBody
+         * @property {String} options.chat.targetType
+         * @property {String} options.chat.targetSend
+         * @property {String} options.chat.targetClose
+         * @property {String} options.draftClass
+         * @property {String} options.chatStatus
+         */
+        this.options = {
+            endPoint:   undefined,
+            userToken:  undefined,
+            chat: {
+                targetBody:     '#chat-body',
+                targetType:     '#chat-type textarea',
+                targetSend:     '#chat-type .btn',
+                targetClose:    '#chat-close'
+            },
+            draftClass: 'btn-grey',
+            chatStatus: undefined
+        };
+
+        /**
+         * Events
+         *
+         * @property {Object}
+         */
+        this.events = {
+            // message's events
+            postMessage:            eventMessage.postMessage,
+            showPostedMessage:      eventMessage.showPostedMessage,
+            showHistoryMessage:     eventMessage.showHistoryMessage,
+
+            getMessage:             eventMessage.getMessage,
+            showReceivedMessage:    eventMessage.showReceivedMessage,
+            deleteMessage:          eventMessage.deleteMessage,
+            showDeletedMessage:     eventMessage.showDeletedMessage,
+
+            // chat's events
+            deleteChat:             eventChat.deleteChat,
+            setChatReady:           eventChat.setChatReady,
+            setChatClosed:          eventChat.setChatClosed,
+            setChatStatus:          eventChat.setChatStatus,
+
+            // title's events
+            showTitle:              eventTitle.showTitle,
+            clearTitle:             eventTitle.clearTitle,
+            click:                  eventTitle.clearTitle
+        };
+
+        this._setOptions(options);
+
+        /**
+         * Chat Body DOM
+         *
+         * @property {jQuery}
+         */
+        this.chatBodyDom = $(this.options.chat.targetBody);
+
+        /**
+         * Type DOM
+         *
+         * @property {jQuery}
+         */
+        this.chatTypeDom = $(this.options.chat.targetType);
+
+        /**
+         * Send DOM
+         *
+         * @property {jQuery}
+         */
+        this.chatSendDom = $(this.options.chat.targetSend);
+
+        /**
+         * Api Client
+         *
+         * @property {Object}
+         */
+        this.client = undefined;
+
+        // set client
+        this._setClient();
+        // init event
+        this._initEvents();
+
+        // show history messages, set chat status, get messages, long-polling
+        this.chatBodyDom
+            .trigger('showHistoryMessage')
+            .trigger('setChatStatus', [this.options.chatStatus])
+            .trigger('getMessage');
     };
-    
+
     /**
-     * Events
-     * 
-     * @property {Object}
+     * Sets options
+     *
+     * @param {Object} options
+     * @throws {TypeError}
      */
-    this.events = {
-        // message's events
-        postMessage:            SFChat.events.messages.postMessage,
-        showPostedMessage:      SFChat.events.messages.showPostedMessage,
-        showHistoryMessage:     SFChat.events.messages.showHistoryMessage,
-        
-        getMessage:             SFChat.events.messages.getMessage,
-        showReceivedMessage:    SFChat.events.messages.showReceivedMessage,
-        deleteMessage:          SFChat.events.messages.deleteMessage,
-        showDeletedMessage:     SFChat.events.messages.showDeletedMessage,
+    bootstrap.prototype._setOptions = function(options) {
+        if (!options && typeof(options) !== 'object') {
+            throw new TypeError('Invalid Options type. Object is expected.');
+        }
 
-        // chat's events
-        deleteChat:             SFChat.events.chat.deleteChat,
-        setChatReady:           SFChat.events.chat.setChatReady,
-        setChatClosed:          SFChat.events.chat.setChatClosed,
-        setChatStatus:          SFChat.events.chat.setChatStatus,
-
-        // title's events
-        showTitle:              SFChat.events.title.showTitle,
-        clearTitle:             SFChat.events.title.clearTitle,
-        click:                  SFChat.events.title.clearTitle
+        this.options = $.extend(this.options, options);
     };
-    
-    this._setOptions(options);
-    
+
     /**
-     * Chat Body DOM
-     * 
-     * @property {jQuery}
+     * Initiate resources
      */
-    this.chatBodyDom = $(this.options.chat.targetBody);
-    
+    bootstrap.prototype._setClient = function() {
+        var _this = this;
+
+        auth.setUserToken(_this.options.userToken);
+        _this.client = new client({
+            endPoint: _this.options.endPoint
+        });
+    };
+
     /**
-     * Type DOM
-     * 
-     * @property {jQuery}
+     * Init Events
      */
-    this.chatTypeDom = $(this.options.chat.targetType);
-    
+    bootstrap.prototype._initEvents = function() {
+        var _this = this;
+
+        // init event options
+        eventMessage.init({
+            chatBodyDom: _this.chatBodyDom,
+            chatTypeDom: _this.chatTypeDom,
+            client:      _this.client
+        });
+
+        // init event options
+        eventChat.init({
+            chatBodyDom: _this.chatBodyDom,
+            chatTypeDom: _this.chatTypeDom,
+            chatSendDom: _this.chatSendDom,
+            client:      _this.client,
+            draftClass:  _this.options.draftClass
+        });
+
+        // init events
+        $.each(_this.events, function(key, item){
+            _this.chatBodyDom.on(key, item);
+        });
+
+        // init chat close
+        _this._initChatClose();
+    };
+
     /**
-     * Send DOM
-     * 
-     * @property {jQuery}
+     * Initiate handler for chat close
      */
-    this.chatSendDom = $(this.options.chat.targetSend);
-   
-    /**
-     * Api Client
-     * 
-     * @property {SFChat.api.client}
-     */
-    this.client = undefined;
-    
-    // set client
-    this._setClient();
-    // init event
-    this._initEvents();
-    
-    // show history messages, set chat status, get messages, long-polling
-    this.chatBodyDom
-        .trigger('showHistoryMessage')
-        .trigger('setChatStatus', [this.options.chatStatus])
-        .trigger('getMessage');
-};
+    bootstrap.prototype._initChatClose = function() {
+        var _this = this;
 
-/**
- * Sets options
- * 
- * @param {Object} options
- * @throws {TypeError}
- */
-SFChat.bootstrap.prototype._setOptions = function(options) {
-    if (!options && typeof(options) !== 'object') {
-        throw new TypeError('Invalid Options type. Object is expected.');
-    } 
+        // click on close
+        $(_this.options.chat.targetClose).click(function () {
+            _this.chatBodyDom.trigger('deleteChat');
+        });
+    };
 
-    this.options = $.extend(this.options, options);
-};
-
-/**
- * Initiate resources
- */
-SFChat.bootstrap.prototype._setClient = function() {
-    var _this = this;
-    
-    SFChat.api.auth.setUserToken(_this.options.userToken);
-    _this.client = new SFChat.api.client({
-        endPoint: _this.options.endPoint
-    });
-};
-
-/**
- * Init Events
- */
-SFChat.bootstrap.prototype._initEvents = function() {
-    var _this = this;
-    
-    // init event options
-    SFChat.events.messages.init({
-        chatBodyDom: _this.chatBodyDom,
-        chatTypeDom: _this.chatTypeDom,
-        client:      _this.client   
-    });
-    
-    // init event options
-    SFChat.events.chat.init({
-        chatBodyDom: _this.chatBodyDom,
-        chatTypeDom: _this.chatTypeDom,
-        chatSendDom: _this.chatSendDom,
-        client:      _this.client,
-        draftClass:  _this.options.draftClass
-    });
-    
-    // init events
-    $.each(_this.events, function(key, item){
-        _this.chatBodyDom.on(key, item);
-    });
-      
-    // init chat close
-    _this._initChatClose();
-};
-
-/**
- * Initiate handler for chat close
- */
-SFChat.bootstrap.prototype._initChatClose = function() {
-    var _this = this;
-    
-    // click on close
-    $(_this.options.chat.targetClose).click(function(){
-        _this.chatBodyDom.trigger('deleteChat');
-    });
-};
+    // api
+    return bootstrap;
+});
