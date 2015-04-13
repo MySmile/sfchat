@@ -9,15 +9,4 @@ if __name__ == "__main__":
 
     execute_from_command_line(sys.argv)
 
-    # try:
-    #     execute_from_command_line(sys.argv)
-    # except ImproperlyConfigured:
-    #     print('ImproperlyConfigured!!!!!')
-    #     print('sys.argv --- ', sys.argv )
 
-
-    # from apps.chat.tasks import clear_chats
-    # import django_rq
-    #
-    # queue = django_rq.get_queue('default')
-    # queue.enqueue(clear_chats)

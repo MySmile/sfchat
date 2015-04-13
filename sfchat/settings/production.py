@@ -13,9 +13,7 @@ APP_MIDDLEWARE_CLASSES = (
     'apps.chat.middlewares.ExceptionLoggingMiddleware',
 )
 
-THIRD_PARTY_MIDDLEWARE_CLASSES = (
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-)
+THIRD_PARTY_MIDDLEWARE_CLASSES = ()
 
 MIDDLEWARE_CLASSES = DJANGO_MIDDLEWARE_CLASSES + APP_MIDDLEWARE_CLASSES + THIRD_PARTY_MIDDLEWARE_CLASSES
 
@@ -37,8 +35,6 @@ THIRD_PARTY_APPS = (
     'rest_framework.authtoken',
     'compressor',
     'django_rq',
-
-    'debug_toolbar',
 )
 
 

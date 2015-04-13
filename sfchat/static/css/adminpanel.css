@@ -1,29 +1,12 @@
 @charset "utf-8";
 
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table caption {
+/* chat manager */
+#chatmanager table caption {
     text-align: right;
-}
-
-table th {
-    background-color: #d4d5d6;
-    font-weight: bold;
-}
-
-table tr:hover {
-    background-color: #d4d5d6;
-}
-
-table th, td {
-    border: 1px solid #898989;
-    text-align: center;
 }
 
 .draft { color: #ffa500; }
 .ready { color: #008000; }
 .closed { color: #000000; }
+
+

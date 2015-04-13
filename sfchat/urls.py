@@ -17,6 +17,11 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        )
 
+# urlpatterns += patterns('',
+#     (r'^admin/django-rq/', include('django_rq.urls')),
+# )
+
+
 handler404 = 'apps.home.utils.e404'
 handler500 = 'apps.home.utils.e500'
 
@@ -26,12 +31,8 @@ if settings.DEBUG:
     )
 
 
-if settings.DEBUG_TOOLBAR_PATCH_SETTINGS:
+if settings.DEBUG:
     import debug_toolbar
     urlpatterns += patterns('',
         url(r'^__debug__/', include(debug_toolbar.urls)),
     )
-
-urlpatterns += patterns('',
-    (r'^django-rq/', include('django_rq.urls')),
-)

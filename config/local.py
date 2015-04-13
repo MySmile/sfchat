@@ -10,10 +10,13 @@ DEBUG = True
 
 COMPRESS_ENABLED = False
 
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+# @NOTE: if True then enable 'debug_toolbar.middleware.DebugToolbarMiddleware' also
+
+
 TEMPLATE_DEBUG = DEBUG
 
 INTERNAL_IPS = '127.0.0.1'
-DEBUG_TOOLBAR_PATCH_SETTINGS = True
 
 SECRET_KEY = '&ku!ebrl5h61ztet=c&ydh+sc9tkq=b70^xbx461)l1pp!lgt6'
 
@@ -69,36 +72,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')
 STATIC_ROOT = os.path.join(BASE_DIR, 'sfchat/static/')
 COMPRESS_ROOT = STATIC_ROOT
 
-try:
-    RQ_QUEUES = {
-        'default': {
-            'HOST': 'localhost',
-            'PORT': 6379,
-            'DB': 0,
-            'PASSWORD': '',
-            'DEFAULT_TIMEOUT': 60,
-        },
-        # 'high': {
-        #     'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379'), # If you're on Heroku
-        #     'DB': 0,
-        #     'DEFAULT_TIMEOUT': 500,
-        # },
-        # 'low': {
-        #     'HOST': 'localhost',
-        #     'PORT': 6379,
-        #     'DB': 0,
-        # }
-    }
-
-    from apps.chat.tasks import clear_chats
-    import django_rq
-    queue = django_rq.get_queue('default')
-    queue.enqueue(clear_chats)
-
-except Exception as err:
-    pass
 
 DATABASE_ROUTERS = ['apps.chat.router.SFChatRouter', 'apps.chat.router.AdminRouter',]
-
-#DATABASE_ROUTERS = ['apps.chat.router.AdminRouter', 'apps.chat.router.SFChatRouter',]
-

@@ -69,7 +69,6 @@ STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'sfchat/templates/'),
-    # os.path.join(BASE_DIR, 'apps/adminpanel/templates/'),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -85,16 +84,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.csrf',
 )
 
-# TEMPLATE_LOADERS = (
-#     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.filesystem.Loader',
-# )
-
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),
 )
-
-
 
 
 # mongoengine settings
@@ -137,10 +129,6 @@ LOGGING = {
          'simple': {
              'format': '%(levelname)s %(message)s'
          },
-         'rq_console': {
-            "format": "%(asctime)s %(message)s",
-            "datefmt": "%H:%M:%S",
-        },
      },
     'filters': {
         'require_debug_true': {
@@ -175,21 +163,6 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler',
             'filters': ['require_debug_false']
         },
-        'rq_file': {
-               'level': 'DEBUG',
-               'class': 'logging.handlers.RotatingFileHandler',
-               'formatter': 'rq_console',
-               'filters': ['require_debug_true', 'require_debug_false'],
-               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'_PythonRQ.log'),
-               'maxBytes': 1024*1024*5, # 5 MB
-               'backupCount': 5
-           },
-        'rq_console': {
-            'level': 'DEBUG',
-            'class': 'rq.utils.ColorizingStreamHandler',
-            'exclude': ["%(asctime)s"],
-            'filters': ['require_debug_true'],
-        },
     },
     
     'loggers': {
@@ -202,10 +175,6 @@ LOGGING = {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': False,
-        },
-        "rq.worker": {
-            "handlers": ["rq_console", 'rq_file'],
-            "level": "DEBUG"
         },
     },
 }

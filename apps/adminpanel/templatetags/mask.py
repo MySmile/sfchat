@@ -1,10 +1,15 @@
+from bson.objectid import ObjectId
+
 from django import template
 register = template.Library()
 
 
 @register.filter(name='mask')
-def mask(some_str):
-    if type(some_str) != 'str':
-        some_str = str(some_str)
-    return str.join('******', (some_str[0], some_str[-4:]))
-    # return some_str
+def mask(object_id):
+    """ Mask ObjectId by symbol asterisk
+    """
+    if isinstance(object_id, ObjectId):
+        object_id = str(object_id)
+        return str.join('******', (object_id[0], object_id[-4:]))
+    else:
+        return ''

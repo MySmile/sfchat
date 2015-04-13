@@ -1,40 +1,71 @@
-{% extends "base.html" %} {% load staticfiles %} {% load mask %}
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls admin_static admin_list %}
+{% load mask %}
 
-{% block meta %}
-    <meta name="description" content=""  />
-    <meta name="keywords" content="" />
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static "admin/css/changelists.css" %}" />
+  {% if cl.formset %}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
+  {% endif %}
+  {% if cl.formset or action_form %}
+    <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+  {% endif %}
+  {{ media.css }}
+  {% if not actions_on_top and not actions_on_bottom %}
+    <style>
+      #changelist table thead th:first-child {width: inherit}
+    </style>
+  {% endif %}
+
+<link rel="stylesheet" href="{% static 'css/adminpanel.css' %}">
 {% endblock %}
-{% block title %}: Admin | Manager chats{% endblock %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static 'css/adminpanel.css' %}">
-{% endblock %}
-
-
-{% block main %}
-<script>
-    $(function() {
-        $('#filter1').change(function() {
-            $("#table td.col1:contains('" + $(this).val() + "')").parent().show();
-            $("#table td.col1:not(:contains('" + $(this).val() + "'))").parent().hide();
-        });
+{% block extrahead %}
+{{ block.super }}
+{{ media.js }}
+{% if action_form %}{% if actions_on_top or actions_on_bottom %}
+<script type="text/javascript">
+(function($) {
+    $(document).ready(function($) {
+        $("tr input.action-select").actions();
     });
+})(django.jQuery);
 </script>
-<div id="managechats">
-    <table id="table">
-        <caption>Chats in database</caption>
+{% endif %}{% endif %}
+{% endblock %}
+
+
+{% if not is_popup %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="/admin/">Home</a>
+&rsaquo; <a href="/admin/chat-manager/">Chat manager</a>
+&rsaquo; Chat manager
+</div>
+{% endblock %}
+{% endif %}
+
+
+{% block coltype %}flex{% endblock %}
+
+
+{% block content %}
+
+<div id="content-main">
+<h1>Chat manager</h1>
+<div id="chatmanager">
+    <table id="chats_list">
+        <caption>Total chats: {{ chats.paginator.count }}</caption>
         <thead>
             <tr>
-                <th>Chat token</th>
-                <th>Created</th>
-                <th>Status</th>
-            </tr>
-            <tr>
-                <th><input type="text" size="5" id="filter1" /></th>
-                <th><input type="text" size="5" id="filter2" /></th>
-                <th><input type="text" size="5" id="filter3" /></th>
+                <th scope="col" class="sortable">Chat token</th>
+                <th scope="col" class="sortable column-created">Created </th>
+                <th scope="col" class="sortable column-status">Status</th>
             </tr>
         </thead>
+
+        {% if chats.paginator.count %}
         <tbody>
         {% for chat in chats %}
             <tr>
@@ -44,7 +75,6 @@
             </tr>
         {% endfor %}
         </tbody>
-
         <tfoot>
         <tr>
             <td colspan="3">
@@ -66,7 +96,12 @@
             </td>
         </tr>
         </tfoot>
+        {% endif %}
     </table>
 
 </div>
+
+</div>
 {% endblock %}
+
+

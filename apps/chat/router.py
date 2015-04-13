@@ -2,7 +2,6 @@ from django.conf import settings
 
 admin_apps = ('auth', 'sessions', 'contenttypes', 'admin', 'messages' )
 
-
 class AdminRouter(object):
     def db_for_read(self, model, **hints):
         if model._meta.app_label in admin_apps:
@@ -21,8 +20,9 @@ class AdminRouter(object):
         return None
 
     def allow_migrate(self, db, model):
+        # print('APPS ----- ', model._meta.app_label)
         if db == 'default':
-            return (model._meta.app_label in admin_apps)
+            return model._meta.app_label in admin_apps
         elif (model._meta.app_label  in admin_apps):
             return False
         return None
