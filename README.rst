@@ -19,8 +19,7 @@ Free:
 
 Installation
 ============
-  #. Install requirements ``sudo pip3 install -r config/requirements/local.txt``
-  #. Use Bower to install front-end components ``bower install``
+  #. Run in terminal ``$ make install``
 
 Requirements
 ============
@@ -28,7 +27,6 @@ Requirements
   - Django 1.7
   - Django Rest Api Framework
   - Mongodb
-  - Redis
   - JQuery
 
 For more information please look into ``/config/requirements/production.txt`` and ``/bin/bower/bower.json``.

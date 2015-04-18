@@ -11,7 +11,7 @@ class Messages(EmbeddedDocument):
     user_token = ObjectIdField(required=True)
     msg = StringField(min_length=1, max_length=144, required=True)
     system = BooleanField(default=False)
-    created = DateTimeField(default=datetime.datetime.utcnow())
+    created = DateTimeField(default=datetime.datetime.now())
 
     def clean(self):
         if isinstance(self.user_token, str):
@@ -34,8 +34,10 @@ class Messages(EmbeddedDocument):
 class LongPolling(EmbeddedDocument):
     _id = ObjectIdField(required=True)
     user_token = ObjectIdField(required=True)
-    created = DateTimeField(default=datetime.datetime.utcnow())
+    created = DateTimeField(default=datetime.datetime.now())
 
+    def __bool__(self):
+        return True
 
 class Chats(Document):
     MAX_USER_TOKENS = 2
@@ -61,7 +63,7 @@ class Chats(Document):
     user_tokens = ListField(ObjectIdField())
     messages = ListField(EmbeddedDocumentField(Messages))
     long_polling = ListField(EmbeddedDocumentField(LongPolling))
-    created = DateTimeField(default=datetime.datetime.utcnow())
+    created = DateTimeField(default=datetime.datetime.now())
 
     meta = {'queryset_class': ChatsQuerySet}
 
@@ -233,7 +235,7 @@ class Chats(Document):
             self.delete_long_polling(user_token)
 
             long_polling = LongPolling(_id=ObjectId(), user_token=user_token,
-                                       created=datetime.datetime.utcnow())
+                                       created=datetime.datetime.now())
             self.update(push__long_polling=long_polling)
         except (TypeError, InvalidId, DoesNotExist) as ex:
             # @TODO logging this error
