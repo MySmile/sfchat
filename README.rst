@@ -28,6 +28,7 @@ Requirements
   - Django Rest Api Framework
   - Mongodb
   - JQuery
+  - Requirejs
 
 For more information please look into ``/config/requirements/production.txt`` and ``/bin/bower/bower.json``.
 
