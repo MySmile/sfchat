@@ -30,7 +30,7 @@ Requirements
   - JQuery
   - Requirejs
 
-For more information please look into ``/config/requirements/production.txt`` and ``/bin/bower/bower.json``.
+For more information please look into ``./config/requirements/production.txt`` and ``./bower.json``.
 
 Screenshots
 ===========

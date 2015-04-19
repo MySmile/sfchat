@@ -1,4 +1,3 @@
-celery*
 /sfchat/static/CACHE/**
 .idea
 .coverage
@@ -6,6 +5,6 @@ celery*
 docs/build/**
 tmp/*
 log/*
-/sfchat/static/bower_components/**
 nbproject/*
 dump.rdb
+/sfchat/static/bower_components/**
