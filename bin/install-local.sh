@@ -17,6 +17,6 @@ sudo apt-get install -y mongodb-org=2.6.9 \
 # Install bower and components
 sudo npm install -g bower
 sudo apt-get install nodejs-legacy
-cd bower
+cd ./bower
 bower install
 
