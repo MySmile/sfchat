@@ -11,17 +11,20 @@
 {% endblock %}
 {% block title %} - Secure Free Chat{% endblock %}
 
+<button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button>
+<button type="button" class="btn btn-default btn-lg btn-block">Block level button</button>
+
 {% block main %}
     <div id="chat-entry">
         <form method="POST" action="/create-chat/">{% csrf_token %}
             {{ form_create_chat }}
-            <button id="create_chat" class="btn btn-green" type="submit" >
+            <button id="create_chat" class="btn btn-primary btn-lg btn-block btn-green" type="submit" >
                 {% trans "create new" %}
             </button>
         </form>
         <div id='or'>{% trans "OR" %}</div>
         <form method="POST">{% csrf_token %}
-            {{ form.as_p }}<button id="join_chat" class="btn btn-orange" type="submit">{% trans "join" %}</button>
+            {{ form.as_p }}<button id="join_chat" class="btn btn-block btn-default btn-orange" type="submit">{% trans "join" %}</button>
         </form>
     </div>
     <hr>

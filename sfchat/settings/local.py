@@ -52,6 +52,9 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 STATICFILES_DIRS = (
     os.path.join(STATIC_ROOT, 'bower_components/jquery/dist/'),
+    os.path.join(STATIC_ROOT, 'bower_components/bootstrap/dist/'),
+    os.path.join(STATIC_ROOT, 'bower_components/html5shiv/dist/'),
+    os.path.join(STATIC_ROOT, 'bower_components/respond/dest/'),
 )
 
 # compressor settings
