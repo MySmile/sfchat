@@ -25,7 +25,7 @@ define(['jquery', 'sfchat/sfchat'], function($, sfChat) {
         eventError: function(error) {
             var _this = eventGatracking;
 
-            if(sfChat.debugmode === 'True' || _this._prevError === error) {
+            if(sfChat.debugmode === 'True' || _this._prevError === error || typeof(ga) === 'undefined') {
                 return;
             }
 
@@ -36,19 +36,19 @@ define(['jquery', 'sfchat/sfchat'], function($, sfChat) {
         /**
          * Event button click
          *
-         * @param {type} target
-         * @param {type} label
-         * @returns {undefined}
+         * @param {String} target
+         * @param {String} label
          */
         eventBtnClick: function(target, label) {
-            var _this = eventGatracking;
+            var _this       = eventGatracking,
+                targetDom   = $(target);
 
             // skip for debug mode
-            if (sfChat.debugmode === 'True') {
+            if (sfChat.debugmode === 'True' || targetDom.length === 0) {
                 return;
             }
 
-            _this.addListener($(target).get(0), 'click', function() {
+            _this.addListener(targetDom.get(0), 'click', function() {
                 ga('send', 'event', 'button', 'click', label);
             });
         },
