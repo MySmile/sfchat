@@ -11,10 +11,10 @@ import logging
 logger = logging.getLogger(__name__)  # Get an instance of a logger
 
 
-from .base import *
+# from .base import *
 
 # test local
-from config.local import *
+# from config.local import *
 from .local import *
 
 # test production
