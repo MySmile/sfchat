@@ -12,11 +12,11 @@ help:
 
 # install-local - install locally dependenses --- move this into "one-install-script"
 install:
-	@cd ./config/requirements && sudo pip3 install -r local.txt
-	@./bin/install-local.sh
+	@cd ./config/requirements && pip3 install -r local.txt
+	@cd ./bin && ./install-local.sh
 
 #	@cd ./config/requirements && sudo pip3 install -r production.txt
-#	@./bin/install-production
+#	@cd ./bin && ./install-production
 
 # test - test project
 test:
