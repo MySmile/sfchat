@@ -14,6 +14,8 @@ services:
 # command to run tests
 script:
   - make test
-  - coverage run --source=sfchat manage.py test
+  - coverage run --source=mysmile manage.py test --pattern="test_*.py" --settings=mysmile.settings.test
 after_success:
   coveralls
+
+
