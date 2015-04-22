@@ -10,7 +10,6 @@ install:
   - pip install coveralls
 services:
   - mongodb
-  - redis-server
 # command to run tests
 script:
   - make test

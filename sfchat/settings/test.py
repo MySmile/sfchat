@@ -10,16 +10,10 @@ import tempfile
 import logging
 logger = logging.getLogger(__name__)  # Get an instance of a logger
 
-
-from .base import *
-
 # test local
-from config.local import *
 from .local import *
-
-# test production
-# from config.production import *
-# from .production import *
+from .base import *
+from config.local import *
 
 
 class DisableMigrations(object):
