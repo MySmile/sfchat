@@ -31,8 +31,7 @@ connect(MONGODB_DATABASE_NAME,
         host=MONGODB_HOST,
         port=MONGODB_PORT,
         username=MONGODB_USERNAME,
-        password=MONGODB_PASSWORD,
-        alias='default')
+        password=MONGODB_PASSWORD)
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
