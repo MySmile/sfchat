@@ -11,9 +11,9 @@ import logging
 logger = logging.getLogger(__name__)  # Get an instance of a logger
 
 # test local
-from .local import *
-from .base import *
 from config.local import *
+from .base import *
+from .local import *
 
 
 class DisableMigrations(object):
