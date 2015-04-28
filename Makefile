@@ -20,7 +20,8 @@ install:
 
 # test - test project
 test:
-	@python3 manage.py test --pattern="test_*.py" --settings=sfchat.settings.test
+#	@python3 manage.py test --pattern="test_*.py" --settings=sfchat.settings.test
+	@python3 manage.py test --pattern="test_*.py"
 
 
 # style - Check PEP8 and others

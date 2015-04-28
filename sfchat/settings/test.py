@@ -11,34 +11,34 @@ import logging
 logger = logging.getLogger(__name__)  # Get an instance of a logger
 
 # test local
-from config.local import *
-from .base import *
-from .local import *
-
-
-class DisableMigrations(object):
-    def __contains__(self, item):
-        return True
-
-    def __getitem__(self, item):
-        return "notmigrations"
-
-
-TESTS_IN_PROGRESS = False
-if 'test' in sys.argv[1:] or 'jenkins' in sys.argv[1:]:
-    logging.disable(logging.CRITICAL)
-    PASSWORD_HASHERS = (
-        'django.contrib.auth.hashers.MD5PasswordHasher',
-    )
-    DEBUG = False
-    TEMPLATE_DEBUG = False
-    TESTS_IN_PROGRESS = True
-    MIGRATION_MODULES = DisableMigrations()
+# from config.local import *
+# from .base import *
+# from .local import *
+#
+#
+# class DisableMigrations(object):
+#     def __contains__(self, item):
+#         return True
+#
+#     def __getitem__(self, item):
+#         return "notmigrations"
+#
+#
+# TESTS_IN_PROGRESS = False
+# if 'test' in sys.argv[1:] or 'jenkins' in sys.argv[1:]:
+#     logging.disable(logging.CRITICAL)
+#     PASSWORD_HASHERS = (
+#         'django.contrib.auth.hashers.MD5PasswordHasher',
+#     )
+#     DEBUG = False
+#     TEMPLATE_DEBUG = False
+#     TESTS_IN_PROGRESS = True
+#     MIGRATION_MODULES = DisableMigrations()
 
 from django.test.runner import DiscoverRunner
 #~ from django.test import TransactionTestCase
 
-from mongoengine import connect
+# from mongoengine import connect
 
 _running_test = False
 

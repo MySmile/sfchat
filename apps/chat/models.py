@@ -284,6 +284,19 @@ class Chats(Document):
 
         return talker_token[0]
 
+
+    def auto_close_chat():
+        """
+        Gets talker token
+        :param user_token: String
+        :return: ObjectId|False talker token or false if failed or such token does nit exist
+        """
+        talker_token = list(filter(lambda item: user_token != str(item), self.user_tokens))
+        if not talker_token:
+            return False
+
+        return talker_token[0]
+
     def __setattr__(self, name, value):
         if name in ('MAX_USER_TOKENS',
                     'STATUS_DRAFT',

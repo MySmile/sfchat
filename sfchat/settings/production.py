@@ -40,10 +40,6 @@ THIRD_PARTY_APPS = (
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
-STATICFILES_DIRS = (
-    os.path.join(STATIC_ROOT, 'bower_components/jquery/dist/'),
-)
-
 # compressor settings
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
