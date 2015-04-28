@@ -20,7 +20,6 @@ INTERNAL_IPS = '127.0.0.1'
 
 SECRET_KEY = '&ku!ebrl5h61ztet=c&ydh+sc9tkq=b70^xbx461)l1pp!lgt6'
 
-DEFAULT_CONNECTION_NAME = 'sfchat'
 MONGODB_DATABASE_NAME = 'sfchat'
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
@@ -31,8 +30,7 @@ connect(MONGODB_DATABASE_NAME,
         host=MONGODB_HOST,
         port=MONGODB_PORT,
         username=MONGODB_USERNAME,
-        password=MONGODB_PASSWORD,
-        alias='sfchat')
+        password=MONGODB_PASSWORD)
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
