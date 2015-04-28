@@ -22,7 +22,7 @@ services:
 # command to run tests
 script:
   - make test
-  - coverage run --source=sfchat manage.py test --pattern="test_*.py" --settings=sfchat.settings.test
+  - coverage run --source=sfchat manage.py test --pattern="test_*.py"
 after_success:
   coveralls
 
