@@ -19,7 +19,8 @@ Free:
 
 Installation
 ============
-  #. Run in terminal ``$ make install``
+  #. Install required dependency: ``make install-local`` or ``make install-prod``
+  #. Build and optimize js from source: ``make build-js``
 
 Requirements
 ============

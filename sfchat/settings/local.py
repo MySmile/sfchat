@@ -50,9 +50,10 @@ THIRD_PARTY_APPS = (
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
-STATICFILES_DIRS = (
-    os.path.join(STATIC_ROOT, 'bower_components/jquery/dist/'),
-)
+# find js
+STATICFILES_DIRS = (os.path.join(STATIC_ROOT, 'js/app/'), ) if not os.path.isdir(os.path.join(STATIC_ROOT, 'js/build/')) \
+    else (os.path.join(STATIC_ROOT, 'js/build/'), )
+
 
 # compressor settings
 STATICFILES_FINDERS = (

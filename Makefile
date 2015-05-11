@@ -10,13 +10,14 @@ run:
 help:
 	@egrep "^# [a-z,\",=,_,-]+ - " Makefile	
 
-# install-local - install locally dependenses --- move this into "one-install-script"
-install:
+# install-local - install locally dependencies --- move this into "one-install-script"
+install-local:
 	@cd ./config/requirements && sudo pip3 install -r local.txt
 	@./bin/install-local.sh
 
-#	@cd ./config/requirements && sudo pip3 install -r production.txt
-#	@./bin/install-production
+install-prod:
+	@cd ./config/requirements && sudo pip3 install -r production.txt
+	@./bin/install-production
 
 # test - test project
 test:
