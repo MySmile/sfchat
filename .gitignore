@@ -1,4 +1,5 @@
 /sfchat/static/CACHE/**
+/sfchat/static/js/build
 .idea
 .coverage
 *.pyc

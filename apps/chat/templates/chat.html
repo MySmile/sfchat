@@ -3,7 +3,7 @@
 
 {% block css %}{% endblock %}
 {% block js %}
-    <script src='{% static 'js/onload/chat/chat.js' %}'></script>
+    <script data-main='{% static 'js/build/chat.js' %}' src='{% static 'bower_components/requirejs/require.js' %}'></script>
 {% endblock %}
 
 {% block title %}: Chatting{% endblock %}

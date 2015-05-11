@@ -3,7 +3,7 @@
  */
 
 require.config({
-    baseUrl: '/static/js/',
+    baseUrl: '/static/js/app',
     map: {
         '*': {
             api: 'sfchat/api/v1',
@@ -15,12 +15,12 @@ require.config({
         'jquery': {
             exports: 'jQuery'
         },
-        "ga": {
-            exports: "ga"
+        'ga': {
+            exports: 'ga'
         }
     },
     paths: {
-        'jquery': '../bower_components/jquery/dist/jquery.min',
+        'jquery': '../../bower_components/jquery/dist/jquery.min',
         'ga': '//www.google-analytics.com/analytics'
     }
 });

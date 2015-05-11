@@ -54,3 +54,6 @@ admin:
 syncdb:
 	python3 manage.py syncdb
 
+# build-js - build jscript
+build-js:
+	cd sfchat/static&&node ./bower_components/rjs/dist/r.js -o ./js/build.js
