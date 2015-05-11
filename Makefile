@@ -12,16 +12,18 @@ help:
 
 # install-local - install locally dependencies --- move this into "one-install-script"
 install-local:
-	@cd ./config/requirements && sudo pip3 install -r local.txt
-	@./bin/install-local.sh
+	@cd ./config/requirements && pip3 install -r local.txt
+	@cd ./bin && ./install-local.sh
 
+# install-prod - install production dependencies 
 install-prod:
 	@cd ./config/requirements && sudo pip3 install -r production.txt
-	@./bin/install-production
+	@cd ./bin && ./install-production
 
 # test - test project
 test:
-	@python3 manage.py test --pattern="test_*.py" --settings=sfchat.settings.test
+#	@python3 manage.py test --pattern="test_*.py" --settings=sfchat.settings.test
+	@python3 manage.py test --pattern="test_*.py"
 
 
 # style - Check PEP8 and others

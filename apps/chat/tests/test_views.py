@@ -14,6 +14,11 @@ class ChatViewTest(unittest.TestCase):
         response = self.client.get('/chat/'+str(self.chat_token))
         self.assertEqual(response.status_code, 200)
 
+    def test_html_chat_token(self):
+        response = self.client.get('/chat/'+str(self.chat_token))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('<div id="chat-body">', response.content.decode('utf-8'))
+
 
 
 

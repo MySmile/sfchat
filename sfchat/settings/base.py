@@ -90,15 +90,15 @@ LOCALE_PATHS = (
 
 
 # mongoengine settings
-# AUTHENTICATION_BACKENDS = (
-#     'mongoengine.django.auth.MongoEngineBackend',
-# )
-#
-# AUTH_USER_MODEL = 'mongo_auth.MongoUser'
-# MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
-#
-# SESSION_ENGINE = 'mongoengine.django.sessions'
-# SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
+AUTHENTICATION_BACKENDS = (
+    'mongoengine.django.auth.MongoEngineBackend',
+)
+
+AUTH_USER_MODEL = 'mongo_auth.MongoUser'
+MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
+
+SESSION_ENGINE = 'mongoengine.django.sessions'
+SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
 
 #~ global settings for a REST framework API
 REST_FRAMEWORK = {
