@@ -58,6 +58,6 @@ class ChatView(APIView):
         Delete chat
         """
         user_token = TokenAuthentication.get_user_token(request)
-        request.user.delete_chat(user_token)
+        request.user.close_chat(user_token)
 
         return Response(self.RESPONSE_SUCCESS)

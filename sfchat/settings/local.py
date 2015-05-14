@@ -40,9 +40,9 @@ LOCAL_APPS = (
 
 # Third party apps
 THIRD_PARTY_APPS = (
-    'mongoengine.django.mongo_auth',
+    # 'mongoengine.django.mongo_auth',
     'rest_framework',
-    'rest_framework.authtoken',
+    # 'rest_framework.authtoken',
     'compressor',
     'debug_toolbar',
 )

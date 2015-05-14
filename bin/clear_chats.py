@@ -2,7 +2,6 @@ import sys, os
 
 import datetime
 from datetime import date, timedelta
-from mongoengine.queryset import Q
 
 app_base = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(app_base)
@@ -28,7 +27,16 @@ connect(MONGODB_DATABASE_NAME,
 
 try:
     yesterday = date.today() - timedelta(1)
-    chats = Chats.objects(Q(status='closed') | Q(created__lte=yesterday))
+    chats = Chats.objects(created__lte=yesterday)
+    for chat in chats:
+        chat.close_chat(auto=True)
+
+    # delete closed chats
+    chats = Chats.objects(status='closed')
+    for chat in chats:
+        chat.messages = []
+        chat.save()
+
     msg = str(len(chats)) + ' chat(s) cleaned!'
     chats.delete()
 

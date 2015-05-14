@@ -50,6 +50,7 @@ class Chats(Document):
     MSG_JOIN_CHAT_TALKER = 'Chat is ready to use'
     MSG_CHAT_CLOSE_TALKER = 'Thank you for using SFChat.<br> Chat was successfully closed by Talker.'
     MSG_CHAT_CLOSE_YOU = 'Thank you for using SFChat<br>Current chat was successfully closed.'
+    MSG_CHAT_CLOSE_AUTO = 'Thank you for using SFChat<br>Current chat was successfully closed automatically.'
 
     # it's used for authentication
     is_staff = True
@@ -197,22 +198,30 @@ class Chats(Document):
 
         return result
 
-    def delete_chat(self, user_token):
+    def close_chat(self, user_token=None, auto=False):
         """
-         User init delete chat
+         User init close chat
          :param user_tocken: ObjectId
+         :param auto: Boolean
          :return: Boolean
         """
         try:
-            prepared_messages = [
-                Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_YOU), user_token=user_token)
-            ]
-            # it's possible to close "draft" chat
-            talker_token = self.get_talker_token(user_token)
-            if talker_token:
-                prepared_messages.append(
-                    Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_TALKER), user_token=talker_token)
-                )
+            if auto:
+                prepared_messages = []
+                for user_token in self.user_tokens:
+                    prepared_messages.append(
+                        Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_AUTO), \
+                                                     user_token=user_token))
+            else:
+                prepared_messages = [
+                    Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_YOU), user_token=user_token)
+                ]
+                # it's possible to close "draft" chat
+                talker_token = self.get_talker_token(user_token)
+                if talker_token:
+                    prepared_messages.append(
+                        Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_TALKER), user_token=talker_token)
+                    )
 
             self.update(set__status=self.STATUS_CLOSED, push_all__messages=prepared_messages)
             result = True
@@ -270,22 +279,9 @@ class Chats(Document):
         long_polling = self.get_long_polling(talker_token)
         if long_polling and self.status == self.STATUS_READY \
                 and (datetime.datetime.now() - long_polling.created).seconds > auto_close:
-            self.delete_chat(talker_token)
+            self.close_chat(talker_token)
 
     def get_talker_token(self, user_token):
-        """
-        Gets talker token
-        :param user_token: String
-        :return: ObjectId|False talker token or false if failed or such token does nit exist
-        """
-        talker_token = list(filter(lambda item: user_token != str(item), self.user_tokens))
-        if not talker_token:
-            return False
-
-        return talker_token[0]
-
-
-    def auto_close_chat():
         """
         Gets talker token
         :param user_token: String
