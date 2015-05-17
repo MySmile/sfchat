@@ -7,18 +7,20 @@
 2015-06-xx v0.13.0
 ==================
 * Modified Long Pulling to support Tornado
-* Added Selenium test cases
+* Developed advertisement module
 * Integrated Karma and Jasmine
 * Created JS unitTests
 * Increased unitTesting coverage up to 80%
+* Added new design for 404 and 500 page
 
 2015-05-xx v0.12.0
 ==================
-* Integrated requirejs
-* Installed normalize.css
 * Added message notifier on the page title
 * Developed admin panel: table with chat list, action to clear chats manually
 * Fixed: clearing closed chats
+* Integrated requirejs
+* Installed normalize.css
+* Added Selenium test cases
 
 2015-03-01 v0.11.0
 ==================
