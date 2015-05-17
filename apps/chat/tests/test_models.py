@@ -82,7 +82,7 @@ class ChatsTestCase(unittest.TestCase):
         id = chat.id
         chat.delete_closed_chat()
         chat = Chats.objects.filter(id=id)
-        self.assertEquals([1], list(chat))
+        self.assertEquals([], list(chat))
 
     def test_create_long_polling(self):
         expected = self.chat.create_long_polling(self.user_token)
