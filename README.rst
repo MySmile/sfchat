@@ -20,6 +20,7 @@ Free:
 Installation
 ============
   #. Install required dependency: ``make install-local`` or ``make install-prod``
+  #. Generate database for admin panel: ``make admin`
   #. Build and optimize js from source: ``make build-js``
 
 Requirements

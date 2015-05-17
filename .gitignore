@@ -1,7 +1,7 @@
 sfchat/static/CACHE/**
 sfchat/static/js/build
 sfchat/static/bower_components/**
-sfchat/db/**
+sfchat/db/*.sqlite3
 .idea
 .coverage
 *.pyc
