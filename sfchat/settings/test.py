@@ -49,7 +49,7 @@ class NoSQLTestRunner(DiscoverRunner):
     def setup_databases(self, **kwargs):
         from mongoengine.connection import connect, disconnect
         disconnect()
-        connect(self.mongodb_name, alias='default')
+        connect(self.mongodb_name)
         print('Creating mongo test-database ' + self.mongodb_name)
         return super(NoSQLTestRunner, self).setup_databases(**kwargs)
 

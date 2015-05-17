@@ -1,5 +1,6 @@
 from datetime import date, timedelta
 
+from mongoengine import *
 from mongoengine.queryset import Q
 
 from django.utils.decorators import method_decorator
@@ -11,14 +12,13 @@ from django.shortcuts import render_to_response
 import logging
 logger = logging.getLogger(__name__)
 
-from apps.chat.models import Chats
+from apps.chat.models import Chats, Messages
 
 
 class ManagerChatsView(View):
 
     def get(self, request, *args, **kwargs):
-        chats_list = Chats.objects.all().values_list('id',  'created', 'status').order_by('-status','-created', )
-
+        chats_list = Chats.objects.get_all()
         paginator = Paginator(chats_list, 15) # Show 25 contacts per page
 
         page = request.GET.get('page')
@@ -38,19 +38,26 @@ class ManagerChatsView(View):
 
 
 class ClearChatsView(View):
+    # chat lifetime in days
+    CHAT_LIFETIME = 1
 
     def get(self, request, *args, **kwargs):
         try:
-            yesterday = date.today() - timedelta(1)
-            chats = Chats.objects(Q(status='closed') | Q(created__lte=yesterday))
-            msg = str(len(chats)) + ' chat(s) cleaned!'
-            chats.delete()
+            # delete closed chats
+            msg = Chats.delete_closed_chat() + ' chat(s) deleted!'
             logger.info(msg)
+
+            # auto close chats by time limit
+            chats = Chats.objects.get_old_chat(self.CHAT_LIFETIME)
+            for chat in chats:
+                chat.close_auto_chat()
         except Exception as err:
-            logger.error(str(err))
+            # @TODO Fix. Error: Chats matching query does not exist.
+            msg = 'Error: ' + str(err)
+            logger.error(msg)
 
         return render_to_response('clearchats.html', {'msg': msg, })
 
     @method_decorator(login_required(login_url='/admin'))
     def dispatch(self, *args, **kwargs):
-        return super(ClearChatsView, self).dispatch(*args, **kwargs)
+         return super(ClearChatsView, self).dispatch(*args, **kwargs)

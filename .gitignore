@@ -1,5 +1,7 @@
-/sfchat/static/CACHE/**
-/sfchat/static/js/build
+sfchat/static/CACHE/**
+sfchat/static/js/build
+sfchat/static/bower_components/**
+sfchat/db/**
 .idea
 .coverage
 *.pyc
@@ -8,4 +10,3 @@ tmp/*
 log/*
 nbproject/*
 dump.rdb
-/sfchat/static/bower_components/**
