@@ -40,29 +40,22 @@ class ManagerChatsView(View):
 
 
 class ClearChatsView(View):
+    # chat lifetime in days
+    CHAT_LIFETIME = 1
 
     def get(self, request, *args, **kwargs):
-        # @TODO: refactore this code in future
         try:
-            # prepare to deleting: close chats by time and send messages
-            yesterday = date.today() - timedelta(1)
-            chats = Chats.objects(created__lte=yesterday)
-            for chat in chats:
-                chat.close_chat(auto=True)
-
-            sleep(2)
-
-            # delete all messages in closed chats
-            chats = Chats.objects(status='closed')
-
-            for chat in chats:
-                chat.messages = []
-                chat.save()
-
             # delete closed chats
+            chats = Chats.objects(status='closed')
             msg = str(len(chats)) + ' chat(s) cleaned!'
             chats.delete()
             logger.info(msg)
+
+            # auto close chats by time limit
+            yesterday = date.today() - timedelta(self.CHAT_LIFETIME)
+            chats = Chats.objects(created__lte=yesterday)
+            for chat in chats:
+                chat.close_auto_chat()
 
         except Exception as err:
             msg = 'Error: ' + str(err)
@@ -73,24 +66,3 @@ class ClearChatsView(View):
     @method_decorator(login_required(login_url='/admin'))
     def dispatch(self, *args, **kwargs):
          return super(ClearChatsView, self).dispatch(*args, **kwargs)
-
-
-# class ClearChatsView(View):
-#
-#     def get(self, request, *args, **kwargs):
-#         try:
-#             yesterday = date.today() - timedelta(1)
-#             chats = Chats.objects(Q(status='closed') | Q(created__lte=yesterday))
-#             msg = str(len(chats)) + ' chat(s) cleaned!'
-#
-#             chats.close_chat(auto=True)
-#             # chats.delete()
-#             logger.info(msg)
-#         except Exception as err:
-#             logger.error(str(err))
-#
-#         return render_to_response('clearchats.html', {'msg': msg, })
-#
-#     @method_decorator(login_required(login_url='/admin'))
-#     def dispatch(self, *args, **kwargs):
-#         return super(ClearChatsView, self).dispatch(*args, **kwargs)

@@ -198,30 +198,42 @@ class Chats(Document):
 
         return result
 
-    def close_chat(self, user_token=None, auto=False):
+    def close_chat(self, user_token):
         """
          User init close chat
-         :param user_tocken: ObjectId
-         :param auto: Boolean
+         :param user_token: ObjectId
          :return: Boolean
         """
         try:
-            if auto:
-                prepared_messages = []
-                for user_token in self.user_tokens:
-                    prepared_messages.append(
-                        Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_AUTO), \
-                                                     user_token=user_token))
-            else:
-                prepared_messages = [
-                    Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_YOU), user_token=user_token)
-                ]
-                # it's possible to close "draft" chat
-                talker_token = self.get_talker_token(user_token)
-                if talker_token:
-                    prepared_messages.append(
-                        Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_TALKER), user_token=talker_token)
-                    )
+            prepared_messages = [
+                Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_YOU), user_token=user_token)
+            ]
+            # it's possible to close "draft" chat
+            talker_token = self.get_talker_token(user_token)
+            if talker_token:
+                prepared_messages.append(
+                    Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_TALKER), user_token=talker_token)
+                )
+
+            self.update(set__status=self.STATUS_CLOSED, push_all__messages=prepared_messages)
+            result = True
+        except (TypeError, InvalidId, ValidationError) as ex:
+            # @TODO logging this error
+            result = False
+
+        return result
+
+    def close_auto_chat(self):
+        """
+         Automatically close chat
+         :return: Boolean
+         """
+        try:
+            prepared_messages = []
+            for user_token in self.user_tokens:
+                prepared_messages.append(
+                    Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_AUTO), \
+                                                 user_token=user_token))
 
             self.update(set__status=self.STATUS_CLOSED, push_all__messages=prepared_messages)
             result = True
