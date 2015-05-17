@@ -1,5 +1,5 @@
-celery*
-/sfchat/static/CACHE/**
+sfchat/static/CACHE/**
+sfchat/db/**
 .idea
 .coverage
 *.pyc

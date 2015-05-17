@@ -131,7 +131,7 @@ class Chats(Document):
         :return: Boolean
         """
         try:
-            chat = Chats.objects.get_id_by_token(chat_token)
+            Chats.objects.get_id_by_token(chat_token)
             result = True
         except (TypeError, InvalidId, DoesNotExist) as ex:
             # @TODO logging this error
@@ -154,6 +154,29 @@ class Chats(Document):
             result = False
 
         return result
+
+    @staticmethod
+    def delete_closed_chat():
+        """
+        Delete closed chats
+        :return: String
+        """
+        chats = Chats.objects(status='closed')
+        result = str(len(chats))
+        chats.delete()
+
+        return result
+
+
+    @staticmethod
+    def get_all_chat():
+        """
+        Gets all chats list
+        :return: List
+        """
+        result = Chats.objects.all().values_list('id',  'created', 'status').order_by('-status','-created', )
+
+        return result;
 
     def add_message(self, user_token, messages=None, system=False):
         """

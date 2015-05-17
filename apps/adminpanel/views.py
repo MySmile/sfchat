@@ -1,4 +1,3 @@
-from time import sleep
 from datetime import date, timedelta
 
 from mongoengine import *
@@ -19,8 +18,7 @@ from apps.chat.models import Chats, Messages
 class ManagerChatsView(View):
 
     def get(self, request, *args, **kwargs):
-        chats_list = Chats.objects.all().values_list('id',  'created', 'status').order_by('-status','-created', )
-
+        chats_list = Chats.objects.get_all()
         paginator = Paginator(chats_list, 15) # Show 25 contacts per page
 
         page = request.GET.get('page')
@@ -46,18 +44,15 @@ class ClearChatsView(View):
     def get(self, request, *args, **kwargs):
         try:
             # delete closed chats
-            chats = Chats.objects(status='closed')
-            msg = str(len(chats)) + ' chat(s) cleaned!'
-            chats.delete()
+            msg = Chats.delete_closed_chat() + ' chat(s) deleted!'
             logger.info(msg)
 
             # auto close chats by time limit
-            yesterday = date.today() - timedelta(self.CHAT_LIFETIME)
-            chats = Chats.objects(created__lte=yesterday)
+            chats = Chats.objects.get_old_chat(self.CHAT_LIFETIME)
             for chat in chats:
                 chat.close_auto_chat()
-
         except Exception as err:
+            # @TODO Fix. Error: Chats matching query does not exist.
             msg = 'Error: ' + str(err)
             logger.error(msg)
 
