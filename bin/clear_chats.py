@@ -26,19 +26,14 @@ connect(MONGODB_DATABASE_NAME,
         alias='default')
 
 try:
-    yesterday = date.today() - timedelta(1)
-    chats = Chats.objects(created__lte=yesterday)
-    for chat in chats:
-        chat.close_chat(auto=True)
-
+    CHAT_LIFETIME = 1
     # delete closed chats
-    chats = Chats.objects(status='closed')
-    for chat in chats:
-        chat.messages = []
-        chat.save()
+    msg = Chats.delete_closed_chat() + ' chat(s) deleted!'
 
-    msg = str(len(chats)) + ' chat(s) cleaned!'
-    chats.delete()
+    # auto close chats by time limit
+    chats = Chats.objects.get_old_chat(CHAT_LIFETIME)
+    for chat in chats:
+        chat.close_auto_chat()
 
     with open(app_base+'/log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'_tasks_info.log','a') as f:
         f.write(str(datetime.datetime.now()) + ': ' + msg + '\n')
