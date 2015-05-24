@@ -10,6 +10,7 @@
 * Developed advertisement module
 * Integrated Karma and Jasmine
 * Created JS unitTests
+* Installed Grunt
 * Increased unitTesting coverage up to 80%
 * Added new design for 404 and 500 page
 
@@ -20,7 +21,7 @@
 * Fixed: clearing closed chats
 * Integrated requirejs
 * Installed normalize.css
-* Added Selenium test cases
+* Added Selenium IDE test cases
 
 2015-03-01 v0.11.0
 ==================

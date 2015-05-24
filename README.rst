@@ -1,11 +1,18 @@
+.. _Secure Free Chat: https://sfchat.mysmile.com.ua/
+
 ******
 SFChat
 ******
+Master:
+.. image:: https://travis-ci.org/MySmile/sfchat.svg?branch=master
+    :target: https://travis-ci.org/MySmile/sfchat?branch=master
+.. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=master
+  :target: https://coveralls.io/r/MySmile/sfchat?branch=master
+Dev:
 .. image:: https://travis-ci.org/MySmile/sfchat.svg?branch=dev
-    :target: https://travis-ci.org/MySmile/sfchat
-.. image:: https://coveralls.io/repos/MySmile/sfchat/badge.png?branch=dev
+    :target: https://travis-ci.org/MySmile/sfchat?branch=dev
+.. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=dev
   :target: https://coveralls.io/r/MySmile/sfchat?branch=dev
-
 
 Secure Free Chat (SFChat) - is Django and Mongodb based RESTfull chat.
 
@@ -42,6 +49,26 @@ Screenshots
 Documentation
 =============
 Technical documentation can be found in ``/docs`` folder.
+
+Tests
+=====
+
+Unit
+----
+Python unit test can be found in ``tests`` folder inside each applications.
+
+Test running:
+  - all tests please run ``make test``.
+  - specific test it's necessary set full path to test class for instance: ``python3 manage.py test apps.chat.tests.test_views``.
+
+Functional
+----------
+Selenium IDE is used for functional testing.
+Selenium Test Cases and Test Suites can be found in ``/bin/Selenium``.
+
+Test running:
+  - Install .. _Selenium IDE plugin: http://www.seleniumhq.org/download/ for Firefox browser
+  - Follow .. _Selenium IDE instruction: http://www.seleniumhq.org/docs/02_selenium_ide.jsp#opening-the-ide to open and run test
 
 License
 =======
