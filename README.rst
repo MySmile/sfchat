@@ -1,20 +1,21 @@
-.. _Secure Free Chat: https://sfchat.mysmile.com.ua/
-
 ******
 SFChat
 ******
 Master:
+
 .. image:: https://travis-ci.org/MySmile/sfchat.svg?branch=master
-    :target: https://travis-ci.org/MySmile/sfchat?branch=master
+  :target: https://travis-ci.org/MySmile/sfchat?branch=master
 .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=master
   :target: https://coveralls.io/r/MySmile/sfchat?branch=master
+
 Dev:
+
 .. image:: https://travis-ci.org/MySmile/sfchat.svg?branch=dev
-    :target: https://travis-ci.org/MySmile/sfchat?branch=dev
+  :target: https://travis-ci.org/MySmile/sfchat?branch=dev
 .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=dev
   :target: https://coveralls.io/r/MySmile/sfchat?branch=dev
 
-Secure Free Chat (SFChat) - is Django and Mongodb based RESTfull chat.
+`Secure Free Chat (SFChat) <https://sfchat.mysmile.com.ua/>`_ - is Django and Mongodb based RESTfull chat.
 
 Secure:
   #. Chat history are not saved on server
@@ -27,7 +28,7 @@ Free:
 Installation
 ============
   #. Install required dependency: ``make install-local`` or ``make install-prod``
-  #. Generate database for admin panel: ``make admin`
+  #. Generate database for admin panel: ``make admin``
   #. Build and optimize js from source: ``make build-js``
 
 Requirements
@@ -67,8 +68,8 @@ Selenium IDE is used for functional testing.
 Selenium Test Cases and Test Suites can be found in ``/bin/Selenium``.
 
 Test running:
-  - Install .. _Selenium IDE plugin: http://www.seleniumhq.org/download/ for Firefox browser
-  - Follow .. _Selenium IDE instruction: http://www.seleniumhq.org/docs/02_selenium_ide.jsp#opening-the-ide to open and run test
+  - Install `Selenium IDE plugin <http://www.seleniumhq.org/download/>`_ for Firefox browser
+  - Follow `Selenium IDE instruction <http://www.seleniumhq.org/docs/02_selenium_ide.jsp#opening-the-ide>`_ to open and run test
 
 License
 =======
