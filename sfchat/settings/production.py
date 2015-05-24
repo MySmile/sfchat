@@ -13,28 +13,38 @@ APP_MIDDLEWARE_CLASSES = (
     'apps.chat.middlewares.ExceptionLoggingMiddleware',
 )
 
-THIRD_PARTY_MIDDLEWARE_CLASSES = ()
+THIRD_PARTY_MIDDLEWARE_CLASSES = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+)
 
 MIDDLEWARE_CLASSES = DJANGO_MIDDLEWARE_CLASSES + APP_MIDDLEWARE_CLASSES + THIRD_PARTY_MIDDLEWARE_CLASSES
 
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'apps.adminpanel',
     'apps.api.v1',
     'apps.chat',
-    'apps.csp', #  content security policy
+    'apps.csp', # content security policy
     'apps.flatpages',
     'apps.home',
     'apps.sitemap',
 )
 
 
+# @TODO: enable
+#    'mongoengine.django.mongo_auth',
+#    'rest_framework.authtoken',
+# in THIRD_PARTY_APPS settings
+# and exclude ('mongo_auth', 'authtoken') in admin datadase with router
+
 # Third party apps
 THIRD_PARTY_APPS = (
+    # 'mongoengine.django.mongo_auth',
     'rest_framework',
-    'rest_framework.authtoken',
+    # 'rest_framework.authtoken',
     'compressor',
-    'django_rq',
+    'debug_toolbar',
 )
 
 
@@ -57,3 +67,4 @@ CSRF_FAILURE_VIEW = 'apps.home.utils.csrf_failure'
 
 
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
+
