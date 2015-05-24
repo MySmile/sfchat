@@ -1,4 +1,4 @@
-# run - Run local server with --nostatic
+# run - run local server with --nostatic
 run:
 	@echo "------------------------------------------"
 	@echo "***  run local server with --nostatic  ***"
@@ -6,7 +6,7 @@ run:
 	@python3 manage.py runserver --nostatic --setting=sfchat.settings.local  
 
 
-# help - Display callable targets.
+# help - display callable targets.
 help:
 	@egrep "^# [a-z,\",=,_,-]+ - " Makefile	
 
@@ -26,7 +26,12 @@ test:
 	@python3 manage.py test --pattern="test_*.py"
 
 
-# style - Check PEP8 and others
+# checkdeploy - check deploy. Use it on server
+checkdeploy:
+	python3 manage.py check --deploy --settings=mysmile.settings.production
+
+
+# style - check PEP8 and others
 PEP8IGNORE=E22,E23,E24,E302,E401,E501
 style:
 	@echo "PyFlakes check:"
@@ -38,22 +43,23 @@ style:
 	-pep8 --ignore=$(PEP8IGNORE) .
 
 
-# pylint - Run pylint with pylint-django
+# pylint - run pylint with pylint-django
 # pylint:
 # 	pylint *.py --load-plugins pylint_django --py3k
 
-# clean - Clean all temporary files
+# clean - clean all temporary files
 clean:
 	find . -name "*.pyc" -print0 | xargs -0 rm -rf
 	find . -name "*.*~" -print0 | xargs -0 rm -rf
 	find . -name "__pycache__" -print0 | xargs -0 rm -rf
 	@echo "Clean was successfully done!"
 
-# syncdb - Run syncdb command
+# admin - create admin for sfchat
 admin:
 	python3 manage.py migrate --database='default'
 	python3 manage.py createsuperuser  --database='default'
 
+# syncdb - run syncdb command
 syncdb:
 	python3 manage.py syncdb
 

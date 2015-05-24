@@ -75,11 +75,14 @@ class ChatsTestCase(unittest.TestCase):
         self.assertTrue(result)
 
     def test_delete_closed_chat(self):
-        # @TODO
-        # create chat with status "closed" and get chat id
-        # run delete_close_chat
-        # check if chat id exist in db
-        pass
+        chat_token = Chats.create_chat()['chat_token']
+        chat = Chats.objects.get_all_by_token(chat_token)
+        chat.status = 'closed'
+        chat.save()
+        id = chat.id
+        chat.delete_closed_chat()
+        chat = Chats.objects.filter(id=id)
+        self.assertEquals([], list(chat))
 
     def test_create_long_polling(self):
         expected = self.chat.create_long_polling(self.user_token)

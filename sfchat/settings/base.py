@@ -4,10 +4,10 @@
 Django settings for sfchat project.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
+https://docs.djangoproject.com/en/1.8/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
+https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -44,7 +44,7 @@ ROOT_URLCONF = 'sfchat.urls'
 WSGI_APPLICATION = 'sfchat.wsgi.application'
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
+# https://docs.djangoproject.com/en/1.8/topics/i18n/
 LANGUAGES = (
     ('en', 'English'),
     #~ ('pl', 'Polska'),
@@ -62,27 +62,8 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
-
+# https://docs.djangoproject.com/en/1.8/howto/static-files/
 STATIC_URL = '/static/'
-
-
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'sfchat/templates/'),
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
-    "django.contrib.messages.context_processors.messages",
-
-    'django.core.context_processors.request',
-    'django.core.context_processors.csrf',
-)
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),
@@ -117,6 +98,32 @@ REST_FRAMEWORK = {
 
     'EXCEPTION_HANDLER': 'apps.api.v1.utils.custom_exception_handler'
 }
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, 'sfchat/templates/'),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here
+                # or use this list if you haven't customized them:
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.csrf',
+                'django.template.context_processors.request',
+            ],
+        },
+    },
+]
 
 LOGGING = {
     'version': 1,

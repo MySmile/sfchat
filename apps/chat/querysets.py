@@ -21,7 +21,7 @@ class ChatsQuerySet(QuerySet):
 
     def get_old_chat(self, lifetime):
         yesterday = date.today() - timedelta(lifetime)
-        return self.get(created__lte=yesterday)
+        return self.filter(created__lte=yesterday)
 
     def get_all(self):
         return self.all().values_list('id',  'created', 'status').order_by('-status','-created', )
