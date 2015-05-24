@@ -1,14 +1,14 @@
 ******
 SFChat
 ******
-Master
+Master:
   .. image:: https://travis-ci.org/MySmile/sfchat.svg?branch=master
     :target: https://travis-ci.org/MySmile/sfchat?branch=master
 
   .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=master
     :target: https://coveralls.io/r/MySmile/sfchat?branch=master
     :align: left
-Dev
+Dev:
   .. image:: https://travis-ci.org/MySmile/sfchat.svg?branch=dev
     :target: https://travis-ci.org/MySmile/sfchat?branch=dev
   .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=dev
