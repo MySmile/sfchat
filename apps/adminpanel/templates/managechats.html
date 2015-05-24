@@ -46,12 +46,9 @@
 {% endblock %}
 {% endif %}
 
-
 {% block coltype %}flex{% endblock %}
 
-
 {% block content %}
-
 <div id="content-main">
 <h1>Chat manager</h1>
 <div id="chatmanager">
@@ -98,6 +95,9 @@
         </tfoot>
         {% endif %}
     </table>
+
+    <form method="POST" action="/admin/clear-chats/">{% csrf_token %}
+<input id="clear_chats" class="default" type="submit" value="Clear chats">    </form>
 
 </div>
 

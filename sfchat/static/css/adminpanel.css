@@ -10,3 +10,6 @@
 .closed { color: #000000; }
 
 
+#clear_chats {
+    float: left;
+}

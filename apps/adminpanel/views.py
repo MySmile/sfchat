@@ -5,9 +5,12 @@ from mongoengine.queryset import Q
 
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.views.generic import View
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
+from django.template.context_processors import csrf
+from django.http.response import HttpResponseRedirect
 
 import logging
 logger = logging.getLogger(__name__)
@@ -30,18 +33,19 @@ class ManagerChatsView(View):
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             chats = paginator.page(paginator.num_pages)
-        return render_to_response('managechats.html', {'chats': chats, })
+        c = {'chats': chats}
+        c.update(csrf(request))
+        return render_to_response('managechats.html', c)
 
     @method_decorator(login_required(login_url='/admin'))
     def dispatch(self, *args, **kwargs):
         return super(ManagerChatsView, self).dispatch(*args, **kwargs)
 
-
 class ClearChatsView(View):
     # chat lifetime in days
     CHAT_LIFETIME = 1
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         try:
             # delete closed chats
             msg = Chats.delete_closed_chat() + ' chat(s) deleted!'
@@ -51,12 +55,17 @@ class ClearChatsView(View):
             chats = Chats.objects.get_old_chat(self.CHAT_LIFETIME)
             for chat in chats:
                 chat.close_auto_chat()
+            messages.add_message(request, messages.INFO, msg)
+
         except Exception as err:
             # @TODO Fix. Error: Chats matching query does not exist.
             msg = 'Error: ' + str(err)
             logger.error(msg)
+            messages.add_message(request, messages.ERROR, msg)
 
-        return render_to_response('clearchats.html', {'msg': msg, })
+        return HttpResponseRedirect('/admin/chat-manager/')
+
+        # return render_to_response('clearchats.html', {'msg': msg, })
 
     @method_decorator(login_required(login_url='/admin'))
     def dispatch(self, *args, **kwargs):
