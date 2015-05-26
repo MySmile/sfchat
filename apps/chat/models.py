@@ -67,6 +67,7 @@ class Chats(Document):
     created = DateTimeField(default=datetime.datetime.now())
 
     meta = {'queryset_class': ChatsQuerySet}
+    meta = {'queryset_class': ChatsQuerySet, 'db_alias': 'sfchat'}
 
     def clean(self):
         if len(self.user_tokens) > self.MAX_USER_TOKENS:
