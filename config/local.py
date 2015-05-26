@@ -25,7 +25,8 @@ connect(MONGODB_DATABASE_NAME,
         host=MONGODB_HOST,
         port=MONGODB_PORT,
         username=MONGODB_USERNAME,
-        password=MONGODB_PASSWORD)
+        password=MONGODB_PASSWORD,
+        alias='sfchat')
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
