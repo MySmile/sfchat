@@ -291,8 +291,8 @@ define(['jquery',
         showHistoryMessage: function(e) {
             var _this  = eventMessage,
             msgHistory = _this._storage.getData(_this._chatHistoryKey);
-
-            if (msgHistory === null) {
+            // @TODO find out better fix to not show duplication history on Android 2.3
+            if (msgHistory === null || _this.options.chatBodyDom.text() !== '') {
                 return;
             }
 
