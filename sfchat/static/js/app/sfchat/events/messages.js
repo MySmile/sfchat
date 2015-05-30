@@ -225,25 +225,27 @@ define(['jquery',
          * @TODO catch exceptions
          */
         showReceivedMessage: function(e, request, response) {
-            var _this   = eventMessage,
-                results = response.results,
-                msgDom,
-                msgCount;
+            var _this       = eventMessage,
+                results     = response.results,
+                msgCount    = 0,
+                msgDom;
 
             // authorization error
             _this._responseErrorDetected(response);
 
             // run long-polling
-            msgCount = results.messages.length;
-            if (results.status !== 'closed' && msgCount === 0) {
+            if (results.status !== 'closed' && results.messages.length === 0) {
                 _this.options.chatBodyDom.trigger('getMessage');
                 return;
             }
 
             // display messages
             $.each(results.messages, function(key, item) {
-                msgDom = _this._renderMessage(item, 'talker');
-                _this._appendMessage(msgDom);
+                if ($.inArray(item._id, _this._deletedMessages) === -1) {
+                    msgDom = _this._renderMessage(item, 'talker');
+                    _this._appendMessage(msgDom);
+                    msgCount++;
+                }
             });
 
             // delete messages, run long-polling and show notifier on the document title
@@ -345,29 +347,28 @@ define(['jquery',
                 scrollHeight;
 
             _this.options.chatBodyDom.append(msgDom);
-            // autoscroll
+            // auto scroll
             scrollHeight = _this.options.chatBodyDom[0].scrollHeight;
             _this.options.chatBodyDom.scrollTop(scrollHeight);
         },
 
        /**
         * Save deleted messages id to prevent duplication messages on a chat
+        * It's possible to receive twice one message if delete message event was failed
         *
         * @param {Object}  request
         * @param {Object}  request.data
         * @param {Array}   request.data.messages
         * @param {Object}  request.data.messages[0]
         * @param {String}  request.data.messages[0]._id
-        * @throws {Error}
         */
         _saveDeleteMessage: function(request) {
             var _this = this;
 
             $.each(request.data.messages, function(key, item){
-                if ($.inArray(item._id, _this._deletedMessages) !== -1) {
-                    throw new Error(_this.msgError);
+                if ($.inArray(item._id, _this._deletedMessages) === -1) {
+                    _this._deletedMessages.push(item._id);
                 }
-                _this._deletedMessages.push(item._id);
             });
         }
     };
