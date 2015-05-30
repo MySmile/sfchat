@@ -218,6 +218,7 @@ hr {
     word-wrap: break-word;
     overflow-x: visible;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /*scrolling for iOS*/
  }
   
 #chat-close {
