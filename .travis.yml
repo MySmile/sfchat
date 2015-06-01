@@ -21,7 +21,7 @@ services:
   - mongodb
 # command to run tests
 script:
-  - coverage run --source=apps make test
+  - coverage run --source=apps manage.py test --pattern="test_*.py"
 after_success:
   coveralls
 
