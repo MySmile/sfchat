@@ -21,9 +21,7 @@ services:
   - mongodb
 # command to run tests
 script:
-  - make test
-  - coverage run --source=sfchat manage.py test --pattern="test_*.py"
+  - coverage run --source=apps manage.py test --pattern="test_*.py"
 after_success:
   coveralls
-
 
