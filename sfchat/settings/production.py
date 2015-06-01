@@ -68,3 +68,4 @@ CSRF_FAILURE_VIEW = 'apps.home.utils.csrf_failure'
 
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
 
+TIME_ZONE = 'Europe/Berlin'
