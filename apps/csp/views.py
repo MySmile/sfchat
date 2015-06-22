@@ -43,7 +43,6 @@ class CSPReport(View):
         for item in self.REPORT_KEYS:
             report_item = str(report_json['csp-report'][item])[0:self.REPORT_MAX_ITEM_LENGTH]
             report += '\n' + str(item) + ': ' + report_item
-
         logger.error(report)
 
         response = HttpResponse()
