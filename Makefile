@@ -28,8 +28,11 @@ test:
 
 # checkdeploy - check deploy. Use it on server
 checkdeploy:
-	python3 manage.py check --deploy --settings=mysmile.settings.production
+	python3 manage.py check --deploy
 
+# staticdeploy - static deploy. Use it on server
+staticdeploy:
+	python3 manage.py collectstatic
 
 # style - check PEP8 and others
 PEP8IGNORE=E22,E23,E24,E302,E401,E501
