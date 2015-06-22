@@ -6,9 +6,9 @@ from mongoengine import connect
 from sfchat.settings.base import BASE_DIR
 
 
-DEBUG = True
+DEBUG = False
 
-COMPRESS_ENABLED = False
+COMPRESS_ENABLED = True
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 # @NOTE: if True then enable 'debug_toolbar.middleware.DebugToolbarMiddleware' also
