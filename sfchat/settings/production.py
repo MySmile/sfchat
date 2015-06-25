@@ -69,3 +69,17 @@ CSRF_FAILURE_VIEW = 'apps.home.utils.csrf_failure'
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
 
 TIME_ZONE = 'Europe/Berlin'
+
+# production only
+# python3 manage.py check --deploy
+SESSION_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = 3600
+X_FRAME_OPTIONS = 'DENY'
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTOCOL", "https")
+

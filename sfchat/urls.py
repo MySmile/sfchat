@@ -17,11 +17,6 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        )
 
-# urlpatterns += patterns('',
-#     (r'^admin/django-rq/', include('django_rq.urls')),
-# )
-
-
 handler404 = 'apps.home.utils.e404'
 handler500 = 'apps.home.utils.e500'
 

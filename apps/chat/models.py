@@ -47,12 +47,12 @@ class Chats(Document):
     HTTP_CODE = 200
     HTTP_MSG = 'Ok'
 
-    MSG_CREATE_CHAT = 'Welcome to SFChat! <br> Please send code: <mark>%(chat_token)s</mark> to Talker'
-    MSG_JOIN_CHAT_YOU = 'Talker was successfully joined to chat'
-    MSG_JOIN_CHAT_TALKER = 'Chat is ready to use'
-    MSG_CHAT_CLOSE_TALKER = 'Thank you for using SFChat.<br> Chat was successfully closed by Talker.'
-    MSG_CHAT_CLOSE_YOU = 'Thank you for using SFChat<br>Current chat was successfully closed.'
-    MSG_CHAT_CLOSE_AUTO = 'Thank you for using SFChat<br>Current chat was successfully closed automatically.'
+    MSG_CREATE_CHAT = _('Welcome to SFChat! <br> Please send code: <mark>%(chat_token)s</mark> to Talker')
+    MSG_JOIN_CHAT_YOU = _('Talker was successfully joined to chat')
+    MSG_JOIN_CHAT_TALKER = _('Chat is ready to use')
+    MSG_CHAT_CLOSE_TALKER = _('Thank you for using SFChat.<br> Chat was successfully closed by Talker.')
+    MSG_CHAT_CLOSE_YOU = _('Thank you for using SFChat<br>Current chat was successfully closed.')
+    MSG_CHAT_CLOSE_AUTO = _('Thank you for using SFChat<br>Current chat was successfully closed automatically.')
 
     # it's used for authentication
     is_staff = True
@@ -96,7 +96,7 @@ class Chats(Document):
         """
         chat_token = ObjectId()
         user_token = ObjectId()
-        msg = _(Chats.MSG_CREATE_CHAT) % {'chat_token': str(chat_token)}
+        msg = Chats.MSG_CREATE_CHAT % {'chat_token': str(chat_token)}
         message = Messages.prepare_message(msg=msg, user_token=user_token)
         chat = Chats(id=chat_token, messages=[message], user_tokens=[user_token])
         chat.save()
@@ -120,8 +120,8 @@ class Chats(Document):
 
         user_token = ObjectId()
         prepared_messages = [
-            Messages.prepare_message(msg=_(Chats.MSG_JOIN_CHAT_TALKER), user_token=user_token),
-            Messages.prepare_message(msg=_(Chats.MSG_JOIN_CHAT_YOU), user_token=chat.user_tokens[0])
+            Messages.prepare_message(msg=Chats.MSG_JOIN_CHAT_TALKER, user_token=user_token),
+            Messages.prepare_message(msg=Chats.MSG_JOIN_CHAT_YOU, user_token=chat.user_tokens[0])
         ]
         chat.update(set__status=Chats.STATUS_READY, push__user_tokens=user_token, push_all__messages=prepared_messages)
         return str(user_token)
@@ -232,13 +232,13 @@ class Chats(Document):
         """
         try:
             prepared_messages = [
-                Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_YOU), user_token=user_token)
+                Messages.prepare_message(msg=self.MSG_CHAT_CLOSE_YOU, user_token=user_token)
             ]
             # it's possible to close "draft" chat
             talker_token = self.get_talker_token(user_token)
             if talker_token:
                 prepared_messages.append(
-                    Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_TALKER), user_token=talker_token)
+                    Messages.prepare_message(msg=self.MSG_CHAT_CLOSE_TALKER, user_token=talker_token)
                 )
 
             self.update(set__status=self.STATUS_CLOSED, push_all__messages=prepared_messages)
@@ -258,9 +258,8 @@ class Chats(Document):
             prepared_messages = []
             for user_token in self.user_tokens:
                 prepared_messages.append(
-                    Messages.prepare_message(msg=_(self.MSG_CHAT_CLOSE_AUTO), \
+                    Messages.prepare_message(msg=self.MSG_CHAT_CLOSE_AUTO, \
                                                  user_token=user_token))
-
             self.update(set__status=self.STATUS_CLOSED, push_all__messages=prepared_messages)
             result = True
         except (TypeError, InvalidId, ValidationError) as ex:

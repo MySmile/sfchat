@@ -1,6 +1,7 @@
 from bson.objectid import ObjectId
 from mongoengine import QuerySet
 from datetime import date, timedelta
+from django.utils import timezone
 
 
 class ChatsQuerySet(QuerySet):
@@ -20,8 +21,8 @@ class ChatsQuerySet(QuerySet):
         return self.get(id=ObjectId(chat_token), user_tokens=ObjectId(user_token))
 
     def get_old_chat(self, lifetime):
-        yesterday = date.today() - timedelta(lifetime)
-        return self.filter(created__lte=yesterday)
+        time = timezone.localtime(timezone.now()) - timedelta(days=lifetime)
+        return self.filter(created__lte=time)
 
     def get_all(self):
         return self.all().values_list('id',  'created', 'status').order_by('-status','-created', )

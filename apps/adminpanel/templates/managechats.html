@@ -35,7 +35,6 @@
 {% endif %}{% endif %}
 {% endblock %}
 
-
 {% if not is_popup %}
 {% block breadcrumbs %}
 <div class="breadcrumbs">
@@ -47,6 +46,14 @@
 {% endif %}
 
 {% block coltype %}flex{% endblock %}
+
+
+{% block messages %}
+    {% if messages %}
+    AAAAAAAAAAAAAA!!!!!!!
+    {% endif %}
+{% endblock messages %}
+
 
 {% block content %}
 <div id="content-main">
@@ -101,7 +108,7 @@
 
 </div>
 
-</div>
+
 {% endblock %}
 
 

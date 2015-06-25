@@ -42,8 +42,7 @@ class ManagerChatsView(View):
         return super(ManagerChatsView, self).dispatch(*args, **kwargs)
 
 class ClearChatsView(View):
-    # chat lifetime in days
-    CHAT_LIFETIME = 1
+    CHAT_LIFETIME = 1 #  chat lifetime in days
 
     def post(self, request, *args, **kwargs):
         try:
@@ -65,7 +64,6 @@ class ClearChatsView(View):
 
         return HttpResponseRedirect('/admin/chat-manager/')
 
-        # return render_to_response('clearchats.html', {'msg': msg, })
 
     @method_decorator(login_required(login_url='/admin'))
     def dispatch(self, *args, **kwargs):

@@ -23,7 +23,7 @@ connect(MONGODB_DATABASE_NAME,
         port=MONGODB_PORT,
         username=MONGODB_USERNAME,
         password=MONGODB_PASSWORD,
-        alias='default')
+        alias='sfchat')
 
 try:
     CHAT_LIFETIME = 1
