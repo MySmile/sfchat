@@ -23,7 +23,7 @@ Secure:
 
 Free:
   #. Open Source
-  #. BSD-3-Clause license
+  #. BSD 3-Clause license
 
 Installation
 ============
@@ -33,10 +33,10 @@ Installation
 
 Requirements
 ============
-  - Python 3.4
-  - Django 1.7
+  - Python 3
+  - Django 1.8
   - Django Rest Api Framework
-  - Mongodb
+  - MongoDB
   - JQuery
   - Requirejs
 
