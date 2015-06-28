@@ -1,7 +1,8 @@
 System messages
 ---------------
 
-* The main distinguish between messages that "system": 
+The main distinguish between messages that "system": 
+
 * Bordered with asterix 
 * Used as information for chat participants
 * Can be displayed only for one user

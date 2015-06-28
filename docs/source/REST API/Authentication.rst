@@ -1,3 +1,5 @@
+.. _Authentication:
+
 Authentication
 ==============
 
@@ -6,4 +8,4 @@ Authentication process works through "user token" and "chat token". Each Api req
 * "chat token" that identify chat
 * "user token" that helps to identify user
 
-For details please follow diagram.
+For details please follow :ref:`diagrams <Diagrams>`.

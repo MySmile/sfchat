@@ -1,8 +1,11 @@
+.. _StandardResponse:
+
 Standard response
 =================
 
+.. tabularcolumns:: |p{4cm}|p{5cm}|p{5cm}|
 .. list-table::
-
+    
     * - Parameters
       - Type
       - Description
@@ -11,7 +14,7 @@ Standard response
       - Object
       - root object
 
-    * - results.code
+    * - results.code [#f1]_ 
       - Integer
       - response code
 
@@ -22,13 +25,16 @@ Standard response
 Response code is: 202 if Okey or other errors code otherwise.
 
 Example: ::
-    {
-        ‘results’: {
-            ‘code’: 200,
-            ‘msg’: ‘Ok’
-        }
-    }
 
-Note: for "error" code like 500, 404, etc. message should be displayed as a "system message". For full list of used http 
-codes please follow the corresponding section.
+  {
+    ‘results’: {
+        ‘code’: 200,
+        ‘msg’: ‘Ok’
+     }
+  }
+
+
+.. rubric:: Footnotes
+  
+.. [#f1] For "error" code like 500, 404, etc. message should be displayed as a "system message". For full list of used http codes please follow the corresponding section.
 

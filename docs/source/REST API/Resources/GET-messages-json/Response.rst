@@ -27,7 +27,7 @@ Table below describes parameters in response body:
 
     * - results.status
       - Boolean
-      - chat status
+      - :ref:`chat status <ChatStatuses>`
 
     * - results.messages
       - Array
@@ -47,14 +47,14 @@ Table below describes parameters in response body:
 
 Response code is: 200 if Okey or other errors code otherwise.
 
-For instance response with two messages would look like:
-::
-    {
-        ‘results’: {
-            ‘code’: 200,
-            ‘msg’: ‘Ok’,
-            ‘count’: 2,
-            ‘status’: ‘ready’
+For instance response with two messages would look like: ::
+
+  {
+    ‘results’: {
+        ‘code’: 200,
+        ‘msg’: ‘Ok’,
+        ‘count’: 2,
+        ‘status’: ‘ready’
         ‘messages’: [
     0: {
         ‘_id’:’0cbc6611f5540bd0809a388dc95a615b’,
@@ -67,11 +67,11 @@ For instance response with two messages would look like:
         ‘system’: false
         }]
       }
-    }
+  }
 
-Empty response has that structure:
-::
-    {
+Empty response has that structure: ::
+
+  {
         ‘results’: {
             ‘code’: 200,
             ‘msg’: ‘Ok’,
@@ -79,4 +79,4 @@ Empty response has that structure:
             ‘status’: ‘ready’
         ‘messages’: []
         }
-    }
+  }

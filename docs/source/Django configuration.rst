@@ -2,8 +2,8 @@
 Django configuration
 ********************
 
-Configuration is in base.py file:
-::
+Configuration is in base.py file: ::
+
   SFCHAT_API = {
     'authentication': {
     'user_token_header': 'HTTP_X_SFC_USERTOKEN',
@@ -17,7 +17,7 @@ Configuration is in base.py file:
 
 Configuration description:
 
-.. tabularcolumns::
+.. tabularcolumns:: |p{6.5cm}|p{3cm}|p{6cm}|
 .. list-table::
   
     * - Key
@@ -32,7 +32,7 @@ Configuration description:
       - String[32]
       - Header name for "chat token"
 
-    * - long_polling.sleep
+    * - long_polling.sleep [#f1]_
       - Integer, sec
       - Number of second that indicates how long long polling iteration should sleep before start new one
 
@@ -40,10 +40,8 @@ Configuration description:
       - Integer
       - Number of long polling iterations for one process
 
+.. rubric:: Footnotes
 
-Note: multiplies long_polling.sleep with long_polling.iteration show how long long polling process runs. Time that 
-necessary to figure close tab and browser is calculated as:
-::
-  2 * long_polling.sleep * long_polling.iteration
+.. [#f1] Multiplies long_polling.sleep with long_polling.iteration show how long long polling process runs. Time that necessary to figure close tab and browser is calculated as: *2 * long_polling.sleep * long_polling.iteration*
  
  

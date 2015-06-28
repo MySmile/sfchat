@@ -214,26 +214,43 @@ htmlhelp_basename = 'SFChatdoc'
 
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
-'papersize': 'letterpaper',
+'papersize': 'a4paper',
+'pointsize': '11pt',
+'fontpkg': '\\usepackage{times}',
+'fncychap': '\\usepackage[Glenn]{fncychap}',
 
-# The font size ('10pt', '11pt' or '12pt').
-'pointsize': '12pt',
 
 # Additional stuff for the LaTeX preamble.
 'preamble': r'''
-    \renewcommand{\thechapter}{\arabic{chapter}.}
-    \renewcommand{\thesection}{\thechapter\arabic{section}.}
-    \renewcommand{\thesubsection}{\thesection\arabic{subsection}.}
-    %------------
-    \pagestyle{fancy}
-    \fancyhf{} 
-    \renewcommand{\headrulewidth}{1pt} 
-    \fancyhead{} % clear all header fields
-    \fancyfoot{}
-    %-------------------------------------------------------------''',
 
-# Latex figure (float) alignment
-#'figure_align': 'htbp',
+\usepackage{titlesec}  
+\titleformat{\chapter}[display]  
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}  
+\titlespacing{\chapter}{0pt}{0pt}{0pt} 
+
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\usepackage[usenames,dvipsnames]{xcolor}
+\titleformat{\chapter}
+{\normalfont\LARGE\bfseries\color{OliveGreen}}{\thechapter}{1em}{}
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{RawSienna}}{\thesection}{1em}{}
+
+\renewcommand{\thechapter}{\arabic{chapter}.}
+\renewcommand{\thesection}{\thechapter\arabic{section}.}
+\renewcommand{\thesubsection}{\thesection\arabic{subsection}.}
+
+\makeatletter
+  \fancypagestyle{normal}{
+    \fancyhf{}
+    \fancyfoot[LE,RO]{\thepage}
+    \fancyhead[LE,RO]{} % here's the change
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0.4pt}
+  }
+\makeatother
+
+''',
+
 }
 
 # Grouping the document tree into LaTeX files. List of tuples

@@ -2,12 +2,12 @@
 Database
 ********
 
-Mongodb
+MongoDB
 =======
 
-Mongodb is a schema-less database. Therefore shema should be described in application.
-SFChat database has only one collection “chats” example below shows document in that collection:
-::
+MongoDB is a schema-less database. Therefore shema should be described in application.
+SFChat database has only one collection "chats" example below shows document in that collection: ::
+
   {
     _id: ObjectId("507f191e810c19729de860ea"),
     status: "ready",
@@ -32,13 +32,18 @@ SFChat database has only one collection “chats” example below shows document
     }
     ]
         created: ISODate("2012-04-03T02:05:06Z")
-    };
+  };
 
+
+.. raw:: latex
+
+    \newpage
+    
 Table below displays schema for "chats" collection:
 
-.. tabularcolumns::
+.. tabularcolumns:: |p{4cm}|p{2cm}|p{5cm}|p{3cm}|
 .. list-table::
-  
+    
     * - Name
       - Type
       - Description

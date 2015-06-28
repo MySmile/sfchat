@@ -11,7 +11,7 @@ Each resources have general required header’s parameters:
 
     * - X-SFC-userToken
       - String[24]
-      - Unique key for authenticate user in chat
+      - Unique key for :ref:`authenticate <Authentication>` user in chat
 
     * - X-SFC-chatToken
       - String[24]

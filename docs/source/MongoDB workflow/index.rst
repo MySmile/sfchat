@@ -3,11 +3,10 @@ MongoDB workflow
 ****************
 
 Such section display workflow in MongoDB point of view. 
-First off all tun mongo and use sfchat:
+First off all tun mongo and use sfchat: ::
 
-mongo
-
-use sfchat
+  mongo
+  use sfchat
 
 .. toctree::
    :maxdepth: 2

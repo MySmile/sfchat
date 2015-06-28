@@ -8,7 +8,7 @@ Chat protocol should:
 #. Chat can be active 1 day
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :titlesonly:
 
    

@@ -12,7 +12,7 @@ All frontEnd components should be:
 
 
 CSS, HTML
-========
+=========
 
 All CSS should follow Google recommendation.
 
@@ -21,12 +21,12 @@ JScript
 
 JScript should follow as much as possible manifesto.
 
-Each new JS class should be property of SFChat object. That object is a "namespace". So /js/sfChat.js:
-::
+Each new JS class should be property of SFChat object. That object is a "namespace". So /js/sfChat.js: ::
+
   var sfChat = {};
 
-Others modules in that case for instance /js/sfChat/validator.js:
-::
+Others modules in that case for instance /js/sfChat/validator.js: ::
+
   sfChat.validator = {
     ...
   };

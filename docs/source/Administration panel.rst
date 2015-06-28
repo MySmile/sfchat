@@ -1,6 +1,7 @@
 .. role:: draft
 .. role:: ready
 .. role:: closed
+
 ********************
 Administration panel
 ********************
@@ -10,7 +11,6 @@ Chat manage
 
 Page with list of chats. Such table does not contain message information and looks like:
 
-.. tabularcolumns::
 .. list-table::
   
     * - Chat token

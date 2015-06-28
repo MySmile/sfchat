@@ -15,4 +15,4 @@ Authorization process has vary from "chat creator" and "chat joiner".
 #. set chat status as "ready"
 #. generate "user token" and save it in database.
 
-For details please follow diagram.
+For details please follow :ref:`diagrams <Diagrams>`.

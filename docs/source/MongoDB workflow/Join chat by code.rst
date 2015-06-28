@@ -8,9 +8,8 @@ To join chat it is need to verify:
 
 then generate user token and registry system message that chat is ready.
 
-Verification:
+Verification: ::
 
-::
   db.chats.findOne({
     $and: [
       {_id: ObjectId("543e33a2e3ce324d374246fc")}, 
@@ -23,8 +22,8 @@ If result is null then "invitation code" is invalid otherwise it should be check
 should be 1.
 
 Next generate "user token", update chat status and register system message for "chat creator". To add new message it 
-should be used "$push" operator:
-::
+should be used "$push" operator: ::
+
   var user_token_joiner = ObjectId();
   var message_ready = {
     "_id" : ObjectId(),

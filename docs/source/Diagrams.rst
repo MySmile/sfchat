@@ -1,3 +1,5 @@
+.. _Diagrams:
+
 ********
 Diagrams
 ********

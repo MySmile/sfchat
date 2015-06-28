@@ -21,8 +21,8 @@ Request does not have any special parameters.
       - String[24]
       - message identifier
 
-Example of body is:
-::
+Example of body is: ::
+
     {‘data’:  {
             messages : [
                 0: { ‘_id’: ’0cbc6611f5540bd0809a388dc95a615b’}
