@@ -73,4 +73,4 @@ Test running:
 
 License
 =======
-BSD-3-Clause
+BSD 3-Clause
