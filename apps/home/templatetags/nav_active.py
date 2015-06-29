@@ -12,6 +12,10 @@ def nav_active(request, pattern):
     :param pattern: String
     :return: String
     """
-    if re.search(pattern, request.path):
-        return 'active'
-    return ''
+    try:
+        if re.search(pattern, request.path):
+            return 'active'
+        return ''
+    except Exception:
+        # @TODO: log exception
+        return ''

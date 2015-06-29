@@ -22,31 +22,38 @@ MIDDLEWARE_CLASSES = DJANGO_MIDDLEWARE_CLASSES + APP_MIDDLEWARE_CLASSES + THIRD_
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'apps.adminpanel',
     'apps.api.v1',
     'apps.chat',
-    'apps.csp', #  content security policy
+    'apps.csp', # content security policy
     'apps.flatpages',
     'apps.home',
     'apps.sitemap',
 )
 
 
+# @TODO: enable
+#    'mongoengine.django.mongo_auth',
+#    'rest_framework.authtoken',
+# in THIRD_PARTY_APPS settings
+# and exclude ('mongo_auth', 'authtoken') in admin datadase with router
+
 # Third party apps
 THIRD_PARTY_APPS = (
+    # 'mongoengine.django.mongo_auth',
     'rest_framework',
-    'rest_framework.authtoken',
+    # 'rest_framework.authtoken',
     'compressor',
-    'django_rq',
-
     'debug_toolbar',
 )
 
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
-STATICFILES_DIRS = (
-    os.path.join(STATIC_ROOT, 'bower_components/jquery/dist/'),
-)
+# find js
+STATICFILES_DIRS = (os.path.join(STATIC_ROOT, 'js/app/'), ) if not os.path.isdir(os.path.join(STATIC_ROOT, 'js/build/')) \
+    else (os.path.join(STATIC_ROOT, 'js/build/'), )
+
 
 # compressor settings
 STATICFILES_FINDERS = (
@@ -61,13 +68,18 @@ CSRF_FAILURE_VIEW = 'apps.home.utils.csrf_failure'
 
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
 
+TIME_ZONE = 'Europe/Berlin'
 
-# RQ
-try:
-    from apps.chat.tasks import clear_chats
-    import django_rq
+# production only
+# python3 manage.py check --deploy
+SESSION_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = 3600
+X_FRAME_OPTIONS = 'DENY'
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTOCOL", "https")
 
-    queue = django_rq.get_queue('default')
-    queue.enqueue(clear_chats)
-except Exception as err:
-    pass

@@ -4,10 +4,10 @@
 Django settings for sfchat project.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
+https://docs.djangoproject.com/en/1.8/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
+https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,16 +27,17 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
 )
 
+
 DJANGO_MIDDLEWARE_CLASSES = (
-    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware', 
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
 )
 
 ROOT_URLCONF = 'sfchat.urls'
@@ -44,15 +45,13 @@ ROOT_URLCONF = 'sfchat.urls'
 WSGI_APPLICATION = 'sfchat.wsgi.application'
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
+# https://docs.djangoproject.com/en/1.8/topics/i18n/
 LANGUAGES = (
     ('en', 'English'),
     #~ ('pl', 'Polska'),
 )
 
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'Europe/London'
 
 USE_I18N = True
 
@@ -62,31 +61,24 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
-
+# https://docs.djangoproject.com/en/1.8/howto/static-files/
 STATIC_URL = '/static/'
-
-
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'sfchat/templates/'),
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-  'django.core.context_processors.request',
-  'django.core.context_processors.csrf',
-)
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),
 )
 
-# mongoengine settings
-AUTHENTICATION_BACKENDS = (
-    'mongoengine.django.auth.MongoEngineBackend',
-)
 
-SESSION_ENGINE = 'mongoengine.django.sessions'
-SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
+# mongoengine settings
+# AUTHENTICATION_BACKENDS = (
+#     'mongoengine.django.auth.MongoEngineBackend',
+# )
+#
+# AUTH_USER_MODEL = 'mongo_auth.MongoUser'
+# MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
+#
+# SESSION_ENGINE = 'mongoengine.django.sessions'
+# SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
 
 #~ global settings for a REST framework API
 REST_FRAMEWORK = {
@@ -106,6 +98,32 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'apps.api.v1.utils.custom_exception_handler'
 }
 
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, 'sfchat/templates/'),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here
+                # or use this list if you haven't customized them:
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.csrf',
+                'django.template.context_processors.request',
+            ],
+        },
+    },
+]
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False, #the default configuration is completely overridden
@@ -117,10 +135,6 @@ LOGGING = {
          'simple': {
              'format': '%(levelname)s %(message)s'
          },
-         'rq_console': {
-            "format": "%(asctime)s %(message)s",
-            "datefmt": "%H:%M:%S",
-        },
      },
     'filters': {
         'require_debug_true': {
@@ -150,24 +164,10 @@ LOGGING = {
                'maxBytes': 1024*1024*5, # 5 MB
                'backupCount': 5
            },
-        'rq_file': {
-               'level': 'DEBUG',
-               'class': 'logging.handlers.RotatingFileHandler',
-               'formatter': 'rq_console',
-               'filters': ['require_debug_true'],
-               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'_PythonRQ.log'),
-               'maxBytes': 1024*1024*5, # 5 MB
-               'backupCount': 5
-           },
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
             'filters': ['require_debug_false']
-        },
-        'rq_console': {
-            'level': 'DEBUG',
-            'class': 'rq.utils.ColorizingStreamHandler',
-            'exclude': ["%(asctime)s"],
         },
     },
     
@@ -181,10 +181,6 @@ LOGGING = {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': False,
-        },
-        "rq.worker": {
-            "handlers": ["rq_console", 'rq_file'],
-            "level": "DEBUG"
         },
     },
 }

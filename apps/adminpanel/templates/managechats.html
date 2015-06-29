@@ -1,0 +1,114 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls admin_static admin_list %}
+{% load mask %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static "admin/css/changelists.css" %}" />
+  {% if cl.formset %}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
+  {% endif %}
+  {% if cl.formset or action_form %}
+    <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+  {% endif %}
+  {{ media.css }}
+  {% if not actions_on_top and not actions_on_bottom %}
+    <style>
+      #changelist table thead th:first-child {width: inherit}
+    </style>
+  {% endif %}
+
+<link rel="stylesheet" href="{% static 'css/adminpanel.css' %}">
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+{{ media.js }}
+{% if action_form %}{% if actions_on_top or actions_on_bottom %}
+<script type="text/javascript">
+(function($) {
+    $(document).ready(function($) {
+        $("tr input.action-select").actions();
+    });
+})(django.jQuery);
+</script>
+{% endif %}{% endif %}
+{% endblock %}
+
+{% if not is_popup %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="/admin/">Home</a>
+&rsaquo; <a href="/admin/chat-manager/">Chat manager</a>
+&rsaquo; Chat manager
+</div>
+{% endblock %}
+{% endif %}
+
+{% block coltype %}flex{% endblock %}
+
+
+{% block messages %}
+    {% if messages %}
+    AAAAAAAAAAAAAA!!!!!!!
+    {% endif %}
+{% endblock messages %}
+
+
+{% block content %}
+<div id="content-main">
+<h1>Chat manager</h1>
+<div id="chatmanager">
+    <table id="chats_list">
+        <caption>Total chats: {{ chats.paginator.count }}</caption>
+        <thead>
+            <tr>
+                <th scope="col" class="sortable">Chat token</th>
+                <th scope="col" class="sortable column-created">Created </th>
+                <th scope="col" class="sortable column-status">Status</th>
+            </tr>
+        </thead>
+
+        {% if chats.paginator.count %}
+        <tbody>
+        {% for chat in chats %}
+            <tr>
+                <td> {{ chat.0|mask }} </td>
+                <td> {{ chat.1|date:"d-M-Y, G:i:s" }} </td>
+                <td class="{{ chat.2 }}"> {{ chat.2 }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3">
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if chats.has_previous %}
+                            <a href="?page={{ chats.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ chats.number }} of {{ chats.paginator.num_pages }}.
+                        </span>
+
+                        {% if chats.has_next %}
+                            <a href="?page={{ chats.next_page_number }}">next</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+        {% endif %}
+    </table>
+
+    <form method="POST" action="/admin/clear-chats/">{% csrf_token %}
+<input id="clear_chats" class="default" type="submit" value="Clear chats">    </form>
+
+</div>
+
+
+{% endblock %}
+
+

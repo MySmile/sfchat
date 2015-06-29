@@ -66,9 +66,23 @@ class ChatsTestCase(unittest.TestCase):
         result = self.chat.delete_message(messages)
         self.assertFalse(result)
 
-    def test_delete_chat_success(self):
-        result = self.chat.delete_chat(self.user_token)
+    def test_close_chat_success(self):
+        result = self.chat.close_chat(self.user_token)
         self.assertTrue(result)
+
+    def test_close_auto_chat(self):
+        result = self.chat.close_auto_chat()
+        self.assertTrue(result)
+
+    def test_delete_closed_chat(self):
+        chat_token = Chats.create_chat()['chat_token']
+        chat = Chats.objects.get_all_by_token(chat_token)
+        chat.status = 'closed'
+        chat.save()
+        id = chat.id
+        chat.delete_closed_chat()
+        chat = Chats.objects.filter(id=id)
+        self.assertEquals([], list(chat))
 
     def test_create_long_polling(self):
         expected = self.chat.create_long_polling(self.user_token)

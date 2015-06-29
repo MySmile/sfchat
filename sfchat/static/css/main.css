@@ -141,6 +141,7 @@ article {
  .btn.btn-grey {
     background-color: #dedede;
     border: 1px solid #999;
+    cursor: auto;
 }
  
 #or {
@@ -217,6 +218,7 @@ hr {
     word-wrap: break-word;
     overflow-x: visible;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /*scrolling for iOS*/
  }
   
 #chat-close {

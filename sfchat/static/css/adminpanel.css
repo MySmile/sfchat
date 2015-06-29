@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+/* chat manager */
+#chatmanager table caption {
+    text-align: right;
+}
+
+.draft { color: #ffa500; }
+.ready { color: #008000; }
+.closed { color: #000000; }
+
+
+#clear_chats {
+    float: left;
+}
