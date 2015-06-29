@@ -222,6 +222,14 @@ latex_elements = {
 
 # Additional stuff for the LaTeX preamble.
 'preamble': r'''
+    
+\setcounter{tocdepth}{2}
+
+\usepackage{geometry} 
+\geometry{top=2cm}    
+\geometry{bottom=2cm} 
+\geometry{left=1.5cm} 
+\geometry{right=1.5cm}
 
 \usepackage{titlesec}  
 \titleformat{\chapter}[display]  
@@ -351,7 +359,7 @@ epub_copyright = copyright
 #epub_uid = ''
 
 # A tuple containing the cover image and cover page html template filenames.
-#epub_cover = ()
+epub_cover = ('_static/images/cover.png', 'epub-cover.html')
 
 # A sequence of (type, uri, title) tuples for the guide element of content.opf.
 #epub_guide = ()
@@ -368,7 +376,7 @@ epub_copyright = copyright
 epub_exclude_files = ['search.html']
 
 # The depth of the table of contents in toc.ncx.
-#epub_tocdepth = 3
+epub_tocdepth = 1
 
 # Allow duplicate toc entries.
 #epub_tocdup = True
@@ -377,7 +385,7 @@ epub_exclude_files = ['search.html']
 #epub_tocscope = 'default'
 
 # Fix unsupported image types using the Pillow.
-#epub_fix_images = False
+epub_fix_images = True
 
 # Scale large images.
 #epub_max_image_width = 0
@@ -386,4 +394,4 @@ epub_exclude_files = ['search.html']
 #epub_show_urls = 'inline'
 
 # If false, no index is generated.
-#epub_use_index = True
+epub_use_index = False

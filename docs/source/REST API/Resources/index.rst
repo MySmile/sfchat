@@ -21,7 +21,7 @@ For instance for messages resource development environment url looks like:
 http://127.0.0.1:8000/api/v1/messages.json
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :titlesonly:
 
    GET: messages.json <GET-messages-json/index>

@@ -5,7 +5,7 @@ REST API
 Communication between SFChat server and FrontEnd arranges by REST api with JSON data format.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :titlesonly:
 
    Endpoint

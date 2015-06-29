@@ -9,8 +9,7 @@ Welcome to SFChat's documentation!
 Contents:
 
 .. toctree::
-   :numbered:
-   :maxdepth: 5
+   :maxdepth: 4
    :titlesonly:
 
    Objective
@@ -33,7 +32,7 @@ Contents:
 Indices and tables
 ==================
 
-.. * :ref:`genindex`
-.. * :ref:`modindex`
+* :ref:`genindex`
+* :ref:`modindex`
 * :ref:`search`
 

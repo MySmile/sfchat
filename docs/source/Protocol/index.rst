@@ -3,7 +3,7 @@ Protocol
 ********
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 4
    :titlesonly:
 
    Overview/index
