@@ -54,7 +54,7 @@ Screenshots
 
 Documentation
 =============
-Technical documentation can be found in ``/docs`` folder.
+See technical documentation `online <http://sfchat.readthedocs.org/en/latest/>`_ in html, pdf and epub formats.
 
 Tests
 =====
