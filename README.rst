@@ -7,13 +7,18 @@ Master:
 
   .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=master
     :target: https://coveralls.io/r/MySmile/sfchat?branch=master
+
+  .. image:: https://readthedocs.org/projects/sfchat/badge/?version=latest
+    :target: https://readthedocs.org/projects/sfchat/?badge=latest
+    :alt: Documentation Status    
     :align: left
+
 Dev:
   .. image:: https://travis-ci.org/MySmile/sfchat.svg?branch=dev
     :target: https://travis-ci.org/MySmile/sfchat?branch=dev
   .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=dev
     :target: https://coveralls.io/r/MySmile/sfchat?branch=dev
-
+    
 
 `Secure Free Chat (SFChat) <https://sfchat.mysmile.com.ua/>`_ - is Django and Mongodb based RESTfull chat.
 
