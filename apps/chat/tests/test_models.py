@@ -70,8 +70,8 @@ class ChatsTestCase(unittest.TestCase):
         result = self.chat.close_chat(self.user_token)
         self.assertTrue(result)
 
-    def test_close_auto_chat(self):
-        result = self.chat.close_auto_chat()
+    def test_pre_delete(self):
+        result = self.chat.pre_delete()
         self.assertTrue(result)
 
     def test_delete_closed_chat(self):

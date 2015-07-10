@@ -274,8 +274,8 @@ class Chats(Document):
             # @TODO logging this error
             result = False
 
-        mask_chat_token = str.join('******', (str(chat_token)[0], str(chat_token)[-4:]))
-        msg = 'Attempt autoclose chat with token ' + mask_chat_token + ' : ' + result
+        mask_chat_token = str.join('******', (str(self.id)[0], str(self.id)[-4:]))
+        msg = 'Attempt autoclose chat with token ' + mask_chat_token + ': ' + str(result)
         logger.info(msg)
         return result
 
