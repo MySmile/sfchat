@@ -53,7 +53,7 @@ class ClearChatsView(View):
             # auto close chats by time limit
             chats = Chats.objects.get_old_chat(self.CHAT_LIFETIME)
             for chat in chats:
-                chat.close_auto_chat()
+                chat.pre_delete()
             messages.add_message(request, messages.INFO, msg)
 
         except Exception as err:
