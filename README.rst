@@ -4,12 +4,12 @@ SFChat
 Master:
   .. image:: https://travis-ci.org/MySmile/sfchat.svg?branch=master
     :target: https://travis-ci.org/MySmile/sfchat?branch=master
-
   .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=master
     :target: https://coveralls.io/r/MySmile/sfchat?branch=master
-
-  .. image:: https://readthedocs.org/projects/sfchat/badge/?version=latest
-    :target: https://readthedocs.org/projects/sfchat/?badge=latest
+  .. image:: https://badge.fury.io/py/sfchat.svg
+    :target: http://badge.fury.io/py/sfchat
+  .. image:: https://readthedocs.org/projects/sfchat/badge/?version=stable
+    :target: https://readthedocs.org/projects/sfchat/?badge=stable
     :alt: Documentation Status    
     :align: left
 
@@ -18,7 +18,10 @@ Dev:
     :target: https://travis-ci.org/MySmile/sfchat?branch=dev
   .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=dev
     :target: https://coveralls.io/r/MySmile/sfchat?branch=dev
-    
+  .. image:: https://readthedocs.org/projects/sfchat/badge/?version=latest
+    :target: https://readthedocs.org/projects/sfchat/?badge=latest
+    :alt: Documentation Status
+    :align: left
 
 `Secure Free Chat (SFChat) <https://sfchat.mysmile.com.ua/>`_ - is Django and Mongodb based RESTfull chat.
 
