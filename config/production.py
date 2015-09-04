@@ -43,8 +43,26 @@ DATABASES = {
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 ADMINS = (
-    ('admin', 'info@mysmile.com.ua'),
+    ('admin', 'support@mysmile.com.ua'),
 )
+
+MANAGERS = (
+    ('admin', 'support@mysmile.com.ua'),
+)
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+SERVER_EMAIL = 'mail@mysite.com'
+DEFAULT_FROM_EMAIL = SERVER_EMAIL
+EMAIL_SUBJECT_PREFIX = 'something like [MYSITE]'
+EMAIL_HOST = 'adress of IMAP server'
+EMAIL_HOST_USER = 'mail@mysite.com'
+EMAIL_HOST_PASSWORD = 'password to email'
+
+EMAIL_USE_SSL = True
+EMAIL_PORT = 465
+# or
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
 
 # Google Analytics
 GOOGLE_ANALYTICS_TRACKING_ID = 'UA-57194449-1'

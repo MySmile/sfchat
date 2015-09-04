@@ -8,6 +8,7 @@ from apps.home.forms import JoinChatForm
 
 import logging
 logger = logging.getLogger(__name__)
+# logger = logging.getLogger('file')
 
 
 class HomeView(FormView):
@@ -26,7 +27,6 @@ class HomeView(FormView):
 
         chat_page = ChatPage(self.request)
         chat_page.set_user_token(form.user_token)
-
         logger.info('User joined to chat: ' + str(chat_token))
         return super(HomeView, self).form_valid(form)
 
@@ -38,4 +38,6 @@ class CreateView(View):
         chat_page.set_user_token(tokens['user_token'])
         success_url = '/chat/' + tokens['chat_token']
         logger.info('Chat created: ' + tokens['chat_token'])
+        logger.error('AAAAAAA eroor!!!!')
+
         return HttpResponsePermanentRedirect(success_url)

@@ -3,7 +3,7 @@ run:
 	@echo "--------------------------"
 	@echo "***  run local server  ***"
 	@echo "=========================="
-	@python3 -W ignore manage.py runserver --setting=sfchat.settings.local  
+	@python3 -W ignore manage.py runserver --setting=sfchat.settings.local
 
 
 # help - display callable targets.
