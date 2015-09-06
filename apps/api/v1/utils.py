@@ -5,6 +5,9 @@ from rest_framework.views import exception_handler
 
 from apps.chat.models import Chats
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 def custom_exception_handler(exc):
     # Call REST framework's default exception handler first,

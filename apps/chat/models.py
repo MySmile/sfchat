@@ -4,6 +4,7 @@ from bson.errors import InvalidId
 from mongoengine import *
 from django.utils.translation import ugettext as _
 from apps.chat.querysets import ChatsQuerySet
+from apps.chat.errors import *
 
 import logging
 logger = logging.getLogger(__name__)
@@ -155,14 +156,14 @@ class Chats(Document):
         Gets data that's related to current user
         :param chat_token: String
         :param user_token: String
-        :return: Boolean
+        :return: Chat
         """
         try:
             result = Chats.objects.get_chat(chat_token, user_token)
             result.messages = list(filter(lambda item: user_token == str(item.user_token), result.messages))
         except (TypeError, InvalidId, DoesNotExist) as ex:
-            # @TODO logging this error
-            result = False
+            logger.error(ex)
+            raise ChatDoesNotExist;
 
         return result
 

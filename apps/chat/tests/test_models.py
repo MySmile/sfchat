@@ -3,6 +3,7 @@ import unittest
 from bson.objectid import ObjectId
 from apps.chat.models import *
 from mongoengine import *
+from apps.chat.errors import *
 
 
 class ChatsTestCase(unittest.TestCase):
@@ -40,8 +41,10 @@ class ChatsTestCase(unittest.TestCase):
         self.assertEquals(self.chat_token, str(chat.id))
 
     def test_get_chat_failed(self):
-        chat = Chats.get_chat('543e33a2e3ce324d374246fc', '543e33a2e3ce324d374246fc')
-        self.assertFalse(chat)
+        try:
+            Chats.get_chat('543e33a2e3ce324d374246fc', '543e33a2e3ce324d374246fc')
+        except Exception as ex:
+            self.assertIsInstance(ex, ChatDoesNotExist)
 
     def test_add_message_success(self):
         messages = [{'msg': 'First message'}, {'msg': 'Second message'}]

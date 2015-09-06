@@ -38,6 +38,4 @@ class CreateView(View):
         chat_page.set_user_token(tokens['user_token'])
         success_url = '/chat/' + tokens['chat_token']
         logger.info('Chat created: ' + tokens['chat_token'])
-        logger.error('AAAAAAA eroor!!!!')
-
         return HttpResponsePermanentRedirect(success_url)

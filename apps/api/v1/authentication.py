@@ -14,8 +14,9 @@ class TokenAuthentication(authentication.BaseAuthentication):
         if not user_token or not chat_token:
             return None
 
-        chat = Chats.get_chat(chat_token, user_token)
-        if not chat:
+        try:
+            chat = Chats.get_chat(chat_token, user_token)
+        except Exception as ex:
             raise exceptions.AuthenticationFailed('Unauthorized')
 
         return (chat, None)
