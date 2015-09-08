@@ -73,9 +73,6 @@ class Chats(Document):
     meta = {
         'queryset_class': ChatsQuerySet,
         'db_alias': 'sfchat',
-        'indexes': [
-            {'fields': ['created'], 'expireAfterSeconds': 30} #  86400=60*60*24 --- 24 hours
-        ]
     }
 
     def clean(self):

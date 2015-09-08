@@ -20,6 +20,10 @@ urlpatterns = patterns('',
 handler404 = 'apps.home.utils.e404'
 handler500 = 'apps.home.utils.e500'
 
+admin.site.site_header = 'SFChat administration'
+admin.site.site_title = 'SFChat admin'
+admin.site.index_title = 'SFChat'
+
 if settings.DEBUG:
     urlpatterns += patterns('django.views.static',
                             url(r'^static/(?P<path>.*)$', never_cache(serve_static)),

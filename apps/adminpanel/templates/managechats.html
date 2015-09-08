@@ -48,15 +48,8 @@
 {% block coltype %}flex{% endblock %}
 
 
-{% block messages %}
-    {% if messages %}
-    AAAAAAAAAAAAAA!!!!!!!
-    {% endif %}
-{% endblock messages %}
-
-
 {% block content %}
-<div id="content-main">
+{#<div id="content-main">#}
 <h1>Chat manager</h1>
 <div id="chatmanager">
     <table id="chats_list">
@@ -106,7 +99,7 @@
     <form method="POST" action="/admin/clear-chats/">{% csrf_token %}
 <input id="clear_chats" class="default" type="submit" value="Clear chats">    </form>
 
-</div>
+{#</div>#}
 
 
 {% endblock %}

@@ -10,7 +10,7 @@ DEBUG = True
 
 COMPRESS_ENABLED = False
 
-DEBUG_TOOLBAR_PATCH_SETTINGS = False
+DEBUG_TOOLBAR_PATCH_SETTINGS = True
 # @NOTE: if True then enable 'debug_toolbar.middleware.DebugToolbarMiddleware' also
 
 SECRET_KEY = '&ku!ebrl5h61ztet=c&ydh+sc9tkq=b70^xbx461)l1pp!lgt6'
