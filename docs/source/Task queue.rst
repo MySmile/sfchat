@@ -5,6 +5,9 @@ Task queue
 Tasks that should run on background with configure scheduler.  Removes all chats, which are status "closed" plus set as 
 "closed" all chats with more than 24 hours lifetime.
 
+
+.. _Chat_termination:
+
 Chat termination
 ================
 
@@ -16,3 +19,4 @@ Workflow of chat termination has 2 phases:
 
 So the first run of task removes all undelivered messages. It helps clear chat history in FrontEnd. The second run 
 removes information about over lifetime chats.
+

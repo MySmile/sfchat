@@ -32,4 +32,10 @@ Page with list of chats. Such table does not contain message information and loo
 Clear chat
 ==========
 
-Link that runs manually clear chat cron.
+For clear chats push the button under list of chats. [#f1]_
+
+
+.. rubric:: Footnotes
+
+.. [#f1] Read :ref:`Chat_termination` for details 
+ 

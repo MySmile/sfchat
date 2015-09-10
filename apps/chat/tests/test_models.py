@@ -20,7 +20,7 @@ class ChatsTestCase(unittest.TestCase):
         self.assertEquals(2, len(self.chat.user_tokens))
 
     def test_join_to_chat_failed(self):
-        actual = Chats.join_to_chat('543e33a2e3ce324d374246fc')
+        actual = Chats.join_to_chat('111111111111111111111111')
         self.assertFalse(actual)
 
     def test_join_to_chat_twice_failed(self):

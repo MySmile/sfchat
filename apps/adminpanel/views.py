@@ -1,8 +1,3 @@
-# from datetime import date, timedelta
-#
-# from mongoengine import *
-# from mongoengine.queryset import Q
-
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
