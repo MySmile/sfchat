@@ -6,11 +6,8 @@ from apps.chat.utils import ChatPage
 from django.http import HttpResponsePermanentRedirect
 from apps.home.forms import JoinChatForm
 
-from apps.adminpanel.templatetags import mask
-
 import logging
 logger = logging.getLogger(__name__)
-# logger = logging.getLogger('file')
 
 
 class HomeView(FormView):

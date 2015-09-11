@@ -10,6 +10,7 @@ from django.http.response import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
 from apps.chat.models import Chats
+from apps.adminpanel.management.commands.clearchats import Command
 
 import logging
 logger = logging.getLogger(__name__)
@@ -40,26 +41,9 @@ class ManagerChatsView(View):
         return super(ManagerChatsView, self).dispatch(*args, **kwargs)
 
 class ClearChatsView(View):
-    CHAT_LIFETIME = 1 #  chat lifetime in days
-
     def post(self, request, *args, **kwargs):
-        try:
-            # delete closed chats
-            deleted_chats = Chats.delete_closed_chat()
-            # auto close chats by time limit
-            chats = Chats.objects.get_old_chat(self.CHAT_LIFETIME)
-            closed_chats = len(chats)
-            for chat in chats:
-                chat.pre_delete()
-            msg = str(closed_chats) + ' chat(s) closed, ' + str(deleted_chats) + ' chat(s) deleted!'
-            logger.info(msg)
-            messages.add_message(request, messages.INFO, msg)
-
-        except Exception as err:
-            # @TODO Fix. Error: Chats matching query does not exist.
-            msg = 'Error: ' + str(err)
-            logger.error(msg)
-            messages.add_message(request, messages.ERROR, msg)
+        c = Command().handle()
+        messages.add_message(request, c['level'], c['msg'])
         return HttpResponseRedirect(reverse('chat-manager'))
 
     @method_decorator(login_required(login_url='/admin'))

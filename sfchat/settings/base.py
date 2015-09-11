@@ -184,6 +184,7 @@ LOGGING = {
         },
         'django.db.backends': {
             'handlers': ['null', ],
+            'propagate': False,
         },
         'py.warnings': {
             'handlers': ['null', ],
