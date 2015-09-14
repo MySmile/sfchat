@@ -30,7 +30,7 @@ class MessagesView(APIView):
         """
         Add new message
         """
-        data = self.request.DATA
+        data = self.request.data
         user_token = TokenAuthentication.get_user_token(request)
         if not 'data' in data or not 'messages' in data['data'] or \
                 not request.user.add_message(user_token=user_token, messages=data['data']['messages']):
@@ -42,7 +42,7 @@ class MessagesView(APIView):
         """
         Delete message
         """
-        data = self.request.DATA
+        data = self.request.data
         if not 'data' in data or not 'messages' in data['data'] or \
                 not request.user.delete_message(messages=data['data']['messages']):
             raise ParseError()
