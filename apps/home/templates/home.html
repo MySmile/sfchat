@@ -12,7 +12,7 @@
         <form method="POST" action="/create-chat/">{% csrf_token %}
             {{ form_create_chat }}
             <button id="create_chat" class="btn btn-green" type="submit" >
-                {% trans "create new" %}
+                {% trans "create chat" %}
             </button>
         </form>
         <div id='or'>{% trans "OR" %}</div>
@@ -27,8 +27,8 @@
             <h2>Chat:</h2>
             <ol>
                 <li>Click to "create chat"</li>
-                <li>Send code with link to friend</li>
-                <li>Enjoy free secure chatting!</li>
+                <li>Send code to friend</li>
+                <li>Enjoy secure free chatting!</li>
             </ol>
             <h2>Secure because:</h2>
             <ol>
@@ -38,7 +38,7 @@
             <h2>Free considering:</h2>
             <ol>
                 <li>Open source</li>
-                <li>BSD-3-Clause license</li>
+                <li>BSD 3-Clause license</li>
             </ol>
         {% endblocktrans %}    
     </article>
