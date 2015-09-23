@@ -7,6 +7,9 @@ logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
+    def __init__(self, *args, **kwargs):
+        self.result = {}
+        super(Command, self).__init__(*args, **kwargs)
     CHAT_LIFETIME = 1 #  chat lifetime in days
     help = 'Close and delete old chats'
 
@@ -22,10 +25,12 @@ class Command(BaseCommand):
             msg = str(closed_chats) + ' chat(s) closed, ' + str(deleted_chats) + ' chat(s) deleted!'
             logger.setLevel(20) #  INFO
             logger.info(msg)
+            self.result = {'level': logger.level, 'msg':msg}
+
 
         except Exception as err:
             # @TODO Fix. Error: Chats matching query does not exist.
             msg = 'Error: ' + str(err)
             logger.setLevel(40) #  ERROR
             logger.error(msg)
-        return {'msg': msg, 'level': logger.level}
+            self.result = {'level': logger.level, 'msg':msg}

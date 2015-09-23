@@ -42,8 +42,9 @@ class ManagerChatsView(View):
 
 class ClearChatsView(View):
     def post(self, request, *args, **kwargs):
-        c = Command().handle()
-        messages.add_message(request, c['level'], c['msg'])
+        c = Command()
+        c.handle()
+        messages.add_message(request, c.result['level'], c.result['msg'])
         return HttpResponseRedirect(reverse('chat-manager'))
 
     @method_decorator(login_required(login_url='/admin'))
