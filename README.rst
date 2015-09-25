@@ -8,8 +8,8 @@ Master:
     :target: https://coveralls.io/r/MySmile/sfchat?branch=master
   .. image:: https://badge.fury.io/py/sfchat.svg
     :target: http://badge.fury.io/py/sfchat
-  .. image:: https://readthedocs.org/projects/sfchat/badge/?version=stable
-    :target: https://readthedocs.org/projects/sfchat/?badge=stable
+  .. image:: https://readthedocs.org/projects/sfchat/badge/?version=dev
+    :target: https://readthedocs.org/projects/sfchat/?badge=dev
     :alt: Documentation Status    
     :align: left
 
@@ -18,8 +18,8 @@ Dev:
     :target: https://travis-ci.org/MySmile/sfchat?branch=dev
   .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=dev
     :target: https://coveralls.io/r/MySmile/sfchat?branch=dev
-  .. image:: https://readthedocs.org/projects/sfchat/badge/?version=latest
-    :target: https://readthedocs.org/projects/sfchat/?badge=latest
+  .. image:: https://readthedocs.org/projects/sfchat/badge/?version=dev
+    :target: https://readthedocs.org/projects/sfchat/?badge=dev
     :alt: Documentation Status
     :align: left
 
