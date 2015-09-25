@@ -160,7 +160,7 @@ class Chats(Document):
             result.messages = list(filter(lambda item: user_token == str(item.user_token), result.messages))
         except (TypeError, InvalidId, DoesNotExist) as ex:
             logger.error(ex)
-            raise ChatDoesNotExist;
+            raise ChatDoesNotExist
 
         return result
 
