@@ -8,8 +8,8 @@ Master:
     :target: https://coveralls.io/r/MySmile/sfchat?branch=master
   .. image:: https://badge.fury.io/py/sfchat.svg
     :target: http://badge.fury.io/py/sfchat
-  .. image:: https://readthedocs.org/projects/sfchat/badge/?version=dev
-    :target: https://readthedocs.org/projects/sfchat/?badge=dev
+  .. image:: https://readthedocs.org/projects/sfchat/badge/?version=stable
+    :target: https://readthedocs.org/projects/sfchat/?badge=stable
     :alt: Documentation Status    
     :align: left
 
