@@ -90,9 +90,19 @@ define(['jquery', 'api/storage'], function($, storage) {
     * @return {Object} this
     */
     var setUserToken = function(userToken) {
-        if (userToken !== 'False' && validateToken(userToken) === true) {
-            storage.setData(userTokenKey, userToken);
-        }
+       var prevUserToken;
+
+       if (userToken === 'False' || validateToken(userToken) === false) {
+            return;
+       }
+
+       // prevent updating userToken, if for creation and joining chat is used one tab (SFC-101)
+       prevUserToken = storage.getData(userTokenKey);
+       if (prevUserToken && prevUserToken !== userToken) {
+           storage.removeAllData();
+       }
+
+       storage.setData(userTokenKey, userToken);
     };
 
     /**
