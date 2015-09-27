@@ -33,6 +33,13 @@ class HomeView(FormView):
 
 class CreateView(View):
     def post(self, request, *args, **kwargs):
+        """
+        Create chat
+        :param request:
+        :param args:
+        :param kwargs:
+        :return: HttpResponsePermanentRedirect
+        """
         tokens = Chats.create_chat()
         chat_page = ChatPage(self.request)
         chat_page.set_user_token(tokens['user_token'])

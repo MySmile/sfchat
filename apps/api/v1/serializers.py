@@ -19,5 +19,5 @@ class ChatMessagesSerializer(serializers.Serializer):
     code = serializers.IntegerField()
     msg = serializers.CharField()
     count = serializers.IntegerField()
-    status = serializers.BooleanField()
+    status = serializers.CharField()
     messages = MessagesSerializer(many=True)
