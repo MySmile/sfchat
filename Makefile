@@ -12,13 +12,13 @@ help:
 
 # install-local - install locally dependencies --- move this into "one-install-script"
 install-local:
-	@cd ./config/requirements && pip3 install -r local.txt
 	@cd ./bin && ./install-local.sh
+	@cd ./config/requirements && pip3 install -r local.txt
 
 # install-prod - install production dependencies 
 install-prod:
-	@cd ./config/requirements && sudo pip3 install -r production.txt
 	@cd ./bin && ./install-production
+	@cd ./config/requirements && sudo pip3 install -r production.txt
 
 # test - test project
 test:
