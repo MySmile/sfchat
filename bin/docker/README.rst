@@ -109,7 +109,8 @@ Configuration IDE (PyCharm)
 ---------------------------
 All instructions for configuration based on documentation `Pycharm <https://www.jetbrains.com/pycharm/>`_.
 
-### Remote interpreter
+Remote interpreter
+``````````````````
 To let Pycharm know where locate the python interpreter it's need to configure it.
 The way how to do it might vary from version to version but one things stay still is a get interpreter via ssh.
 

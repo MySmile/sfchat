@@ -11,7 +11,6 @@ Master
     :alt: Documentation Status
   .. image:: https://badge.fury.io/py/sfchat.svg
     :target: http://badge.fury.io/py/sfchat
-    :align: left
 
 Dev
   .. image:: https://travis-ci.org/MySmile/sfchat.svg?branch=dev
