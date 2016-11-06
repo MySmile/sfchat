@@ -1,19 +1,19 @@
 ******
 SFChat
 ******
-Master:
+Master
   .. image:: https://travis-ci.org/MySmile/sfchat.svg?branch=master
     :target: https://travis-ci.org/MySmile/sfchat?branch=master
   .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=master
     :target: https://coveralls.io/r/MySmile/sfchat?branch=master
-  .. image:: https://badge.fury.io/py/sfchat.svg
-    :target: http://badge.fury.io/py/sfchat
   .. image:: https://readthedocs.org/projects/sfchat/badge/?version=stable
     :target: https://readthedocs.org/projects/sfchat/?badge=stable
-    :alt: Documentation Status    
+    :alt: Documentation Status
+  .. image:: https://badge.fury.io/py/sfchat.svg
+    :target: http://badge.fury.io/py/sfchat
     :align: left
 
-Dev:
+Dev
   .. image:: https://travis-ci.org/MySmile/sfchat.svg?branch=dev
     :target: https://travis-ci.org/MySmile/sfchat?branch=dev
   .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=dev
@@ -35,8 +35,9 @@ Free:
 
 Installation
 ============
-  #. Install required dependency: ``make install-local`` or ``make install-prod``
+  #. Install required dependency: ``make install-prod``
   #. Generate database for admin panel: ``make admin``
+  #. Install js dependencies: ``bower install``
   #. Build and optimize js from source: ``make build-js``
 
 Requirements
@@ -48,8 +49,6 @@ Requirements
   - JQuery
   - Requirejs
 
-For more information please look into ``./config/requirements/production.txt`` and ``./bower.json``.
-
 Screenshots
 ===========
 .. figure:: https://raw.github.com/MySmile/sfchat/dev/docs/screenshots/main_and_chat_pages.png
@@ -59,6 +58,10 @@ Documentation
 =============
 See technical documentation `online <http://sfchat.readthedocs.org/en/latest/>`_ in html, pdf and epub formats.
 
+Docker
+======
+For development process it's prepared Docker. More instruction can be found in `/bin/docker </bin/docker>`.
+
 Tests
 =====
 
@@ -66,16 +69,18 @@ Unit
 ----
 Python unit test can be found in ``tests`` folder inside each applications.
 
-Test running:
+Running
+```````
   - all tests please run ``make test``.
   - specific test it's necessary set full path to test class for instance: ``python3 manage.py test apps.chat.tests.test_views``.
 
 Functional
 ----------
 Selenium IDE is used for functional testing.
-Selenium Test Cases and Test Suites can be found in ``/bin/Selenium``.
+Selenium Test Cases and Test Suites can be found in `/bin/selenium </bin/selenium>`_.
 
-Test running:
+Running
+```````
   - Install `Selenium IDE plugin <http://www.seleniumhq.org/download/>`_ for Firefox browser
   - Follow `Selenium IDE instruction <http://www.seleniumhq.org/docs/02_selenium_ide.jsp#opening-the-ide>`_ to open and run test
 
