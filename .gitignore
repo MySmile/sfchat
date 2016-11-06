@@ -7,6 +7,5 @@ sfchat/db/*.sqlite3
 *.pyc
 docs/build/**
 tmp/*
-log/*
 nbproject/*
 dump.rdb

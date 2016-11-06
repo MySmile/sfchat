@@ -16,7 +16,7 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = True
 SECRET_KEY = '&ku!ebrl5h61ztet=c&ydh+sc9tkq=b70^xbx461)l1pp!lgt6'
 
 MONGODB_DATABASE_NAME = 'sfchat'
-MONGODB_HOST = 'localhost'
+MONGODB_HOST = 'sfchat-mongo'
 MONGODB_PORT = 27017
 MONGODB_USERNAME = ''
 MONGODB_PASSWORD = ''
