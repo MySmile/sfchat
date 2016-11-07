@@ -46,6 +46,14 @@ To make connection by console simple run ``ssh root@0.0.0.0 -p 2227``.
 _Note_: if connection was refused just checkout inside container how it is ``service ssh status``.
 In case it's not running execute ``service ssh start``.
 
+Generate admin panel
+````````````````````
+Admin page generation is moved from Docker buidlding because it's a part of developing process.
+Therefore to generate admin panel please:
+  #. execute ``sudo docker-compose -f ./bin/docker/docker-compose.yml exec sfchat-web bash`` from project root
+  #. run ``make admin``
+  #. open in browser ``https://sfchat.dev:8443/admin``
+
 HTTPS
 '''''
 Application runs on ``runserver`` with ``stunnel``.

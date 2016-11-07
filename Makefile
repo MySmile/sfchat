@@ -61,6 +61,7 @@ clean:
 admin:
 	python3 manage.py migrate --database='default'
 	python3 manage.py createsuperuser  --database='default'
+	cp -R `python3 manage.py findstatic admin` /sfchat/sfchat/static
 
 # syncdb - run syncdb command
 syncdb:
