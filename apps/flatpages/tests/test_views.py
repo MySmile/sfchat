@@ -10,6 +10,6 @@ class FlatpagesViewTest(unittest.TestCase):
 
     def test_view(self):
         for item in self.template_name:
-            response = self.client.get('/' + item + '.html')
+            response = self.client.get('/' + item + '.html', follow=True)
             self.assertEqual(response.status_code, 200)
             self.assertIn(b'<article>', response.content)

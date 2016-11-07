@@ -36,7 +36,6 @@ Installation
 ============
   #. Install required dependency: ``make install-prod``
   #. Generate database for admin panel: ``make admin``
-  #. Install js dependencies: ``bower install``
   #. Build and optimize js from source: ``make build-js``
 
 Requirements
@@ -59,7 +58,7 @@ See technical documentation `online <http://sfchat.readthedocs.org/en/latest/>`_
 
 Docker
 ======
-For development process it's prepared Docker. More instruction can be found in `/bin/docker </bin/docker>`.
+For development process it's prepared Docker. More instruction can be found in `/bin/docker </bin/docker>`_.
 
 Tests
 =====

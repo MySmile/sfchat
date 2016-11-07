@@ -122,3 +122,24 @@ Please fill fields as bellow:
 
 *Note*: it's possible to see an error message that ``.pycharm_helpers`` is not exist on a server.
 In this case error can be ignored because PyCharm will create directory and copy helpers.
+
+Django support
+``````````````
+  #. Open setting and type Django in search box
+  #. Choose project
+  #. "Enable Django Support": set chacked
+  #. "Django project root": path to sfchat root
+  #. "Settings: ``sfchat/settings/docker.py``
+  #. "Manage script": will set automaticly to ``manage.py``
+  #. "Environment variables": ``DJANGO_SETTINGS_MODULE=sfchat.settings.docker``
+
+More information in `official documentation <https://www.jetbrains.com/help/pycharm/2016.1/django-2.html>`_.
+
+
+UnitTesting
+````````````
+Firstly it's need to be sure that `Remote Interpreter <#remote-interpreter>`_ and `Django support <#django-support>`_ for configured.
+
+That's all, just push "Ctrl + Shift + F10" on project root ang choose ``dj`` as a runner to execute all unit tests.
+
+For more information here is `official documentation <https://www.jetbrains.com/help/pycharm/2016.1/run-debug-configuration-django-test.html#d473601e145>`_
