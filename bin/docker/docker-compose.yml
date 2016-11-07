@@ -4,6 +4,8 @@ services:
     build:
         context : ../..
         dockerfile: bin/docker/web/Dockerfile
+    environment:
+      - DJANGO_SETTINGS_MODULE=sfchat.settings.docker
     volumes:
       - ../../:/sfchat
     ports:
