@@ -70,6 +70,10 @@ COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'co
 
 TIME_ZONE = 'Europe/Kiev'
 
+# debugger
+DEBUG = True
+TEMPLATES[0]['OPTIONS']['debug'] = True
+
 # security
 SESSION_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 3600

@@ -25,27 +25,29 @@ Dev
 `Secure Free Chat (SFChat) <https://sfchat.mysmile.com.ua/>`_ - is Django and Mongodb based RESTfull chat.
 
 Secure:
-  #. Chat history are not saved on server
-  #. Content-Security-Policy with https only
+
+ #. Chat history are not saved on server
+ #. Content-Security-Policy with https only
 
 Free:
-  #. Open Source
-  #. BSD 3-Clause license
+
+#. Open Source
+#. BSD 3-Clause license
 
 Installation
 ============
-  #. Install required dependency: ``make install-prod``
-  #. Generate database for admin panel: ``make admin``
-  #. Build and optimize js from source: ``make build-js``
+#. Install required dependency: ``make install-prod``
+#. Generate database for admin panel: ``make admin``
+#. Build and optimize js from source: ``make build-js``
 
 Requirements
 ============
-  - Python 3
-  - Django 1.8
-  - Django Rest Api Framework
-  - MongoDB
-  - JQuery
-  - Requirejs
+- Python 3
+- Django 1.8
+- Django Rest Api Framework
+- MongoDB
+- JQuery
+- Requirejs
 
 Screenshots
 ===========
@@ -69,8 +71,8 @@ Python unit test can be found in ``tests`` folder inside each applications.
 
 Running
 ```````
-  - all tests please run ``make test``.
-  - specific test it's necessary set full path to test class for instance: ``python3 manage.py test apps.chat.tests.test_views``.
+- all tests please run ``make test``.
+- specific test it's necessary set full path to test class for instance: ``python3 manage.py test apps.chat.tests.test_views``.
 
 Functional
 ----------
@@ -79,8 +81,8 @@ Selenium Test Cases and Test Suites can be found in `/bin/selenium </bin/seleniu
 
 Running
 ```````
-  - Install `Selenium IDE plugin <http://www.seleniumhq.org/download/>`_ for Firefox browser
-  - Follow `Selenium IDE instruction <http://www.seleniumhq.org/docs/02_selenium_ide.jsp#opening-the-ide>`_ to open and run test
+- Install `Selenium IDE plugin <http://www.seleniumhq.org/download/>`_ for Firefox browser
+- Follow `Selenium IDE instruction <http://www.seleniumhq.org/docs/02_selenium_ide.jsp#opening-the-ide>`_ to open and run test
 
 License
 =======

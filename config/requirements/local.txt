@@ -5,3 +5,4 @@ djangorestframework==3.5.1
 django_compressor==2.1
 django-debug-toolbar==1.6
 pytz==2016.7
+pydevd==0.0.6
