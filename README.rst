@@ -26,8 +26,8 @@ Dev
 
 Secure:
 
- #. Chat history are not saved on server
- #. Content-Security-Policy with https only
+#. Chat history are not saved on server
+#. Content-Security-Policy with https only
 
 Free:
 

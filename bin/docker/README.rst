@@ -74,6 +74,7 @@ Nginx works as a proxy by passing non-static to ``sfchat-web`` container.
 sfchat-node
 ```````````
 Node is an container fo Bower and built JScript. During ``compose up`` it installs all Bower dependencies and built js.
+
 If during developing it's need to re-build js please run:
 
 - ``sudo docker-compose -f ./bin/docker/docker-compose.yml stop sfchat-node``
@@ -108,7 +109,7 @@ For more information please visit `Docker Compose Command-line Reference <https:
 
 Developing workflow
 --------------------
-The new requirements appears that something shouild be add to container. SO the first things that should came to mind:
+If new requirements appears that something should be add to container:
 
 #. find the official container
 #. add them to compose
