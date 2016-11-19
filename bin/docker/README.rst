@@ -18,7 +18,7 @@ Required pre-installed applications:
 Installation
 ------------
 #. Run in application root ``sudo docker-compose -f bin/docker/docker-compose.yml up``
-#. Check containers ``sudo docker-compose ps``
+#. Check containers ``sudo docker-compose -f bin/docker/docker-compose.yml ps``
 #. Update your ``hosts`` with ``sfchat.dev 0.0.0.0``
 #. Check how it's working ``https://sfchat.dev:8443``
 #. Accept self signed certificate
@@ -181,6 +181,6 @@ More information in `official documentation <https://www.jetbrains.com/help/pych
 
 UnitTest debugging
 ''''''''''''''''''
-#. Start debug serve by clicking on a green bug or "Run->Debug..."
+#. Start debug server by clicking on a green bug or "Run->Debug..."
 #. Put breakpoint e.g. in ``/apps/api/middlewares.py``
 #. Run all tests to see how execution stop for debugging
