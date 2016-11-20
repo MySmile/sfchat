@@ -19,7 +19,7 @@ Installation
 ------------
 #. Run in application root ``sudo docker-compose -f bin/docker/docker-compose.yml up``
 #. Check containers ``sudo docker-compose -f bin/docker/docker-compose.yml ps``
-#. Update your ``hosts`` with ``sfchat.dev 0.0.0.0``
+#. Update your ``hosts`` with ``0.0.0.0 sfchat.dev``
 #. Check how it's working ``https://sfchat.dev:8443``
 #. Accept self signed certificate
 
