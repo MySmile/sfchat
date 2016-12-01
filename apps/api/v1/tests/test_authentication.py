@@ -36,6 +36,23 @@ class AuthenticationTestCase(unittest.TestCase):
         lambda_authenticate = lambda request: authentication.authenticate(request)
         self.assertRaises(exceptions.AuthenticationFailed, lambda_authenticate, request)
 
+    def test_authenticate_none_chat(self):
+        user_token = '546511c6b82b9c589334cece'
+        request = HttpRequest()
+        request.META[TokenAuthentication.USER_TOKEN_HEADER] = user_token
+
+        authentication = TokenAuthentication()
+        actual = authentication.authenticate(request)
+        self.assertEqual(actual, None)
+
+    def test_authenticate_none_user(self):
+        request = HttpRequest()
+        request.META[TokenAuthentication.CHAT_TOKEN_HEADER] = self.chat_token
+
+        authentication = TokenAuthentication()
+        actual = authentication.authenticate(request)
+        self.assertEqual(actual, None)
+
     def set_http_request(self, chat_token, user_token):
         request = HttpRequest()
         request.META[TokenAuthentication.CHAT_TOKEN_HEADER] = chat_token
