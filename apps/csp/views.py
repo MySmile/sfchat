@@ -11,14 +11,11 @@ logger = logging.getLogger(__name__)
 
 class CSPReport(View):
     REPORT_KEYS = (
-        'blocked-uri',
         'document-uri',
-        'line-number',
-        'original-policy',
         'referrer',
-        'script-sample',
-        'source-file',
-        'violated-directive')
+        'blocked-uri',
+        'violated-directive',
+        'original-policy')
 
     REPORT_MAX_ITEM_LENGTH = 1024
 
@@ -29,7 +26,7 @@ class CSPReport(View):
         :param request:
         :return: HttpResponse
         """
-        if request.META.get('CONTENT_TYPE') != 'application/json':
+        if request.META.get('CONTENT_TYPE') != 'application/csp-report':
             raise AttributeError('Wrong CSP report header format.')
 
         logger.error(request.body.decode('utf-8'))

@@ -3,7 +3,10 @@
 
 {% block css %}{% endblock %}
 {% block js %}
-    <script data-main='{% static 'chat.js' %}' src='{% static 'bower_components/requirejs/require.js' %}'></script>
+    <script src='{% static 'bower_components/requirejs/require.js' %}'></script>
+    <script nonce="2726c7f26c">
+        require(['requirejs-config'], function (config) { require(['chat']); });
+    </script>
 {% endblock %}
 
 {% block title %}: Chatting{% endblock %}

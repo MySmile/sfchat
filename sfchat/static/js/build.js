@@ -1,4 +1,4 @@
-{
+({
     baseUrl: './app',
     dir: './build',
     mainConfigFile: 'app/requirejs-config.js',
@@ -15,6 +15,6 @@
         }],
     paths: {
         'jquery': '../../bower_components/jquery/dist/jquery.min',
-        'ga': 'empty'
+        'ga': 'empty:'
     }
-}
+})

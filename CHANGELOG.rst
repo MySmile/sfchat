@@ -1,10 +1,10 @@
-2015-xx-xx v1.0.0
+2017-xx-xx v1.0.0
 =================
 * Added load tests
 * Tested accessibility
 * Verified documentation and content
 
-2015-xx-xx v0.13.0
+2017-xx-xx v0.14.0
 ==================
 * Modified Long Pulling to support Tornado
 * Developed advertisement module
@@ -13,6 +13,13 @@
 * Installed Grunt
 * Increased unitTesting coverage up to 80%
 * Added new design for 404 and 500 page
+
+2016-12-xx v0.13.0
+==================
+* Added Docker
+* Upgraded js dependencies
+* Changed way to start requirejs modules
+* Fixed: csp report header validation
 
 2015-06-29 v0.12.0
 ==================

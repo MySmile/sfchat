@@ -22,7 +22,10 @@
     {% endcompress %}     
 
     {% block js %}
-        <script data-main='{% static 'base.js' %}' src='{% static 'bower_components/requirejs/require.js' %}'></script>
+        <script src='{% static 'bower_components/requirejs/require.js' %}'></script>
+        <script nonce="2726c7f26c">
+            require(['requirejs-config'], function (config) { require(['base']); });
+        </script>
     {% endblock %}
 </head>
 <body>

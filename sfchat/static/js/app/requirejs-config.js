@@ -3,14 +3,13 @@
  */
 
 require.config({
-    baseUrl: '/static/js/app',
+    baseUrl: 'static/js/app',
     map: {
         '*': {
             api: 'sfchat/api/v1',
             events: 'sfchat/events'
         }
     },
-
     shim: {
         'jquery': {
             exports: 'jQuery'
