@@ -28,7 +28,7 @@ class ChatPageTest(unittest.TestCase):
 
 
     def test_set_and_get_user_token(self):
-        rezult = self.chat_page.set_user_token(self.tokens['user_token'])
+        result = self.chat_page.set_user_token(self.tokens['user_token'])
         user_token = self.chat_page.get_user_token()
-        self.assertTrue(rezult)
+        self.assertTrue(result)
         self.assertEquals(user_token, self.tokens['user_token'])
