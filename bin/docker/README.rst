@@ -129,7 +129,7 @@ chain.
 
 Configuration IDE (PyCharm)
 ---------------------------
-All instructions for configuration based on documentation `Pycharm <https://www.jetbrains.com/pycharm/>`_.
+All instructions for configuration based on documentation `PyCharm <https://www.jetbrains.com/pycharm/>`_.
 
 Remote interpreter
 ``````````````````

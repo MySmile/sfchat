@@ -42,12 +42,12 @@ Installation
 
 Requirements
 ============
-- Python 3
-- Django 1.8
-- Django Rest Api Framework
-- MongoDB
-- JQuery
-- Requirejs
+- `Python 3.5 <https://www.python.org/downloads/release/python-350/>`_
+- `Django 1.8 <https://docs.djangoproject.com/en/1.10/releases/1.8/>`_
+- `Django Rest Api Framework <http://www.django-rest-framework.org/>`_
+- `MongoDB 3.4 <https://docs.mongodb.com/v3.4/release-notes/3.4/>`_
+- `jQuery 2.2 <https://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/>`_
+- `Requirejs 2.3 <http://requirejs.org/>`_
 
 Screenshots
 ===========
@@ -56,7 +56,7 @@ Screenshots
 
 Documentation
 =============
-See technical documentation `online <http://sfchat.readthedocs.org/en/latest/>`_ in html, pdf and epub formats.
+Technical documentation is available in `html <http://sfchat.readthedocs.org/en/latest/>`_, pdf, and epub formats.
 
 Docker
 ======
@@ -65,25 +65,34 @@ For development process it's prepared Docker. More instruction can be found in `
 Tests
 =====
 
-Unit
-----
+Back-end unit
+-------------
 Python unit test can be found in ``tests`` folder inside each applications.
 
 Running
 ```````
-- all tests please run ``make test``.
-- specific test it's necessary set full path to test class for instance: ``python3 manage.py test apps.chat.tests.test_views``.
+Manually:
+
+- to run all tests execute ``make test``.
+- to run specific test it's necessary set full path to test class. For instance: ``python3 manage.py test apps.chat.tests.test_views``.
+
+With IDE:
+
+All information to configure your IDE with Docker is in `Docker Readme </bin/docker/README.rst>`_ using `PyCharm <https://www.jetbrains.com/pycharm/>`_ as an example.
 
 Functional
 ----------
-Selenium IDE is used for functional testing.
-Selenium Test Cases and Test Suites can be found in `/bin/selenium </bin/selenium>`_.
+All information about functional testing is in `Selenium Readme </bin/selenium/README.rst>`_.
 
-Running
-```````
-- Install `Selenium IDE plugin <http://www.seleniumhq.org/download/>`_ for Firefox browser
-- Follow `Selenium IDE instruction <http://www.seleniumhq.org/docs/02_selenium_ide.jsp#opening-the-ide>`_ to open and run test
+Contribution
+============
+If you find this project worth to use please add a star. Follow changes to see all activities.
+And if you see room for improvement, proposals please feel free to create an issue or send pull request.
+Here is a great `Guide to Start Contributing <https://guides.github.com/activities/contributing-to-open-source/>`_.
+
+Please note that this project is released with a `Contributor Code of Conduct <http://contributor-covenant.org/version/1/4/>`_.
+By participating in this project and its community you agree to abide by those terms.
 
 License
 =======
-BSD 3-Clause
+SFChat is licensed under the BSD 3-Clause License. Please see the `LICENSE <LICENSE.txt>`_ file for details.
