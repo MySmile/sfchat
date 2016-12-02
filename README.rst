@@ -60,7 +60,7 @@ Technical documentation is available in `html <http://sfchat.readthedocs.org/en/
 
 Docker
 ======
-For development process it's prepared Docker. More instruction can be found in `/bin/docker </bin/docker>`_.
+For development process it's prepared Docker. More instruction can be found in `Docker Readme </bin/docker/README.rst>`_.
 
 Tests
 =====
