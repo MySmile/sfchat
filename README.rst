@@ -84,6 +84,10 @@ Functional
 ----------
 All information about functional testing is in `Selenium Readme </bin/selenium/README.rst>`_.
 
+Front-end unit
+--------------
+Everything related to front-end unit tests is inside `Jasmine Readme </bin/jasmine/README.rst>`_.
+
 Contribution
 ============
 If you find this project worth to use please add a star. Follow changes to see all activities.

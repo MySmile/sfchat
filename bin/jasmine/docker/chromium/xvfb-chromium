@@ -1,0 +1,31 @@
+#!/bin/bash
+
+_kill_procs() {
+  kill -TERM $chromium
+  wait $chromium
+  kill -TERM $xvfb
+}
+
+# trap SIGTERM (sent to a process to request its termination) and relay it to child processes
+# helps to end process when runner is finished
+trap _kill_procs SIGTERM
+
+# XVFB (X Virtual Frame Buffer), WHD (W - wide, H - height, D - deep) = 1280x720x16
+XVFB_WHD=${XVFB_WHD:-1280x720x16}
+
+# create virtual display 99, runs in background (see `&` at the end)
+Xvfb :99 -ac -screen 0 $XVFB_WHD +extension RANDR -nolisten tcp &
+# write last process id that was most recently placed to background (`$!`)
+xvfb=$!
+
+# use currently created display
+export DISPLAY=:99
+
+# run chromium passing all variables (`$@`) and run them in background (`&` at the end)
+chromium-browser --no-sandbox --disable-gpu --user-data-dir=/chromium-data  $@ &
+# write last process id that was most recently placed to background (`$!`)
+chromium=$!
+
+# wait until processes return exit status zero
+wait $chromium
+wait $xvfb

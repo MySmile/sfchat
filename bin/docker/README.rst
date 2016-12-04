@@ -1,3 +1,4 @@
+======
 Docker
 ======
 
@@ -9,14 +10,14 @@ Docker composer has several containers:
 #. sfchat-mongo - official `MongoDB 3.4 Docker <https://hub.docker.com/_/mongo/>`_
 
 Pre installation
-----------------
+================
 Required pre-installed applications:
 
 #. `Docker <https://docs.docker.com/engine/installation/>`_
 #. `Compose <https://docs.docker.com/compose/install/>`_
 
 Installation
-------------
+============
 #. Run in application root ``sudo docker-compose -f bin/docker/docker-compose.yml up``
 #. Check containers ``sudo docker-compose -f bin/docker/docker-compose.yml ps``
 #. Update your ``hosts`` with ``0.0.0.0 sfchat.dev``
@@ -24,17 +25,17 @@ Installation
 #. Accept self signed certificate
 
 Containers
-----------
+==========
 
 sfchat-web
-``````````
+----------
 Web container has exposed those ports:
 
 - 2227 - `OpenSSH <https://www.openssh.com/>`_
 - 8001 - `stunnel <https://www.stunnel.org>`_
 
 SSH
-''''
+````
 SSH service runs by `supervisord <http://supervisord.org/>`_ and starts automatically with web container.
 The main reason to have ssh inside container is to have ability get ``remote interpreter`` for IDE.
 
@@ -59,11 +60,11 @@ To generate admin panel please:
 #. open in browser ``https://sfchat.dev:8443/admin``
 
 HTTPS
-'''''
+`````
 Application runs on ``runserver`` with ``stunnel``.
 
 sfchat-nginx
-````````````
+------------
 Nginx is configured to catch all statics:
 
 - port 8443: non-built static
@@ -72,7 +73,7 @@ Nginx is configured to catch all statics:
 Nginx works as a proxy by passing non-static to ``sfchat-web`` container.
 
 sfchat-node
-```````````
+-----------
 Node is an container fo Bower and built JScript. During ``compose up`` it installs all Bower dependencies and built js.
 
 If during developing it's need to re-build js please run:
@@ -81,7 +82,7 @@ If during developing it's need to re-build js please run:
 - ``sudo docker-compose -f ./bin/docker/docker-compose.yml up sfchat-node``
 
 sfchat-mongo
-````````````
+------------
 For configuration MongoDB connection inside linked container e.g. ``sfchat-web`` use:
 
 - host: sfchat-mongo
@@ -97,7 +98,7 @@ To get access from hosted machine please use:
 - password: ''
 
 Usefull commands
-----------------
+================
 
 - go to shell inside container ``sudo docker-compose -f ./bin/docker/docker-compose.yml exec {{container-name}} bash``
 - build container ``sudo docker-compose -f ./bin/docker/docker-compose.yml build {{container-name}}``
@@ -108,7 +109,7 @@ Usefull commands
 For more information please visit `Docker Compose Command-line Reference <https://docs.docker.com/compose/reference/>`_.
 
 Developing workflow
---------------------
+===================
 If new requirements appears that something should be add to container:
 
 #. find the official container
@@ -128,11 +129,11 @@ The main point here it's not need to rebuild all container or even invalidate ca
 chain.
 
 Configuration IDE (PyCharm)
----------------------------
+===========================
 All instructions for configuration based on documentation `PyCharm <https://www.jetbrains.com/pycharm/>`_.
 
 Remote interpreter
-``````````````````
+------------------
 To let Pycharm know where locate the python interpreter it's need to configure it.
 The way how to do it might vary from version to version but one things stay still is a get interpreter via ssh.
 
@@ -147,7 +148,7 @@ Please fill fields as bellow:
 In this case error can be ignored because PyCharm will create directory and copy helpers.
 
 Django support
-``````````````
+--------------
 #. Open setting and type Django in search box
 #. Choose project
 #. "Enable Django Support": set checked
@@ -158,8 +159,8 @@ Django support
 
 More information in `official documentation <https://www.jetbrains.com/help/pycharm/2016.1/django-2.html>`_.
 
-UnitTesting
-````````````
+Unit-test
+---------
 Firstly it's need to be sure that `Remote Interpreter <#remote-interpreter>`_ and `Django support <#django-support>`_ for configured.
 
 That's all, just push "Ctrl + Shift + F10" on project root ang choose ``dj`` as a runner to execute all unit tests.
@@ -167,7 +168,7 @@ That's all, just push "Ctrl + Shift + F10" on project root ang choose ``dj`` as 
 More information in `official documentation <https://www.jetbrains.com/help/pycharm/2016.1/run-debug-configuration-django-test.html#d473601e145>`_
 
 Debugger
-````````
+--------
 It's used `PyDev.Debugger <https://pypi.python.org/pypi/pydevd>`_ to trace python code.
 
 #. Configure `Remote Interpreter <#remote-interpreter>`_
@@ -180,7 +181,7 @@ It's used `PyDev.Debugger <https://pypi.python.org/pypi/pydevd>`_ to trace pytho
 More information in `official documentation <https://www.jetbrains.com/help/pycharm/2016.1/remote-debugging.html>`_
 
 UnitTest debugging
-''''''''''''''''''
+------------------
 #. Start debug server by clicking on a green bug or "Run->Debug..."
 #. Put breakpoint e.g. in ``/apps/api/middlewares.py``
 #. Run all tests to see how execution stop for debugging

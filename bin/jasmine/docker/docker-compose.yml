@@ -1,0 +1,12 @@
+version: '2'
+services:
+  sfchat-chromium:
+    build:
+        context : ../../..
+        dockerfile: bin/jasmine/docker/chromium/Dockerfile
+    privileged: true
+    tty: true
+    environment:
+      - CHROME_BIN=xvfb-chromium
+    volumes:
+      - ../../../:/sfchat
