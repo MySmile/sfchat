@@ -180,7 +180,7 @@ define(['jquery',
          * @param {String}  request.data.messages[0].msg
          * @param {Object}  response
          * @param {Object}  response.results
-         * @param {Number} response.results.code
+         * @param {Number}  response.results.code
          * @param {String}  response.results.msg
          * @throws {Error}
          */
