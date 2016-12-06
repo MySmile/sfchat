@@ -172,14 +172,17 @@ define([
                     results: {
                         code: 200
                     }
-                };
+                },
+                chatMessage = $j(chatMessageFixture);
             
             // message text
             spyOn(messages.options.chatTypeDom, 'val');
             spyOn(messages.options.chatBodyDom, 'trigger');
+            spyOn(messages.options.chatBodyDom, 'append');
+            spyOn(messages.options.chatBodyDom, 'scrollTop');
 
             // render message mock
-            spyOn(renderMessageMock, 'render').and.returnValue($j(chatMessageFixture));
+            spyOn(renderMessageMock, 'render').and.returnValue(chatMessage);
 
             // render system message mock
             spyOn(renderSystemMessageMock, 'render');
@@ -193,6 +196,10 @@ define([
 
             expect(messages.options.chatBodyDom.trigger.calls.count()).toEqual(1);
             expect(messages.options.chatBodyDom.trigger.calls.argsFor(0)).toEqual(['clearTitle']);
+            expect(messages.options.chatBodyDom.append.calls.count()).toEqual(1);
+            expect(messages.options.chatBodyDom.append.calls.argsFor(0)).toEqual([chatMessage]);
+            expect(messages.options.chatBodyDom.scrollTop.calls.count()).toEqual(1);
+            expect(messages.options.chatBodyDom.scrollTop.calls.argsFor(0)).toEqual([messages.options.chatBodyDom[0].scrollHeight]);
 
             expect(renderMessageMock.render.calls.count()).toEqual(1);
             expect(renderSystemMessageMock.render.calls.count()).toEqual(0);
@@ -214,17 +221,20 @@ define([
                     results: {
                         code: 200
                     }
-                };
+                },
+                chatMessage = $j(chatMessageFixture);
 
             // message text
             spyOn(messages.options.chatTypeDom, 'val');
             spyOn(messages.options.chatBodyDom, 'trigger');
+            spyOn(messages.options.chatBodyDom, 'append');
+            spyOn(messages.options.chatBodyDom, 'scrollTop');
 
             // render message mock
             spyOn(renderMessageMock, 'render');
 
             // render system message mock
-            spyOn(renderSystemMessageMock, 'render').and.returnValue($j(chatMessageFixture));
+            spyOn(renderSystemMessageMock, 'render').and.returnValue(chatMessage);
 
             // storage mock
             spyOn(storageMock, 'addData');
@@ -235,6 +245,10 @@ define([
 
             expect(messages.options.chatBodyDom.trigger.calls.count()).toEqual(1);
             expect(messages.options.chatBodyDom.trigger.calls.argsFor(0)).toEqual(['clearTitle']);
+            expect(messages.options.chatBodyDom.append.calls.count()).toEqual(1);
+            expect(messages.options.chatBodyDom.append.calls.argsFor(0)).toEqual([chatMessage]);
+            expect(messages.options.chatBodyDom.scrollTop.calls.count()).toEqual(1);
+            expect(messages.options.chatBodyDom.scrollTop.calls.argsFor(0)).toEqual([messages.options.chatBodyDom[0].scrollHeight]);
 
             expect(renderMessageMock.render.calls.count()).toEqual(0);
             expect(renderSystemMessageMock.render.calls.count()).toEqual(1);
@@ -310,7 +324,7 @@ define([
         });
 
          it('should show messages', function () {
-                 var eventMock = {},
+             var eventMock = {},
                 request = {
                     data: {
                         messages: []
@@ -330,34 +344,46 @@ define([
                         }],
                         status: 'ready'
                     }
-                };
+                },
+                chatMessage = $j(chatMessageFixture);
 
-                // render message mock
-                spyOn(renderMessageMock, 'render').and.returnValue($j(chatMessageFixture));
+             // message text
+             spyOn(messages.options.chatBodyDom, 'append');
+             spyOn(messages.options.chatBodyDom, 'scrollTop');
 
-                // render system message mock
-                spyOn(renderSystemMessageMock, 'render').and.returnValue($j(chatMessageFixture));
+             // render message mock
+             spyOn(renderMessageMock, 'render').and.returnValue(chatMessage);
 
-                // storage mock
-                spyOn(storageMock, 'addData');
+             // render system message mock
+             spyOn(renderSystemMessageMock, 'render').and.returnValue(chatMessage);
 
-                 // message text
-                spyOn(messages.options.chatBodyDom, 'trigger');
+             // storage mock
+             spyOn(storageMock, 'addData');
 
-                messages.showReceivedMessage(eventMock, request, response);
-                expect(renderMessageMock.render.calls.count()).toEqual(1);
-                expect(renderSystemMessageMock.render.calls.count()).toEqual(1);
+             // message text
+             spyOn(messages.options.chatBodyDom, 'trigger');
 
-                expect(storageMock.addData.calls.count()).toEqual(2);
+             messages.showReceivedMessage(eventMock, request, response);
+             expect(renderMessageMock.render.calls.count()).toEqual(1);
+             expect(renderSystemMessageMock.render.calls.count()).toEqual(1);
 
-                expect(messages.options.chatBodyDom.trigger.calls.count()).toEqual(3);
-                expect(messages.options.chatBodyDom.trigger.calls.argsFor(0)).toEqual(['showTitle', [response.results.messages.length]]);
-                expect(messages.options.chatBodyDom.trigger.calls.argsFor(1)).toEqual(['deleteMessage', [response.results.messages]]);
-                expect(messages.options.chatBodyDom.trigger.calls.argsFor(2)).toEqual(['setChatStatus', [response.results.status]]);
+             expect(storageMock.addData.calls.count()).toEqual(2);
+
+             expect(messages.options.chatBodyDom.trigger.calls.count()).toEqual(3);
+             expect(messages.options.chatBodyDom.trigger.calls.argsFor(0)).toEqual(['showTitle', [response.results.messages.length]]);
+             expect(messages.options.chatBodyDom.trigger.calls.argsFor(1)).toEqual(['deleteMessage', [response.results.messages]]);
+             expect(messages.options.chatBodyDom.trigger.calls.argsFor(2)).toEqual(['setChatStatus', [response.results.status]]);
+
+             expect(messages.options.chatBodyDom.append.calls.count()).toEqual(2);
+             expect(messages.options.chatBodyDom.append.calls.argsFor(0)).toEqual([chatMessage]);
+             expect(messages.options.chatBodyDom.append.calls.argsFor(1)).toEqual([chatMessage]);
+             expect(messages.options.chatBodyDom.scrollTop.calls.count()).toEqual(2);
+             expect(messages.options.chatBodyDom.scrollTop.calls.argsFor(0)).toEqual([messages.options.chatBodyDom[0].scrollHeight]);
+             expect(messages.options.chatBodyDom.scrollTop.calls.argsFor(1)).toEqual([messages.options.chatBodyDom[0].scrollHeight]);
          });
 
         it('should show closed chat messages', function () {
-                 var eventMock = {},
+            var eventMock = {},
                 request = {
                     data: {
                         messages: []
@@ -379,26 +405,26 @@ define([
                     }
                 };
 
-                // render message mock
-                spyOn(renderMessageMock, 'render').and.returnValue($j(chatMessageFixture));
+            // render message mock
+            spyOn(renderMessageMock, 'render').and.returnValue($j(chatMessageFixture));
 
-                // render system message mock
-                spyOn(renderSystemMessageMock, 'render').and.returnValue($j(chatMessageFixture));
+            // render system message mock
+            spyOn(renderSystemMessageMock, 'render').and.returnValue($j(chatMessageFixture));
 
-                // storage mock
-                spyOn(storageMock, 'addData');
+            // storage mock
+            spyOn(storageMock, 'addData');
 
-                 // message text
-                spyOn(messages.options.chatBodyDom, 'trigger');
+             // message text
+            spyOn(messages.options.chatBodyDom, 'trigger');
 
-                messages.showReceivedMessage(eventMock, request, response);
-                expect(renderMessageMock.render.calls.count()).toEqual(1);
-                expect(renderSystemMessageMock.render.calls.count()).toEqual(1);
+            messages.showReceivedMessage(eventMock, request, response);
+            expect(renderMessageMock.render.calls.count()).toEqual(1);
+            expect(renderSystemMessageMock.render.calls.count()).toEqual(1);
 
-                expect(storageMock.addData.calls.count()).toEqual(2);
+            expect(storageMock.addData.calls.count()).toEqual(2);
 
-                expect(messages.options.chatBodyDom.trigger.calls.count()).toEqual(1);
-                expect(messages.options.chatBodyDom.trigger.calls.argsFor(0)).toEqual(['setChatStatus', [response.results.status]]);
+            expect(messages.options.chatBodyDom.trigger.calls.count()).toEqual(1);
+            expect(messages.options.chatBodyDom.trigger.calls.argsFor(0)).toEqual(['setChatStatus', [response.results.status]]);
         });
 
         it('should throw error', function () {
@@ -436,6 +462,123 @@ define([
             expect(renderSystemMessageMock.render.calls.count()).toEqual(0);
 
             expect(storageMock.addData.calls.count()).toEqual(0);
+        });
+    });
+
+    describe('Event->Messages->showDeletedMessage', function () {
+        
+        it('should show deleted messages', function () {
+            var eventMock = {},
+                request = {
+                    data: {
+                         messages: [{
+                            _id: "5845301c55e4307073b4028d",
+                            msg: 'Hello SFChat!',
+                            system: false
+                        }, {
+                            _id: "5845301c55e4307073b40288",
+                            msg: 'Hello SFChat!',
+                            system: true
+                        }]
+                    }
+                },
+                response = {
+                    results: {
+                        code: 200
+                    }
+                };
+
+            // message text
+            spyOn(messages.options.chatBodyDom, 'trigger');
+
+            messages.showDeletedMessage(eventMock, request, response);
+            expect(messages.options.chatBodyDom.trigger.calls.count()).toEqual(1);
+            expect(messages.options.chatBodyDom.trigger.calls.argsFor(0)).toEqual(['getMessage']);
+
+            $j.each(request.data.messages, function(key, item) {
+                expect(messages._deletedMessages).toContain(item._id);
+            });
+        });
+
+        it('should throw error', function () {
+            var eventMock = {},
+                request = {
+                    data: {
+                        messages: []
+                    }
+                },
+                response = {
+                    results: {
+                        messages: [],
+                        code: 500
+                    }
+                };
+
+            // message text
+            spyOn(messages.options.chatBodyDom, 'trigger');
+
+            expect(function() {
+                messages.showDeletedMessage(eventMock, request, response);
+            }).toThrowError();
+            expect(messages.options.chatBodyDom.trigger.calls.count()).toEqual(0);
+        });
+    });
+
+    describe('Event->Messages->showDeletedMessage', function () {
+
+        it('should show history messages', function () {
+            var chatMessage = $j(chatMessageFixture);
+
+            // message text
+            spyOn(messages.options.chatBodyDom, 'append');
+            spyOn(messages.options.chatBodyDom, 'text').and.returnValue('');
+            spyOn(messages.options.chatBodyDom, 'scrollTop');
+
+            // storage mock
+            spyOn(storageMock, 'getData').and.returnValue(chatMessage);
+
+            messages.showHistoryMessage();
+            expect(messages.options.chatBodyDom.text.calls.count()).toEqual(1);
+            expect(messages.options.chatBodyDom.append.calls.count()).toEqual(1);
+            expect(messages.options.chatBodyDom.append.calls.argsFor(0)).toEqual([chatMessage]);
+            expect(messages.options.chatBodyDom.scrollTop.calls.count()).toEqual(1);
+            expect(messages.options.chatBodyDom.scrollTop.calls.argsFor(0)).toEqual([messages.options.chatBodyDom[0].scrollHeight]);
+
+            expect(storageMock.getData.calls.count()).toEqual(1);
+        });
+
+        it('should skip empty history messages', function () {
+            // message text
+            spyOn(messages.options.chatBodyDom, 'append');
+            spyOn(messages.options.chatBodyDom, 'scrollTop');
+            spyOn(messages.options.chatBodyDom, 'text').and.returnValue('');
+
+            // storage mock
+            spyOn(storageMock, 'getData').and.returnValue(null);
+
+            messages.showHistoryMessage();
+            expect(messages.options.chatBodyDom.append.calls.count()).toEqual(0);
+            expect(messages.options.chatBodyDom.scrollTop.calls.count()).toEqual(0);
+
+            expect(storageMock.getData.calls.count()).toEqual(1);
+        });
+
+        it('should skip duplication history messages', function () {
+            var chatMessage = $j(chatMessageFixture);
+
+            // message text
+            spyOn(messages.options.chatBodyDom, 'append');
+            spyOn(messages.options.chatBodyDom, 'scrollTop');
+            spyOn(messages.options.chatBodyDom, 'text').and.returnValue('test');
+
+            // storage mock
+            spyOn(storageMock, 'getData').and.returnValue(chatMessage);
+
+            messages.showHistoryMessage();
+            expect(messages.options.chatBodyDom.append.calls.count()).toEqual(0);
+            expect(messages.options.chatBodyDom.scrollTop.calls.count()).toEqual(0);
+
+            expect(storageMock.getData.calls.count()).toEqual(1);
         });
     });
 });

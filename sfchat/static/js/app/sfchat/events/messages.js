@@ -365,7 +365,7 @@ define(['jquery',
         _saveDeleteMessage: function(request) {
             var _this = this;
 
-            $.each(request.data.messages, function(key, item){
+            $.each(request.data.messages, function(key, item) {
                 if ($.inArray(item._id, _this._deletedMessages) === -1) {
                     _this._deletedMessages.push(item._id);
                 }
