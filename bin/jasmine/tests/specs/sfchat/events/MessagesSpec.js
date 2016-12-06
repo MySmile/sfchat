@@ -283,4 +283,159 @@ define([
             expect(storageMock.addData.calls.count()).toEqual(0);
         });
     });
+
+    describe('Event->Messages->showReceivedMessage', function () {
+        it('should start long-polling', function () {
+            var eventMock = {},
+                request = {
+                    data: {
+                        messages: []
+                    }
+                },
+                response = {
+                    results: {
+                        code: 200,
+                        messages: [],
+                        status: 'ready'
+                    }
+                };
+
+            // message text
+            spyOn(messages.options.chatBodyDom, 'trigger');
+
+            messages.showReceivedMessage(eventMock, request, response);
+            expect(messages.options.chatBodyDom.trigger.calls.count()).toEqual(1);
+            expect(messages.options.chatBodyDom.trigger.calls.argsFor(0)).toEqual(['getMessage']);
+
+        });
+
+         it('should show messages', function () {
+                 var eventMock = {},
+                request = {
+                    data: {
+                        messages: []
+                    }
+                },
+                response = {
+                    results: {
+                        code: 200,
+                        messages: [{
+                            _id: "5845301c55e4307073b4028d",
+                            msg: 'Hello SFChat!',
+                            system: false
+                        }, {
+                            _id: "5845301c55e4307073b40288",
+                            msg: 'Hello SFChat!',
+                            system: true
+                        }],
+                        status: 'ready'
+                    }
+                };
+
+                // render message mock
+                spyOn(renderMessageMock, 'render').and.returnValue($j(chatMessageFixture));
+
+                // render system message mock
+                spyOn(renderSystemMessageMock, 'render').and.returnValue($j(chatMessageFixture));
+
+                // storage mock
+                spyOn(storageMock, 'addData');
+
+                 // message text
+                spyOn(messages.options.chatBodyDom, 'trigger');
+
+                messages.showReceivedMessage(eventMock, request, response);
+                expect(renderMessageMock.render.calls.count()).toEqual(1);
+                expect(renderSystemMessageMock.render.calls.count()).toEqual(1);
+
+                expect(storageMock.addData.calls.count()).toEqual(2);
+
+                expect(messages.options.chatBodyDom.trigger.calls.count()).toEqual(3);
+                expect(messages.options.chatBodyDom.trigger.calls.argsFor(0)).toEqual(['showTitle', [response.results.messages.length]]);
+                expect(messages.options.chatBodyDom.trigger.calls.argsFor(1)).toEqual(['deleteMessage', [response.results.messages]]);
+                expect(messages.options.chatBodyDom.trigger.calls.argsFor(2)).toEqual(['setChatStatus', [response.results.status]]);
+         });
+
+        it('should show closed chat messages', function () {
+                 var eventMock = {},
+                request = {
+                    data: {
+                        messages: []
+                    }
+                },
+                response = {
+                    results: {
+                        code: 200,
+                        messages: [{
+                            _id: "5845301c55e4307073b4028d",
+                            msg: 'Hello SFChat!',
+                            system: false
+                        }, {
+                            _id: "5845301c55e4307073b40288",
+                            msg: 'Hello SFChat!',
+                            system: true
+                        }],
+                        status: 'closed'
+                    }
+                };
+
+                // render message mock
+                spyOn(renderMessageMock, 'render').and.returnValue($j(chatMessageFixture));
+
+                // render system message mock
+                spyOn(renderSystemMessageMock, 'render').and.returnValue($j(chatMessageFixture));
+
+                // storage mock
+                spyOn(storageMock, 'addData');
+
+                 // message text
+                spyOn(messages.options.chatBodyDom, 'trigger');
+
+                messages.showReceivedMessage(eventMock, request, response);
+                expect(renderMessageMock.render.calls.count()).toEqual(1);
+                expect(renderSystemMessageMock.render.calls.count()).toEqual(1);
+
+                expect(storageMock.addData.calls.count()).toEqual(2);
+
+                expect(messages.options.chatBodyDom.trigger.calls.count()).toEqual(1);
+                expect(messages.options.chatBodyDom.trigger.calls.argsFor(0)).toEqual(['setChatStatus', [response.results.status]]);
+        });
+
+        it('should throw error', function () {
+            var eventMock = {},
+                request = {
+                    data: {
+                        messages: []
+                    }
+                },
+                response = {
+                    results: {
+                        messages: [],
+                        code: 500
+                    }
+                };
+
+            // message text
+            spyOn(messages.options.chatBodyDom, 'trigger');
+
+            // render message mock
+            spyOn(renderMessageMock, 'render');
+
+            // render system message mock
+            spyOn(renderSystemMessageMock, 'render');
+
+            // storage mock
+            spyOn(storageMock, 'addData');
+
+            expect(function() {
+                messages.showReceivedMessage(eventMock, request, response);
+            }).toThrowError();
+            expect(messages.options.chatBodyDom.trigger.calls.count()).toEqual(0);
+
+            expect(renderMessageMock.render.calls.count()).toEqual(0);
+            expect(renderSystemMessageMock.render.calls.count()).toEqual(0);
+
+            expect(storageMock.addData.calls.count()).toEqual(0);
+        });
+    });
 });
