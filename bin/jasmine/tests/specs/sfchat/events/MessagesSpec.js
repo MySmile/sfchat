@@ -30,7 +30,7 @@ define([
             addData: function(key, data) {
 
             },
-            setData:     function(key, data) {
+            setData: function(key, data) {
 
             },
             getData: function(key) {
