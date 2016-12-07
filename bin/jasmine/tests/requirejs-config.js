@@ -13,17 +13,22 @@ requirejs.config({
         '*': {
             api: 'sfchat/static/js/app/sfchat/api/v1',
             events: 'sfchat/static/js/app/sfchat/events',
+            sfchat: 'sfchat/static/js/app/sfchat',
             fixtures: 'bin/jasmine/tests/fixtures'
         }
     },
     shim: {
         'jquery': {
             exports: 'jQuery'
+        },
+        'ga': {
+            exports: 'ga'
         }
     },
     paths: {
         'jquery': 'sfchat/static/bower_components/jquery/dist/jquery.min',
-        'text': 'bin/jasmine/node_modules/requirejs-text/text'
+        'text': 'bin/jasmine/node_modules/requirejs-text/text',
+        'ga': 'bin/jasmine/tests/fixtures/ga'
     },
     deps: tests,
     callback: window.__karma__.start
