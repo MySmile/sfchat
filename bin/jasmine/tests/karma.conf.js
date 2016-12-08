@@ -6,6 +6,7 @@ module.exports = function (config) {
         files : [
             {pattern: 'sfchat/static/bower_components/jquery/dist/jquery.min.js', included: false},
             {pattern: 'sfchat/static/js/app/sfchat/**/*.js', included: false},
+            {pattern: 'bin/jasmine/node_modules/jasmine-ajax/lib/mock-ajax.js', included: false},
             {pattern: 'bin/jasmine/tests/specs/**/*Spec.js', included: false},
             {pattern: 'bin/jasmine/tests/fixtures/**/*.html', included: false},
             {pattern: 'bin/jasmine/tests/fixtures/**/*.js', included: false},

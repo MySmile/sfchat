@@ -14,7 +14,8 @@ requirejs.config({
             api: 'sfchat/static/js/app/sfchat/api/v1',
             events: 'sfchat/static/js/app/sfchat/events',
             sfchat: 'sfchat/static/js/app/sfchat',
-            fixtures: 'bin/jasmine/tests/fixtures'
+            fixtures: 'bin/jasmine/tests/fixtures',
+            'jasmine-ajax': 'bin/jasmine/node_modules/jasmine-ajax/lib/mock-ajax'
         }
     },
     shim: {
