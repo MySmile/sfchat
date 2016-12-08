@@ -1,7 +1,7 @@
 /**
  * sfchat/api/v1/resources/message.js: SFChat Api Message Resource
  */
-define(['jquery'], function($) {
+define(function() {
 
     "use strict";
 
