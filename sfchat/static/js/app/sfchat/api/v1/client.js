@@ -60,16 +60,17 @@ define(['jquery', 'api/auth'], function($, auth) {
      * @throws {TypeError}
      */
     client.prototype.sendRequest = function(type, resource, data, eventOptions) {
-        var _this       = this,
-            currentUser = _this._getAuth().authenticate(),
+        var _this = this,
+            currentUser,
             jqxhr,
             url;
 
             if (typeof(eventOptions.manager) !== 'object' || typeof(eventOptions.event) !== 'string') {
                 throw new TypeError('EventOptions is not valid.');
             }
-            url     = _this._getUrl(resource);
-            jqxhr   = $.ajax({
+            currentUser = _this._getAuth().authenticate();
+            url         = _this._getUrl(resource);
+            jqxhr       = $.ajax({
                 type:           type,
                 url:            url,
                 processData:    false,
