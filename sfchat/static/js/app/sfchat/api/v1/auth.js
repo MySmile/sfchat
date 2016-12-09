@@ -1,7 +1,7 @@
 /**
  * sfchat/api/v1/auth.js: SFChat Authentication module
  */
-define(['jquery', 'api/storage'], function($, storage) {
+define(['api/storage'], function(storage) {
 
     "use strict";
 
