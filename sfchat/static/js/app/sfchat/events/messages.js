@@ -93,6 +93,7 @@ define(['jquery',
          * Init
          *
          * @param {Object} options
+         * @codeCoverageIgnore
          */
         init: function(options) {
             var _this = eventMessage;

@@ -46,6 +46,7 @@ define(['jquery','api/storage', 'api/resources/chat'], function($, storage, reso
          * Init
          *
          * @param {Object} options
+         * @codeCoverageIgnore
          */
         init: function(options) {
             var _this = eventChat;
