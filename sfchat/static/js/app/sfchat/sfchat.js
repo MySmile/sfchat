@@ -27,7 +27,7 @@ define(['jquery'], function($) {
          * @throws {TypeError}
          */
         getOnloadOptions: function(target, options) {
-            var optionsDom   = $(target),
+            var optionsDom  = $(target),
                 result      = {},
                 itemKey,
                 itemDom;
