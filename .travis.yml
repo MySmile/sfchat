@@ -1,9 +1,9 @@
 language: python
 python:
   - "3.5"
-  # does not have headers provided, please ask https://launchpad.net/~pypy/+archive/ppa
-  # maintainers to fix their pypy-dev package.
-  #- "pypy"
+
+cache: pip
+
 # command to install dependencies
 install:
   - pip install -r config/requirements/local.txt
@@ -24,4 +24,3 @@ script:
   - coverage run --source=apps manage.py test --pattern="test_*.py"
 after_success:
   coveralls
-

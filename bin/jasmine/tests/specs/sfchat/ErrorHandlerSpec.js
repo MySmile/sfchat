@@ -1,11 +1,9 @@
 define([
     'sfchat/sfchat',
-    'events/gatracking',
     'sfchat/errorHandler',
     'text!fixtures/chat.active.html'
 ], function (
     sfChat,
-    eventGaTracking,
     errorHandler,
     chatActiveFixture
 ) {
@@ -36,40 +34,12 @@ define([
                 line = 12,
                 actual;
 
-            // turn off debug mode
-            sfChat.debugmode = 'False';
-
-            // event ga tracking mock
-            spyOn(eventGaTracking, 'eventError');
-
             // error handler mock
             spyOn(errorHandler, 'showError');
 
             actual = errorHandler.onError(msg, url, line);
             expect(actual).toBeTruthy();
             expect(errorHandler.showError.calls.count()).toEqual(1);
-            expect(eventGaTracking.eventError.calls.count()).toEqual(1);
-        });
-
-        it('should skip erro handling', function () {
-            var msg = 'Erro message',
-                url = 'https://sfchat.dev',
-                line = 12,
-                actual;
-
-            // turn off debug mode
-            sfChat.debugmode = 'True';
-
-            // event ga tracking mock
-            spyOn(eventGaTracking, 'eventError');
-
-            // error handler mock
-            spyOn(errorHandler, 'showError');
-
-            actual = errorHandler.onError(msg, url, line);
-            expect(actual).toBeFalsy();
-            expect(errorHandler.showError.calls.count()).toEqual(1);
-            expect(eventGaTracking.eventError.calls.count()).toEqual(0);
         });
     });
 

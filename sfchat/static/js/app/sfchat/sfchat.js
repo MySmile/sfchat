@@ -12,13 +12,6 @@ define(['jquery'], function($) {
      */
     var sfChat = {
         /**
-         * Debug mode
-         *
-         * @property {String} False or True
-         */
-        debugmode: 'False',
-
-        /**
          * Gets onload options
          *
          * @param {String}  target

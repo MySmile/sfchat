@@ -7,6 +7,13 @@
 {% endblock %}
 {% block title %} - Secure Free Chat{% endblock %}
 
+{% block js %}
+    <script src='{% static 'bower_components/requirejs/require.js' %}'></script>
+    <script nonce="2726c7f26c">
+        require(['requirejs-config'], function (config) { require(['base']); });
+    </script>
+{% endblock %}
+
 {% block main %}
     <div id="chat-entry">
         <form method="POST" action="/create-chat/">{% csrf_token %}

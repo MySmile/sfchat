@@ -1,5 +1,5 @@
 /**
- * base.js: Base module
+ * flatpage.js: Flatpage module
  */
 define([
     'jquery',
@@ -17,9 +17,7 @@ define([
             'errorHandler.targetError',
             'errorHandler.hideClass',
             'errorHandler.targetHeader',
-            'errorHandler.errorHeaderClass',
-            'buttonTarget.createChat',
-            'buttonTarget.joinChat'
+            'errorHandler.errorHeaderClass'
         ]);
 
         // error handler configuration
@@ -28,11 +26,5 @@ define([
         
         // ga
         eventGaTracking.init(baseOptions['googleAnalytics']);
-        eventGaTracking.eventBtnClick(
-            baseOptions['buttonTarget']['createChat'], 'create new chat'
-        );
-        eventGaTracking.eventBtnClick(
-            baseOptions['buttonTarget']['joinChat'], 'join to chat'
-        );
     });
 });

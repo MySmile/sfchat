@@ -1,7 +1,7 @@
 /**
  * sfchat/errorHandler.js: SFChat Global Error Handler
  */
-define(['jquery', 'sfchat/sfchat', 'events/gatracking'], function($, sfChat, eventGaTracking) {
+define(['jquery'], function($) {
 
     "use strict";
 
@@ -78,18 +78,9 @@ define(['jquery', 'sfchat/sfchat', 'events/gatracking'], function($, sfChat, eve
          * @param {Number} line
          */
         onError: function (msg, url, line) {
-            var _this = errorHandler,
-                error;
+            var _this = errorHandler;
 
             _this.showError(msg);
-            // skip if debug turned on
-            if (sfChat.debugmode === 'True') {
-                // run default handler
-                return false;
-            }
-
-            error = JSON.stringify({msg: msg, url: url, line: line});
-            eventGaTracking.eventError(error);
 
             return true;
         },

@@ -12,7 +12,6 @@ define([
 
     $(document).ready(function () {
         var chatOptions = sfchat.getOnloadOptions('.onload-js-options', [
-            'googleAnalytics.debugMode',
             'chatBootstrap.endPoint',
             'chatBootstrap.userToken',
             'chatBootstrap.chatStatus',
@@ -21,9 +20,6 @@ define([
             'errorHandler.targetHeader',
             'errorHandler.errorHeaderClass'
         ]);
-
-        // debug mode
-        sfchat.debugmode = chatOptions['googleAnalytics']['debugMode'];
 
         // error handler configuration
         errorHandler.init(chatOptions['errorHandler']);

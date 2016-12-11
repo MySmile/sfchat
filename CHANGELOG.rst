@@ -8,17 +8,18 @@
 ==================
 * Modified Long Pulling to support Tornado
 * Developed advertisement module
-* Integrated Karma and Jasmine
-* Created JS unitTests
 * Installed Grunt
-* Increased unitTesting coverage up to 80%
+* Increased unit tests coverage up to 80%
 * Added new design for 404 and 500 page
 
 2016-12-xx v0.13.0
 ==================
-* Added Docker
-* Upgraded js dependencies
+* Disabled sending javaScript's errors to Google Analytics
+* Added Docker for development environment
+* Upgraded front-end dependencies
 * Changed way to start requirejs modules
+* Created font-end unit tests (Karma + Jasmine)
+* Added Docker to run front-end tests
 * Fixed: csp report header validation
 
 2015-06-29 v0.12.0
