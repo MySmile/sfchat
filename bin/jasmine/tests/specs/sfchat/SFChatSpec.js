@@ -14,29 +14,6 @@ define([
     });
 
     describe('SFChat->getOnloadOptions', function () {
-        it('should init options', function () {
-            var target = '.onload-js-options',
-                options = [
-                    'googleAnalytics.debugMode',
-                    'chatBootstrap.endPoint',
-                    'chatBootstrap.userToken',
-                    'chatBootstrap.chatStatus',
-                    'errorHandler.targetError',
-                    'errorHandler.hideClass',
-                    'errorHandler.targetHeader',
-                    'errorHandler.errorHeaderClass'
-                ],
-                actual;
-
-            // dom
-            spyOn($j(target), 'length').and.returnValue(1);
-
-            actual = sfChat.getOnloadOptions(target, options);
-            expect(actual.googleAnalytics).toBeDefined();
-            expect(actual.chatBootstrap).toBeDefined();
-            expect(actual.errorHandler).toBeDefined();
-        });
-
         it('should throw error on invalid target', function () {
             var target = '.invalid-target',
                 options = [];
@@ -51,7 +28,7 @@ define([
                 options = [
                     'googleAnalyticsInvalid.debugMode'
                 ];
-            
+
             // dom
             spyOn($j(target), 'length').and.returnValue(1);
 
