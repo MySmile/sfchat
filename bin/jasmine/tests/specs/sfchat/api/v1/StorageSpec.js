@@ -5,6 +5,11 @@ define([
 ) {
     'use strict';
 
+    beforeEach(function() {
+        // clear from previously set data
+        storage.removeAllData();
+    });
+
     describe('Api->V1->Storage->removeData', function () {
         it('should remove data', function () {
             var key = 'chat';
