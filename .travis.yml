@@ -1,3 +1,4 @@
+sudo: required
 language: python
 python:
   - "3.5"
@@ -10,7 +11,12 @@ services:
 
 cache: pip
 
-# command to install dependencies
+apt:
+  sources:
+    - google-chrome
+  packages:
+    - google-chrome-stable
+
 install:
   - pip install -r config/requirements/local.txt
   - pip install coveralls
