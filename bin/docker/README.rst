@@ -18,7 +18,7 @@ Required pre-installed applications:
 
 Installation
 ============
-#. Run in application root ``sudo docker-compose -f bin/docker/docker-compose.yml up``
+#. Run in application root ``sudo docker-compose -f bin/docker/docker-compose.yml up`` or ``sudo make docker-up``
 #. Check containers ``sudo docker-compose -f bin/docker/docker-compose.yml ps``
 #. Update your ``hosts`` with ``0.0.0.0 sfchat.dev``
 #. Check how it's working ``https://sfchat.dev:8443``

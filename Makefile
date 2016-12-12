@@ -75,3 +75,15 @@ syncdb:
 # build-js - build jscript
 build-js:
 	cd sfchat/static&&node ./bower_components/rjs/dist/r.js -o ./js/build.js
+
+# docker-up - up application docker-compose
+docker-up:
+	docker-compose -f bin/docker/docker-compose.yml up
+
+# docker-test-up - up test docker-compose
+docker-test-up:
+	docker-compose -f bin/jasmine/docker/docker-compose.yml up
+
+# docker-test-ssh - exec ssh on test docker-compose
+docker-test-ssh:
+	docker-compose -f bin/jasmine/docker/docker-compose.yml exec sfchat-chromium bash

@@ -28,12 +28,12 @@ Required pre-installed applications:
 
 Installation
 ============
-#. Run in application root ``sudo docker-compose -f bin/jasmine/docker/docker-compose.yml up``
+#. Run ``sudo docker-compose -f bin/jasmine/docker/docker-compose.yml up`` or ``sudo make docker-test-up``
 #. Check containers ``sudo docker-compose -f bin/jasmine/docker/docker-compose.yml ps``
 
 Run tests
 ==========
-#. Open container ``sudo docker-compose -f bin/jasmine/docker/docker-compose.yml exec sfchat-chromium bash``
+#. Open container ``sudo docker-compose -f bin/jasmine/docker/docker-compose.yml exec sfchat-chromium bash`` or ``sudo make docker-test-ssh``
 #. Run tests ``npm test``
 
 References
