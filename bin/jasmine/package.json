@@ -16,6 +16,7 @@
     "scripts": {
         "pretest": "npm install",
         "test": "if [ $SFCHAT_RUN_ENV ] && [ $SFCHAT_RUN_ENV = 'docker' ]; then service dbus start; fi && karma start ./tests/karma.conf.js",
+        "test-single-run": "karma start ./tests/karma.conf.js  --single-run",
         "preupdate-webdriver": "npm install",
         "update-webdriver": "webdriver-manager update"
     }

@@ -1,5 +1,5 @@
 module.exports = function (config) {
-    config.set({
+    var configuration = {
 
         basePath : '../../..',
 
@@ -33,5 +33,11 @@ module.exports = function (config) {
             outputFile: 'test_out/unit.xml',
             suite: 'unit'
         }
-    });
+    };
+
+    if (process.env.TRAVIS) {
+        configuration.browsers = ['Chrome_travis_ci'];
+    }
+
+    config.set(configuration);
 };
