@@ -43,7 +43,7 @@ DATABASES = {
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'sfchat.dev']
 
 # Google Analytics
-GOOGLE_ANALYTICS_TRACKING_ID = 'UA-57194449-2'
+GOOGLE_ANALYTICS_TRACKING_ID = 'UA-57194449-4'
 GOOGLE_ANALYTICS_DEBUG_MODE = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'sfchat/media/')

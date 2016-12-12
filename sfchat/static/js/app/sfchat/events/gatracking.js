@@ -1,7 +1,7 @@
 /**
  * sfchat/events/gatracking.js: SFChat Google Analytics
  */
-define(['jquery'], function($) {
+define(['jquery', 'ga'], function($, ga) {
     "use strict";
 
     /**
