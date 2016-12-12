@@ -110,23 +110,31 @@ For more information please visit `Docker Compose Command-line Reference <https:
 
 Developing workflow
 ===================
-If new requirements appears that something should be add to container:
 
-#. find the official container
-#. add them to compose
-#. run it
-
-The example is an ``sfchat-mongo``.
-
-What if a new module related to existing one then:
+Update container
+----------------
+To modify containers please follow:
 
 #. modify related Dockerfile
 #. stop container
 #. run build
-#. run container or up whole compose in case dependency
+#. run container or up whole compose in case of dependency
 
-The main point here it's not need to rebuild all container or even invalidate cache (for some case it's vital) it's just ``modify-stop-build-run``
-chain.
+The main point here it's not need to rebuild all container or invalidate cache (for some case it's necessary using ``--no-cache`` key).
+
+Upgrade requirements
+--------------------
+After any requirements changing like Dajngo version etc. please follow steps bellow:
+
+#. stop ``sfchat-web``, if it's running: ``sudo docker-compose -f ./bin/docker/docker-compose.yml stop sfchat-web``
+#. rebuild ``sfchat-web``: ``sudo docker-compose -f ./bin/docker/docker-compose.yml build sfchat-web``
+#. start container: ``sudo docker-compose -f ./bin/docker/docker-compose.yml start sfchat-web``
+
+In case if application is not working and error ``502 Bad Gateway`` please follow steps:
+
+#. open shell in ``sfchat-web``: ``sudo docker-compose -f ./bin/docker/docker-compose.yml exec sfchat-web bash``
+#. execute: ``python /sfchat/manage.py runserver 0.0.0.0:8000``
+#. analyze error or refresh application page in browser and analyze error in console
 
 Configuration IDE (PyCharm)
 ===========================

@@ -1,7 +1,7 @@
-django==1.8.15
-pymongo==3.3.1
+django==1.10.4
+pymongo==3.4.0
 mongoengine==0.10.6
-djangorestframework==3.5.1
+djangorestframework==3.5.3
 django_compressor==2.1
 django-debug-toolbar==1.6
-pytz==2016.7
+pytz==2016.10

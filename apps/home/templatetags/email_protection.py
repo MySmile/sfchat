@@ -1,4 +1,5 @@
 from django import template
+from django.utils.html import format_html
 
 register = template.Library()
 
@@ -20,4 +21,4 @@ def email_protection(email, hide_class):
     result = ''
     for item in email:
         result += item + pattern
-    return result.replace('.', dot)
+    return format_html(result.replace('.', dot))

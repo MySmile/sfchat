@@ -40,7 +40,7 @@ DATABASES = {
     }
 }
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'sfchat.dev']
 
 # Google Analytics
 GOOGLE_ANALYTICS_TRACKING_ID = 'UA-57194449-2'

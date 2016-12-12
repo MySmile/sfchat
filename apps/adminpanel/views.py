@@ -31,8 +31,7 @@ class ManagerChatsView(View):
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             chats = paginator.page(paginator.num_pages)
-        c = {'chats': chats}
-        c['messages'] = get_messages(request)
+        c = {'chats': chats, 'messages': get_messages(request)}
         c.update(csrf(request))
         return render_to_response('managechats.html', c)
 

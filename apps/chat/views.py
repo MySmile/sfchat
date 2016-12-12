@@ -19,5 +19,5 @@ def chat(request, chat_token):
         return redirect('/')
 
     chat_page = ChatPage(request)
-    c = {'user_token': chat_page.get_user_token(), 'chat_status': chat.status, 'form': ChatTypeForm()}
-    return render_to_response('chat.html', c, context_instance=RequestContext(request))
+    c = {'user_token': chat_page.get_user_token(), 'chat_status': chat.status, 'form': ChatTypeForm(), 'host': request.get_host()}
+    return render_to_response('chat.html', c)

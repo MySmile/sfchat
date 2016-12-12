@@ -9,7 +9,7 @@
 
 
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 from apps.api.v1.views import MessagesView, ChatView
 
