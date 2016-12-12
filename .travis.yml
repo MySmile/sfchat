@@ -29,6 +29,6 @@ services:
 # command to run tests
 script:
   - coverage run --source=apps manage.py test --pattern="test_*.py"
-  - cd bin/jasmine && npm test-single-run
+  - cd bin/jasmine && npm install && karma start ./tests/karma.conf.js --single-run
 after_success:
   coveralls
