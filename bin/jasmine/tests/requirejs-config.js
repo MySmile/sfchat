@@ -7,7 +7,7 @@ for (var file in window.__karma__.files) {
     }
 }
 requirejs.config({
-    baseUrl: 'base/',
+    baseUrl: '/base/',
 
     map: {
         '*': {
