@@ -34,7 +34,6 @@ Installation
 Run tests
 ==========
 #. Open container ``sudo docker-compose -f bin/jasmine/docker/docker-compose.yml exec sfchat-chromium bash``
-#. Run dbus service ``service dbus start``
 #. Run tests ``npm test``
 
 References

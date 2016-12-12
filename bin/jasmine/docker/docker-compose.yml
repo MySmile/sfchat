@@ -8,5 +8,6 @@ services:
     tty: true
     environment:
       - CHROME_BIN=xvfb-chromium
+      - SFCHAT_RUN_ENV=docker
     volumes:
       - ../../../:/sfchat
