@@ -10,7 +10,7 @@
 {% block js %}
     <script src='{% static 'bower_components/requirejs/require.js' %}'></script>
     <script nonce="2726c7f26c">
-        require(['requirejs-config'], function (config) { require(['base']); });
+        require(["{% static 'js/app/requirejs-config.js' %}"], function (config) { require(['base']); });
     </script>
 {% endblock %}
 

@@ -32,7 +32,7 @@ class LongPolling:
         """
         sleep = settings.SFCHAT_API['long_polling']['sleep']
         iteration = settings.SFCHAT_API['long_polling']['iteration']
-        auto_close = 2 * sleep * iteration
+        auto_close = 1.2 * sleep * iteration
         chat_token = str(chat.id)
 
         # init long polling process and terminate all old ones

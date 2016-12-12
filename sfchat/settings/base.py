@@ -204,9 +204,11 @@ SFCHAT_API = {
         'user_token_header': 'HTTP_X_SFC_USERTOKEN',
         'chat_token_header': 'HTTP_X_SFC_CHATTOKEN'
     },
+# auto-close = 1.2 * sleep * iteration
+# auto-close should correleate with server timeout
     'long_polling': {
         'sleep': 3,
-        'iteration': 60
+        'iteration': 20
     },
 }
 
