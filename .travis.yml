@@ -9,7 +9,10 @@ node_js:
 services:
   - mongodb
 
-cache: pip
+cache:
+  pip: true
+  directories:
+    - bin/jasmine/node_modules
 
 apt:
   sources:
@@ -20,6 +23,7 @@ apt:
 install:
   - pip install -r config/requirements/local.txt
   - pip install coveralls
+  - npm install -g codecov
 
 before_script:
   - export CHROME_BIN=chromium-browser
