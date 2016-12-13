@@ -1,30 +1,44 @@
 ******
 SFChat
 ******
-Master
+**Master**
+
   .. image:: https://travis-ci.org/MySmile/sfchat.svg?branch=master
     :target: https://travis-ci.org/MySmile/sfchat?branch=master
-  .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=master
-    :target: https://coveralls.io/r/MySmile/sfchat?branch=master
-  .. image:: https://codecov.io/gh/MySmile/sfchat/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/MySmile/sfchat
   .. image:: https://readthedocs.org/projects/sfchat/badge/?version=stable
     :target: https://readthedocs.org/projects/sfchat/?badge=stable
     :alt: Documentation Status
   .. image:: https://badge.fury.io/py/sfchat.svg
     :target: http://badge.fury.io/py/sfchat
 
-Dev
+*Back-end*
+
+  .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=master
+    :target: https://coveralls.io/r/MySmile/sfchat?branch=master
+
+*Front-end*
+
+  .. image:: https://codecov.io/gh/MySmile/sfchat/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/MySmile/sfchat
+
+**Dev**
+
   .. image:: https://travis-ci.org/MySmile/sfchat.svg?branch=dev
     :target: https://travis-ci.org/MySmile/sfchat?branch=dev
-  .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=dev
-    :target: https://coveralls.io/r/MySmile/sfchat?branch=dev
-  .. image:: https://codecov.io/gh/MySmile/sfchat/branch/dev/graph/badge.svg
-    :target: https://codecov.io/gh/MySmile/sfchat
   .. image:: https://readthedocs.org/projects/sfchat/badge/?version=dev
     :target: https://readthedocs.org/projects/sfchat/?badge=dev
     :alt: Documentation Status
     :align: left
+
+*Back-end*
+
+  .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=dev
+    :target: https://coveralls.io/r/MySmile/sfchat?branch=dev
+
+*Front-end*
+
+  .. image:: https://codecov.io/gh/MySmile/sfchat/branch/dev/graph/badge.svg
+    :target: https://codecov.io/gh/MySmile/sfchat
 
 `Secure Free Chat (SFChat) <https://sfchat.mysmile.com.ua/>`_ - is Django and Mongodb based RESTfull chat.
 
