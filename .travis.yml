@@ -10,6 +10,7 @@ services:
   - mongodb
 
 cache:
+  apt: true
   pip: true
   directories:
     - bin/jasmine/node_modules
