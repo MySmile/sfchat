@@ -1,7 +1,3 @@
-******
-SFChat
-******
-
 +------------+-----------------------------------------+------------------------+------------------------+
 | Branch     | General                                 | Back-end               | Front-end              |
 +============+=========================================+========================+========================+
@@ -21,7 +17,6 @@ SFChat
     :alt: Documentation Status
   .. |master_pi| image:: https://badge.fury.io/py/sfchat.svg
     :target: http://badge.fury.io/py/sfchat
-
   .. |dev_build| image:: https://travis-ci.org/MySmile/sfchat.svg?branch=dev
     :target: https://travis-ci.org/MySmile/sfchat?branch=dev
   .. |dev_back_end_cov| image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=dev
@@ -31,7 +26,10 @@ SFChat
   .. |dev_doc| image:: https://readthedocs.org/projects/sfchat/badge/?version=dev
     :target: https://readthedocs.org/projects/sfchat/?badge=dev
     :alt: Documentation Status
-    :align: left
+
+******
+SFChat
+******
 
 `Secure Free Chat (SFChat) <https://sfchat.mysmile.com.ua/>`_ - is Django and Mongodb based RESTfull chat.
 
