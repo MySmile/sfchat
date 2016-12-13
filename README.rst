@@ -6,6 +6,8 @@ Master
     :target: https://travis-ci.org/MySmile/sfchat?branch=master
   .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=master
     :target: https://coveralls.io/r/MySmile/sfchat?branch=master
+  .. image:: https://codecov.io/gh/MySmile/sfchat/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/MySmile/sfchat
   .. image:: https://readthedocs.org/projects/sfchat/badge/?version=stable
     :target: https://readthedocs.org/projects/sfchat/?badge=stable
     :alt: Documentation Status
@@ -17,6 +19,8 @@ Dev
     :target: https://travis-ci.org/MySmile/sfchat?branch=dev
   .. image:: https://coveralls.io/repos/MySmile/sfchat/badge.svg?branch=dev
     :target: https://coveralls.io/r/MySmile/sfchat?branch=dev
+  .. image:: https://codecov.io/gh/MySmile/sfchat/branch/dev/graph/badge.svg
+    :target: https://codecov.io/gh/MySmile/sfchat
   .. image:: https://readthedocs.org/projects/sfchat/badge/?version=dev
     :target: https://readthedocs.org/projects/sfchat/?badge=dev
     :alt: Documentation Status

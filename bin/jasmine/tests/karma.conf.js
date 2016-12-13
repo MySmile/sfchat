@@ -50,7 +50,7 @@ module.exports = function (config) {
     if (process.env.TRAVIS) {
         configuration.coverageReporter = {
            type: 'lcovonly',
-           dir : '../../coverage/',
+           dir : './coverage/',
            subdir: '.'
         }
     }
