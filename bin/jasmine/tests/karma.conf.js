@@ -24,16 +24,36 @@ module.exports = function (config) {
         plugins : [
             'karma-chrome-launcher',
             'karma-jasmine',
+            'karma-coverage',
             'karma-jasmine-jquery',
             'karma-requirejs',
             'karma-junit-reporter'
         ],
+
+        preprocessors: {
+            'sfchat/static/js/app/sfchat/**/*.js': 'coverage'
+        },
+
+        reporters: ['progress', 'coverage'],
+        
+        coverageReporter: {
+            type : 'html',
+            dir : 'bin/jasmine/coverage/'
+        },
 
         junitReporter : {
             outputFile: 'test_out/unit.xml',
             suite: 'unit'
         }
     };
+
+    if (process.env.TRAVIS) {
+        configuration.coverageReporter = {
+           type: 'lcovonly',
+           dir : '../../coverage/',
+           subdir: '.'
+        }
+    }
 
     config.set(configuration);
 };
