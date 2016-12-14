@@ -21,8 +21,6 @@ apt:
 install:
   - pip install -r config/requirements/local.txt
   - pip install coveralls
-  - sudo apt-get install -y nodejs
-  - sudo apt-get install -y npm
   - npm install -g codecov
 
 before_script:
@@ -32,6 +30,9 @@ before_script:
   - sleep 3 # give xvfb some time to start
 
 before_install:
+  - wget https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh -O ~/.nvm/nvm.sh
+  - source ~/.nvm/nvm.sh
+  - nvm install 5
   - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
 
 services:
