@@ -81,6 +81,20 @@ define([
     });
 
 
+    describe('Event->Messages->init', function () {
+         it('should init object', function () {
+             var options = {
+                 chatBodyDom: 'chatBodyDom',
+                 chatTypeDom: 'chatTypeDom',
+                 client: 'client'
+             };
+
+             messages.init(options);
+             expect(messages.options).toEqual(options);
+             expect(messages._messages).not.toBeUndefined();
+         });
+    });
+
     describe('Event->Messages->postMessage', function () {
 
         it('should reject posting empty message', function () {

@@ -17,5 +17,11 @@ define([
             expect(actual).toContainElement('div.msg-text');
             expect(actual).toContainText(msg);
         });
+
+        it('should throw error', function () {
+            expect(function() {
+                messages.render(msg, 'fake-source');
+            }).toThrowError();
+        });
     });
 });

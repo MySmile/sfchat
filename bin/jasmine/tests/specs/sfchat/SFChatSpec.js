@@ -14,6 +14,23 @@ define([
     });
 
     describe('SFChat->getOnloadOptions', function () {
+        it('should get options', function () {
+            var target = '<div class="onload-js-options"><select id="googleAnalytics"><option value="debugMode">True</option><option value="trackingId">UA-57194449-1</option></select></div>',
+                options = [
+                    'googleAnalytics.debugMode',
+                    'googleAnalytics.trackingId'
+                ],
+                actual;
+
+                actual = sfChat.getOnloadOptions(target, options);
+                expect(actual.googleAnalytics).not.toBeUndefined();
+                expect(actual.googleAnalytics.debugMode).not.toBeUndefined();
+                expect(actual.googleAnalytics.debugMode).toEqual('True');
+
+                expect(actual.googleAnalytics.trackingId).not.toBeUndefined();
+                expect(actual.googleAnalytics.trackingId).toEqual('UA-57194449-1');
+        });
+
         it('should throw error on invalid target', function () {
             var target = '.invalid-target',
                 options = [];

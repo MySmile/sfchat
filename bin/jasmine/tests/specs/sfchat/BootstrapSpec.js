@@ -48,5 +48,11 @@ define([
             expect(auth.setUserToken.calls.count()).toEqual(1);
             expect(auth.setUserToken.calls.argsFor(0)).toEqual([options.userToken]);
         });
+
+        it('should throw error', function () {
+            expect(function() {
+                new bootstrap('options');
+            }).toThrowError(TypeError);
+        });
     });
 });

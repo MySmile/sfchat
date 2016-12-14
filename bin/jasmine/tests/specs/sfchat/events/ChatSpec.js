@@ -50,7 +50,23 @@ define([
         chat.options.chatSendDom = $j('#chat-type .btn');
         chat.options.draftClass = 'btn-grey';
     });
-    
+
+    describe('Event->Chat->init', function () {
+        it('should init object', function () {
+            var options = {
+                chatBodyDom: 'chatBodyDom',
+                chatTypeDom: 'chatTypeDom',
+                chatSendDom: 'chatSendDom',
+                client:      {},
+                draftClass:  'draftClass'
+            };
+
+            chat.init(options);
+            expect(chat.options).toEqual(options);
+            expect(chat._chat).not.toBeUndefined();
+        });
+    });
+
     describe('Event->Chat->deleteChat', function () {
         it('should delete chat', function () {
             // resource mock

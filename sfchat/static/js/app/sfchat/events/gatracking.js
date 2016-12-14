@@ -34,7 +34,6 @@ define(['jquery', 'ga'], function($, ga) {
          * Init
          *
          * @param {Object} options
-         * @codeCoverageIgnore
          */
         init: function (options) {
             var _this = eventGatracking;

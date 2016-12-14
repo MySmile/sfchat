@@ -16,6 +16,46 @@ define([
         setFixtures(chatEntryFixture);
     });
 
+    describe('Event->Gatracking->init', function () {
+        it('should init object and ga', function () {
+            var options = {
+                debugMode: 'False',
+                trackingId: 'UA-123'
+            };
+
+            gatracking.init(options);
+            expect(window.ga.calls.count()).toEqual(2);
+            expect(window.ga.calls.argsFor(0)).toEqual(['create', options.trackingId, 'auto']);
+            expect(window.ga.calls.argsFor(1)).toEqual(['send', 'pageview', { 'anonymizeIp': true }]);
+        });
+
+        it('should skip init ga as a debugMode turned on', function () {
+            var options = {
+                debugMode: 'True',
+                trackingId: 'UA-123'
+            };
+
+            // ga
+            window.ga.calls.reset();
+
+            gatracking.init(options);
+            expect(window.ga.calls.count()).toEqual(0);
+        });
+
+        it('should skip init ga as a empty trackingId', function () {
+            var options = {
+                debugMode: 'False',
+                trackingId: ''
+            };
+
+            // ga
+            window.ga.calls.reset();
+
+            gatracking.init(options);
+            expect(window.ga.calls.count()).toEqual(0);
+        });
+    });
+
     describe('Event->Gatracking->eventBtnClick', function () {
         it('should add listeners for button click', function () {
             var target = '#create_chat',

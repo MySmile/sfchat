@@ -130,7 +130,7 @@ define(['jquery',
      * @private
      */
     bootstrap.prototype._setOptions = function(options) {
-        if (!options && typeof(options) !== 'object') {
+        if (typeof(options) !== 'object') {
             throw new TypeError('Invalid Options type. Object is expected.');
         }
 
