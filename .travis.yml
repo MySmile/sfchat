@@ -21,8 +21,8 @@ apt:
 install:
   - pip install -r config/requirements/local.txt
   - pip install coveralls
-  - apt-get install -y nodejs
-  - apt-get install -y npm
+  - sudo apt-get install -y nodejs
+  - sudo apt-get install -y npm
   - npm install -g codecov
 
 before_script:
