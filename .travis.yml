@@ -3,9 +3,6 @@ language: python
 python:
   - "3.5"
 
-node_js:
-  - "4.2.6"
-
 services:
   - mongodb
 
@@ -24,6 +21,8 @@ apt:
 install:
   - pip install -r config/requirements/local.txt
   - pip install coveralls
+  - apt-get install -y nodejs
+  - apt-get install -y npm
   - npm install -g codecov
 
 before_script:
