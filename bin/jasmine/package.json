@@ -3,6 +3,7 @@
     "name": "sfchat",
     "devDependencies": {
         "requirejs": "^2.1",
+        "jquery": "^2.2",
         "requirejs-text": "^2.0",
         "jasmine-core": "^2.5",
         "jasmine-ajax": "^3.2",

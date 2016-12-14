@@ -27,7 +27,7 @@ requirejs.config({
         }
     },
     paths: {
-        'jquery': 'sfchat/static/bower_components/jquery/dist/jquery.min',
+        'jquery': 'bin/jasmine/node_modules/jquery/dist/jquery.min',
         'text': 'bin/jasmine/node_modules/requirejs-text/text',
         'ga': 'bin/jasmine/tests/fixtures/ga'
     },
