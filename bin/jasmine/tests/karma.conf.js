@@ -31,7 +31,7 @@ module.exports = function (config) {
         ],
 
         preprocessors: {
-            'sfchat/static/js/app/sfchat/**/*.js': 'coverage'
+            'sfchat/static/js/app/sfchat/**/*.js': ['coverage']
         },
 
         reporters: ['progress', 'coverage'],

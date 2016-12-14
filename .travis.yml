@@ -43,7 +43,4 @@ script:
   - cd bin/jasmine && npm install && karma start ./tests/karma.conf.js --single-run
 after_success:
   - coveralls
-  - ls -l
-  - cd coverage ls -l
   - codecov < coverage/lcov.info
-  
