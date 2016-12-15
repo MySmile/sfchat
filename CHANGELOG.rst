@@ -1,14 +1,13 @@
 2017-xx-xx v1.0.0
 =================
-* Added load tests
-* Tested accessibility
+* Added: advertisement module
 
 2017-xx-xx v0.14.0
 ==================
-* Modified Long Pulling to support Tornado
-* Developed advertisement module
-* Run Selenium tests on TravisCI
-* Increased unit tests coverage
+* Added: load tests
+* Added: run Selenium tests on TravisCI
+* Modified: Long Pulling to support Tornado
+* Increased: unit tests coverage
 
 2016-12-xx v0.13.0
 ==================
@@ -18,7 +17,7 @@
 * Upgraded: front-end dependencies: jQuery 2.2, Requirejs 2.3, Rjs 2.3
 * Upgraded: back-end dependencies: Django 1.10.4, Pymongo 3.4.0, DjangoRestFramework 3.5.3, Pytz 2016.10
 * Modified: way to start requirejs modules
-* Modified: documentation and content
+* Modified: documentation
 * Removed: sending javaScript's errors to Google Analytics
 * Fixed: csp report header validation
 

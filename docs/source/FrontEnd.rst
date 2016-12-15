@@ -1,35 +1,21 @@
-********
-FrontEnd
-********
+*********
+Front-end
+*********
 
-All frontEnd components should be:
+Front-end components are:
 
-#. supported cross-browsers last two version of each populars ones (Chrome, FF, Opera, Safary, IE)
+#. cross-browsers
 #. supported different desktop and mobile OS 
 #. minified
 #. gziped
 #. applied Content Security Policy
 
-
 CSS, HTML
 =========
 
-All CSS should follow Google recommendation.
+CSS and HTML follow `Google HTML/CSS Style Guide <https://google.github.io/styleguide/htmlcssguide.xml>`_.
 
 JScript
 =======
 
-JScript should follow as much as possible manifesto.
-
-Each new JS class should be property of SFChat object. That object is a "namespace". So /js/sfChat.js: ::
-
-  var sfChat = {};
-
-Others modules in that case for instance /js/sfChat/validator.js: ::
-
-  sfChat.validator = {
-    ...
-  };
-
-
-
+JScript follows as much as possible `The JavaScript Manifesto <http://www.webstandards.org/action/dstf/manifesto/>`_.

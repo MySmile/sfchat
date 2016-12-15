@@ -26,7 +26,6 @@ Example of body is: ::
     {‘data’:  {
             messages : [
                 0: { ‘_id’: ’0cbc6611f5540bd0809a388dc95a615b’}
-                ]
+            ]
        }
     }
-    

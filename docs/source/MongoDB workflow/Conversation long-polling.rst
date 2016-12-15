@@ -1,8 +1,8 @@
 Conversation long-polling
 =========================
 
-Conversation is based on long polling. Object "long-polling" in the "chat" collection contains attive long polling 
-processes. It is essential to prevent runs several long polling after refresh chat page. 
+Conversation is based on long polling. Object "long-polling" in the "chat" collection contains active long polling processes.
+It is essential to prevent runs several long polling after refreshing chat page.
 
 Table below describes key points of long polling:
 

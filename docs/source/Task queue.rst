@@ -2,15 +2,15 @@
 Task queue
 **********
 
-Tasks that should run on background with configure scheduler.  Removes all chats, which are status "closed" plus set as 
+Task runs on background with configure scheduler. It removes all chats with status "closed" and marks
 "closed" all chats with more than 24 hours lifetime.
 
-To use the `cron <https://en.wikipedia.org/wiki/Cron>`_ as scheduler do the following: 
+To configure `cron <https://en.wikipedia.org/wiki/Cron>`_ please:
 run command *crontab -e* and add line::
   
   15 18 * * *     absolute-path/python3 -W ignore absolute-path/manage.py clearchats
 
-The command *clearchats* will be invoked every day in 18:15 
+substituting ``absolute-path`` to python3 interpreter. The command ``clearchats`` will be invoked every day in 18:15.
   
 
 .. _Chat_termination:
@@ -18,12 +18,11 @@ The command *clearchats* will be invoked every day in 18:15
 Chat termination
 ================
 
-Remove all information about chat if it was created 1 day ago. 
-Workflow of chat termination has 2 phases:
+Chat termination means removing undelivered messages and chat identifiers if it was created more then 1 day ago.
+Chat termination has 2 phases workflow:
 
-#. Remove all chats with status "closed"
-#. Set status "closed" and registered for them auto close message if chats are over lifetime limit
+#. Removing all chats with status "closed"
+#. Setting status "closed" and registered for them auto close message if chats are over lifetime limit
 
-So the first run of task removes all undelivered messages. It helps clear chat history in FrontEnd. The second run 
+The first task run removes all undelivered messages. It helps clear chat history in front-end. The second run
 removes information about over lifetime chats.
-

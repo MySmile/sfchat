@@ -14,7 +14,7 @@ System messages shows as a result of chat events:
 * Chat was closed by participant
 * Error appears (validation, internal chat errors etc.)
 
-Message has such structure:
+Message has structure bellow:
 
 * Border on the top and button with asterix
 * Message text

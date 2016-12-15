@@ -2,16 +2,16 @@
 Django configuration
 ********************
 
-Configuration is in base.py file: ::
+Configuration is in `base.py <https://github.com/MySmile/sfchat/blob/master/sfchat/settings/base.py>`_ file: ::
 
   SFCHAT_API = {
     'authentication': {
-    'user_token_header': 'HTTP_X_SFC_USERTOKEN',
-    'chat_token_header': 'HTTP_X_SFC_CHATTOKEN'
+        'user_token_header': 'HTTP_X_SFC_USERTOKEN',
+        'chat_token_header': 'HTTP_X_SFC_CHATTOKEN'
     },
     'long_polling': {
-    'sleep': 3,
-    'iteration': 60
+        'sleep': 3,
+        'iteration': 60
     },
   }
 
@@ -34,7 +34,7 @@ Configuration description:
 
     * - long_polling.sleep [#f1]_
       - Integer, sec
-      - Number of second that indicates how long long polling iteration should sleep before start new one
+      - Number of second that indicates how long long polling iteration is sleep before start new one
 
     * - long_polling.iteration
       - Integer
@@ -42,6 +42,4 @@ Configuration description:
 
 .. rubric:: Footnotes
 
-.. [#f1] Multiplies long_polling.sleep with long_polling.iteration show how long long polling process runs. Time that necessary to figure close tab and browser is calculated as: *2 * long_polling.sleep * long_polling.iteration*
- 
- 
+.. [#f1] Multiplies long_polling.sleep with long_polling.iteration show how progress time for one "long pulling" runs. Time to figure out that user close browser's chat tab is: *2 * long_polling.sleep * long_polling.iteration*.

@@ -1,7 +1,7 @@
 Request
 =======
 
-Request does not have any special parameters. But body contains data with in structure that describes below.
+Request does not have any special parameters. But body contains data with in structure describing below.
 
 .. list-table::
     :widths: 20 35 45

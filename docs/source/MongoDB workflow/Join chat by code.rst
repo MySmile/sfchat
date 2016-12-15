@@ -6,7 +6,7 @@ To join chat it is need to verify:
 * "invitation code"
 * number of users in chat
 
-then generate user token and registry system message that chat is ready.
+then generate user token and registry chat ready system message.
 
 Verification: ::
 
@@ -22,7 +22,7 @@ If result is null then "invitation code" is invalid otherwise it should be check
 should be 1.
 
 Next generate "user token", update chat status and register system message for "chat creator". To add new message it 
-should be used "$push" operator: ::
+should use "$push" operator: ::
 
   var user_token_joiner = ObjectId();
   var message_ready = {
@@ -39,5 +39,3 @@ should be used "$push" operator: ::
       $push: {"messages": message_ready}
     }
   );
-  
-  

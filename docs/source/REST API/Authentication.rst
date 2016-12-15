@@ -3,9 +3,10 @@
 Authentication
 ==============
 
-Authentication process works through "user token" and "chat token". Each Api request has such required parameters:
+Authentication process works by "user token" and "chat token".
+Each Api request has parameters:
 
-* "chat token" that identify chat
-* "user token" that helps to identify user
+* "chat token" to identify chat
+* "user token" to identify user
 
-For details please follow :ref:`diagrams <Diagrams>`.
+More details in :ref:`diagrams <Diagrams>`.

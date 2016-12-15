@@ -36,5 +36,4 @@ Example: ::
 
 .. rubric:: Footnotes
   
-.. [#f1] For "error" code like 500, 404, etc. message should be displayed as a "system message". For full list of used http codes please follow the corresponding section.
-
+.. [#f1] For "error" code like 500, 404, etc. message is displayed as a "system message". Full list of used http codes please is in corresponding section.

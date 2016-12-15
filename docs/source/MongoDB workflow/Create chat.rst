@@ -1,7 +1,7 @@
 Create chat
 ===========
 
-To create chat we should generate "user token" and add them to chat: ::
+To create chat it is need to generate "user token" and add them to chat: ::
 
   var chat_token = ObjectId();
   var user_token = ObjectId();
@@ -18,7 +18,7 @@ To create chat we should generate "user token" and add them to chat: ::
     chat.messages = [message];
     db.chats.insert(chat);
 
-To see that data has been successfully saved please  run such command: ::
+To see that data has been successfully saved please run such command: ::
 
   db.chats.find().forEach(printjson);
 
@@ -44,4 +44,3 @@ As a result we have "user token", "invitation code" (chat token) and register sy
 To get string value of ObjectId it is need read property "str": ::
 
   chat_token.str
-  

@@ -3,8 +3,8 @@
 Chat Statuses
 =============
 
-Status shows in what state particular entity now. Workflow is different accordingly status. So please follow 
-corresponding workflow section for more details.
+Status shows in what state particular entity now. Workflow is different due to status.
+So please follow corresponding workflow section for more details.
 
 .. list-table::
     :widths: 10 90

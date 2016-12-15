@@ -1,4 +1,4 @@
 Endpoint
 ========
 
-Endpoint is /api/
+The Api's endpoint is ``/api/``.

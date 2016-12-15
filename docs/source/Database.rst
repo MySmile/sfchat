@@ -5,33 +5,27 @@ Database
 MongoDB
 =======
 
-MongoDB is a schema-less database. Therefore shema should be described in application.
-SFChat database has only one collection "chats" example below shows document in that collection: ::
+SFChat database has only one collection "chats": ::
 
   {
-    _id: ObjectId("507f191e810c19729de860ea"),
-    status: "ready",
-    user_tokens: [
-        ObjectId("507f191e810c19729de860eb"),
-        ObjectId("507f1f77bcf86cd799439011")        
-    ],
-        
-        messages: [
-                {
-                _id: ObjectId("507f191e810c19729de860ed"),
-                user_token: ObjectId("507f191e810c19729de860eb"),
-                msg: "Hi, how are you?",
-                system: false
-                }
-        ],
-        long_polling: [
-        {
-            _id: ObjectId("507f191e810c19729de860ed"),
-            user_token: ObjectId("507f191e810c19729de860eb"),
-    created: ISODate("2012-04-03T02:05:06Z")
-    }
-    ]
+      _id: ObjectId("507f191e810c19729de860ea"),
+      status: "ready",
+      user_tokens: [
+         ObjectId("507f191e810c19729de860eb"),
+         ObjectId("507f1f77bcf86cd799439011")
+      ],
+      messages: [{
+         _id: ObjectId("507f191e810c19729de860ed"),
+         user_token: ObjectId("507f191e810c19729de860eb"),
+         msg: "Hi, how are you?",
+         system: false
+     }],
+     long_polling: [{
+        _id: ObjectId("507f191e810c19729de860ed"),
+        user_token: ObjectId("507f191e810c19729de860eb"),
         created: ISODate("2012-04-03T02:05:06Z")
+     }],
+     created: ISODate("2012-04-03T02:05:06Z")
   };
 
 
@@ -113,8 +107,3 @@ Table below displays schema for "chats" collection:
       - String[UTC]
       - Creation date in UTC format
       - It’s used to identify old chats and clear them. 
-
-
-
-
-

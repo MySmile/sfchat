@@ -1,5 +1,5 @@
 +------------+-----------------------------------------+------------------------+------------------------+
-| Branch     | General                                 | Back-end               | Back-end && Front-end  |
+| Branch     | General                                 | Back-end               | Back-end and Front-end  |
 +============+=========================================+========================+========================+
 | master     | |master_build| |master_doc| |master_pi| | |master_back_end_cov|  | |master_front_end_cov| |
 +------------+-----------------------------------------+------------------------+------------------------+
@@ -69,11 +69,12 @@ Screenshots
 
 Documentation
 =============
-Technical documentation is available in `html <http://sfchat.readthedocs.org/en/latest/>`_.
+ - Technical documentation is available in `html <http://sfchat.readthedocs.org/en/latest/>`_
+ - Technical documentation source is in `docs </docs>`_ folder
 
 Docker
 ======
-For development process it's prepared Docker. More instruction can be found in `Docker Readme </bin/docker/README.rst>`_.
+Instruction how to use Docker can be found in `Docker Readme </bin/docker/README.rst>`_.
 
 Tests
 =====

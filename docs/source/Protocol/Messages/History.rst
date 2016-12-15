@@ -1,4 +1,4 @@
 History
 -------
 
-Message history is saved on FrontEnd in Session Storage. Message history is removed during "exit" process.
+Message history is saved on Front-end in Session Storage. Message history is removed during "exit" process.

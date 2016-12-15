@@ -19,6 +19,5 @@ Chat page
 Other pages
 ===========
 
-Others pages like "Privacy", "License",... etc are simply text page with header and footer. Such pages aren’t saved in 
-Database they are html files. Because such pages are not dynamic they should be cashed.
-
+Others pages like "Privacy", "License",... etc. are simply text page with header and footer. Such pages aren't saved in
+Database they are plain html files. Because such pages are not dynamic they are cashed.

@@ -72,11 +72,11 @@ For instance response with two messages would look like: ::
 Empty response has that structure: ::
 
   {
-        ‘results’: {
-            ‘code’: 200,
-            ‘msg’: ‘Ok’,
-            ‘count’: 0,
-            ‘status’: ‘ready’
-        ‘messages’: []
-        }
+    ‘results’: {
+        ‘code’: 200,
+        ‘msg’: ‘Ok’,
+        ‘count’: 0,
+        ‘status’: ‘ready’
+    ‘messages’: []
+    }
   }

@@ -6,10 +6,10 @@
 Administration panel
 ********************
 
-Chat manage
-===========
+Chat manager
+============
 
-Page with list of chats. Such table does not contain message information and looks like:
+Chat manager is a page with chats list. Such table does not contain message information. It looks like:
 
 .. list-table::
   
@@ -32,10 +32,9 @@ Page with list of chats. Such table does not contain message information and loo
 Clear chat
 ==========
 
-For clear chats push the button under list of chats. [#f1]_
+For clear chats push the button under chat's table. [#f1]_
 
 
 .. rubric:: Footnotes
 
 .. [#f1] Read :ref:`Chat_termination` for details 
- 
