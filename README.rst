@@ -1,5 +1,5 @@
 +------------+-----------------------------------------+------------------------+------------------------+
-| Branch     | General                                 | Back-end               | Front-end              |
+| Branch     | General                                 | Back-end               | Back-end && Front-end  |
 +============+=========================================+========================+========================+
 | master     | |master_build| |master_doc| |master_pi| | |master_back_end_cov|  | |master_front_end_cov| |
 +------------+-----------------------------------------+------------------------+------------------------+
@@ -31,7 +31,7 @@
 SFChat
 ******
 
-`Secure Free Chat (SFChat) <https://sfchat.mysmile.com.ua/>`_ - is Django and Mongodb based RESTfull chat.
+Secure Free Chat (SFChat) is long pulling REST chat based on Django and Mongodb.
 
 Secure:
 
@@ -43,11 +43,15 @@ Free:
 #. Open Source
 #. BSD 3-Clause license
 
+Chat:
+
+#. Live demo `https://sfchat.mysmile.com.ua/ <https://sfchat.mysmile.com.ua/>`_
+
 Installation
 ============
-#. Install required dependency: ``make install-prod``
-#. Generate database for admin panel: ``make admin``
-#. Build and optimize js from source: ``make build-js``
+#. Install dependency: ``make install-prod``
+#. Generate admin panel database: ``make admin``
+#. Build and optimize javaScript: ``make build-js``
 
 Requirements
 ============
@@ -65,7 +69,7 @@ Screenshots
 
 Documentation
 =============
-Technical documentation is available in `html <http://sfchat.readthedocs.org/en/latest/>`_, pdf, and epub formats.
+Technical documentation is available in `html <http://sfchat.readthedocs.org/en/latest/>`_.
 
 Docker
 ======

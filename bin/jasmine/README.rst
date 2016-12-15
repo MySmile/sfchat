@@ -6,8 +6,16 @@ For front-end unit testing it's used Jasmine framework.
 
 Installation
 ============
-#. Follow installation steps for `Docker </docker>`_
-#. in-progress
+
+Please apply one of the following instructions.
+
+Docker
+------
+#. Use `Docker Readme </docker/README.rst>`_ to prepare Docker
+
+Local
+-----
+#. Install `Nodejs <https://nodejs.org/en/download/package-manager/>`_
 
 Requirements
 ============
@@ -18,13 +26,10 @@ Requirements
 Running
 =======
 
-Local
------
-Local runs means that all requirements except Docker were installed on your host machine.
-Other words development environment without virtualization.
-
-To run tests locally please execute command ``npm test``.
-
 Docker
 ------
 To run tests inside Docker container please follow instructions in `Docker Readme <docker/README.rst#run-tests>`_
+
+Local
+-----
+To run tests locally please execute command ``npm test``.

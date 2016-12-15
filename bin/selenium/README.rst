@@ -6,7 +6,7 @@ For functional testing it's used `Selenium IDE <http://www.seleniumhq.org/projec
 
 Installation
 ============
-#. Install `Selenium IDE plugin <http://www.seleniumhq.org/download/>`_ for Firefox browser
+#. Install Firefox plugin `Selenium IDE plugin <http://www.seleniumhq.org/download/>`_
 
 Running
 =======
