@@ -2,15 +2,13 @@
 =================
 * Added load tests
 * Tested accessibility
-* Verified documentation and content
 
 2017-xx-xx v0.14.0
 ==================
 * Modified Long Pulling to support Tornado
 * Developed advertisement module
-* Installed Grunt
-* Increased unit tests coverage up to 80%
-* Added new design for 404 and 500 page
+* Run Selenium tests on TravisCI
+* Increased unit tests coverage
 
 2016-12-xx v0.13.0
 ==================
@@ -20,6 +18,7 @@
 * Upgraded: front-end dependencies: jQuery 2.2, Requirejs 2.3, Rjs 2.3
 * Upgraded: back-end dependencies: Django 1.10.4, Pymongo 3.4.0, DjangoRestFramework 3.5.3, Pytz 2016.10
 * Modified: way to start requirejs modules
+* Modified: documentation and content
 * Removed: sending javaScript's errors to Google Analytics
 * Fixed: csp report header validation
 
