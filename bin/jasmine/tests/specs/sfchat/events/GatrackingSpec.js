@@ -90,4 +90,42 @@ define([
             expect(gatracking.addListener.calls.count()).toEqual(0);
         });
     });
+
+    describe('Event->Gatracking->addListener', function () {
+        it('should add listeners if addEventListener method exist', function () {
+            var element = $j('<div></div>'),
+                type = 'click',
+                handler = function() {
+
+                };
+
+            // dom
+            element.addEventListener = function() {
+
+            };
+            spyOn(element, 'addEventListener');
+
+            gatracking.addListener(element, type, handler);
+            expect(element.addEventListener.calls.count()).toEqual(1);
+            expect(element.addEventListener.calls.argsFor(0)).toEqual([type, handler]);
+        });
+
+        it('should add listeners if attachEvent method exist', function () {
+            var element = $j('<div></div>'),
+                type = 'click',
+                handler = function() {
+
+                };
+
+            // dom
+            element.attachEvent = function() {
+
+            };
+            spyOn(element, 'attachEvent');
+
+            gatracking.addListener(element, type, handler);
+            expect(element.attachEvent.calls.count()).toEqual(1);
+            expect(element.attachEvent.calls.argsFor(0)).toEqual(['on' + type, handler]);
+        });
+    });
 });

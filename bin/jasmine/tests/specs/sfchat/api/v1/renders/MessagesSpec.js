@@ -19,8 +19,10 @@ define([
         });
 
         it('should throw error', function () {
+            var msg = 'Hello SFChat!';
+            
             expect(function() {
-                messages.render(msg, 'fake-source');
+                messages.render(msg, undefined, 'fake-source');
             }).toThrowError();
         });
     });
