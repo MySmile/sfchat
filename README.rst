@@ -106,10 +106,11 @@ Contribution
 ============
 If you find this project worth to use please add a star. Follow changes to see all activities.
 And if you see room for improvement, proposals please feel free to create an issue or send pull request.
-Here is a great `Guide to Start Contributing <https://guides.github.com/activities/contributing-to-open-source/>`_.
 
 Please note that this project is released with a `Contributor Code of Conduct <http://contributor-covenant.org/version/1/4/>`_.
 By participating in this project and its community you agree to abide by those terms.
+
+More information is in `Contributing <CONTRIBUTING.rst>`_.
 
 License
 =======
