@@ -69,8 +69,8 @@ Screenshots
 
 Documentation
 =============
- - Technical documentation is available in `html <http://sfchat.readthedocs.org/en/latest/>`_
- - Technical documentation source is in `docs </docs>`_ folder
+- Technical documentation is available in `html <http://sfchat.readthedocs.org/en/latest/>`_
+- Technical documentation source is in `docs </docs>`_ folder
 
 Docker
 ======
