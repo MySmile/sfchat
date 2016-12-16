@@ -1,7 +1,7 @@
 Semantic structure
 ------------------
 
-Semantic structure of "user message" is: ::
+Semantic structure for "user message" is: ::
 
   <div id="msg-%message token%" class="message">
     <div class="msg-date">13:22:51</div>
@@ -25,5 +25,4 @@ Where ``%message token%`` is placeholder for "message token". [#f1]_
 
 .. rubric:: Footnotes
 
-.. [#f1] "Message token" is reserved for future usage to indicate that message is on a delivery way.
-
+.. [#f1] "Message token" is reserved for future to indicate that it is on a delivery stage.

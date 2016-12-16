@@ -1,12 +1,10 @@
 URL Example
 ===========
 
- `http://127.0.0.1:8000/api/v1/messages.json <http://127.0.0.1:8000/api/v1/messages.json>`_
+Example for Api's url request is ``http://127.0.0.1:8000/api/v1/messages.json``, where:
 
-where:
-
-* http://127.0.0.1:8000  - host name 
-* /api - endpoint
-* v1 version - number
-* messages - resources
-* .json - datatype
+* ``http://127.0.0.1:8000``  - host name
+* ``/api`` - endpoint
+* ``v1`` - api version number
+* ``messages`` - resources
+* ``.json`` - response format

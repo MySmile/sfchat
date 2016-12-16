@@ -1,8 +1,8 @@
 DELETE: chat.json
 -----------------
 
-Delete chat means that one of participants want to exit from conversation. Therefore all undelivered messages is
-delivered and chat completely removed from SFChat server.
+It means that one of participants wants to close chat. As a result all undelivered messages are going to
+deliver and chat completely removing from the Server.
 
 .. toctree::
    :maxdepth: 2

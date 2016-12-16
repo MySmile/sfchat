@@ -13,9 +13,9 @@ Chat manager is a page with chats list. Such table does not contain message info
 
 .. list-table::
   
-    * - Chat token
-      - Created
-      - Status
+    * - **Chat token**
+      - **Created**
+      - **Status**
 
     * - 5******2708
       - 10-May-2015, 18:29:48

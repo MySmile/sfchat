@@ -4,7 +4,7 @@ Docker
 
 Docker composer has several containers:
 
-#. sfchat-web   - official `Python 3.5 Docker <https://hub.docker.com/_/python/>`_, ssh server, application requirements
+#. sfchat-web   - official `Python 3.5 Docker <https://hub.docker.com/_/python/>`_, ssh server, sphinx, application requirements
 #. sfchat-nginx - official `Nginx 1.11.5 Docker <https://hub.docker.com/_/nginx/>`_, stunnel
 #. sfchat-node  - official `Node 0.12 Docker <https://hub.docker.com/_/node/>`_, Bower
 #. sfchat-mongo - official `MongoDB 3.4 Docker <https://hub.docker.com/_/mongo/>`_
@@ -62,6 +62,17 @@ To generate admin panel please:
 HTTPS
 `````
 Application runs on ``runserver`` with ``stunnel``.
+
+Sphinx
+``````
+`Sphinx <http://www.sphinx-doc.org/>`_ is a Python Documentation Generator.
+
+To generate documentation please run commands bellow inside ``docs`` directory being in ``sfchat-web`` container:
+
+- to see all supported formats please run: ``make help``
+- to get documentation in ``epub`` format please run: ``make epub``
+
+*Note*: generated documentation is saved in ``docs/build`` directory.
 
 sfchat-nginx
 ------------

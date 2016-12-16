@@ -5,7 +5,7 @@ Database
 MongoDB
 =======
 
-SFChat database has only one collection "chats": ::
+SFChat database has one collection "chats": ::
 
   {
       _id: ObjectId("507f191e810c19729de860ea"),
@@ -38,10 +38,10 @@ Table below displays schema for "chats" collection:
 .. tabularcolumns:: |p{4cm}|p{2cm}|p{5cm}|p{3cm}|
 .. list-table::
     
-    * - Name
-      - Type
-      - Description
-      - Comment
+    * - **Name**
+      - **Type**
+      - **Description**
+      - **Comment**
 
     * - chats._id
       - ObjectId
@@ -50,7 +50,7 @@ Table below displays schema for "chats" collection:
         
     * - chats.status
       - "draft", "ready", "closed"
-      - Chat status. It should be one of the list
+      - Chat status. It should be one of the list.
       -  
         
     * - chats.use_tokens
@@ -80,7 +80,7 @@ Table below displays schema for "chats" collection:
         
     * - chats.messages.system
       - true, false
-      - Indicate is that message system or not.
+      - Indicate is that message system or not
       - 
         
     * - long_polling
@@ -106,4 +106,4 @@ Table below displays schema for "chats" collection:
     * - chats.created
       - String[UTC]
       - Creation date in UTC format
-      - It’s used to identify old chats and clear them. 
+      - It’s used to identify old chats and clear them

@@ -50,6 +50,9 @@ RUN openssl req \
     -keyout /etc/stunnel/stunnel.pem \
     -subj "/C=UA/ST=./L=Kyiv/O=Home/CN=sfchat-web/OU=Development"
 
+# sphinx
+RUN pip install sphinx
+
 # expose ports
 EXPOSE 22 8001
 CMD ["supervisord", "--configuration", "/etc/supervisor/conf.d/supervisord.conf", "--logfile", "/var/log/supervisor/supervisord.log", "--logfile_maxbytes", "5000000", "--logfile_backups", "5", "--pidfile", "/var/tmp/supervisord.pid"]

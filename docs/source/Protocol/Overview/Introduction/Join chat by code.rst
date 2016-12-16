@@ -3,7 +3,7 @@ Join chat by code
 
 Join chat process contains of:
 
-#. "invitation code" verifies
-#. chat status was set as "ready"
-#. "user token" was created
-#. generate system message informing chat is ready
+#. verification "invitation code"
+#. setting chat status to "ready"
+#. generating "user token"
+#. registering system message informing that chat is ready

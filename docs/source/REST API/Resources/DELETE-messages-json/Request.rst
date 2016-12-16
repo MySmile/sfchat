@@ -1,13 +1,13 @@
 Request
 =======
 
-Request does not have any special parameters.
+Request does not have any special parameters. Table below describes response body structure:
 
 .. list-table::
 
-    * - Parameters
-      - Type
-      - Description
+    * - **Parameters**
+      - **Type**
+      - **Description**
 
     * - data
       - Object

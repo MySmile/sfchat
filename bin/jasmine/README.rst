@@ -11,7 +11,7 @@ Please apply one of the following instructions.
 
 Docker
 ------
-#. Use `Docker Readme </docker/README.rst>`_ to prepare Docker
+#. Use `Docker Readme </docker>`_ to prepare Docker
 
 Local
 -----
@@ -28,7 +28,7 @@ Running
 
 Docker
 ------
-To run tests inside Docker container please follow instructions in `Docker Readme <docker/README.rst#run-tests>`_
+To run tests inside Docker container please follow instructions in `Docker Readme </docker#run-tests>`_
 
 Local
 -----

@@ -6,9 +6,9 @@ Standard response
 .. tabularcolumns:: |p{4cm}|p{5cm}|p{5cm}|
 .. list-table::
     
-    * - Parameters
-      - Type
-      - Description
+    * - **Parameters**
+      - **Type**
+      - **Description**
     
     * - results
       - Object
@@ -22,7 +22,7 @@ Standard response
       - String
       - response message
 
-Response code is: 202 if Okey or other errors code otherwise.
+Response code is 202 if Ok or error code otherwise.
 
 Example: ::
 
@@ -36,4 +36,4 @@ Example: ::
 
 .. rubric:: Footnotes
   
-.. [#f1] For "error" code like 500, 404, etc. message is displayed as a "system message". Full list of used http codes please is in corresponding section.
+.. [#f1] For "error" code like 500, 404, etc. message is displayed as a "system message".

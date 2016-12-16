@@ -3,10 +3,10 @@ Join chat by code
 
 To join chat it is need to verify:
 
-* "invitation code"
-* number of users in chat
+* the "invitation code"
+* how many users are using chat
 
-then generate user token and registry chat ready system message.
+After verification "user token" is generated and system chat ready message is registered.
 
 Verification: ::
 
@@ -18,8 +18,7 @@ Verification: ::
     {_id: 1}
   );
   
-If result is null then "invitation code" is invalid otherwise it should be checked number if user_tokens. Such number 
-should be 1.
+In case of null result - "invitation code" is invalid otherwise - checking users_tokens number. Such number should be 1.
 
 Next generate "user token", update chat status and register system message for "chat creator". To add new message it 
 should use "$push" operator: ::

@@ -74,7 +74,7 @@ Documentation
 
 Docker
 ======
-Instruction how to use Docker can be found in `Docker Readme </bin/docker/README.rst>`_.
+Instruction how to use Docker can be found in `Docker Readme </bin/docker>`_.
 
 Tests
 =====
@@ -92,15 +92,15 @@ Manually:
 
 With IDE:
 
-All information to configure your IDE with Docker is in `Docker Readme </bin/docker/README.rst>`_ using `PyCharm <https://www.jetbrains.com/pycharm/>`_ as an example.
+All information to configure your IDE with Docker is in `Docker Readme </bin/docker>`_ using `PyCharm <https://www.jetbrains.com/pycharm/>`_ as an example.
 
 Functional
 ----------
-All information about functional testing is in `Selenium Readme </bin/selenium/README.rst>`_.
+All information about functional testing is in `Selenium Readme </bin/selenium>`_.
 
 Front-end unit
 --------------
-Everything related to front-end unit tests is inside `Jasmine Readme </bin/jasmine/README.rst>`_.
+Everything related to front-end unit tests is inside `Jasmine Readme </bin/jasmine>`_.
 
 Contribution
 ============

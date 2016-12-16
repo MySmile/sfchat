@@ -3,7 +3,7 @@ Create chat
 
 Workflow has those steps:
 
-#. new instance of chat is added to database
-#. "invitation code" is generated
-#. system message was registered for "chat creator" with "invitation code"
-#. "user token" was created
+#. add to database new chat instance
+#. generate "invitation code"
+#. registry system message for "chat creator" with "invitation code"
+#. generate "user token"

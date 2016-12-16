@@ -1,23 +1,23 @@
 Conversation long-polling
 =========================
 
-Conversation is based on long polling. Object "long-polling" in the "chat" collection contains active long polling processes.
-It is essential to prevent runs several long polling after refreshing chat page.
+Conversation is based on long polling. Object "long-polling" is a part of "chat" collection.
+Additionally application code should prevent runs several long polling after refreshing chat page.
 
-Table below describes key points of long polling:
+Table below describes long polling key points:
 
 .. tabularcolumns:: |p{2.5cm}|p{6cm}|p{6cm}|
 .. list-table::
 
-    * - Event
-      - FrontEnd
-      - BackEnd
+    * - **Event**
+      - **Front-end**
+      - **Back-end**
 
     * - Start process
       - #. User on a chat page
-        #. Ajax request runs to server to gets messages
-        #. Then runs Ajax to delete messages
-        #. Finally runs get messages again
+        #. Ajax request runs to gets messages from server
+        #. Ajax request runs to delete messages
+        #. Ajax request runs get messages again
       - #. Removes all registered long polling processes for current users
         #. Start new long polling process
         #. Long polling accordingly two configuration parameters: number of iterations and sleeping time (for more information please look into corresponding section)
@@ -26,9 +26,9 @@ Table below describes key points of long polling:
       - #. Ajax response has 403 code
         #. Chat has "close" status
       - #. Chat was closed
-        #. Tab of browser close was detected [#g1]_
+        #. Closing Browser tab was detected [#g1]_
 
 
 .. rubric:: Footnotes
 
-.. [#g1] Close tab or browser cause close chat only if one of the chat participant has still opened chat. In the case when all chat’s participants have closed chat --- SFChat uses cron task to clear garbage data.
+.. [#g1] Close tab or browser cause close chat only if one of the chat participant has still opened chat. In the case when all chat’s participants have closed chat --- SFChat uses cron task clears garbage data.

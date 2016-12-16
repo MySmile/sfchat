@@ -20,9 +20,9 @@ Configuration description:
 .. tabularcolumns:: |p{6.5cm}|p{3cm}|p{6cm}|
 .. list-table::
   
-    * - Key
-      - Type
-      - Description
+    * - **Key**
+      - **Type**
+      - **Description**
 
     * - authentication.user_token_header
       - Sting[32]

@@ -2,7 +2,7 @@
 MongoDB workflow
 ****************
 
-Such section display workflow in MongoDB point of view: ::
+It display workflow in MongoDB point of view. Please run inside console ::
 
   mongo
   use sfchat

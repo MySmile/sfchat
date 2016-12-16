@@ -1,7 +1,7 @@
 Create chat
 ===========
 
-To create chat it is need to generate "user token" and add them to chat: ::
+For creating chat it is need generate "user token" and link them to chat: ::
 
   var chat_token = ObjectId();
   var user_token = ObjectId();
@@ -18,11 +18,11 @@ To create chat it is need to generate "user token" and add them to chat: ::
     chat.messages = [message];
     db.chats.insert(chat);
 
-To see that data has been successfully saved please run such command: ::
+To see that data has been successfully saved please run command: ::
 
   db.chats.find().forEach(printjson);
 
-As a result we have "user token", "invitation code" (chat token) and register system message: ::
+As a result codes were generated "user token", "invitation code" and register system message: ::
 
   {
     "_id" : ObjectId("543e33a2e3ce324d374246fc"),

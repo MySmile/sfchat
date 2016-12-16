@@ -7,7 +7,7 @@ Glossary
 .. glossary::
 
     SFChat server
-        SFChat server provides connection between chat participants. It works like a phone or an internet provider do.
+        SFChat server provides connection between chat participants. It works like a phone or an internet provider.
         SFChat server starts chat, generates chat token, moves messages from chat users.
 
     invitation code

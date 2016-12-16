@@ -1,4 +1,4 @@
 Response
 ========
 
-Response is :ref:`standard <StandardResponse>`.
+Response is a :ref:`standard <StandardResponse>`.
