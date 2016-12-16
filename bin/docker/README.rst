@@ -85,7 +85,7 @@ Nginx works as a proxy by passing non-static to ``sfchat-web`` container.
 
 sfchat-node
 -----------
-Node is an container fo Bower and built JScript. During ``compose up`` it installs all Bower dependencies and built js.
+Node is an container for Bower and built JScript. During ``compose up`` it installs all Bower dependencies and built js.
 
 If during developing it's need to re-build js please run:
 
@@ -115,7 +115,7 @@ Usefull commands
 - build container ``sudo docker-compose -f ./bin/docker/docker-compose.yml build {{container-name}}``
 - build container without caching ``sudo docker-compose -f ./bin/docker/docker-compose.yml build --no-cache {{container-name}}``
 
-*Note*: please substitute all ``{{container-name}}`` by ``sfchat-web``, ``sfchat-nginx``, ``sfchat-node`` or ``fchat-mongo``
+*Note*: please substitute all ``{{container-name}}`` by ``sfchat-web``, ``sfchat-nginx``, ``sfchat-node`` or ``sfchat-mongo``.
 
 For more information please visit `Docker Compose Command-line Reference <https://docs.docker.com/compose/reference/>`_.
 
@@ -135,7 +135,7 @@ The main point here it's not need to rebuild all container or invalidate cache (
 
 Upgrade requirements
 --------------------
-After any requirements changing like Dajngo version etc. please follow steps bellow:
+After any requirements changing like Django version etc. please follow steps bellow:
 
 #. stop ``sfchat-web``, if it's running: ``sudo docker-compose -f ./bin/docker/docker-compose.yml stop sfchat-web``
 #. rebuild ``sfchat-web``: ``sudo docker-compose -f ./bin/docker/docker-compose.yml build sfchat-web``
