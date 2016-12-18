@@ -9,7 +9,7 @@
 * Modified: Long Pulling to support Tornado
 * Increased: unit tests coverage
 
-2016-12-xx v0.13.0
+2016-12-18 v0.13.0
 ==================
 * Added: Docker for development environment
 * Added: font-end unit tests (Karma + Jasmine)
