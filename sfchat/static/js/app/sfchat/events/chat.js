@@ -75,9 +75,9 @@ define(['jquery','api/storage', 'api/resources/chat'], function($, storage, reso
          * @param {Event}            e
          * @param {Undefined}        request
          * @param {Object|Undefined} response
-         * @param {Object}   response.results
-         * @param {Number}  response.results.code
-         * @param {String}   response.results.msg
+         * @param {Object}           response.results
+         * @param {Number}           response.results.code
+         * @param {String}           response.results.msg
          * @throws {Error}
          */
         setChatClosed: function(e, request, response) {
@@ -89,7 +89,7 @@ define(['jquery','api/storage', 'api/resources/chat'], function($, storage, reso
 
             // unbind events
             _this.options.chatSendDom.addClass(_this.options.draftClass).off();
-            _this.options.chatTypeDom.prop('disabled', true ).off();
+            _this.options.chatTypeDom.prop('disabled', true).off();
             _this.options.chatBodyDom.off('deleteChat');
             _this.options.chatBodyDom.off('deleteMessage');
 

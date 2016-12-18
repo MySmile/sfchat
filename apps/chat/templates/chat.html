@@ -3,7 +3,10 @@
 
 {% block css %}{% endblock %}
 {% block js %}
-    <script data-main='{% static 'chat.js' %}' src='{% static 'bower_components/requirejs/require.js' %}'></script>
+    <script src='{% static 'bower_components/requirejs/require.js' %}'></script>
+    <script nonce="2726c7f26c">
+        require(["{% static 'js/app/requirejs-config.js' %}"], function (config) { require(['chat']); });
+    </script>
 {% endblock %}
 
 {% block title %}: Chatting{% endblock %}
@@ -27,7 +30,7 @@
 
 {% block onload_js_options %}
     <select id="chatBootstrap">
-        <option value="endPoint">//{{ request.get_host }}/api</option>
+        <option value="endPoint">//{{ host }}/api</option>
         <option value="userToken">{{ user_token }}</option>
         <option value="chatStatus">{{ chat_status }}</option>
     </select>

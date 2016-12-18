@@ -127,9 +127,10 @@ define(['jquery',
      *
      * @param {Object} options
      * @throws {TypeError}
+     * @private
      */
     bootstrap.prototype._setOptions = function(options) {
-        if (!options && typeof(options) !== 'object') {
+        if (typeof(options) !== 'object') {
             throw new TypeError('Invalid Options type. Object is expected.');
         }
 
@@ -138,6 +139,8 @@ define(['jquery',
 
     /**
      * Initiate resources
+     * 
+     * @private
      */
     bootstrap.prototype._setClient = function() {
         var _this = this;
@@ -150,6 +153,8 @@ define(['jquery',
 
     /**
      * Init Events
+     * 
+     * @private
      */
     bootstrap.prototype._initEvents = function() {
         var _this = this;
@@ -181,6 +186,7 @@ define(['jquery',
 
     /**
      * Initiate handler for chat close
+     * @private
      */
     bootstrap.prototype._initChatClose = function() {
         var _this = this;

@@ -70,7 +70,7 @@ COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'co
 
 TIME_ZONE = 'Europe/Berlin'
 
-# production only
+# Production only. Check secure with command:
 # python3 manage.py check --deploy
 SESSION_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 3600

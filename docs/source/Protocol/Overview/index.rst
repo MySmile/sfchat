@@ -1,11 +1,11 @@
 Overview
 ========
 
-Chat protocol should:
+Chat protocol includes:
 
-#. Minimize saving information on Server
-#. Only two person can be speak through SFChat
-#. Chat can be active 1 day
+#. Minimizing saving information on Server
+#. Hosting conversation between two person
+#. Lifetime 1 day
 
 .. toctree::
    :maxdepth: 4

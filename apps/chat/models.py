@@ -4,6 +4,10 @@ from bson.errors import InvalidId
 from mongoengine import *
 from django.utils.translation import ugettext as _
 from apps.chat.querysets import ChatsQuerySet
+from apps.chat.errors import *
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 class Messages(EmbeddedDocument):
@@ -66,8 +70,10 @@ class Chats(Document):
     long_polling = ListField(EmbeddedDocumentField(LongPolling))
     created = DateTimeField(default=datetime.datetime.now())
 
-    meta = {'queryset_class': ChatsQuerySet}
-    meta = {'queryset_class': ChatsQuerySet, 'db_alias': 'sfchat'}
+    meta = {
+        'queryset_class': ChatsQuerySet,
+        'db_alias': 'sfchat',
+    }
 
     def clean(self):
         if len(self.user_tokens) > self.MAX_USER_TOKENS:
@@ -147,14 +153,14 @@ class Chats(Document):
         Gets data that's related to current user
         :param chat_token: String
         :param user_token: String
-        :return: Boolean
+        :return: Chat
         """
         try:
             result = Chats.objects.get_chat(chat_token, user_token)
             result.messages = list(filter(lambda item: user_token == str(item.user_token), result.messages))
         except (TypeError, InvalidId, DoesNotExist) as ex:
-            # @TODO logging this error
-            result = False
+            logger.error(ex)
+            raise ChatDoesNotExist
 
         return result
 
@@ -249,7 +255,7 @@ class Chats(Document):
 
         return result
 
-    def close_auto_chat(self):
+    def pre_delete(self):
         """
          Automatically close chat
          :return: Boolean
@@ -266,6 +272,9 @@ class Chats(Document):
             # @TODO logging this error
             result = False
 
+        mask_chat_token = str.join('******', (str(self.id)[0], str(self.id)[-4:]))
+        msg = 'Attempt autoclose chat with token ' + mask_chat_token + ': ' + str(result)
+        logger.info(msg)
         return result
 
     def create_long_polling(self, user_token):

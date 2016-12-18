@@ -13,19 +13,19 @@ Contents:
    :titlesonly:
 
    Objective
+   Mockups
    Technology
+   Installation
    Protocol/index
    REST API/index
    Diagrams
    Database
-   Mockups
    MongoDB workflow/index
    Django configuration
    FrontEnd
    Google Analytics
    Task queue
    Administration panel
-   Installation 
    Glossary
    
 
@@ -35,4 +35,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

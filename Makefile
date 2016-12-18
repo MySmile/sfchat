@@ -1,9 +1,9 @@
 # run - run local server with --nostatic
 run:
-	@echo "------------------------------------------"
-	@echo "***  run local server with --nostatic  ***"
-	@echo "=========================================="
-	@python3 manage.py runserver --nostatic --setting=sfchat.settings.local  
+	@echo "--------------------------"
+	@echo "***  run local server  ***"
+	@echo "=========================="
+	@python3 -W ignore manage.py runserver --setting=sfchat.settings.local
 
 
 # help - display callable targets.
@@ -12,13 +12,13 @@ help:
 
 # install-local - install locally dependencies --- move this into "one-install-script"
 install-local:
-	@cd ./config/requirements && pip3 install -r local.txt
 	@cd ./bin && ./install-local.sh
+	@cd ./config/requirements && pip3 install -r local.txt
 
 # install-prod - install production dependencies 
 install-prod:
-	@cd ./config/requirements && sudo pip3 install -r production.txt
 	@cd ./bin && ./install-production
+	@cd ./config/requirements && sudo pip3 install -r production.txt
 
 # test - test project
 test:
@@ -62,6 +62,12 @@ admin:
 	python3 manage.py migrate --database='default'
 	python3 manage.py createsuperuser  --database='default'
 
+# admin-docker - create admin for sfchat & copy static
+admin-docker:
+	python3 manage.py migrate --database='default'
+	python3 manage.py createsuperuser  --database='default'
+	cp -R `python3 manage.py findstatic admin` /sfchat/sfchat/static
+
 # syncdb - run syncdb command
 syncdb:
 	python3 manage.py syncdb
@@ -69,3 +75,15 @@ syncdb:
 # build-js - build jscript
 build-js:
 	cd sfchat/static&&node ./bower_components/rjs/dist/r.js -o ./js/build.js
+
+# docker-up - up application docker-compose
+docker-up:
+	docker-compose -f bin/docker/docker-compose.yml up
+
+# docker-test-up - up test docker-compose
+docker-test-up:
+	docker-compose -f bin/jasmine/docker/docker-compose.yml up
+
+# docker-test-ssh - exec ssh on test docker-compose
+docker-test-ssh:
+	docker-compose -f bin/jasmine/docker/docker-compose.yml exec sfchat-chromium bash

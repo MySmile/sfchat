@@ -25,5 +25,4 @@ Where ``%message token%`` is placeholder for "message token". [#f1]_
 
 .. rubric:: Footnotes
 
-.. [#f1] "Message token" is reserved for future usage to indicate that message is on a delivery way. It’s just idea.
-
+.. [#f1] "Message token" is reserved for future to indicate that it is on a delivery stage.

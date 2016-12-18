@@ -1,13 +1,13 @@
 Resources
 =========
 
-Each resources have general required header’s parameters:
+Required header’s for all resources are:
 
 .. list-table::
 
-    * - Headers
-      - Type
-      - Description
+    * - **Headers**
+      - **Type**
+      - **Description**
 
     * - X-SFC-userToken
       - String[24]
@@ -16,9 +16,6 @@ Each resources have general required header’s parameters:
     * - X-SFC-chatToken
       - String[24]
       - Chat Token unique chat identifier
-
-For instance for messages resource development environment url looks like:
-http://127.0.0.1:8000/api/v1/messages.json
 
 .. toctree::
    :maxdepth: 4

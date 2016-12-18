@@ -22,7 +22,10 @@
     {% endcompress %}     
 
     {% block js %}
-        <script data-main='{% static 'base.js' %}' src='{% static 'bower_components/requirejs/require.js' %}'></script>
+        <script src='{% static 'bower_components/requirejs/require.js' %}'></script>
+        <script nonce="2726c7f26c">
+            require(["{% static 'js/app/requirejs-config.js' %}"], function (config) { require(['flatpage']); });
+        </script>
     {% endblock %}
 </head>
 <body>
@@ -50,7 +53,7 @@
             {% blocktrans %}For questions please contact us {% endblocktrans %} <br>
             <mark>{% email_protection email='securefreechat@gmail.com' hide_class='hide' %}</mark>
         </div>
-        <div id="copyright">&copy; copyright SFChat 2014</div>
+        <div id="copyright">&copy; copyright SFChat 2014&ndash;{% now "Y" %}</div>
     </footer> 
 </div>
 <div class="hide onload-js-options" style="display:none;">

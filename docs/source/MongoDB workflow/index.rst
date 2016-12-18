@@ -2,8 +2,7 @@
 MongoDB workflow
 ****************
 
-Such section display workflow in MongoDB point of view. 
-First off all tun mongo and use sfchat: ::
+It display workflow in MongoDB point of view. Please run inside console ::
 
   mongo
   use sfchat

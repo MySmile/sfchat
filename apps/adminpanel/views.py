@@ -1,21 +1,19 @@
-from datetime import date, timedelta
-
-from mongoengine import *
-from mongoengine.queryset import Q
-
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.messages import get_messages
 from django.views.generic import View
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
 from django.template.context_processors import csrf
 from django.http.response import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+
+from apps.chat.models import Chats
+from apps.adminpanel.management.commands.clearchats import Command
 
 import logging
 logger = logging.getLogger(__name__)
-
-from apps.chat.models import Chats, Messages
 
 
 class ManagerChatsView(View):
@@ -33,7 +31,7 @@ class ManagerChatsView(View):
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             chats = paginator.page(paginator.num_pages)
-        c = {'chats': chats}
+        c = {'chats': chats, 'messages': get_messages(request)}
         c.update(csrf(request))
         return render_to_response('managechats.html', c)
 
@@ -42,28 +40,11 @@ class ManagerChatsView(View):
         return super(ManagerChatsView, self).dispatch(*args, **kwargs)
 
 class ClearChatsView(View):
-    CHAT_LIFETIME = 1 #  chat lifetime in days
-
     def post(self, request, *args, **kwargs):
-        try:
-            # delete closed chats
-            msg = Chats.delete_closed_chat() + ' chat(s) deleted!'
-            logger.info(msg)
-
-            # auto close chats by time limit
-            chats = Chats.objects.get_old_chat(self.CHAT_LIFETIME)
-            for chat in chats:
-                chat.close_auto_chat()
-            messages.add_message(request, messages.INFO, msg)
-
-        except Exception as err:
-            # @TODO Fix. Error: Chats matching query does not exist.
-            msg = 'Error: ' + str(err)
-            logger.error(msg)
-            messages.add_message(request, messages.ERROR, msg)
-
-        return HttpResponseRedirect('/admin/chat-manager/')
-
+        c = Command()
+        c.handle()
+        messages.add_message(request, c.result['level'], c.result['msg'])
+        return HttpResponseRedirect(reverse('chat-manager'))
 
     @method_decorator(login_required(login_url='/admin'))
     def dispatch(self, *args, **kwargs):

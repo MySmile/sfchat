@@ -1,0 +1,14 @@
+<div id="chat-entry">
+    <form method="POST" action="/create-chat/">
+        <input type="hidden" name="csrfmiddlewaretoken" value="IASTKaVd28NexFY5r7futopFISX6bMLt">
+        <button id="create_chat" class="btn btn-green" type="submit">
+            create chat
+        </button>
+    </form>
+    <div id="or">OR</div>
+    <form method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="IASTKaVd28NexFY5r7futopFISX6bMLt">
+        <p><input autocomplete="off" class="chat-token" id="id_chat_token" maxlength="24" name="chat_token"
+                  pattern="[a-z0-9]{24}" placeholder="please enter your code here..." type="text"></p>
+        <button id="join_chat" class="btn btn-orange" type="submit">join</button>
+    </form>
+</div>

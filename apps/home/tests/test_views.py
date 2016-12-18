@@ -13,7 +13,7 @@ class HomePageTest(unittest.TestCase):
         self.chat_token = Chats.create_chat()['chat_token']
 
     def test_index(self):
-        response = self.client.get('/')
+        response = self.client.get('/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'<div id="chat-entry">', response.content)
         self.assertIn(b'button id="create_chat"', response.content)

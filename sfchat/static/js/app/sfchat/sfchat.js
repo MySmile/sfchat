@@ -12,13 +12,6 @@ define(['jquery'], function($) {
      */
     var sfChat = {
         /**
-         * Debug mode
-         *
-         * @property {String} False or True
-         */
-        debugmode: 'False',
-
-        /**
          * Gets onload options
          *
          * @param {String}  target
@@ -27,7 +20,7 @@ define(['jquery'], function($) {
          * @throws {TypeError}
          */
         getOnloadOptions: function(target, options) {
-            var optionsDom   = $(target),
+            var optionsDom  = $(target),
                 result      = {},
                 itemKey,
                 itemDom;

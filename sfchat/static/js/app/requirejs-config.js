@@ -10,7 +10,6 @@ require.config({
             events: 'sfchat/events'
         }
     },
-
     shim: {
         'jquery': {
             exports: 'jQuery'

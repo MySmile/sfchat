@@ -78,7 +78,7 @@ define(['jquery'], function($) {
     };
 
     /**
-     * Remove all data related to chat
+     * Remove all data related to the chat
      */
     var removeAllData = function() {
         $.each(sessionStorage, function(key, item) {

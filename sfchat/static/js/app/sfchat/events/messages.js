@@ -180,7 +180,7 @@ define(['jquery',
          * @param {String}  request.data.messages[0].msg
          * @param {Object}  response
          * @param {Object}  response.results
-         * @param {Number} response.results.code
+         * @param {Number}  response.results.code
          * @param {String}  response.results.msg
          * @throws {Error}
          */
@@ -365,7 +365,7 @@ define(['jquery',
         _saveDeleteMessage: function(request) {
             var _this = this;
 
-            $.each(request.data.messages, function(key, item){
+            $.each(request.data.messages, function(key, item) {
                 if ($.inArray(item._id, _this._deletedMessages) === -1) {
                     _this._deletedMessages.push(item._id);
                 }

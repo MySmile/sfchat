@@ -1,7 +1,7 @@
 /**
  * sfchat/events/title.js: SFChat Title Events
  */
-define(['jquery'], function($) {
+define(function() {
 
     "use strict";
 

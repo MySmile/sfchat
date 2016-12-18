@@ -29,6 +29,7 @@ DJANGO_APPS = (
 
 
 DJANGO_MIDDLEWARE_CLASSES = (
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -126,10 +127,13 @@ TEMPLATES = [
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False, #the default configuration is completely overridden
+    # True if the default configuration is completely overridden
+    'disable_existing_loggers': False,
     'formatters': {
          'verbose': {
-             'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+             'format' :
+                 '%(asctime)s: %(name)s, line %(lineno)d: '
+                 '%(levelname)s: %(message)s ',
              'datefmt' : "%d/%b/%Y %H:%M:%S"
          },
          'simple': {
@@ -146,22 +150,12 @@ LOGGING = {
 
     },
     'handlers': {
-        'file_info': {
-               'level': 'INFO',
+        'file': {
+               'level': 'DEBUG',
                'class': 'logging.handlers.RotatingFileHandler',
                'formatter': 'verbose',
-               'filters': ['require_debug_true'],
-               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'_INFO.log'),
-               'maxBytes': 1024*1024*5, # 5 MB
-               'backupCount': 5
-           },
-        'file_error': {
-               'level': 'ERROR',
-               'class': 'logging.handlers.RotatingFileHandler',
-               'formatter': 'verbose',
-               'filters': ['require_debug_true'],
-               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'_ERROR.log'),
-               'maxBytes': 1024*1024*5, # 5 MB
+               'filename': os.path.join(BASE_DIR,  'log/'+datetime.datetime.now().strftime('%Y-%m-%d')+'.log'),
+               'maxBytes': 1024*1024*5, # 5Mb
                'backupCount': 5
            },
         'mail_admins': {
@@ -169,19 +163,37 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler',
             'filters': ['require_debug_false']
         },
-    },
-    
-    'loggers': {
-        '': {
-            'handlers': ['file_info', 'file_error'],
+        'console': {
             'level': 'DEBUG',
-            'propagate': False,
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
         },
+        'null': {
+            "class": 'logging.NullHandler',
+        }
+    },
+    'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['mail_admins', 'console'],
             'level': 'ERROR',
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['null', ],
+        },
+        'django.db.backends': {
+            'handlers': ['null', ],
             'propagate': False,
         },
+        'py.warnings': {
+            'handlers': ['null', ],
+        },
+        '': {
+            'handlers': ['console', 'file'],
+            'level': "DEBUG",
+        },
+
     },
 }
 
@@ -192,9 +204,11 @@ SFCHAT_API = {
         'user_token_header': 'HTTP_X_SFC_USERTOKEN',
         'chat_token_header': 'HTTP_X_SFC_CHATTOKEN'
     },
+# auto-close = 1.2 * sleep * iteration
+# auto-close should correleate with server timeout
     'long_polling': {
         'sleep': 3,
-        'iteration': 60
+        'iteration': 20
     },
 }
 
@@ -205,3 +219,6 @@ CACHES = {
         'TIMEOUT': None,
     }
 }
+
+
+

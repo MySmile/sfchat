@@ -1,7 +1,7 @@
 /**
  * sfchat/errorHandler.js: SFChat Global Error Handler
  */
-define(['jquery', 'sfchat/sfchat', 'events/gatracking'], function($, sfChat, eventGaTracking) {
+define(['jquery'], function($) {
 
     "use strict";
 
@@ -43,9 +43,26 @@ define(['jquery', 'sfchat/sfchat', 'events/gatracking'], function($, sfChat, eve
         },
 
         /**
+         * Error dom
+         *
+         * @property {jQuery}
+         * @private
+         */
+        _errorDom: undefined,
+
+        /**
+         * Header dom
+         *
+         * @property {jQuery}
+         * @private
+         */
+        _headerDom: undefined,
+
+        /**
          * Init
          *
          * @param {Object} options
+         * @codeCoverageIgnore
          */
         init: function (options) {
             var _this = errorHandler;
@@ -61,18 +78,9 @@ define(['jquery', 'sfchat/sfchat', 'events/gatracking'], function($, sfChat, eve
          * @param {Number} line
          */
         onError: function (msg, url, line) {
-            var _this = errorHandler,
-                error;
+            var _this = errorHandler;
 
             _this.showError(msg);
-            // skip if debug turned on
-            if (sfChat.debugmode === 'True') {
-                // run default handler
-                return false;
-            }
-
-            error = JSON.stringify({msg: msg, url: url, line: line});
-            eventGaTracking.eventError(error);
 
             return true;
         },
@@ -83,10 +91,10 @@ define(['jquery', 'sfchat/sfchat', 'events/gatracking'], function($, sfChat, eve
          * @param {String} error
          */
         showError: function (error) {
-            var _this = errorHandler,
-                errorDom = $(_this.options.targetError),
-                headerDom = $(_this.options.targetHeader),
-                msgSource = _this._parseJSON(error.replace('Uncaught Error: ', '').replace('Error: ', '')),
+            var _this       = errorHandler,
+                errorDom    = _this._getErrorDom(),
+                headerDom   = _this._getHeaderDom(),
+                msgSource   = _this._parseJSON(error),
                 msgBody,
                 msg;
 
@@ -109,10 +117,12 @@ define(['jquery', 'sfchat/sfchat', 'events/gatracking'], function($, sfChat, eve
          *
          * @param {String} msg
          * @returns {result|Array|Object|Boolean}
+         * @private
          */
         _parseJSON: function (msg) {
             var result;
 
+            msg = msg.replace('Uncaught Error: ', '').replace('Error: ', '');
             try {
                 result = $.parseJSON(msg);
             } catch (e) {
@@ -120,6 +130,42 @@ define(['jquery', 'sfchat/sfchat', 'events/gatracking'], function($, sfChat, eve
             }
 
             return result;
+        },
+
+        /**
+         * Get error dom
+         *
+         * @returns {jQuery}
+         * @private
+         */
+        _getErrorDom: function() {
+            var _this = this;
+
+            if(!_this._errorDom) {
+                _this._errorDom = (typeof(_this.options.targetError) === 'object')
+                    ? _this.options.targetError
+                    : $(_this.options.targetError);
+            }
+
+            return this._errorDom;
+        },
+
+        /**
+         * Get error dom
+         *
+         * @returns {jQuery}
+         * @private
+         */
+        _getHeaderDom: function() {
+            var _this = this;
+
+            if(!_this._headerDom) {
+                _this._headerDom = (typeof(_this.options.targetHeader) === 'object')
+                    ? _this.options.targetHeader
+                    : $(_this.options.targetHeader);
+            }
+
+            return this._headerDom;
         }
     };
 

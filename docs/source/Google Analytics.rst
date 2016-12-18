@@ -2,8 +2,11 @@
 Google Analytics
 ****************
 
-To know what it’s going on on a page without damage privacy. Google analytics (GA) will not be used for chat page. 
-Moreover GA will collect events:
+Google Analytics or GA is used to know what it’s going on on a page without damage privacy.
+GA is *NOT* used on Chat Page.
 
-* Create new chat
-* Join to the chat
+GA collects events:
+
+* Clicking on "create chat" button
+* Clicking on "join" button
+* General visiting statistics for all pages except Chat

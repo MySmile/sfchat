@@ -13,9 +13,14 @@ class ChatPage:
         """
         Sets user token
         :param user_token: String
-        :return:
+        :return: result: Boolean
         """
-        messages.success(self.request, user_token)
+        try:
+            messages.success(self.request, user_token)
+            result = True
+        except Exception as ex:
+            result = False
+        return result
 
     def get_user_token(self):
         """

@@ -36,7 +36,7 @@ LOCAL_APPS = (
 #    'mongoengine.django.mongo_auth',
 #    'rest_framework.authtoken',
 # in THIRD_PARTY_APPS settings
-# and exclude ('mongo_auth', 'authtoken') in admin datadase with router
+# and exclude ('mongo_auth', 'authtoken') in admin database with router
 
 # Third party apps
 THIRD_PARTY_APPS = (
@@ -68,5 +68,5 @@ CSRF_FAILURE_VIEW = 'apps.home.utils.csrf_failure'
 
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
 
-TIME_ZONE = 'Europe/London'
+TIME_ZONE = 'Europe/Kiev'
 

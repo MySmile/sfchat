@@ -1,7 +1,7 @@
 /**
  * sfchat/events/gatracking.js: SFChat Google Analytics
  */
-define(['jquery', 'sfchat/sfchat'], function($, sfChat) {
+define(['jquery', 'ga'], function($, ga) {
     "use strict";
 
     /**
@@ -10,31 +10,41 @@ define(['jquery', 'sfchat/sfchat'], function($, sfChat) {
      * @type {Object}
      */
     var eventGatracking = {
+
+        /**
+         * Options
+         *
+         * @property {String} options.trackingId
+         * @property {String} options.debugMode
+         */
+        options: {
+            trackingId: '',
+            debugMode: 'False'
+        },
+
         /**
          * Previous error
          *
          * @type {String|undefined}
+         * @private
          */
         _prevError: undefined,
 
         /**
-         * Event error
+         * Init
          *
-         * @param {String}  error
+         * @param {Object} options
          */
-        eventError: function(error) {
+        init: function (options) {
             var _this = eventGatracking;
 
-            if(sfChat.debugmode === 'True' || _this._prevError === error || typeof(ga) === 'undefined') {
-                return;
-            }
-
-            _this._prevError = error;
-            ga('send', 'event', 'error', error);
+            _this.options = $.extend(_this.options, options);
+            _this._initGa();
         },
 
         /**
-         * Event button click
+         * Event button click.
+         * Tracking clicking on buttons
          *
          * @param {String} target
          * @param {String} label
@@ -44,7 +54,7 @@ define(['jquery', 'sfchat/sfchat'], function($, sfChat) {
                 targetDom   = $(target);
 
             // skip for debug mode
-            if (sfChat.debugmode === 'True' || targetDom.length === 0) {
+            if (_this.options.debugMode === 'True' || targetDom.length === 0) {
                 return;
             }
 
@@ -68,6 +78,22 @@ define(['jquery', 'sfchat/sfchat'], function($, sfChat) {
             } else if (element.attachEvent) {
                 element.attachEvent('on' + type, callback);
             }
+        },
+
+        /**
+         * Initiate GA
+         *
+         * @private
+         */
+        _initGa: function() {
+            var _this = eventGatracking;
+
+            if(_this.options.trackingId === '' || _this.options.debugMode === 'True') {
+                return;
+            }
+
+            ga('create', _this.options.trackingId, 'auto');
+            ga('send', 'pageview', { 'anonymizeIp': true });
         }
     };
 

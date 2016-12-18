@@ -1,13 +1,13 @@
 Request
 =======
 
-Request does not have any special parameters.
+Request does not have any special parameters. Table below describes response body structure:
 
 .. list-table::
 
-    * - Parameters
-      - Type
-      - Description
+    * - **Parameters**
+      - **Type**
+      - **Description**
 
     * - data
       - Object
@@ -26,7 +26,6 @@ Example of body is: ::
     {‘data’:  {
             messages : [
                 0: { ‘_id’: ’0cbc6611f5540bd0809a388dc95a615b’}
-                ]
+            ]
        }
     }
-    

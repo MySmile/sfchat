@@ -1,7 +1,7 @@
 POST: messages.json
 -------------------
 
-Send new message on SFChat server.
+It sends new message to SFChat server.
 
 .. toctree::
    :maxdepth: 2

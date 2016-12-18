@@ -3,6 +3,7 @@ import unittest
 from bson.objectid import ObjectId
 from apps.chat.models import *
 from mongoengine import *
+from apps.chat.errors import *
 
 
 class ChatsTestCase(unittest.TestCase):
@@ -19,7 +20,7 @@ class ChatsTestCase(unittest.TestCase):
         self.assertEquals(2, len(self.chat.user_tokens))
 
     def test_join_to_chat_failed(self):
-        actual = Chats.join_to_chat('543e33a2e3ce324d374246fc')
+        actual = Chats.join_to_chat('111111111111111111111111')
         self.assertFalse(actual)
 
     def test_join_to_chat_twice_failed(self):
@@ -40,8 +41,10 @@ class ChatsTestCase(unittest.TestCase):
         self.assertEquals(self.chat_token, str(chat.id))
 
     def test_get_chat_failed(self):
-        chat = Chats.get_chat('543e33a2e3ce324d374246fc', '543e33a2e3ce324d374246fc')
-        self.assertFalse(chat)
+        try:
+            Chats.get_chat('543e33a2e3ce324d374246fc', '543e33a2e3ce324d374246fc')
+        except Exception as ex:
+            self.assertIsInstance(ex, ChatDoesNotExist)
 
     def test_add_message_success(self):
         messages = [{'msg': 'First message'}, {'msg': 'Second message'}]
@@ -70,8 +73,8 @@ class ChatsTestCase(unittest.TestCase):
         result = self.chat.close_chat(self.user_token)
         self.assertTrue(result)
 
-    def test_close_auto_chat(self):
-        result = self.chat.close_auto_chat()
+    def test_pre_delete(self):
+        result = self.chat.pre_delete()
         self.assertTrue(result)
 
     def test_delete_closed_chat(self):

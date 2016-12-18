@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "sfchat",
+    "devDependencies": {
+        "requirejs": "^2.1",
+        "jquery": "^2.2",
+        "requirejs-text": "^2.0",
+        "jasmine-core": "^2.5",
+        "jasmine-ajax": "^3.2",
+        "karma": "^1.3",
+        "karma-coverage": "^1.1",
+        "karma-chrome-launcher": "^2.0",
+        "karma-jasmine": "^1.0",
+        "karma-junit-reporter": "^1.1",
+        "karma-requirejs": "^1.1",
+        "karma-jasmine-jquery": "^0.1"
+    },
+    "scripts": {
+        "pretest": "npm install",
+        "test": "if [ $SFCHAT_RUN_ENV ] && [ $SFCHAT_RUN_ENV = 'docker' ]; then service dbus start; fi && karma start ./tests/karma.conf.js",
+        "preupdate-webdriver": "npm install",
+        "update-webdriver": "webdriver-manager update"
+    }
+}

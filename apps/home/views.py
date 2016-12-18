@@ -26,13 +26,20 @@ class HomeView(FormView):
 
         chat_page = ChatPage(self.request)
         chat_page.set_user_token(form.user_token)
-
-        logger.info('User joined to chat: ' + str(chat_token))
+        # logger.info('User joined to chat: ' + str(chat_token))
+        logger.info('User joined to chat: ' + chat_token)
         return super(HomeView, self).form_valid(form)
 
 
 class CreateView(View):
     def post(self, request, *args, **kwargs):
+        """
+        Create chat
+        :param request:
+        :param args:
+        :param kwargs:
+        :return: HttpResponsePermanentRedirect
+        """
         tokens = Chats.create_chat()
         chat_page = ChatPage(self.request)
         chat_page.set_user_token(tokens['user_token'])

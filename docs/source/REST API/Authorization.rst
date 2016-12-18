@@ -1,18 +1,18 @@
 Authorization
 =============
 
-Authorization process has vary from "chat creator" and "chat joiner". 
+Authorization process varies for "chat creator" and "chat joiner".
 
-"Chat creator":
+For "Chat creator" process includes:
 
-#. creates chat,
-#. generates "Invitation code" and saves it in database,
-#. generates "user token" and saves it in database.
+#. creating chat
+#. generating "Invitation code"
+#. generating "user token"
 
-"Chat joiner":
+For "Chat joiner" process includes:
 
-#. verify "Invitation code"
-#. set chat status as "ready"
-#. generate "user token" and save it in database.
+#. verifying "Invitation code"
+#. setting chat status as "ready"
+#. generating "user token"
 
-For details please follow :ref:`diagrams <Diagrams>`.
+More details is in :ref:`diagrams <Diagrams>`.

@@ -10,7 +10,7 @@ DEBUG = True
 
 COMPRESS_ENABLED = False
 
-DEBUG_TOOLBAR_PATCH_SETTINGS = False
+DEBUG_TOOLBAR_PATCH_SETTINGS = True
 # @NOTE: if True then enable 'debug_toolbar.middleware.DebugToolbarMiddleware' also
 
 SECRET_KEY = '&ku!ebrl5h61ztet=c&ydh+sc9tkq=b70^xbx461)l1pp!lgt6'
@@ -42,15 +42,11 @@ DATABASES = {
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-ADMINS = (
-    ('admin', 'info@mysmile.com.ua'),
-)
-
 # Google Analytics
 GOOGLE_ANALYTICS_TRACKING_ID = 'UA-57194449-2'
 GOOGLE_ANALYTICS_DEBUG_MODE = True
 
-MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'sfchat/media/')
 STATIC_ROOT = os.path.join(BASE_DIR, 'sfchat/static/')
 COMPRESS_ROOT = STATIC_ROOT
 

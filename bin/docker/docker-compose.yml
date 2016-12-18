@@ -1,0 +1,44 @@
+version: '2'
+services:
+  sfchat-web:
+    build:
+        context : ../..
+        dockerfile: bin/docker/web/Dockerfile
+    environment:
+      - DJANGO_SETTINGS_MODULE=sfchat.settings.docker
+    volumes:
+      - ../../:/sfchat
+    ports:
+       - "8001:8001"
+       - "2227:22"
+    links:
+      - sfchat-mongo:sfchat-mongo
+
+  sfchat-nginx:
+    build:
+      context : .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "8443:443"
+      - "8444:444"
+    volumes:
+      - /www/static
+    volumes_from:
+      - sfchat-web
+    links:
+      - sfchat-web:sfchat-web
+
+  sfchat-node:
+    build:
+      context : ../..
+      dockerfile: bin/docker/node/Dockerfile
+    command: node ./sfchat/static/bower_components/rjs/dist/r.js -o ./sfchat/static/js/build.js
+    volumes_from:
+      - sfchat-web
+    links:
+      - sfchat-web:sfchat-web
+
+  sfchat-mongo:
+    image: mongo:3.4
+    ports:
+      - "27017:27017"

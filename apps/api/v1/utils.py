@@ -5,6 +5,9 @@ from rest_framework.views import exception_handler
 
 from apps.chat.models import Chats
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 def custom_exception_handler(exc):
     # Call REST framework's default exception handler first,
@@ -29,7 +32,7 @@ class LongPolling:
         """
         sleep = settings.SFCHAT_API['long_polling']['sleep']
         iteration = settings.SFCHAT_API['long_polling']['iteration']
-        auto_close = 2 * sleep * iteration
+        auto_close = 1.2 * sleep * iteration
         chat_token = str(chat.id)
 
         # init long polling process and terminate all old ones

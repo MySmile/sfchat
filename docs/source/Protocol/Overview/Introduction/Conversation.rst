@@ -1,9 +1,8 @@
 Conversation
 ^^^^^^^^^^^^
 
-Conversation exchange has such essentials components:
+Conversation exchange has following steps:
 
-* "Message" send to SFChat server
-* "Long pulling" get new messages and displays on a chat
-* If message was successfully sent to addresser then it would be removed from database
- 
+#. send "Message" to SFChat server
+#. start "Long pulling" to get new messages and show them
+#. remove from server all successfully delivered messages

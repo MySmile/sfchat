@@ -1,14 +1,14 @@
 Request
 =======
 
-Request does not have any special parameters. But body contains data with in structure that describes below.
+Request does not have any special parameters. Table below describes response body structure:
 
 .. list-table::
     :widths: 20 35 45
 
-    * - Parameter
-      - Type
-      - Description
+    * - **Parameter**
+      - **Type**
+      - **Description**
 
     * - data
       - Object
@@ -22,16 +22,16 @@ Request does not have any special parameters. But body contains data with in str
       - String[140]
       - message body
 
-Note: It’s possible that for some reason data were not sent so to prevent missing message the FrontEnd client keeps 
-sending message until max attempt limit will be reach.
+*Note*: in case if messages was not sent front-end client keeps sending message until reaching max attempt limit.
 
-Example of body is: ::
+Body example is: ::
 
   {
     ‘data’: {
             messages : [
                 0: {
-            ‘msg’: ‘Message body’
-            }]
+                    ‘msg’: ‘Message body’
+                }
+            ]
         }
   }

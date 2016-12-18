@@ -1,7 +1,7 @@
 GET: messages.json
 ------------------
 
-Return list of new messages. Such resource is used for “long polling”.
+It returns new messages list. Such resource is used for “long polling”.
 
 .. toctree::
    :maxdepth: 2

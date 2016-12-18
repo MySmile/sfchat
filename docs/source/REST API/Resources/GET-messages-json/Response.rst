@@ -1,13 +1,13 @@
 Response
 ========
 
-Table below describes parameters in response body:
+Table below describes response body structure:
 
 .. list-table::
 
-    * - Parameters
-      - Type
-      - Description
+    * - **Parameters**
+      - **Type**
+      - **Description**
 
     * - results
       - Object
@@ -45,7 +45,7 @@ Table below describes parameters in response body:
       - Boolean
       - true if message is system or false otherwise 
 
-Response code is: 200 if Okey or other errors code otherwise.
+Response code is 200 if Ok or other errors code otherwise.
 
 For instance response with two messages would look like: ::
 
@@ -72,11 +72,11 @@ For instance response with two messages would look like: ::
 Empty response has that structure: ::
 
   {
-        ‘results’: {
-            ‘code’: 200,
-            ‘msg’: ‘Ok’,
-            ‘count’: 0,
-            ‘status’: ‘ready’
-        ‘messages’: []
-        }
+    ‘results’: {
+        ‘code’: 200,
+        ‘msg’: ‘Ok’,
+        ‘count’: 0,
+        ‘status’: ‘ready’
+    ‘messages’: []
+    }
   }

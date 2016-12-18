@@ -1,27 +1,42 @@
+sudo: required
 language: python
 python:
-  - "3.4"
-  # does not have headers provided, please ask https://launchpad.net/~pypy/+archive/ppa
-  # maintainers to fix their pypy-dev package.
-  #- "pypy"
-# command to install dependencies
+  - "3.5"
+
+services:
+  - mongodb
+
+cache:
+  apt: true
+  pip: true
+  directories:
+    - bin/jasmine/node_modules
+
+apt:
+  sources:
+    - google-chrome
+  packages:
+    - google-chrome-stable
+
 install:
   - pip install -r config/requirements/local.txt
   - pip install coveralls
 
 before_script:
-  - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-  - echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
-  - sudo apt-get update
-  - sudo apt-get install -y mongodb-org=2.6.9 mongodb-org-server=2.6.9 mongodb-org-shell=2.6.9 mongodb-org-mongos=2.6.9 mongodb-org-tools=2.6.9
-  - sleep 15 #mongo may not be responded directly. See http://docs.travis-ci.com/user/database-setup/#MongoDB
-  - mongo --version
+  - export CHROME_BIN=chromium-browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3 # give xvfb some time to start
+
+before_install:
+  - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
 
 services:
   - mongodb
 # command to run tests
 script:
   - coverage run --source=apps manage.py test --pattern="test_*.py"
+  - cd bin/jasmine && npm install && karma start ./tests/karma.conf.js --single-run
 after_success:
-  coveralls
-
+  - coveralls
+  - bash <(curl -s https://codecov.io/bash)
