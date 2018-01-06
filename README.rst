@@ -43,10 +43,6 @@ Free:
 #. Open Source
 #. BSD 3-Clause license
 
-Chat:
-
-#. Live demo `https://sfchat.mysmile.com.ua/ <https://sfchat.mysmile.com.ua/>`_
-
 Installation
 ============
 #. Install dependency: ``make install-prod``

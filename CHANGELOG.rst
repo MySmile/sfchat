@@ -9,6 +9,10 @@
 * Modified: Long Pulling to support Tornado
 * Increased: unit tests coverage
 
+2017-xx-xx v0.13.1
+==================
+* Fixed: nginx docker configuration for csp
+
 2016-12-18 v0.13.0
 ==================
 * Added: Docker for development environment
